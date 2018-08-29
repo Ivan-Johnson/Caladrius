@@ -17,4 +17,7 @@ information from various wearable devices alongside the apple watch, translating
 the information into a common format, then displaying it in a meaningful way and
 providing the user an easier means by which to manipulate that information.
 
-We would be interested in knowing if this is a viable project or not.
+Since our team has very little experience with mobile app development, we'd like
+to make this into a desktop application instead of an Android app. Would that be
+alright with you, Dr. Gray? We're also interested in hearing any feedback or
+suggestions you might have regarding our proposed project.
