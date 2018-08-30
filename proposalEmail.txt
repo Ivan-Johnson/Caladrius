@@ -1,21 +1,12 @@
 Hello Dr. Gray,
 
-For our project we were thinking of developing an app that translates the large
-XML file that the apple watch exports into meaningful information that is
-displayed in a GUI and is easily manipulated.
-
-As it stands, Apple provides no first party support for this. There is no
-desktop app to make sense of this information and it is all lumped together into
-one XML file. This file can be hundreds of thousands of lines long as it spans
-the lifetime of the device.  Likewise, viewing this information on an Android
-device isn't very easy, and a less hacky software solution could be
-useful. (Currently, it requires sim cards to be swapped between a viable paired
-iPhone and Android phone.)
-
-A further direction we would be interested in pursuing would be taking exported
-information from various wearable devices alongside the apple watch, translating
-the information into a common format, then displaying it in a meaningful way and
-providing the user an easier means by which to manipulate that information.
+Rather than take one of the presented options, we would like to make an app that
+visualizes health data. It will show how different metrics (such as caloric
+intake or frequency of exercise) vary over time, and even find interesting
+correlations between different metrics. One of the ways we want to challenge
+ourselves is by being able to fetch data multiple sources. Our app will support
+at least two, but probably three, of the following sources: Apple Healthkit,
+Google Fit, Fitbit, and Microsoft HealthVault.
 
 Since our team has very little experience with mobile app development, we'd like
 to make this into a desktop application instead of an Android app. Would that be
