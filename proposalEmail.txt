@@ -12,4 +12,6 @@ Since our team has very little experience with mobile app development, we'd like
 to make this into a desktop application instead of an Android app.
 
 We are interested in hearing any feedback or suggestions you might have regarding
-our proposed project.
+our proposed project. In particular, do you think a desktop app would be a good
+idea given the content of CS 495? For example, if there will be a final exam that covers
+Android knowledge, then we obviously should make this into an Android app instead.
