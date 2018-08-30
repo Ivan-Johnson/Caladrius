@@ -9,6 +9,7 @@ at least two, but probably three, of the following sources: Apple Healthkit,
 Google Fit, Fitbit, and Microsoft HealthVault.
 
 Since our team has very little experience with mobile app development, we'd like
-to make this into a desktop application instead of an Android app. Would that be
-alright with you, Dr. Gray? We're also interested in hearing any feedback or
-suggestions you might have regarding our proposed project.
+to make this into a desktop application instead of an Android app.
+
+We are interested in hearing any feedback or suggestions you might have regarding
+our proposed project.
