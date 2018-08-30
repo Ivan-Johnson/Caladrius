@@ -4,7 +4,7 @@ Rather than take one of the presented options, we would like to make an app that
 visualizes health data. It will show how different metrics (such as caloric
 intake or frequency of exercise) vary over time, and even find interesting
 correlations between different metrics. One of the ways we want to challenge
-ourselves is by being able to fetch data multiple sources. Our app will support
+ourselves is by being able to fetch data from multiple sources. Our app will support
 at least two, but probably three, of the following sources: Apple Healthkit,
 Google Fit, Fitbit, and Microsoft HealthVault.
 
