@@ -1,0 +1,10 @@
+incoming https requests
+           |
+           V
+         nginx
+         |   |
+         V   V
+      wsgi   static files
+       ||
+       \/
+     python
