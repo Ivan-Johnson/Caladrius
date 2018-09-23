@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--though "withText" is used, I only saw text in landscape mode-->
+    <item
+        android:id="@+id/add"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="add"
+        app:showAsAction="ifRoom|withText"
+    />
+    <item
+        android:id="@+id/battery"
+        android:icon="@android:drawable/ic_lock_idle_low_battery"
+        android:title="battery"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/delete"
+        android:icon="@android:drawable/ic_delete"
+        android:title="delete"
+        app:showAsAction="always"
+        />
+    <!--Possible showAsAction flags:-->
+    <!--"ifRoom" | "never" | "withText" | "always" | "collapseActionView"-->
+    <!--never can be used instead of ifRoom to force the item to the overflow (three dot) menu-->
+</menu>
