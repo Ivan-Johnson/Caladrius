@@ -4,7 +4,7 @@ incoming https requests
          nginx
          |   |
          V   V
-      wsgi   static files
-       ||
-       \/
-     python
+     uwsgi   static files
+       |
+       V
+    python
