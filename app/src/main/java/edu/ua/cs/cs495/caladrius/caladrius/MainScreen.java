@@ -9,14 +9,10 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class MainScreen extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.main_screen);
-
         // Find the view pager that will allow the user to swipe between fragments
         ViewPager viewPager = findViewById(R.id.viewpager);
 
@@ -31,5 +27,7 @@ public class MainScreen extends AppCompatActivity {
 
         tabLayout.setupWithViewPager(viewPager);
 
+
+        
     }
 }
