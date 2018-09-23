@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Caladrius</string>
+
+    <string name="title_activity_graph">GraphActivity</string>
+    <string name="dummy_information">\tBPM: XXXXXXXXXX\n
+                                     BASAL CALORIC: XXXXXXXXXX\n
+                                     WEIGHT: XXXXXXXXXXX\n
+    </string>
 </resources>
