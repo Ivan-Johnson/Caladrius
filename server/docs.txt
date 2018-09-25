@@ -1,5 +1,7 @@
 incoming https requests
            |
+-----------|----------- nftables firewall
+           |
            V
          nginx
          |   |
