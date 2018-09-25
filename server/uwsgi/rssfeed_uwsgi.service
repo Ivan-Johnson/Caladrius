@@ -2,7 +2,7 @@
 Description=Start uwsgi for hosting RSS feeds
 
 [Service]
-ExecStart=uwsgi --ini /caladrius/server/rss/wsgi_config.ini
+ExecStart=uwsgi --ini /caladrius/server/uwsgi/wsgi_config.ini
 User=http
 Group=http
 
