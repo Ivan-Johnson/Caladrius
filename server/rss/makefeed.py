@@ -6,7 +6,7 @@ def makefeed():
         title = "Now is is " + datetime.datetime.now().isoformat(),
         link = "https://caladrius.ivanjohnson.net",
         description = "foo",
-        author = "Ivan Johnson",
+        author = "email@example.com (Ivan Johnson)",
         guid = Guid("oiwefkcxvmwojwefhdlkj", isPermaLink=False),
         pubDate = datetime.datetime.now()
     )
@@ -15,7 +15,7 @@ def makefeed():
         title = "Caladrius",
         link = "https://caladrius.ivanjohnson.net",
         description = "This is Caladrius' internal homepage",
-        author = "Ivan Johnson",
+        creator = "Ivan Johnson",
         guid = Guid("https://caladrius.ivanjohnson.net", isPermaLink=True),
         pubDate = datetime.datetime(2018, 9, 18, 0, 0)
     )
@@ -24,7 +24,7 @@ def makefeed():
         title = "GitHub",
         link = "https://github.ivanjohnson.net/caladrius",
         description = "This is Caladrius' source code",
-        author = "Caladrius",
+        creator = "Caladrius",
         guid = Guid("https://github.ivanjohnson.net/caladrius", isPermaLink=True),
         pubDate = datetime.datetime(2018, 9, 17, 0, 0)
     )
