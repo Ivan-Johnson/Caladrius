@@ -1,0 +1,18 @@
+Hello Dr. Gray,
+
+Rather than take one of the presented options, we would like to make an app that
+visualizes health data. It will show how different metrics (such as caloric
+burn, frequency of exercise, or heartrate) vary over time, and even find interesting
+correlations between different metrics. One of the ways we want to challenge
+ourselves is by being able to fetch data from multiple sources. Our app will
+support at least two, but probably three, of the following sources: Apple
+Healthkit, Google Fit, Fitbit, and Microsoft HealthVault.
+
+Since our team has very little experience with mobile app development, we'd like
+to make this into a desktop application instead of an Android app.
+
+We are interested in hearing any feedback or suggestions you might have
+regarding our proposed project. In particular, do you think a desktop app would
+be a good idea given the content of CS 495? For example, if there will be a
+final exam that covers Android knowledge, then we obviously should make this
+into an Android app instead.
