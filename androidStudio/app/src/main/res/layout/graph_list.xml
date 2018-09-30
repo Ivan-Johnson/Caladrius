@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/list"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:gravity="center"
     android:layout_height="match_parent">
 
     <com.jjoe64.graphview.GraphView
@@ -14,21 +20,39 @@
         android:id="@+id/g1"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:src="@drawable/g1" />
+        android:src="@drawable/g1"
+        android:paddingTop="16dp"/>
 
     <ImageView
         android:id="@+id/g2"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:src="@drawable/g2" />
+        android:src="@drawable/g2"
+        android:paddingTop="16dp"/>
 
     <ImageView
         android:id="@+id/g3"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:src="@drawable/g3" />
+        android:src="@drawable/g3"
+        android:paddingTop="16dp"/>
 
+    <ImageView
+        android:id="@+id/g4"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:src="@drawable/g4"
+        android:paddingTop="16dp"/>
+
+    <Button
+        android:id="@+id/viewAllData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="View All Data"
+        android:textSize="28dp"/>
 
 </LinearLayout>
 
 
+</ScrollView>
