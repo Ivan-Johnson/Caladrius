@@ -22,7 +22,7 @@ public class LoginScreen extends AppCompatActivity {
             public void onClick(View v) {
                 final TextView txtUser = findViewById(R.id.txtUser);
                 final TextView txtPass = findViewById(R.id.txtPass);
-                if(txtUser.getText().toString().equals("admin") && txtPass.getText().toString().equals("admin")){
+                if(txtUser.getText().toString().equals("") && txtPass.getText().toString().equals("")){
                     Toast.makeText(v.getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                     Intent nextScreen = new Intent (v.getContext(), MainScreen.class);
                     startActivityForResult(nextScreen, 0);
