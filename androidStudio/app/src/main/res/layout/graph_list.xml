@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:gravity="center"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
@@ -49,9 +49,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="View All Data"
-        android:textSize="28dp"/>
-
+        android:text="@string/view_all_data"
+        android:textSize="28sp"/>
 </LinearLayout>
 
 

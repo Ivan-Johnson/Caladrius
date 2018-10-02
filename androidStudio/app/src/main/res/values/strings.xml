@@ -15,5 +15,6 @@
     <string name="button">Button</string>
     <string name="category_home">Home</string>
     <string name="category_rss">RSS</string>
+    <string name="view_all_data">View All Data</string>
 
 </resources>
