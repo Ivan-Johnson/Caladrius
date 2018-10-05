@@ -26,6 +26,8 @@
         <activity android:name=".MainScreen"></activity>
         <activity android:name=".LoginScreen"></activity>
         <activity android:name=".AllData" />
+        <activity android:name=".Calender" />
+        <activity android:name=".Edit" />
 
     </application>
 

@@ -4,9 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context=".MainScreen">
 
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/home_toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="@android:color/white"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        android:background="?attr/colorPrimary">
+    </android.support.v7.widget.Toolbar>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
@@ -18,7 +30,7 @@
         android:id="@+id/sliding_tabs"
         style="@style/CategoryTab"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="42dp"
         android:background="@color/colorTab"
         />
 
