@@ -17,7 +17,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="63dp"
         android:contentDescription="@string/todo"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/caladrius_logo" />
 
     <EditText
         android:id="@+id/txtUser"
