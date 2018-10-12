@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ed9d61">
-
-    <TextView
+<ScrollView
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is RSS page"
-        android:gravity="center"
-        android:textSize="56sp" />
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <TextView
+            android:text="RSS thing 1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:textSize="56sp" />
+        <TextView
+            android:text="RSS thing 2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:textSize="56sp" />
+        <TextView
+            android:text="RSS thing 3"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:textSize="56sp" />
+        <TextView
+            android:text="RSS thing 4"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:textSize="56sp" />
+    </LinearLayout>
+</ScrollView>
