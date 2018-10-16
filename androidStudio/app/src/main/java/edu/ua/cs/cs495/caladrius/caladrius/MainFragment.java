@@ -8,18 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class MainFragment extends Fragment {
-
-    ImageView graph1;
-
     public MainFragment() {
         // Empty public constructor
     }
@@ -53,12 +47,11 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-
         super.onActivityCreated(savedInstanceState);
-        // get the button view
-        graph1 = getView().findViewById(R.id.g1);
-        // set a onclick listener for when the button gets clicked
-        graph1.setOnClickListener(new View.OnClickListener() {
+
+        // start GraphActivity
+        View graph = getView().findViewById(R.id.graph);
+        graph.setOnClickListener(new View.OnClickListener() {
             // Start new list activity
             public void onClick(View v) {
                 Intent mainIntent = new Intent(getActivity(),
@@ -66,7 +59,6 @@ public class MainFragment extends Fragment {
                 startActivity(mainIntent);
             }
         });
-
 
         final Button viewAllDataButton = getView().findViewById(R.id.viewAllData);
         viewAllDataButton.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +70,4 @@ public class MainFragment extends Fragment {
             }
         });
     }
-
-
 }
