@@ -6,15 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class RssFragment extends Fragment {
+public class RSSFeedList extends Fragment {
 
-    public RssFragment() {
+    public RSSFeedList() {
         // Empty public constructor
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.rss_list, container, false);
+        View rootView = inflater.inflate(R.layout.rss_feed_list, container, false);
 
         return rootView;
     }
