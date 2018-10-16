@@ -35,7 +35,6 @@ public class RSSFeedItemAdapter extends BaseAdapter {
         if (view == null) {
             view = inflater.inflate(R.layout.rss_feed_item, null);
         }
-        Log.i(TAG, "getView: len is "+feeds.length);
         TextView text = view.findViewById(R.id.name);
         text.setText(feeds[i].url);
         return view;
