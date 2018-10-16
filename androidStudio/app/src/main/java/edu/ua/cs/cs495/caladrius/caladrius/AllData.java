@@ -28,7 +28,7 @@ public class AllData  extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_data);
-        tl = (TableLayout) findViewById(R.id.maintable);
+        tl = findViewById(R.id.maintable);
         addHeaders();
         addData();
     }
@@ -40,7 +40,7 @@ public class AllData  extends AppCompatActivity {
 
         tr = new TableRow(this);
         tr.setLayoutParams(new LayoutParams(
-                LayoutParams.FILL_PARENT,
+                LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT));
 
         /** Creating a TextView to add to the row **/
@@ -49,7 +49,7 @@ public class AllData  extends AppCompatActivity {
         companyTV.setText("Companies");
         companyTV.setTextColor(Color.GRAY);
         companyTV.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        companyTV.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
+        companyTV.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT));
         companyTV.setPadding(5, 5, 5, 0);
         tr.addView(companyTV);  // Adding textView to tablerow.
 
@@ -58,7 +58,7 @@ public class AllData  extends AppCompatActivity {
         TextView valueTV = new TextView(this);
         valueTV.setText("Operating Systems");
         valueTV.setTextColor(Color.GRAY);
-        valueTV.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
+        valueTV.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT));
         valueTV.setPadding(5, 5, 5, 0);
         valueTV.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         tr.addView(valueTV); // Adding textView to tablerow.
@@ -66,14 +66,14 @@ public class AllData  extends AppCompatActivity {
         // Add the TableRow to the TableLayout
 
         tl.addView(tr, new TableLayout.LayoutParams(
-                LayoutParams.FILL_PARENT,
+                LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT));
 
         // we are adding two textviews for the divider because we have two columns
 
         tr = new TableRow(this);
         tr.setLayoutParams(new LayoutParams(
-                LayoutParams.FILL_PARENT,
+                LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT));
 
         /** Creating another textview **/
@@ -81,14 +81,14 @@ public class AllData  extends AppCompatActivity {
         TextView divider = new TextView(this);
         divider.setText("-----------------");
         divider.setTextColor(Color.GREEN);
-        divider.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
+        divider.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT));
         divider.setPadding(5, 0, 0, 0);
         divider.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         tr.addView(divider); // Adding textView to tablerow.
         TextView divider2 = new TextView(this);
         divider2.setText("-------------------------");
         divider2.setTextColor(Color.GREEN);
-        divider2.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
+        divider2.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT));
         divider2.setPadding(5, 0, 0, 0);
         divider2.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         tr.addView(divider2); // Adding textView to tablerow.
@@ -96,7 +96,7 @@ public class AllData  extends AppCompatActivity {
         // Add the TableRow to the TableLayout
 
         tl.addView(tr, new TableLayout.LayoutParams(
-                LayoutParams.FILL_PARENT,
+                LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT));
 
     }
@@ -110,7 +110,7 @@ public class AllData  extends AppCompatActivity {
 
             tr = new TableRow(this);
             tr.setLayoutParams(new LayoutParams(
-                    LayoutParams.FILL_PARENT,
+                    LayoutParams.MATCH_PARENT,
                     LayoutParams.WRAP_CONTENT));
 
             /** Creating a TextView to add to the row **/
@@ -119,7 +119,7 @@ public class AllData  extends AppCompatActivity {
             companyTV.setText(companies[i]);
             companyTV.setTextColor(Color.RED);
             companyTV.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-            companyTV.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
+            companyTV.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT));
             companyTV.setPadding(5, 5, 5, 5);
             tr.addView(companyTV);  // Adding textView to tablerow.
 
@@ -128,7 +128,7 @@ public class AllData  extends AppCompatActivity {
             valueTV = new TextView(this);
             valueTV.setText(os[i]);
             valueTV.setTextColor(Color.GREEN);
-            valueTV.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
+            valueTV.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT));
             valueTV.setPadding(5, 5, 5, 5);
             valueTV.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
             tr.addView(valueTV); // Adding textView to tablerow.
@@ -136,7 +136,7 @@ public class AllData  extends AppCompatActivity {
             // Add the TableRow to the TableLayout
 
             tl.addView(tr, new TableLayout.LayoutParams(
-                    LayoutParams.FILL_PARENT,
+                    LayoutParams.MATCH_PARENT,
                     LayoutParams.WRAP_CONTENT));
 
         }
