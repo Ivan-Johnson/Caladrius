@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -17,13 +16,6 @@ public class MainFragment extends Fragment {
     public MainFragment() {
         // Empty public constructor
     }
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState){
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.graph_list);
-//        setAc
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +35,6 @@ public class MainFragment extends Fragment {
 
         return rootView;
     }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
