@@ -14,7 +14,6 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
-import com.jjoe64.graphview.GridLabelRenderer;
 
 public class MainFragment extends Fragment {
     public MainFragment() {
