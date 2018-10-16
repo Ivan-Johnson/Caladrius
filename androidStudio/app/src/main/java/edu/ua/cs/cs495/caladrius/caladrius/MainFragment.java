@@ -35,6 +35,7 @@ public class MainFragment extends Fragment {
                 new DataPoint(3, 2),
                 new DataPoint(4, 6)
         });
+        series.setColor(Color.GREEN);
         graph.addSeries(series);
 
         GraphView graph2 = rootView.findViewById(R.id.graph2);
@@ -45,6 +46,7 @@ public class MainFragment extends Fragment {
                 new DataPoint(3, 2),
                 new DataPoint(4, 6)
         });
+        series2.setColor(Color.CYAN);
         graph2.addSeries(series2);
 
         GraphView graph3 = rootView.findViewById(R.id.graph3);
@@ -55,6 +57,7 @@ public class MainFragment extends Fragment {
                 new DataPoint(3, 2),
                 new DataPoint(4, 6)
         });
+        series3.setColor(Color.RED);
         graph3.addSeries(series3);
 
         GraphView graph4 = rootView.findViewById(R.id.graph4);
