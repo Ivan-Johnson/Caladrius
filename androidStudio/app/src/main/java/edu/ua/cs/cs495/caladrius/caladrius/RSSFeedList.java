@@ -2,6 +2,7 @@ package edu.ua.cs.cs495.caladrius.caladrius;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,12 @@ public class RSSFeedList extends Fragment {
         for (int c = 0; c < len; c++) {
             feeds[c] = new RSSFeed("URL - " + Integer.toString(c));
         }
-        ll.setAdapter(new RSSFeedItemAdapter(this.getContext(), feeds));
+
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        RSSFeedItemAdapter adapter;
+        adapter = new RSSFeedItemAdapter(this.getContext(), feeds, fm, this.getId());
+
+        ll.setAdapter(adapter);
 
         return rootView;
     }
