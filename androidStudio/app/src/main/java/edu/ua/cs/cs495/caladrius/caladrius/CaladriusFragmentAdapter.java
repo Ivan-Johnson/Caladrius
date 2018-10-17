@@ -19,7 +19,7 @@ public class CaladriusFragmentAdapter extends FragmentPagerAdapter{
         if (position == 0) {
             return new MainFragment();
         } else {
-            return new RssFragment();
+            return new RSSFeedList();
         }
     }
 
