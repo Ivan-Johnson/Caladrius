@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -15,10 +16,24 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 
+import java.util.ArrayList;
+
 public class MainFragment extends Fragment {
     public MainFragment() {
         // Empty public constructor
     }
+
+    public final FitbitGraphView.graphtype[] defaultGraphTypes = {
+            FitbitGraphView.graphtype.LINE_GRAPH,
+            FitbitGraphView.graphtype.BAR_GRAPH,
+            FitbitGraphView.graphtype.POINTS_GRAPH
+    };
+
+    public final String[] defaultGraphStats = {
+            Fitbit.Bpm,
+            Fitbit.Heartrate,
+            Fitbit.BasalCaloricBurn
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,67 +41,19 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View rootView = inflater.inflate(R.layout.graph_list, container, false);
 
-        GraphView graph = rootView.findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-        series.setColor(Color.GREEN);
-        graph.addSeries(series);
-
-        GraphView graph2 = rootView.findViewById(R.id.graph2);
-        BarGraphSeries<DataPoint> series2 = new BarGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, -1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-        series2.setColor(Color.CYAN);
-        graph2.addSeries(series2);
-
-        GraphView graph3 = rootView.findViewById(R.id.graph3);
-        PointsGraphSeries<DataPoint> series3 = new PointsGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, -2),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-        series3.setColor(Color.RED);
-        graph3.addSeries(series3);
-
-        GraphView graph4 = rootView.findViewById(R.id.graph4);
-        LineGraphSeries<DataPoint> series4 = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 0),
-                new DataPoint(1, 1),
-                new DataPoint(2, 2),
-                new DataPoint(3, 3),
-                new DataPoint(4, 4)
-        });
-        graph4.addSeries(series4);
-
-        GraphView graph5 = rootView.findViewById(R.id.graph5);
-        LineGraphSeries<DataPoint> series5 = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(2, 2),
-                new DataPoint(2, 2),
-                new DataPoint(4, 4),
-                new DataPoint(5, 5),
-                new DataPoint(6, 6)
-        });
-        graph5.addSeries(series5);
-        LineGraphSeries<DataPoint> series6 = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(1, 5),
-                new DataPoint(2, 4),
-                new DataPoint(3, 3),
-                new DataPoint(4, 2),
-                new DataPoint(5, 1)
-        });
-        series6.setColor(Color.GREEN);
-        graph5.addSeries(series6);
+        LinearLayout ll = rootView.findViewById(R.id.list);
+        assert defaultGraphStats.length == defaultGraphTypes.length;
+        for (int c = defaultGraphStats.length - 1; c >= 0; c++) {
+            FitbitGraphView fgv = new FitbitGraphView(
+                    new ArrayList(defaultGraphStats[c]),
+                    new ArrayList(defaultGraphTypes[c]),
+                    false,
+                    false,
+                    false,
+                    false
+            );
+            ll.addView(fgv, 0);
+        }
 
         return rootView;
     }
