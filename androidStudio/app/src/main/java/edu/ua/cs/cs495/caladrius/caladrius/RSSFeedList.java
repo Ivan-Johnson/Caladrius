@@ -27,8 +27,8 @@ public class RSSFeedList extends Fragment {
         }
 
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        RSSFeedItemAdapter adapter;
-        adapter = new RSSFeedItemAdapter(this.getContext(), feeds, fm, this.getId());
+        RSSFeedAdapter adapter;
+        adapter = new RSSFeedAdapter(this.getContext(), feeds, fm, this.getId());
 
         ll.setAdapter(adapter);
 

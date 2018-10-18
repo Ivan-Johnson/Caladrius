@@ -11,14 +11,14 @@ import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class RSSFeedItemAdapter extends BaseAdapter {
+public class RSSFeedAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Context c;
     private RSSFeed[] feeds;
     private final FragmentManager fm;
     private int cvid;
 
-    public RSSFeedItemAdapter(Context c, RSSFeed[] feeds, FragmentManager fm, int cvid) {
+    public RSSFeedAdapter(Context c, RSSFeed[] feeds, FragmentManager fm, int cvid) {
         this.c = c;
         this.feeds = feeds;
         this.fm = fm;
