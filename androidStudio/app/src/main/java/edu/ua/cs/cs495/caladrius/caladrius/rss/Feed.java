@@ -1,13 +1,15 @@
-package edu.ua.cs.cs495.caladrius.caladrius;
+package edu.ua.cs.cs495.caladrius.caladrius.rss;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class RSSFeed {
-    String url;
-    ArrayList<RssCondition> conditions;
+import edu.ua.cs.cs495.caladrius.caladrius.rss.conditions.Condition;
 
-    public RSSFeed(String url, ArrayList<RssCondition> conditions)
+public class Feed {
+    String url;
+    ArrayList<Condition> conditions;
+
+    public Feed(String url, ArrayList<Condition> conditions)
     {
         if (conditions == null) {
             conditions = new ArrayList<>();
@@ -17,7 +19,7 @@ public class RSSFeed {
         this.url = url;
     }
 
-    public RSSFeed(String url, RssCondition[] conditions)
+    public Feed(String url, Condition[] conditions)
     {
         this(
                 url,
@@ -25,8 +27,8 @@ public class RSSFeed {
         );
     }
 
-    public RSSFeed(String url)
+    public Feed(String url)
     {
-        this(url, new ArrayList<RssCondition>());
+        this(url, new ArrayList<Condition>());
     }
 }

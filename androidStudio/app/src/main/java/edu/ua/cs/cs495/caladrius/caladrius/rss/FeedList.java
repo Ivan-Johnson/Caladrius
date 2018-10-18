@@ -1,4 +1,4 @@
-package edu.ua.cs.cs495.caladrius.caladrius;
+package edu.ua.cs.cs495.caladrius.caladrius.rss;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-public class RSSFeedList extends Fragment {
+import edu.ua.cs.cs495.caladrius.caladrius.R;
 
-    public RSSFeedList() {
+public class FeedList extends Fragment {
+
+    public FeedList() {
         // Empty public constructor
     }
     @Override
@@ -21,14 +23,14 @@ public class RSSFeedList extends Fragment {
         ListView ll = rootView.findViewById(R.id.FeedList);
 
         final int len = 20;
-        RSSFeed[] feeds = new RSSFeed[len];
+        Feed[] feeds = new Feed[len];
         for (int c = 0; c < len; c++) {
-            feeds[c] = new RSSFeed("URL - " + Integer.toString(c));
+            feeds[c] = new Feed("URL - " + Integer.toString(c));
         }
 
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        RSSFeedAdapter adapter;
-        adapter = new RSSFeedAdapter(this.getContext(), feeds, fm, this.getId());
+        FeedAdapter adapter;
+        adapter = new FeedAdapter(this.getContext(), feeds, fm, this.getId());
 
         ll.setAdapter(adapter);
 

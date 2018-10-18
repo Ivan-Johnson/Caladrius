@@ -1,4 +1,4 @@
-package edu.ua.cs.cs495.caladrius.caladrius;
+package edu.ua.cs.cs495.caladrius.caladrius.rss;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -11,14 +11,16 @@ import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class RSSFeedAdapter extends BaseAdapter {
+import edu.ua.cs.cs495.caladrius.caladrius.R;
+
+public class FeedAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Context c;
-    private RSSFeed[] feeds;
+    private Feed[] feeds;
     private final FragmentManager fm;
     private int cvid;
 
-    public RSSFeedAdapter(Context c, RSSFeed[] feeds, FragmentManager fm, int cvid) {
+    public FeedAdapter(Context c, Feed[] feeds, FragmentManager fm, int cvid) {
         this.c = c;
         this.feeds = feeds;
         this.fm = fm;

@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import edu.ua.cs.cs495.caladrius.caladrius.rss.FeedList;
+
 public class CaladriusFragmentAdapter extends FragmentPagerAdapter{
     final int PAGE_COUNT = 2;
     protected Context mContext;
@@ -19,7 +21,7 @@ public class CaladriusFragmentAdapter extends FragmentPagerAdapter{
         if (position == 0) {
             return new MainFragment();
         } else {
-            return new RSSFeedList();
+            return new FeedList();
         }
     }
 
