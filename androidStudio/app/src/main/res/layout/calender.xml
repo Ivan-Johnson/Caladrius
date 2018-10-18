@@ -16,7 +16,7 @@
             <CalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="wrap_content"
-                android:layout_height="315dp" />
+                android:layout_height="330dp" />
         </RelativeLayout>
 
 
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="48dp">
+                android:paddingLeft="20dp">
 
                 <RadioButton
                     android:id="@+id/Single_day"
