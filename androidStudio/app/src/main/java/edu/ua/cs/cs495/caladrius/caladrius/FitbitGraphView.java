@@ -4,15 +4,18 @@ import android.app.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -25,6 +28,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
+import com.jjoe64.graphview.series.Series;
 
 enum GraphViewGraph
 {
@@ -41,7 +45,7 @@ public class FitbitGraphView extends GraphView
     // 1. "LineGraph"
     // 2. "BarGraph"
     // 3. "PointsGraph"
-    ArrayList<String> graphType;
+    ArrayList<GraphViewGraph> graphType;
 
     // Supplied statsToRetrieve ArrayList must contain relevant statistics
     // that can be retrieved via Fitbit API. Ex: BPM, BasalCaloricBurn, etc.
@@ -64,13 +68,38 @@ public class FitbitGraphView extends GraphView
     // scrolling through the graph and vertical zooming
     Boolean verticalZoomAndScroll;
 
+    // converts from density independent pixels to pixels
+    private int pxFromDip(int dip)
+    {
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dip,
+                r.getDisplayMetrics()
+        );
+
+        return Math.round(px);
+    }
+
     // Constructor
-    public FitbitGraphView(Context context, ArrayList<String> graphType,
+    public FitbitGraphView(final Context context, ArrayList<GraphViewGraph> graphType,
                            ArrayList<String> statsToRetrieve,
                            Boolean horizontalScroll, Boolean verticalScroll,
                            Boolean horizontalZoomAndScroll,
                            Boolean verticalZoomAndScroll) {
         super(context);
+
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        //int pxPadding = pxFromDip(30);
+        //params.setMargins(pxPadding, pxPadding, pxPadding, pxPadding);
+        setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, pxFromDip(300)));
+        //setLayoutParams(params);
+        //setPaddingRelative(pxPadding, pxPadding, pxPadding, pxPadding);
+
         this.graphType = graphType;
         this.statsToRetrieve = statsToRetrieve;
         this.horizontalScroll = horizontalScroll;
@@ -79,11 +108,20 @@ public class FitbitGraphView extends GraphView
         this.verticalZoomAndScroll = verticalZoomAndScroll;
 
         makeGraphViewGraph();
+
+        // Navigate to the split graph/data view
+        this.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(context, GraphActivity.class);
+                // TODO find some way of passing arguments. (Bundle or something?)
+                context.startActivity(mainIntent);
+            }
+        });
     }
 
     // Getter Methods
 
-    public ArrayList<String> getGraphType()
+    public ArrayList<GraphViewGraph> getGraphType()
     {
         return this.graphType;
     }
@@ -114,7 +152,7 @@ public class FitbitGraphView extends GraphView
     }
 
     // Setter Methods
-    public void setGraphType(ArrayList<String> gType)
+    public void setGraphType(ArrayList<GraphViewGraph> gType)
     {
         this.graphType = gType;
     }
@@ -171,54 +209,48 @@ public class FitbitGraphView extends GraphView
     {
         for (int i=0; i<this.graphType.size(); i++)
         {
+            DataPoint[] points = new DataPoint[] {
+                    // Some sort of loop creating DataPoint objects from
+                    // whatever you want to plot, getting information from
+                    // FitBit API.
+
+                    //* Delete first / to demo bug
+                    new DataPoint(00, 20),
+                    new DataPoint(05, 10),
+                    new DataPoint(10, 15),
+                    new DataPoint(15, 00),
+                    /*/
+                    new DataPoint(0.0, 2.0),
+                    new DataPoint(0.5, 1.0),
+                    new DataPoint(1.0, 1.5),
+                    new DataPoint(1.5, 0.0),
+                    //*/
+
+                    // Use this.statsToRetrieve[i] to find out what we are
+                    // plotting at this point in the loop. Send that
+                    // string to the fitbit API.
+            };
+
+            Series<DataPoint> series;
             // LineGraph
             if (this.graphType.get(i).equals(GraphViewGraph.LineGraph))
             {
-                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(
-                        new DataPoint[] {
-                                // Some sort of loop creating DataPoint objects from
-                                // whatever you want to plot, getting information from
-                                // FitBit API.
-                                new DataPoint(0, 0)
-                                // Use this.statsToRetrieve[i] to find out what we are
-                                // plotting at this point in the loop. Send that
-                                // string to the fitbit API.
-                        });
-                this.addSeries(series);
+                series = new LineGraphSeries<>(points);
             }
 
             // BarGraph
             else if (this.graphType.get(i).equals(GraphViewGraph.BarGraph))
             {
-                BarGraphSeries<DataPoint> series = new BarGraphSeries<>(
-                        new DataPoint[] {
-                                // Some sort of loop creating DataPoint objects from
-                                // whatever you want to plot, getting information from
-                                // FitBit API.
-                                new DataPoint(0, 0)
-                                // Use this.statsToRetrieve[i] to find out what we are
-                                // plotting at this point in the loop. Send that
-                                // string to the fitbit API.
-                        });
-                this.addSeries(series);
+                series = new BarGraphSeries<>(points);
             }
 
             // PointsGraph
             else
             {
-                PointsGraphSeries<DataPoint> series = new PointsGraphSeries<>(
-                        new DataPoint[] {
-                                // Some sort of loop creating DataPoint objects from
-                                // whatever you want to plot, getting information from
-                                // FitBit API.
-                                new DataPoint(0, 0)
-                                // Use this.statsToRetrieve[i] to find out what we are
-                                // plotting at this point in the loop. Send that
-                                // string to the fitbit API.
-                        });
-                this.addSeries(series);
+                series = new PointsGraphSeries<>(points);
             }
 
+            this.addSeries(series);
             scrollHandler(this);
         }
     }
