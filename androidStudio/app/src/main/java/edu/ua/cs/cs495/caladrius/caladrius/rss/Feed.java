@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import edu.ua.cs.cs495.caladrius.caladrius.rss.conditions.Condition;
+import edu.ua.cs.cs495.caladrius.caladrius.rss.conditions.ExtremeValue;
 
 public class Feed {
     String url;
@@ -30,5 +31,13 @@ public class Feed {
     public Feed(String url)
     {
         this(url, new ArrayList<Condition>());
+
+        // TODO: remove these
+        Condition c = new ExtremeValue<>("BPM",0, ExtremeValue.extremeType.lessThan);
+        this.conditions.add(0,c);
+        c = new ExtremeValue<>("Stepcount",100, ExtremeValue.extremeType.lessThan);
+        this.conditions.add(0,c);
+        c = new ExtremeValue<>("Weight",80, ExtremeValue.extremeType.greaterThan);
+        this.conditions.add(0, c);
     }
 }
