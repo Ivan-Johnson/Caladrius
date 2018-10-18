@@ -11,31 +11,6 @@
     android:gravity="center"
     android:layout_height="wrap_content">
 
-    <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="200dip"
-        android:id="@+id/graph" />
-
-    <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="200dip"
-        android:id="@+id/graph2" />
-
-    <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="200dip"
-        android:id="@+id/graph3" />
-
-    <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="200dip"
-        android:id="@+id/graph4" />
-
-    <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="200dip"
-        android:id="@+id/graph5" />
-
     <Button
         android:id="@+id/viewAllData"
         android:layout_width="wrap_content"
@@ -44,6 +19,5 @@
         android:text="@string/view_all_data"
         android:textSize="28sp"/>
 </LinearLayout>
-
 
 </ScrollView>
