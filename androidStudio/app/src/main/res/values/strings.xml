@@ -15,5 +15,11 @@
     <string name="category_home">Home</string>
     <string name="category_rss">RSS</string>
     <string name="view_all_data">View All Data</string>
+    <string name="single_day">"Single day     / Start date:"</string>
+    <string name="several_days">"Several days / End date  :"</string>
+    <string name="item_bpm">BPM</string>
+    <string name="item_steps">Steps</string>
+
+
 
 </resources>

@@ -1,12 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="wrap_content"
+                android:layout_height="315dp" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Select type -->
+            <RadioGroup
+                android:id="@+id/select_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="48dp">
+
+                <RadioButton
+                    android:id="@+id/Single_day"
+                    style="@style/DateTypeStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/single_day" />
+
+                <RadioButton
+                    android:id="@+id/several_days"
+                    style="@style/DateTypeStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/several_days" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:id="@+id/start_date"
+                    style="@style/DateStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MM/DD/YYYY" />
+
+                <TextView
+                    android:id="@+id/end_date"
+                    style="@style/DateStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:text="MM/DD/YYYY" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Item 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="78dp"
+            android:paddingTop="48dp">
+
+            <!-- Label -->
+            <TextView
+                style="@style/ItemStyle"
+                android:paddingRight="65dp"
+                android:text="Item 1" />
+
+            <!-- Item drop-down spinner -->
+            <Spinner
+                android:id="@+id/spinner_item_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="16dp"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
+        <!-- Item 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="78dp"
+            android:paddingTop="48dp">
+
+            <!-- Label -->
+            <TextView
+                style="@style/ItemStyle"
+                android:paddingRight="65dp"
+                android:text="Item 2" />
+
+            <!-- Item drop-down spinner -->
+            <Spinner
+                android:id="@+id/spinner_item_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="16dp"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>
