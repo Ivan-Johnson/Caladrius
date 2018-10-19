@@ -16,7 +16,9 @@ import android.widget.Toast;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 
 public class Calender extends AppCompatActivity{
@@ -50,7 +52,7 @@ public class Calender extends AppCompatActivity{
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int i1, int i2) {
-                Integer month = i1 + 1;
+                Integer month = i1;
                 String day;
                 if (i2 < 10){
                     day = " " + String.valueOf(i2);
@@ -59,20 +61,10 @@ public class Calender extends AppCompatActivity{
                     day = String.valueOf(i2);
                 }
                 String date =  getMonthForInt(month)+ " " + day + "th " + year;
-//                Log.d(TAG, "onSelectedDayChange: date" + date);
-//                Toast.makeText(mCalendarView.getContext(), "You pressed on : " + date, Toast.LENGTH_SHORT).show();
-//                switch (dateTypeRadioButton.getCheckedRadioButtonId()) {
-//                    case R.id.R1:
-//                        regAuxiliar = ultimoRegistro;
-//                    case R.id.R2:
-//                        regAuxiliar = objRegistro;
-//                    default:
-//                        regAuxiliar = null; // none selected
-//                }
 
                 if(dateTypeRadioGroup.getCheckedRadioButtonId()==-1)
                 {
-                    Toast.makeText(getApplicationContext(), "Please select Gender", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please select dateType", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -110,13 +102,9 @@ public class Calender extends AppCompatActivity{
     }
 
     static String getMonthForInt(int m) {
-        String month = "invalid";
-        DateFormatSymbols dfs = new DateFormatSymbols();
-        String[] months = dfs.getMonths();
-        if (m >= 0 && m <= 11 ) {
-            month = months[m];
-        }
-        return month.substring(0,3);
+        List<String> monthStr = Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+        return monthStr.get(m);
     }
 
     /**

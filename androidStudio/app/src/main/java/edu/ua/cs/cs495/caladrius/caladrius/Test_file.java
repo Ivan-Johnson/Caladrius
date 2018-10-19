@@ -2,9 +2,12 @@ package edu.ua.cs.cs495.caladrius.caladrius;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 // This file just use for testing code
+
 public class Test_file {
 
     public static void main(String[] args) {
@@ -16,13 +19,9 @@ public class Test_file {
     }
 
     static String getMonthForInt(int m) {
-        String month = "invalid";
-        DateFormatSymbols dfs = new DateFormatSymbols();
-        String[] months = dfs.getMonths();
-        if (m >= 0 && m <= 11 ) {
-            month = months[m];
-        }
-        return month.substring(0,3);
+        List<String> monthStr = Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+        return monthStr.get(m);
     }
 
     public static String getBackupFolderName() {

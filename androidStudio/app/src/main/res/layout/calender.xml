@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="60dp">
+                android:paddingLeft="35dp">
 
                 <RadioButton
                     android:id="@+id/Single_day"
@@ -58,7 +58,7 @@
                     <TextView
                         android:id="@+id/start_date"
                         style="@style/DateStyle"
-                        android:paddingLeft="30dp"
+                        android:paddingLeft="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="MM/DD/YYYY" />
@@ -86,7 +86,7 @@
                         android:text="@string/end_date" />
 
                     <TextView
-                        android:paddingLeft="40dp"
+                        android:paddingLeft="30dp"
                         android:id="@+id/end_date"
                         style="@style/DateStyle"
                         android:layout_width="wrap_content"
