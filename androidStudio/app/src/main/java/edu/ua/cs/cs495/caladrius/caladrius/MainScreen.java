@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.jjoe64.graphview.GraphView;
+
 public class MainScreen extends AppCompatActivity {
 
 

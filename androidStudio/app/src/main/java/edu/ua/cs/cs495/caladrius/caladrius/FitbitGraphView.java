@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -24,9 +25,11 @@ enum GraphViewGraph
     LineGraph, BarGraph, PointsGraph;
 }
 
-public class FitbitGraphView extends GraphView
+public class FitbitGraphView
 {
     // Instance Variables
+
+    GraphView graph;
 
     // Supplied graphType array list needs to be one of three enums,
     // there needs to be the same number of elements as the statsToRetrieve
@@ -60,7 +63,7 @@ public class FitbitGraphView extends GraphView
     // converts from density independent pixels to pixels
     private int pxFromDip(int dip)
     {
-        Resources r = getResources();
+        Resources r = graph.getResources();
         float px = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 dip,
@@ -71,24 +74,17 @@ public class FitbitGraphView extends GraphView
     }
 
     // Constructor
-    public FitbitGraphView(final Context context, ArrayList<GraphViewGraph> graphType,
+    public FitbitGraphView(final Context context,
+                           ViewGroup container,
+                           LayoutInflater inflater,
+                           ArrayList<GraphViewGraph> graphType,
                            ArrayList<String> statsToRetrieve,
                            Boolean horizontalScroll, Boolean verticalScroll,
                            Boolean horizontalZoomAndScroll,
                            Boolean verticalZoomAndScroll) {
-        super(context);
+        View rootView = inflater.inflate(R.layout.graph_view, container, false);
 
-
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
-        //int pxPadding = pxFromDip(30);
-        //params.setMargins(pxPadding, pxPadding, pxPadding, pxPadding);
-        setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, pxFromDip(300)));
-        //setLayoutParams(params);
-        //setPaddingRelative(pxPadding, pxPadding, pxPadding, pxPadding);
-
+        this.graph = rootView.findViewById(R.id.graphview);
         this.graphType = graphType;
         this.statsToRetrieve = statsToRetrieve;
         this.horizontalScroll = horizontalScroll;
@@ -99,7 +95,7 @@ public class FitbitGraphView extends GraphView
         makeGraphViewGraph();
 
         // Navigate to the split graph/data view
-        this.setOnClickListener(new View.OnClickListener() {
+        graph.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent mainIntent = new Intent(context, GraphActivity.class);
                 // TODO find some way of passing arguments. (Bundle or something?)
@@ -123,6 +119,10 @@ public class FitbitGraphView extends GraphView
     public Boolean getHorizontalScroll()
     {
         return this.horizontalScroll;
+    }
+
+    public GraphView getGraph() {
+        return graph;
     }
 
     public Boolean getVerticalScroll()
@@ -239,8 +239,8 @@ public class FitbitGraphView extends GraphView
                 series = new PointsGraphSeries<>(points);
             }
 
-            this.addSeries(series);
-            scrollHandler(this);
+            graph.addSeries(series);
+            scrollHandler(graph);
         }
     }
 }

@@ -44,7 +44,7 @@ public class MainFragment extends Fragment {
             ArrayList<String> stats = new ArrayList<>();
             stats.addAll(Arrays.asList(defaultGraphStats[c]));
 
-            FitbitGraphView fgv = new FitbitGraphView(getContext(),
+            FitbitGraphView fgv = new FitbitGraphView(getContext(), container, inflater,
                     graphTypes,
                     stats,
                     false,
@@ -53,7 +53,7 @@ public class MainFragment extends Fragment {
                     false
             );
 
-            ll.addView(fgv, 0);
+            ll.addView(fgv.getGraph(), 0);
         }
 
         return rootView;
