@@ -14,6 +14,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class Calender extends AppCompatActivity{
 
@@ -40,13 +44,23 @@ public class Calender extends AppCompatActivity{
 
         final RadioGroup dateTypeRadioGroup = findViewById(R.id.select_type);
 
+
+        String date = getBackupFolderName();
+        startDateTextView.setText(String.format("%sth%s", date.substring(0, date.length() - 5), date.substring(date.length() - 5, date.length())));
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int i1, int i2) {
                 Integer month = i1 + 1;
-                String date =  month+ "/" + i2 + "/" + year;
+                String day;
+                if (i2 < 10){
+                    day = " " + String.valueOf(i2);
+                }
+                else{
+                    day = String.valueOf(i2);
+                }
+                String date =  getMonthForInt(month)+ " " + day + "th " + year;
 //                Log.d(TAG, "onSelectedDayChange: date" + date);
-                Toast.makeText(mCalendarView.getContext(), "You pressed on : " + date, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mCalendarView.getContext(), "You pressed on : " + date, Toast.LENGTH_SHORT).show();
 //                switch (dateTypeRadioButton.getCheckedRadioButtonId()) {
 //                    case R.id.R1:
 //                        regAuxiliar = ultimoRegistro;
@@ -66,10 +80,16 @@ public class Calender extends AppCompatActivity{
                     int selectedId = dateTypeRadioGroup.getCheckedRadioButtonId();
                     // find the radiobutton by returned id
                     RadioButton selectedRadioButton = findViewById(selectedId);
-                    Toast.makeText(getApplicationContext(), selectedRadioButton.getText().toString()+" is selected", Toast.LENGTH_SHORT).show();
+                    String dateType = selectedRadioButton.getText().toString();
+                    Toast.makeText(getApplicationContext(), dateType+" is selected", Toast.LENGTH_SHORT).show();
+                    if (dateType.equals(getString(R.string.single_day))){
+                        startDateTextView.setText(date);
+                    }
+                    else if (dateType.equals(getString(R.string.several_days))){
+                        endDateTextView.setText(date);
+                    }
                 }
 
-                startDateTextView.setText(date);
             }
         });
 
@@ -82,6 +102,22 @@ public class Calender extends AppCompatActivity{
         setupSpinner();
     }
 
+
+    public static String getBackupFolderName() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy");
+        return sdf.format(date);
+    }
+
+    static String getMonthForInt(int m) {
+        String month = "invalid";
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getMonths();
+        if (m >= 0 && m <= 11 ) {
+            month = months[m];
+        }
+        return month.substring(0,3);
+    }
 
     /**
      * Setup the dropdown spinner that allows the user to select the item to show on the graph.

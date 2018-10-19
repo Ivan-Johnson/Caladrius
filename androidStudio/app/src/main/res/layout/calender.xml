@@ -31,44 +31,78 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="20dp">
+                android:paddingLeft="60dp">
 
                 <RadioButton
                     android:id="@+id/Single_day"
                     style="@style/DateTypeStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:checked="true"
                     android:text="@string/single_day" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="44dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        style="@style/startEndStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/start_date" />
+
+                    <TextView
+                        android:id="@+id/start_date"
+                        style="@style/DateStyle"
+                        android:paddingLeft="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MM/DD/YYYY" />
+                </LinearLayout>
 
                 <RadioButton
                     android:id="@+id/several_days"
                     style="@style/DateTypeStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="6dp"
                     android:text="@string/several_days" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="44dp">
+
+                    <TextView
+                        style="@style/startEndStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/end_date" />
+
+                    <TextView
+                        android:paddingLeft="40dp"
+                        android:id="@+id/end_date"
+                        style="@style/DateStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MM/DD/YYYY" />
+                </LinearLayout>
             </RadioGroup>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="110dp"
                 android:orientation="vertical"
                 android:paddingLeft="20dp"
-                android:paddingTop="5dp">
+                android:paddingTop="26dp">
 
-                <TextView
-                    android:id="@+id/start_date"
-                    style="@style/DateStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MM/DD/YYYY" />
 
-                <TextView
-                    android:id="@+id/end_date"
-                    style="@style/DateStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:text="MM/DD/YYYY" />
             </LinearLayout>
         </LinearLayout>
 
