@@ -1,28 +1,31 @@
-package edu.ua.cs.cs495.caladrius.caladrius.rss;
+package edu.ua.cs.cs495.caladrius.caladrius.rss.conditions;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import edu.ua.cs.cs495.caladrius.caladrius.R;
 
-public class FeedAdapter extends BaseAdapter {
+
+public class ConditionAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Context c;
-    private Feed[] feeds;
+    private ArrayList<Condition> conditions;
     private final FragmentManager fm;
     private int cvid;
 
-    private static final String OUR_TAG = "FeedAdapter";
-
-    public FeedAdapter(Context c, Feed[] feeds, FragmentManager fm, int cvid) {
+    public ConditionAdapter(Context c, ArrayList<Condition> conditions, FragmentManager fm, int cvid) {
         this.c = c;
-        this.feeds = feeds;
+        this.conditions = conditions;
         this.fm = fm;
         this.cvid = cvid;
         inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -30,7 +33,7 @@ public class FeedAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return feeds.length;
+        return conditions.size();
     }
 
     @Override
@@ -39,17 +42,21 @@ public class FeedAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
             view = inflater.inflate(R.layout.rss_feed_item, null);
         }
         TextView text = view.findViewById(R.id.name);
-        text.setText(feeds[i].name);
+        text.setText(conditions.get(i).toString());
 
         view.setOnClickListener(new View.OnClickListener() {
+            // Start new list activity
             public void onClick(View v) {
-                final DialogFragment fbDialogue = FeedEditor.newInstance(feeds[i]);
-                fbDialogue.show(fm, OUR_TAG);
+                final Dialog fbDialogue = new Dialog(c, android.R.style.Theme_DeviceDefault);
+                fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                fbDialogue.setContentView(R.layout.rss_feed_edit);
+                fbDialogue.setCancelable(true);
+                fbDialogue.show();
             }
         });
 
@@ -58,6 +65,6 @@ public class FeedAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return feeds[i];
+        return conditions.get(i);
     }
 }

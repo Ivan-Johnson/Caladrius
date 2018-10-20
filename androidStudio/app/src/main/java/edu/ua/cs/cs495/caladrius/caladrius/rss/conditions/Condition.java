@@ -4,5 +4,6 @@ import java.io.Serializable;
 
 public abstract class Condition implements Serializable
 {
-
+    @Override
+    public abstract String toString();
 }

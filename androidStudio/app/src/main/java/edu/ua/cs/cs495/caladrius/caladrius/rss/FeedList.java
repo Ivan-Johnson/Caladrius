@@ -25,7 +25,10 @@ public class FeedList extends Fragment {
         final int len = 20;
         Feed[] feeds = new Feed[len];
         for (int c = 0; c < len; c++) {
-            feeds[c] = new Feed("URL - " + Integer.toString(c));
+            feeds[c] = new Feed(
+                    "feed name #" + Integer.toString(c),
+                    "https://caladrius.ivanjohnson.net/feed/"+Integer.toString(c)
+            );
         }
 
         FragmentManager fm = getActivity().getSupportFragmentManager();
