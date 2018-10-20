@@ -33,7 +33,7 @@ public class FeedList extends Fragment {
 
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FeedAdapter adapter;
-        adapter = new FeedAdapter(this.getContext(), feeds, fm, this.getId());
+        adapter = new FeedAdapter(this.getContext(), feeds, fm);
 
         ll.setAdapter(adapter);
 

@@ -16,15 +16,13 @@ public class FeedAdapter extends BaseAdapter {
     private Context c;
     private Feed[] feeds;
     private final FragmentManager fm;
-    private int cvid;
 
     private static final String OUR_TAG = "FeedAdapter";
 
-    public FeedAdapter(Context c, Feed[] feeds, FragmentManager fm, int cvid) {
+    public FeedAdapter(Context c, Feed[] feeds, FragmentManager fm) {
         this.c = c;
         this.feeds = feeds;
         this.fm = fm;
-        this.cvid = cvid;
         inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
