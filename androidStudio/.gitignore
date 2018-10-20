@@ -9,6 +9,8 @@
 # course, that you can even have a copyright on something this
 # trivial.
 
+build.bash
+
 # Misc
 .DS_Store
 *~
@@ -54,9 +56,11 @@ captures/
 .idea/caches
 .idea/dictionaries
 .idea/gradle.xml
+.idea/inspectionProfiles/
 .idea/libraries
 .idea/modules.xml
 .idea/tasks.xml
+.idea/vcs.xml
 .idea/workspace.xml
 
 # Keystore files
