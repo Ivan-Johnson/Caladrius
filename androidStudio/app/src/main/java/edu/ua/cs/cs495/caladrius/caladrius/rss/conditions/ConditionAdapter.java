@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +22,13 @@ public class ConditionAdapter extends BaseAdapter {
     private Context c;
     private ArrayList<Condition> conditions;
     private final FragmentManager fm;
-    private int cvid;
 
-    public ConditionAdapter(Context c, ArrayList<Condition> conditions, FragmentManager fm, int cvid) {
+    private static final String OUR_TAG = "FeedAdapter";
+
+    public ConditionAdapter(Context c, ArrayList<Condition> conditions, FragmentManager fm) {
         this.c = c;
         this.conditions = conditions;
         this.fm = fm;
-        this.cvid = cvid;
         inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -42,7 +43,7 @@ public class ConditionAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         if (view == null) {
             view = inflater.inflate(R.layout.rss_feed_item, null);
         }
@@ -50,13 +51,9 @@ public class ConditionAdapter extends BaseAdapter {
         text.setText(conditions.get(i).toString());
 
         view.setOnClickListener(new View.OnClickListener() {
-            // Start new list activity
             public void onClick(View v) {
-                final Dialog fbDialogue = new Dialog(c, android.R.style.Theme_DeviceDefault);
-                fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                fbDialogue.setContentView(R.layout.rss_feed_edit);
-                fbDialogue.setCancelable(true);
-                fbDialogue.show();
+                final DialogFragment fbDialogue = conditions.get(i).makeEditor();
+                fbDialogue.show(fm, OUR_TAG);
             }
         });
 
