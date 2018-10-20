@@ -1,5 +1,6 @@
 package edu.ua.cs.cs495.caladrius.caladrius;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -27,14 +30,15 @@ public class Calender extends AppCompatActivity{
 
     private CalendarView mCalendarView;
 
-    private String mItem_1 = "Item_1";
-    private String mItem_2 = "Item_2";
+    private String mStartDate = "N/A";
+    private String mEndDate = "N/A";
 
+    private String mItem_1 = "N/A";
+    private String mItem_2 = "N/A";
 
 //    /** EditText field to pick item to show on the graph */
     private Spinner mItemSpinner_1;
     private Spinner mItemSpinner_2;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +50,19 @@ public class Calender extends AppCompatActivity{
 
         final RadioGroup dateTypeRadioGroup = findViewById(R.id.select_type);
 
+        final Button submitBut = findViewById(R.id.submitCalender);
 
-        String date = getBackupFolderName();
-        startDateTextView.setText(String.format("%sth%s", date.substring(0, date.length() - 5), date.substring(date.length() - 5, date.length())));
+        LocalDateTime now = LocalDateTime.now();
+        int year = now.getYear();
+        int month = now.getMonthValue();
+        int day = now.getDayOfMonth();
+
+        String date = getMonthForInt(month)+" "+day+" "+year;
+        mStartDate = date;
+        startDateTextView.setText(String.format("%sth%s",
+                date.substring(0, date.length() - 5),
+                date.substring(date.length() - 5, date.length())));
+
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int i1, int i2) {
@@ -60,25 +74,33 @@ public class Calender extends AppCompatActivity{
                 else{
                     day = String.valueOf(i2);
                 }
-                String date =  getMonthForInt(month)+ " " + day + "th " + year;
+                String date =  getMonthForInt(month)+ " " + day + " " + year;
+                String dateShow =  getMonthForInt(month)+ " " + day + "th " + year;
 
                 if(dateTypeRadioGroup.getCheckedRadioButtonId()==-1)
                 {
-                    Toast.makeText(getApplicationContext(), "Please select dateType", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please select dateType",
+                            Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     // get selected radio button from radioGroup
                     int selectedId = dateTypeRadioGroup.getCheckedRadioButtonId();
+
                     // find the radiobutton by returned id
                     RadioButton selectedRadioButton = findViewById(selectedId);
                     String dateType = selectedRadioButton.getText().toString();
-                    Toast.makeText(getApplicationContext(), dateType+" is selected", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(getApplicationContext(), dateType+" is selected",
+                            Toast.LENGTH_SHORT).show();
+
                     if (dateType.equals(getString(R.string.single_day))){
-                        startDateTextView.setText(date);
+                        startDateTextView.setText(dateShow);
+                        mStartDate = date;
                     }
                     else if (dateType.equals(getString(R.string.several_days))){
-                        endDateTextView.setText(date);
+                        endDateTextView.setText(dateShow);
+                        mEndDate = date;
                     }
                 }
 
@@ -88,17 +110,19 @@ public class Calender extends AppCompatActivity{
 
         mItemSpinner_1 = findViewById(R.id.spinner_item_1);
         mItemSpinner_2 = findViewById(R.id.spinner_item_2);
-
-//        mItemSpinner.setOnTouchListener(mTouchListener);
-
         setupSpinner();
-    }
 
-
-    public static String getBackupFolderName() {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy");
-        return sdf.format(date);
+        submitBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent submitPage = new Intent (v.getContext(), GraphActivity.class);
+                submitPage.putExtra("startDate", mStartDate);
+                submitPage.putExtra("endDate", mEndDate);
+                submitPage.putExtra("item_1", mItem_1);
+                submitPage.putExtra("item_2", mItem_2);
+                startActivityForResult(submitPage, 0);
+            }
+        });
     }
 
     static String getMonthForInt(int m) {
@@ -144,7 +168,6 @@ public class Calender extends AppCompatActivity{
                 mItem_1 = "Error";
             }
         });
-
 
         // Apply the adapter to the spinner
         mItemSpinner_2.setAdapter(itemSpinnerAdapter);

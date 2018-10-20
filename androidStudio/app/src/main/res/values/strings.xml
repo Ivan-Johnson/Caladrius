@@ -23,7 +23,7 @@
 
     <string name="item_bpm">BPM</string>
     <string name="item_steps">Steps</string>
-
+    <string name="submit">Submit</string>
 
 
 </resources>

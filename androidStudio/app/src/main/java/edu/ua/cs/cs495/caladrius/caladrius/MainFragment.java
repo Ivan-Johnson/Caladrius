@@ -100,9 +100,12 @@ public class MainFragment extends Fragment {
         graph.setOnClickListener(new View.OnClickListener() {
             // Start new list activity
             public void onClick(View v) {
-                Intent mainIntent = new Intent(getActivity(),
-                        GraphActivity.class);
-                startActivity(mainIntent);
+                Intent submitPage = new Intent (v.getContext(), GraphActivity.class);
+                submitPage.putExtra("startDate", "N/A");
+                submitPage.putExtra("endDate", "N/A");
+                submitPage.putExtra("item_1", "N/A");
+                submitPage.putExtra("item_2", "N/A");
+                startActivityForResult(submitPage, 0);
             }
         });
 
@@ -112,7 +115,6 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 Intent nextScreen = new Intent (v.getContext(), AllData.class);
                 startActivityForResult(nextScreen, 0);
-
             }
         });
     }

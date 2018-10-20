@@ -38,16 +38,16 @@
                     style="@style/DateTypeStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="6dp"
                     android:checked="true"
+                    android:padding="6dp"
                     android:text="@string/single_day" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingLeft="44dp"
-                    android:paddingBottom="10dp">
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="44dp">
 
                     <TextView
                         style="@style/startEndStyle"
@@ -58,10 +58,10 @@
                     <TextView
                         android:id="@+id/start_date"
                         style="@style/DateStyle"
-                        android:paddingLeft="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MM/DD/YYYY" />
+                        android:paddingLeft="20dp"
+                        android:text="N/A" />
                 </LinearLayout>
 
                 <RadioButton
@@ -86,12 +86,12 @@
                         android:text="@string/end_date" />
 
                     <TextView
-                        android:paddingLeft="30dp"
                         android:id="@+id/end_date"
                         style="@style/DateStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MM/DD/YYYY" />
+                        android:paddingLeft="30dp"
+                        android:text="N/A" />
                 </LinearLayout>
             </RadioGroup>
 
@@ -106,54 +106,75 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Item 1 -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="78dp"
-            android:paddingTop="48dp">
+            android:paddingTop="25dp">
 
-            <!-- Label -->
-            <TextView
-                style="@style/ItemStyle"
-                android:paddingRight="65dp"
-                android:text="Item 1" />
-
-            <!-- Item drop-down spinner -->
-            <Spinner
-                android:id="@+id/spinner_item_1"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="16dp"
-                android:spinnerMode="dropdown" />
+                android:orientation="vertical"
+                android:paddingLeft="40dp">
 
-        </LinearLayout>
+                <!-- Item 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <!-- Item 2 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="78dp"
-            android:paddingTop="48dp">
+                    <!-- Label -->
+                    <TextView
+                        style="@style/ItemStyle"
+                        android:paddingRight="25dp"
+                        android:text="Item 1" />
 
-            <!-- Label -->
-            <TextView
-                style="@style/ItemStyle"
-                android:paddingRight="65dp"
-                android:text="Item 2" />
+                    <!-- Item drop-down spinner -->
+                    <Spinner
+                        android:id="@+id/spinner_item_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="16dp"
+                        android:spinnerMode="dropdown" />
 
-            <!-- Item drop-down spinner -->
-            <Spinner
-                android:id="@+id/spinner_item_2"
+                </LinearLayout>
+
+                <!-- Item 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Label -->
+                    <TextView
+                        style="@style/ItemStyle"
+                        android:paddingRight="25dp"
+                        android:text="Item 2" />
+
+                    <!-- Item drop-down spinner -->
+                    <Spinner
+                        android:id="@+id/spinner_item_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="16dp"
+                        android:spinnerMode="dropdown" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/submitCalender"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="12dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="16dp"
-                android:spinnerMode="dropdown" />
-
+                android:layout_height="40dp"
+                android:text="@string/submit"
+                android:textSize="18sp"
+                android:background="#FF9800"
+                />
         </LinearLayout>
-
 
     </LinearLayout>
 </ScrollView>
