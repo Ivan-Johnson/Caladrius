@@ -1,8 +1,8 @@
 package edu.ua.cs.cs495.caladrius.caladrius.rss;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
@@ -46,8 +46,8 @@ public class FeedAdapter extends BaseAdapter {
 
         view.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final DialogFragment fbDialogue = FeedEditor.newInstance(feeds[i]);
-                fbDialogue.show(fm, OUR_TAG);
+                Intent in = FeedEditor.FeedEditorActivity.newIntent(c, feeds[i]);
+                c.startActivity(in);
             }
         });
 

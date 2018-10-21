@@ -30,6 +30,6 @@
         <activity android:name=".AllData" />
         <activity android:name=".Calender" />
         <activity android:name=".Edit" />
-        <activity android:name=".rss.FeedEditor" />
+        <activity android:name=".rss.FeedEditor$FeedEditorActivity" />
     </application>
 </manifest>
