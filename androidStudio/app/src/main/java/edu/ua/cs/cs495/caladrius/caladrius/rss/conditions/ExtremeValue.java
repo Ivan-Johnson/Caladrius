@@ -14,6 +14,7 @@ import android.widget.Spinner;
 
 import java.io.Serializable;
 
+import edu.ua.cs.cs495.caladrius.caladrius.Caladrius;
 import edu.ua.cs.cs495.caladrius.caladrius.R;
 
 public class ExtremeValue<T extends Comparable & Serializable> extends Condition {
@@ -60,10 +61,10 @@ public class ExtremeValue<T extends Comparable & Serializable> extends Condition
             default:
                 throw new RuntimeException("Type \"" + type + "\" was not a valid extremeType as of the writing of this message");
         }
-        Resources r = Resources.getSystem();
-        sb.append(r.getText(tmp));
+        Context cntxt = Caladrius.getContext();
+        sb.append(cntxt.getText(tmp));
         sb.append(' ');
-        sb.append(r.getText(R.string.ev_singleValue));
+        sb.append(cntxt.getText(R.string.ev_singleValue));
 
         return sb.toString();
     }
