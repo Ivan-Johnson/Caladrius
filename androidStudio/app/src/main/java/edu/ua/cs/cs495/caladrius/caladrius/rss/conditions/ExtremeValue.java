@@ -1,6 +1,7 @@
 package edu.ua.cs.cs495.caladrius.caladrius.rss.conditions;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,10 +28,8 @@ public class ExtremeValue<T extends Comparable & Serializable> extends Condition
     protected String stat;
     protected T value;
     protected extremeType type;
-    protected Context cntxt;
 
-    public ExtremeValue(Context cntxt, String stat, T value, extremeType type) {
-        this.cntxt = cntxt;
+    public ExtremeValue(String stat, T value, extremeType type) {
         this.stat = stat;
         this.value = value;
         this.type = type;
@@ -61,9 +60,10 @@ public class ExtremeValue<T extends Comparable & Serializable> extends Condition
             default:
                 throw new RuntimeException("Type \"" + type + "\" was not a valid extremeType as of the writing of this message");
         }
-        sb.append(cntxt.getText(tmp));
+        Resources r = Resources.getSystem();
+        sb.append(r.getText(tmp));
         sb.append(' ');
-        sb.append(cntxt.getText(R.string.ev_singleValue));
+        sb.append(r.getText(R.string.ev_singleValue));
 
         return sb.toString();
     }
