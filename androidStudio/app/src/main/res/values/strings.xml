@@ -25,5 +25,11 @@
     <string name="item_steps">Steps</string>
     <string name="submit">Submit</string>
 
+    <string name="cmp_lt"> "&lt;"</string>
+    <string name="cmp_lte">"≤"</string>
+    <string name="cmp_eq"> "="</string>
+    <string name="cmp_gt"> "&gt;"</string>
+    <string name="cmp_gte">"≥"</string>
 
+    <string name="ev_singleValue">"any single value"</string>
 </resources>

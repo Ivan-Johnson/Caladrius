@@ -7,4 +7,11 @@
         <item>@string/item_bpm</item>
         <item>@string/item_steps</item>
     </string-array>
+    <string-array name="rss_conditions_extremevalue_boundarytype">
+        <item>@string/cmp_lt </item>
+        <item>@string/cmp_lte</item>
+        <item>@string/cmp_eq </item>
+        <item>@string/cmp_gt </item>
+        <item>@string/cmp_gte</item>
+    </string-array>
 </resources>

@@ -5,12 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.io.Serializable;
 
@@ -28,8 +27,10 @@ public class ExtremeValue<T extends Comparable & Serializable> extends Condition
     protected String stat;
     protected T value;
     protected extremeType type;
+    protected Context cntxt;
 
-    public ExtremeValue(String stat, T value, extremeType type) {
+    public ExtremeValue(Context cntxt, String stat, T value, extremeType type) {
+        this.cntxt = cntxt;
         this.stat = stat;
         this.value = value;
         this.type = type;
@@ -39,26 +40,30 @@ public class ExtremeValue<T extends Comparable & Serializable> extends Condition
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(stat);
+        sb.append(' ');
+        int tmp;
         switch (type) {
             case equal:
-                sb.append(" = ");
+                tmp = R.string.cmp_eq;
                 break;
             case lessThan:
-                sb.append(" < ");
+                tmp = R.string.cmp_lt;
                 break;
             case greaterThan:
-                sb.append(" > ");
+                tmp = R.string.cmp_gt;
                 break;
             case lessThanOrEqual:
-                sb.append(" <= ");
+                tmp = R.string.cmp_lte;
                 break;
             case greaterThanOrEqual:
-                sb.append(" >= ");
+                tmp = R.string.cmp_gte;
                 break;
             default:
                 throw new RuntimeException("Type \"" + type + "\" was not a valid extremeType as of the writing of this message");
         }
-        sb.append(" any single value");
+        sb.append(cntxt.getText(tmp));
+        sb.append(' ');
+        sb.append(cntxt.getText(R.string.ev_singleValue));
 
         return sb.toString();
     }
@@ -88,9 +93,14 @@ public class ExtremeValue<T extends Comparable & Serializable> extends Condition
             View rootView = inflater.inflate(R.layout.rss_condition_extremevalue_editor,
                     container, false);
 
-            TextView tv = rootView.findViewById(R.id.ev_helloworld);
-            tv.setText("This is the edit page for ExtremeValue conditions.\n" +
-                    "Its hash is "+this.ev.hashCode());
+            Spinner sp = rootView.findViewById(R.id.ev_type);
+            sp.setAdapter(
+                    ArrayAdapter.createFromResource(
+                            getContext(),
+                            R.array.rss_conditions_extremevalue_boundarytype,
+                            R.layout.spinner_item
+                    )
+            );
 
             return rootView;
         }
