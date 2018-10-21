@@ -1,9 +1,6 @@
 package edu.ua.cs.cs495.caladrius.caladrius.rss.conditions;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
