@@ -23,11 +23,11 @@ public class GraphActivity extends AppCompatActivity {
 
         final TextView queryInfoTextView = findViewById(R.id.queryInfo);
         queryInfoTextView.setText(
-                  "QueryInfo: MM-DD-YYYY" +
+                  "QueryInfo:" +
                 "\nStart date: "+startDate+
                 "\nEnd date  : "+endDate+
-                "\nItem_1      : "+item_1+
-                "\nItem_2      : "+item_2);
+                "\nItem_1     : "+item_1+
+                "\nItem_2     : "+item_2);
 
     }
 }
