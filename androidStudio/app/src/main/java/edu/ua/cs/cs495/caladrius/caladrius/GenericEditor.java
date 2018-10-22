@@ -1,5 +1,6 @@
 package edu.ua.cs.cs495.caladrius.caladrius;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -83,6 +84,16 @@ public abstract class GenericEditor extends AppCompatActivity {
         finish();
     }
 
+    protected CharSequence getConfirmationTitle(Context cntxt)
+    {
+        return cntxt.getText(R.string.editor_confirmation_defaulttitle);
+    }
+
+    protected CharSequence getConfirmationMessage(Context cntxt)
+    {
+        return cntxt.getText(R.string.editor_confirmation_defaultmessage);
+    }
+
     protected void onCancelClick()
     {
         if (!shouldConfirmCancel()) {
@@ -90,9 +101,8 @@ public abstract class GenericEditor extends AppCompatActivity {
         }
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setIcon(android.R.drawable.ic_dialog_alert);
-        //TODO use resources, not strings
-        adb.setTitle("Closing Editor");
-        adb.setMessage("Are you sure you want to discard unsaved changes?");
+        adb.setTitle(getConfirmationTitle(this));
+        adb.setMessage(getConfirmationMessage(this));
         adb.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

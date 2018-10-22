@@ -32,4 +32,7 @@
     <string name="cmp_gte">"≥"</string>
 
     <string name="ev_singleValue">"any single value"</string>
+
+    <string name="editor_confirmation_defaulttitle">"Closing Editor"</string>
+    <string name="editor_confirmation_defaultmessage">"Are you sure you want to discard unsaved changes?"</string>
 </resources>
