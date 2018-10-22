@@ -12,72 +12,74 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import edu.ua.cs.cs495.caladrius.caladrius.GenericEditor;
 import edu.ua.cs.cs495.caladrius.caladrius.R;
 import edu.ua.cs.cs495.caladrius.caladrius.rss.conditions.ConditionAdapter;
 
 public class FeedEditor extends Fragment
 {
-    public static class FeedEditorActivity extends GenericEditor
-    {
-        protected static final String EXTRA_FEED = "feed";
+	protected static final String ARG_FEED = "FeedEditor_feed";
+	private static final String LOGTAG = "FEED_EDITOR";
+	protected Feed f;
 
-        public static Intent newIntent(Context cntxt, Feed feed) {
-            Intent in = new Intent(cntxt, FeedEditorActivity.class);
-            in.putExtra(EXTRA_FEED, feed);
-            return in;
-        }
+	public static FeedEditor newInstance(Feed f)
+	{
+		FeedEditor fe = new FeedEditor();
 
-        @Override
-        protected Fragment makeFragment() {
-            Bundle bun = getIntent().getExtras();
-            if (bun != null) {
-                Feed f = (Feed) bun.getSerializable(EXTRA_FEED);
-                return newInstance(f);
-            } else {
-                return new FeedEditor();
-            }
-        }
-    }
+		Bundle b = new Bundle();
+		b.putSerializable(ARG_FEED, f);
 
-    private static final   String LOGTAG   = "FEED_EDITOR";
-    protected static final String ARG_FEED = "FeedEditor_feed";
-    protected Feed f;
+		fe.setArguments(b);
 
-    public static FeedEditor newInstance(Feed f)
-    {
-        FeedEditor fe = new FeedEditor();
+		return fe;
+	}
 
-        Bundle b = new Bundle();
-        b.putSerializable(ARG_FEED, f);
+	@Nullable
+	@Override
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+	{
+		Bundle args = getArguments();
+		f = (Feed) args.getSerializable(ARG_FEED);
+		if (f == null) {
+			throw new RuntimeException("FeedEditor must be provided with a feed to edit");
+		}
 
-        fe.setArguments(b);
+		View rootView = inflater.inflate(R.layout.rss_feed_edit, container, false);
+		TextView nm = rootView.findViewById(R.id.feedName);
+		nm.setText(f.name);
 
-        return fe;
-    }
+		ListView ll = rootView.findViewById(R.id.ConditionList);
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Bundle args = getArguments();
-        f = (Feed) args.getSerializable(ARG_FEED);
-        if(f == null) {
-            throw new RuntimeException("FeedEditor must be provided with a feed to edit");
-        }
+		FragmentManager fm = getActivity().getSupportFragmentManager();
+		ConditionAdapter adapter;
+		adapter = new ConditionAdapter(getContext(), f.conditions, fm);
 
-        View rootView = inflater.inflate(R.layout.rss_feed_edit, container, false);
-        TextView nm = rootView.findViewById(R.id.feedName);
-        nm.setText(f.name);
+		ll.setAdapter(adapter);
 
-        ListView ll = rootView.findViewById(R.id.ConditionList);
+		return rootView;
+	}
 
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        ConditionAdapter adapter;
-        adapter = new ConditionAdapter(getContext(), f.conditions, fm);
+	public static class FeedEditorActivity extends GenericEditor
+	{
+		protected static final String EXTRA_FEED = "feed";
 
-        ll.setAdapter(adapter);
+		public static Intent newIntent(Context cntxt, Feed feed)
+		{
+			Intent in = new Intent(cntxt, FeedEditorActivity.class);
+			in.putExtra(EXTRA_FEED, feed);
+			return in;
+		}
 
-        return rootView;
-    }
+		@Override
+		protected Fragment makeFragment()
+		{
+			Bundle bun = getIntent().getExtras();
+			if (bun != null) {
+				Feed f = (Feed) bun.getSerializable(EXTRA_FEED);
+				return newInstance(f);
+			} else {
+				return new FeedEditor();
+			}
+		}
+	}
 }

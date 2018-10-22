@@ -7,8 +7,8 @@ import java.io.Serializable;
 
 public abstract class Condition implements Serializable
 {
-    @Override
-    public abstract String toString();
+	@Override
+	public abstract String toString();
 
-    public abstract Intent makeEditorIntent(Context cntxt);
+	public abstract Intent makeEditorIntent(Context cntxt);
 }

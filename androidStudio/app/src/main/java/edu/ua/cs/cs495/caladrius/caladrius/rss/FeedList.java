@@ -7,36 +7,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
 import edu.ua.cs.cs495.caladrius.caladrius.R;
 
-public class FeedList extends Fragment {
+public class FeedList extends Fragment
+{
 
-    public FeedList() {
-        // Empty public constructor
-    }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.rss_feed_list, container, false);
+	public FeedList()
+	{
+		// Empty public constructor
+	}
 
-        ListView ll = rootView.findViewById(R.id.FeedList);
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				 Bundle savedInstanceState)
+	{
+		View rootView = inflater.inflate(R.layout.rss_feed_list, container, false);
 
-        final int len = 20;
-        Feed[] feeds = new Feed[len];
-        for (int c = 0; c < len; c++) {
-            feeds[c] = new Feed(
-                    "feed name #" + Integer.toString(c),
-                    "https://caladrius.ivanjohnson.net/feed/"+Integer.toString(c)
-            );
-        }
+		ListView ll = rootView.findViewById(R.id.FeedList);
 
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        FeedAdapter adapter;
-        adapter = new FeedAdapter(this.getContext(), feeds, fm);
+		final int len = 20;
+		Feed[] feeds = new Feed[len];
+		for (int c = 0; c < len; c++) {
+			feeds[c] = new Feed(
+				"feed name #" + Integer.toString(c),
+				"https://caladrius.ivanjohnson.net/feed/" + Integer.toString(c)
+			);
+		}
 
-        ll.setAdapter(adapter);
+		FragmentManager fm = getActivity().getSupportFragmentManager();
+		FeedAdapter adapter;
+		adapter = new FeedAdapter(this.getContext(), feeds, fm);
 
-        return rootView;
-    }
+		ll.setAdapter(adapter);
+
+		return rootView;
+	}
 }

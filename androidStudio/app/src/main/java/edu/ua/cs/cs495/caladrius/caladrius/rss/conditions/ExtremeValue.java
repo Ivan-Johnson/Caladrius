@@ -11,127 +11,133 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
-import java.io.Serializable;
-
 import edu.ua.cs.cs495.caladrius.caladrius.Caladrius;
 import edu.ua.cs.cs495.caladrius.caladrius.GenericEditor;
 import edu.ua.cs.cs495.caladrius.caladrius.R;
 
-public class ExtremeValue<T extends Comparable & Serializable> extends Condition {
-    public enum extremeType {
-        lessThan,
-        lessThanOrEqual,
-        equal,
-        greaterThan,
-        greaterThanOrEqual
-    }
+import java.io.Serializable;
 
-    protected String stat;
-    protected T value;
-    protected extremeType type;
+public class ExtremeValue<T extends Comparable & Serializable> extends Condition
+{
+	protected String stat;
+	protected T value;
+	protected extremeType type;
+	public ExtremeValue(String stat, T value, extremeType type)
+	{
+		this.stat = stat;
+		this.value = value;
+		this.type = type;
+	}
 
-    public ExtremeValue(String stat, T value, extremeType type) {
-        this.stat = stat;
-        this.value = value;
-        this.type = type;
-    }
+	@Override
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append(stat);
+		sb.append(' ');
+		int tmp;
+		switch (type) {
+			case equal:
+				tmp = R.string.cmp_eq;
+				break;
+			case lessThan:
+				tmp = R.string.cmp_lt;
+				break;
+			case greaterThan:
+				tmp = R.string.cmp_gt;
+				break;
+			case lessThanOrEqual:
+				tmp = R.string.cmp_lte;
+				break;
+			case greaterThanOrEqual:
+				tmp = R.string.cmp_gte;
+				break;
+			default:
+				throw new RuntimeException("Type \"" + type + "\" was not a valid extremeType as of the writing of this message");
+		}
+		Context cntxt = Caladrius.getContext();
+		sb.append(cntxt.getText(tmp));
+		sb.append(' ');
+		sb.append(cntxt.getText(R.string.ev_singleValue));
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(stat);
-        sb.append(' ');
-        int tmp;
-        switch (type) {
-            case equal:
-                tmp = R.string.cmp_eq;
-                break;
-            case lessThan:
-                tmp = R.string.cmp_lt;
-                break;
-            case greaterThan:
-                tmp = R.string.cmp_gt;
-                break;
-            case lessThanOrEqual:
-                tmp = R.string.cmp_lte;
-                break;
-            case greaterThanOrEqual:
-                tmp = R.string.cmp_gte;
-                break;
-            default:
-                throw new RuntimeException("Type \"" + type + "\" was not a valid extremeType as of the writing of this message");
-        }
-        Context cntxt = Caladrius.getContext();
-        sb.append(cntxt.getText(tmp));
-        sb.append(' ');
-        sb.append(cntxt.getText(R.string.ev_singleValue));
+		return sb.toString();
+	}
 
-        return sb.toString();
-    }
+	@Override
+	public Intent makeEditorIntent(Context cntxt)
+	{
+		return ExtremeValueEditorActivity.newIntent(cntxt, this);
+	}
 
-    public static class ExtremeValueEditor extends Fragment
-    {
-        protected static final String ARG_EXTREMEVALUE = "ExtremeValueEditor EXTREMEVALUE";
-        ExtremeValue ev;
+	public enum extremeType
+	{
+		lessThan,
+		lessThanOrEqual,
+		equal,
+		greaterThan,
+		greaterThanOrEqual
+	}
 
-        public static ExtremeValueEditor newInstance(ExtremeValue ev) {
-            Bundle args = new Bundle();
+	public static class ExtremeValueEditor extends Fragment
+	{
+		protected static final String ARG_EXTREMEVALUE = "ExtremeValueEditor EXTREMEVALUE";
+		ExtremeValue ev;
 
-            args.putSerializable(ARG_EXTREMEVALUE, ev);
+		public static ExtremeValueEditor newInstance(ExtremeValue ev)
+		{
+			Bundle args = new Bundle();
 
-            ExtremeValueEditor fragment = new ExtremeValueEditor();
-            fragment.setArguments(args);
-            return fragment;
-        }
+			args.putSerializable(ARG_EXTREMEVALUE, ev);
 
-        @Nullable
-        @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            Bundle b = getArguments();
-            this.ev = (ExtremeValue) b.getSerializable(ARG_EXTREMEVALUE);
+			ExtremeValueEditor fragment = new ExtremeValueEditor();
+			fragment.setArguments(args);
+			return fragment;
+		}
 
-            View rootView = inflater.inflate(R.layout.rss_condition_extremevalue_editor,
-                    container, false);
+		@Nullable
+		@Override
+		public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+		{
+			super.onCreate(savedInstanceState);
+			Bundle b = getArguments();
+			this.ev = (ExtremeValue) b.getSerializable(ARG_EXTREMEVALUE);
 
-            Spinner sp = rootView.findViewById(R.id.ev_type);
-            sp.setAdapter(
-                    ArrayAdapter.createFromResource(
-                            getContext(),
-                            R.array.rss_conditions_extremevalue_boundarytype,
-                            R.layout.spinner_item
-                    )
-            );
+			View rootView = inflater.inflate(R.layout.rss_condition_extremevalue_editor,
+				container, false);
 
-            return rootView;
-        }
-    }
+			Spinner sp = rootView.findViewById(R.id.ev_type);
+			sp.setAdapter(
+				ArrayAdapter.createFromResource(
+					getContext(),
+					R.array.rss_conditions_extremevalue_boundarytype,
+					R.layout.spinner_item
+				)
+			);
 
-    public static class ExtremeValueEditorActivity extends GenericEditor
-    {
-        protected static final String EXTRA_EV = "feed";
+			return rootView;
+		}
+	}
 
-        public static Intent newIntent(Context cntxt, ExtremeValue ev) {
-            Intent in = new Intent(cntxt, ExtremeValueEditorActivity.class);
-            in.putExtra(EXTRA_EV, ev);
-            return in;
-        }
+	public static class ExtremeValueEditorActivity extends GenericEditor
+	{
+		protected static final String EXTRA_EV = "feed";
 
-        @Override
-        protected Fragment makeFragment() {
-            Bundle bun = getIntent().getExtras();
-            ExtremeValue ev = null;
-            if (bun != null) {
-                ev = (ExtremeValue) bun.getSerializable(EXTRA_EV);
-            }
-            return ExtremeValueEditor.newInstance(ev);
-        }
-    }
+		public static Intent newIntent(Context cntxt, ExtremeValue ev)
+		{
+			Intent in = new Intent(cntxt, ExtremeValueEditorActivity.class);
+			in.putExtra(EXTRA_EV, ev);
+			return in;
+		}
 
-
-    @Override
-    public Intent makeEditorIntent(Context cntxt) {
-        return ExtremeValueEditorActivity.newIntent(cntxt, this);
-    }
+		@Override
+		protected Fragment makeFragment()
+		{
+			Bundle bun = getIntent().getExtras();
+			ExtremeValue ev = null;
+			if (bun != null) {
+				ev = (ExtremeValue) bun.getSerializable(EXTRA_EV);
+			}
+			return ExtremeValueEditor.newInstance(ev);
+		}
+	}
 }
