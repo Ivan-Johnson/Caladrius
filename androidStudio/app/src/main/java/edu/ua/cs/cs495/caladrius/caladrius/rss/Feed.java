@@ -3,7 +3,9 @@ package edu.ua.cs.cs495.caladrius.caladrius.rss;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
+import edu.ua.cs.cs495.caladrius.caladrius.FitBit;
 import edu.ua.cs.cs495.caladrius.caladrius.rss.conditions.Condition;
 import edu.ua.cs.cs495.caladrius.caladrius.rss.conditions.ExtremeValue;
 
@@ -36,12 +38,15 @@ public class Feed implements Serializable {
     {
         this(name, url, new ArrayList<Condition>());
 
-        // TODO: remove these
-        Condition c = new ExtremeValue<>("BPM",0, ExtremeValue.extremeType.lessThan);
-        this.conditions.add(0,c);
-        c = new ExtremeValue<>("Stepcount",100, ExtremeValue.extremeType.equal);
-        this.conditions.add(0,c);
-        c = new ExtremeValue<>("Weight",80, ExtremeValue.extremeType.greaterThanOrEqual);
-        this.conditions.add(0, c);
+        // TODO: don't add random conditions to new feeds
+        Random r = new Random();
+        String stats[] = FitBit.getValidStats();
+        int count = ExtremeValue.extremeType.values().length;
+        for (int x = 0; x < 100; x++) {
+            String stat = stats[r.nextInt(stats.length)];
+            ExtremeValue.extremeType type = ExtremeValue.extremeType.values()[r.nextInt(count)];
+            Condition c = new ExtremeValue<>(stat,r.nextDouble()*30+10, type);
+            this.conditions.add(c);
+        }
     }
 }
