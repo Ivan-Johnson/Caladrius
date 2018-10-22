@@ -3,6 +3,7 @@ package edu.ua.cs.cs495.caladrius.caladrius;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,8 @@ public class FitbitGraphView extends GraphView
     // Must have same number of elements as graphType list.
     ArrayList<String> statsToRetrieve;
 
+    ArrayList<Integer> seriesColors;
+
     // Supplied horizontalScroll Boolean enables/disables horizontal
     // scrolling through the graph
     Boolean horizontalScroll;
@@ -74,6 +77,7 @@ public class FitbitGraphView extends GraphView
     // Constructor
     public FitbitGraphView(final Context context, ArrayList<GraphViewGraph> graphType,
                            ArrayList<String> statsToRetrieve,
+                           ArrayList<Integer> seriesColors,
                            Boolean horizontalScroll, Boolean verticalScroll,
                            Boolean horizontalZoomAndScroll,
                            Boolean verticalZoomAndScroll) {
@@ -91,6 +95,7 @@ public class FitbitGraphView extends GraphView
 
         this.graphType = graphType;
         this.statsToRetrieve = statsToRetrieve;
+        this.seriesColors = seriesColors;
         this.horizontalScroll = horizontalScroll;
         this.verticalScroll = verticalScroll;
         this.horizontalZoomAndScroll = horizontalZoomAndScroll;
@@ -210,19 +215,10 @@ public class FitbitGraphView extends GraphView
                     // Some sort of loop creating DataPoint objects from
                     // whatever you want to plot, getting information from
                     // FitBit API.
-
-                    //* Delete first / to demo bug
                     new DataPoint(0.0, 2.0),
                     new DataPoint(0.5, 1.0),
                     new DataPoint(1.0, 1.5),
                     new DataPoint(1.5, 0.0),
-                    /*/
-                    new DataPoint(0.0, 2.0),
-                    new DataPoint(0.5, 1.0),
-                    new DataPoint(1.0, 1.5),
-                    new DataPoint(1.5, 0.0),
-                    //*/
-
                     // Use this.statsToRetrieve[i] to find out what we are
                     // plotting at this point in the loop. Send that
                     // string to the fitbit API.
@@ -234,22 +230,26 @@ public class FitbitGraphView extends GraphView
             }
 
             Series<DataPoint> series;
+            int c = seriesColors.get(i);
             // LineGraph
             if (this.graphType.get(i).equals(GraphViewGraph.LineGraph))
             {
                 series = new LineGraphSeries<>(points);
+                ((LineGraphSeries<DataPoint>) series).setColor(c);
             }
 
             // BarGraph
             else if (this.graphType.get(i).equals(GraphViewGraph.BarGraph))
             {
                 series = new BarGraphSeries<>(points);
+                ((BarGraphSeries<DataPoint>) series).setColor(c);
             }
 
             // PointsGraph
             else
             {
                 series = new PointsGraphSeries<>(points);
+                ((PointsGraphSeries<DataPoint>) series).setColor(c);
             }
 
             this.addSeries(series);

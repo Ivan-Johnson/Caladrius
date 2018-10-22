@@ -1,6 +1,7 @@
 package edu.ua.cs.cs495.caladrius.caladrius;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,13 +21,19 @@ public class MainFragment extends Fragment {
     public final GraphViewGraph[][] defaultGraphTypes = {
             {GraphViewGraph.BarGraph},
             {GraphViewGraph.PointsGraph},
-            {GraphViewGraph.LineGraph,GraphViewGraph.BarGraph},
+            {GraphViewGraph.BarGraph,GraphViewGraph.LineGraph},
     };
 
     public final String[][] defaultGraphStats = {
             {"Heartrate"},
             {"CaloricBurn"},
             {"BPM", "asdf"},
+    };
+
+    public final Integer[][] defaultGraphColors = {
+            {Color.CYAN},
+            {Color.RED},
+            {Color.GREEN, Color.GRAY},
     };
 
     @Override
@@ -44,9 +51,13 @@ public class MainFragment extends Fragment {
             ArrayList<String> stats = new ArrayList<>();
             stats.addAll(Arrays.asList(defaultGraphStats[c]));
 
+            ArrayList<Integer> color = new ArrayList<>();
+            color.addAll(Arrays.asList(defaultGraphColors[c]));
+
             FitbitGraphView fgv = new FitbitGraphView(getContext(),
                     graphTypes,
                     stats,
+                    color,
                     false,
                     false,
                     false,
