@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.BarGraphSeries;
@@ -95,6 +96,9 @@ public class FitbitGraphView extends GraphView
         this.verticalScroll = verticalScroll;
         this.horizontalZoomAndScroll = horizontalZoomAndScroll;
         this.verticalZoomAndScroll = verticalZoomAndScroll;
+
+        GridLabelRenderer glr = this.getGridLabelRenderer();
+        glr.setPadding(32);
 
         makeGraphViewGraph();
 
@@ -207,10 +211,10 @@ public class FitbitGraphView extends GraphView
                     // FitBit API.
 
                     //* Delete first / to demo bug
-                    new DataPoint(00, 20),
-                    new DataPoint(05, 10),
-                    new DataPoint(10, 15),
-                    new DataPoint(15, 00),
+                    new DataPoint(0.0, 2.0),
+                    new DataPoint(0.5, 1.0),
+                    new DataPoint(1.0, 1.5),
+                    new DataPoint(1.5, 0.0),
                     /*/
                     new DataPoint(0.0, 2.0),
                     new DataPoint(0.5, 1.0),
