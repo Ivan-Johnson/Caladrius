@@ -230,7 +230,15 @@ public class FitbitGraphView extends GraphView
             // BarGraph
             else if (this.graphType.get(i).equals(GraphViewGraph.BarGraph))
             {
-                series = new BarGraphSeries<>(points);
+                DataPoint points_bar[] = {
+                        new DataPoint(0.5, 0),
+                        new DataPoint(1.5, 2),
+                        new DataPoint(2.5, 1),
+                        new DataPoint(3.5, 4),
+                        new DataPoint(4.5, 3),
+                        new DataPoint(5.5, 5)
+                };
+                series = new BarGraphSeries<>(points_bar);
                 ((BarGraphSeries<DataPoint>) series).setColor(c);
             }
 
