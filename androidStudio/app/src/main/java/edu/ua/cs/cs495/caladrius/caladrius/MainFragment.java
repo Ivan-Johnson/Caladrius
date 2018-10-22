@@ -18,15 +18,15 @@ public class MainFragment extends Fragment {
     }
 
     public final GraphViewGraph[][] defaultGraphTypes = {
-            {GraphViewGraph.LineGraph},
             {GraphViewGraph.BarGraph},
             {GraphViewGraph.PointsGraph},
+            {GraphViewGraph.LineGraph,GraphViewGraph.BarGraph},
     };
 
     public final String[][] defaultGraphStats = {
-            {"BPM"},
             {"Heartrate"},
             {"CaloricBurn"},
+            {"BPM", "asdf"},
     };
 
     @Override
