@@ -79,7 +79,6 @@ public class FitbitGraphView extends GraphView
                            Boolean verticalZoomAndScroll) {
         super(context);
 
-
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
@@ -203,6 +202,8 @@ public class FitbitGraphView extends GraphView
 
     private void makeGraphViewGraph()
     {
+        double xMax = 0;
+        boolean hasPoints = false;
         for (int i=0; i<this.graphType.size(); i++)
         {
             DataPoint[] points = new DataPoint[] {
@@ -226,6 +227,11 @@ public class FitbitGraphView extends GraphView
                     // plotting at this point in the loop. Send that
                     // string to the fitbit API.
             };
+            if (points.length > 0) {
+                hasPoints = true;
+                double tmp = points[points.length - 1].getX();
+                xMax = xMax > tmp ? xMax : tmp;
+            }
 
             Series<DataPoint> series;
             // LineGraph
@@ -248,6 +254,10 @@ public class FitbitGraphView extends GraphView
 
             this.addSeries(series);
             scrollHandler(this);
+        }
+        if (hasPoints) {
+            getViewport().setMaxX(xMax);
+            getViewport().setXAxisBoundsManual(true);
         }
     }
 }
