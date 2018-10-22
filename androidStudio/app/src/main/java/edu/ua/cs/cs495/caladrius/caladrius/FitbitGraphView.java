@@ -131,6 +131,11 @@ public class FitbitGraphView extends GraphView
         return this.statsToRetrieve;
     }
 
+    public ArrayList<Integer> getSeriesColors()
+    {
+        return this.seriesColors;
+    }
+
     public Boolean getHorizontalScroll()
     {
         return this.horizontalScroll;
@@ -160,6 +165,11 @@ public class FitbitGraphView extends GraphView
     public void setStatsToRetrieve(ArrayList<String> sToRetrieve)
     {
         this.statsToRetrieve = sToRetrieve;
+    }
+
+    public void setSeriesColors(ArrayList<Integer> sColors)
+    {
+        this.seriesColors = sColors;
     }
 
     public void setHorizontalScroll(Boolean hScroll)
