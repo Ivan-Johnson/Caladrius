@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static junit.framework.Assert.*;
 
 public class FitBitTest {
@@ -38,5 +40,15 @@ public class FitBitTest {
             assertTrue(xOld <= xNew);
             xOld = xNew;
         }
+    }
+
+    @Test
+    public void getValidStats_isNewInstance()
+    {
+        String arr1[] = FitBit.getValidStats();
+        String arr2[] = FitBit.getValidStats();
+        assertTrue(Arrays.equals(arr1, arr2));
+        arr1[0] = "";
+        assertFalse(Arrays.equals(arr1, arr2));
     }
 }

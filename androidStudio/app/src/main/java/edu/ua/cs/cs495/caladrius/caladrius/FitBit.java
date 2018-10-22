@@ -5,10 +5,25 @@ import android.util.Log;
 import com.jjoe64.graphview.series.DataPoint;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
 
 public class FitBit {
+    static final String allValidStats[] = {
+            "BPM",
+            "Caloric intake",
+            "Steps",
+            "Weight"
+    };
+    /**
+     * @return new instance of an array listing all valid stats
+     */
+    public static String[] getValidStats()
+    {
+        return Arrays.copyOf(allValidStats, allValidStats.length);
+    }
+
     /**
      * @param stat ignored, for the moment
      * @return array of random points, sorted in ascending X order
