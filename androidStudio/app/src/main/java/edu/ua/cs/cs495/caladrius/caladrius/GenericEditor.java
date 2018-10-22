@@ -1,11 +1,13 @@
 package edu.ua.cs.cs495.caladrius.caladrius;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,6 +17,11 @@ import android.view.View;
 
 public abstract class GenericEditor extends AppCompatActivity {
     protected abstract Fragment makeFragment();
+
+    @Override
+    public void onBackPressed() {
+        onCancelClick();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,7 +36,7 @@ public abstract class GenericEditor extends AppCompatActivity {
         tb.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onCancelClick(view);
+                onCancelClick();
             }
         });
 
@@ -51,13 +58,29 @@ public abstract class GenericEditor extends AppCompatActivity {
         return true;
     }
 
-    protected void onCancelClick(View view) {
+    protected void onCancel()
+    {
+        // NOP; subclass might want to do something though.
+    }
+
+    protected void onCancelClick() {
         //TODO add check to confirm that it was the cancel button that was clicked
         //TODO call abstract wasChanged function
-        //TODO prompt user for confirmation
         //TODO call abstract cancel function?
-        Log.i("TMP", "Totally just clicked the cancel button?");
-        finish();
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setIcon(android.R.drawable.ic_dialog_alert);
+        //TODO use resources, not strings
+        adb.setTitle("Closing Editor");
+        adb.setMessage("Are you sure you want to discard unsaved changes?");
+        adb.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                onCancel();
+                finish();
+            }
+        });
+        adb.setNegativeButton(android.R.string.no, null);
+        adb.show();
     }
 
     @Override
