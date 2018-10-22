@@ -9,6 +9,10 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class FitBit {
+    /**
+     * @param stat ignored, for the moment
+     * @return array of random points, sorted in ascending X order
+     */
     public static DataPoint[] getPoints(String stat)
     {
         Random r = new Random();
