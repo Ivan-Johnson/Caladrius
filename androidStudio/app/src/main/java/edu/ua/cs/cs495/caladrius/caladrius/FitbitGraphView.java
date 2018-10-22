@@ -238,6 +238,7 @@ public class FitbitGraphView extends GraphView
                         new DataPoint(4.5, 3),
                         new DataPoint(5.5, 5)
                 };
+                xMax = 6;
                 series = new BarGraphSeries<>(points_bar);
                 ((BarGraphSeries<DataPoint>) series).setColor(c);
             }
@@ -253,8 +254,9 @@ public class FitbitGraphView extends GraphView
             scrollHandler(this);
         }
         if (hasPoints) {
-            getViewport().setMaxX(xMax);
             getViewport().setXAxisBoundsManual(true);
+            getViewport().setMinX(0); //TODO find min x
+            getViewport().setMaxX(xMax);
         }
     }
 }
