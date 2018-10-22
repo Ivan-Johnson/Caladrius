@@ -10,6 +10,7 @@
 # trivial.
 
 build.bash
+**/__pycache__
 
 # Misc
 .DS_Store

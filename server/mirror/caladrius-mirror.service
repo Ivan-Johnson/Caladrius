@@ -1,0 +1,11 @@
+[Unit]
+Description=Mirror my github to other github
+
+[Service]
+ExecStart=/caladrius/server/mirror/push_github.bash
+Type=oneshot
+User=i
+Group=i
+
+[Install]
+WantedBy=multi-user.target

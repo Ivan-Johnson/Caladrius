@@ -1,0 +1,12 @@
+incoming https requests
+           |
+-----------|----------- nftables firewall
+           |
+           V
+         nginx
+         |   |
+         V   V
+     uwsgi   static files
+       |
+       V
+    python
