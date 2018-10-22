@@ -19,12 +19,14 @@ public abstract class GenericEditor extends AppCompatActivity {
     protected abstract Fragment makeFragment();
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         onCancelClick();
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
@@ -52,7 +54,8 @@ public abstract class GenericEditor extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.editor_menu, menu);
         return true;
@@ -63,10 +66,28 @@ public abstract class GenericEditor extends AppCompatActivity {
         // NOP; subclass might want to do something though.
     }
 
-    protected void onCancelClick() {
-        //TODO add check to confirm that it was the cancel button that was clicked
-        //TODO call abstract wasChanged function
-        //TODO call abstract cancel function?
+    /**
+     * Determines whether or not the user will be asked for confirmation before navigating
+     * away without saving.
+     *
+     * @return false if the user should be forced to confirm their intentions before navigating away
+     */
+    protected boolean shouldConfirmCancel()
+    {
+        return true;
+    }
+
+    private void cancel()
+    {
+        onCancel();
+        finish();
+    }
+
+    protected void onCancelClick()
+    {
+        if (!shouldConfirmCancel()) {
+            cancel();
+        }
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setIcon(android.R.drawable.ic_dialog_alert);
         //TODO use resources, not strings
@@ -75,8 +96,7 @@ public abstract class GenericEditor extends AppCompatActivity {
         adb.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                onCancel();
-                finish();
+                cancel();
             }
         });
         adb.setNegativeButton(android.R.string.no, null);
@@ -84,7 +104,8 @@ public abstract class GenericEditor extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         switch (item.getItemId()) {
             case R.id.editor_save:
                 //TODO call abstract save function
