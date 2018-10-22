@@ -13,13 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import edu.ua.cs.cs495.caladrius.caladrius.GenericEditor;
 import edu.ua.cs.cs495.caladrius.caladrius.R;
-import edu.ua.cs.cs495.caladrius.caladrius.SingleFragmentActivity;
 import edu.ua.cs.cs495.caladrius.caladrius.rss.conditions.ConditionAdapter;
 
 public class FeedEditor extends Fragment
 {
-    public static class FeedEditorActivity extends SingleFragmentActivity
+    public static class FeedEditorActivity extends GenericEditor
     {
         protected static final String EXTRA_FEED = "feed";
 

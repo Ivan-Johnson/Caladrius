@@ -1,6 +1,7 @@
 package edu.ua.cs.cs495.caladrius.caladrius.rss.conditions;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
@@ -49,8 +50,8 @@ public class ConditionAdapter extends BaseAdapter {
 
         view.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final DialogFragment fbDialogue = conditions.get(i).makeEditor();
-                fbDialogue.show(fm, OUR_TAG);
+                Intent intent = conditions.get(i).makeEditorIntent(c);
+                c.startActivity(intent);
             }
         });
 

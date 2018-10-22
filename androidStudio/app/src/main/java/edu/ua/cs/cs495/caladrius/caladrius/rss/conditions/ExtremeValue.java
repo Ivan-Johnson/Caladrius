@@ -1,11 +1,11 @@
 package edu.ua.cs.cs495.caladrius.caladrius.rss.conditions;
 
 import android.content.Context;
-import android.content.res.Resources;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import java.io.Serializable;
 
 import edu.ua.cs.cs495.caladrius.caladrius.Caladrius;
+import edu.ua.cs.cs495.caladrius.caladrius.GenericEditor;
 import edu.ua.cs.cs495.caladrius.caladrius.R;
 
 public class ExtremeValue<T extends Comparable & Serializable> extends Condition {
@@ -69,7 +70,7 @@ public class ExtremeValue<T extends Comparable & Serializable> extends Condition
         return sb.toString();
     }
 
-    public static class ExtremeValueEditor extends DialogFragment
+    public static class ExtremeValueEditor extends Fragment
     {
         protected static final String ARG_EXTREMEVALUE = "ExtremeValueEditor EXTREMEVALUE";
         ExtremeValue ev;
@@ -107,8 +108,30 @@ public class ExtremeValue<T extends Comparable & Serializable> extends Condition
         }
     }
 
+    public static class ExtremeValueEditorActivity extends GenericEditor
+    {
+        protected static final String EXTRA_EV = "feed";
+
+        public static Intent newIntent(Context cntxt, ExtremeValue ev) {
+            Intent in = new Intent(cntxt, ExtremeValueEditorActivity.class);
+            in.putExtra(EXTRA_EV, ev);
+            return in;
+        }
+
+        @Override
+        protected Fragment makeFragment() {
+            Bundle bun = getIntent().getExtras();
+            ExtremeValue ev = null;
+            if (bun != null) {
+                ev = (ExtremeValue) bun.getSerializable(EXTRA_EV);
+            }
+            return ExtremeValueEditor.newInstance(ev);
+        }
+    }
+
+
     @Override
-    public DialogFragment makeEditor() {
-        return ExtremeValueEditor.newInstance(this);
+    public Intent makeEditorIntent(Context cntxt) {
+        return ExtremeValueEditorActivity.newIntent(cntxt, this);
     }
 }
