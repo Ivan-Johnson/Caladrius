@@ -21,18 +21,21 @@ public class MainFragment extends Fragment {
     public final GraphViewGraph[][] defaultGraphTypes = {
             {GraphViewGraph.BarGraph},
             {GraphViewGraph.PointsGraph},
+            {GraphViewGraph.PointsGraph},
             {GraphViewGraph.BarGraph,GraphViewGraph.LineGraph},
     };
 
     public final String[][] defaultGraphStats = {
             {"Heartrate"},
             {"CaloricBurn"},
+            {"CaloASDF"},
             {"BPM", "asdf"},
     };
 
     public final Integer[][] defaultGraphColors = {
             {Color.CYAN},
             {Color.RED},
+            {Color.BLUE},
             {Color.GREEN, Color.GRAY},
     };
 

@@ -211,18 +211,7 @@ public class FitbitGraphView extends GraphView
         boolean hasPoints = false;
         for (int i=0; i<this.graphType.size(); i++)
         {
-            DataPoint[] points = new DataPoint[] {
-                    // Some sort of loop creating DataPoint objects from
-                    // whatever you want to plot, getting information from
-                    // FitBit API.
-                    new DataPoint(0.0, 2.0),
-                    new DataPoint(0.5, 1.0),
-                    new DataPoint(1.0, 1.5),
-                    new DataPoint(1.5, 0.0),
-                    // Use this.statsToRetrieve[i] to find out what we are
-                    // plotting at this point in the loop. Send that
-                    // string to the fitbit API.
-            };
+            DataPoint[] points = FitBit.getPoints(statsToRetrieve.get(i));
             if (points.length > 0) {
                 hasPoints = true;
                 double tmp = points[points.length - 1].getX();
