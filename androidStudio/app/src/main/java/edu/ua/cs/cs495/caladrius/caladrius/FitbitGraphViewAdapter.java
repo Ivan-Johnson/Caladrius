@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class FitbitGraphViewAdapter extends BaseAdapter {
     FitbitGraphView fgv[];
 
-    public FitbitGraphViewAdapter(Context cntxt, GraphViewGraph[][] graphTypes, String[][] defaultGraphStats, Integer[][] defaultGraphColors) {
+    public FitbitGraphViewAdapter(Context cntxt, FitbitGraphView.GraphViewGraph[][] graphTypes, String[][] defaultGraphStats, Integer[][] defaultGraphColors) {
         // TODO change the constructor to take fgv configs as an argument instead of the three 2D arrays
         int len = graphTypes.length;
         if (len != defaultGraphStats.length ||
@@ -21,7 +21,7 @@ public class FitbitGraphViewAdapter extends BaseAdapter {
 
         fgv = new FitbitGraphView[len];
         for (int c = 0; c < len; c++) {
-            ArrayList<GraphViewGraph> types = new ArrayList<>();
+            ArrayList<FitbitGraphView.GraphViewGraph> types = new ArrayList<>();
             types.addAll(Arrays.asList(graphTypes[c]));
 
             ArrayList<String> stats = new ArrayList<>();

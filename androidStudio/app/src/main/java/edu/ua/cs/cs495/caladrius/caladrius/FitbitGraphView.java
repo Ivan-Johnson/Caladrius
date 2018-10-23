@@ -20,13 +20,13 @@ import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.series.Series;
 import edu.ua.cs.cs495.caladrius.fitbit.FitBit;
 
-enum GraphViewGraph
-{
-    LineGraph, BarGraph, PointsGraph;
-}
-
 public class FitbitGraphView extends GraphView
 {
+    public enum GraphViewGraph
+    {
+        LineGraph, BarGraph, PointsGraph
+    }
+
     // Instance Variables
 
     // Supplied graphType array list needs to be one of three enums,

@@ -18,11 +18,11 @@ public class MainFragment extends Fragment {
         // Empty public constructor
     }
 
-    public final GraphViewGraph[][] defaultGraphTypes = {
-            {GraphViewGraph.BarGraph},
-            {GraphViewGraph.PointsGraph},
-            {GraphViewGraph.PointsGraph},
-            {GraphViewGraph.BarGraph,GraphViewGraph.LineGraph},
+    public final FitbitGraphView.GraphViewGraph[][] defaultGraphTypes = {
+            {FitbitGraphView.GraphViewGraph.BarGraph},
+            {FitbitGraphView.GraphViewGraph.PointsGraph},
+            {FitbitGraphView.GraphViewGraph.PointsGraph},
+            {FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph},
     };
 
     public final String[][] defaultGraphStats = {
@@ -48,7 +48,7 @@ public class MainFragment extends Fragment {
         LinearLayout ll = rootView.findViewById(R.id.list);
         assert defaultGraphStats.length == defaultGraphTypes.length;
         for (int c = defaultGraphStats.length - 1; c >= 0; c--) {
-            ArrayList<GraphViewGraph> graphTypes = new ArrayList<>();
+            ArrayList<FitbitGraphView.GraphViewGraph> graphTypes = new ArrayList<>();
             graphTypes.addAll(Arrays.asList(defaultGraphTypes[c]));
 
             ArrayList<String> stats = new ArrayList<>();
