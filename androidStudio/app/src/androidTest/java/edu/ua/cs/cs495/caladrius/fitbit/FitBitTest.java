@@ -1,7 +1,5 @@
 package edu.ua.cs.cs495.caladrius.fitbit;
 
-import com.jjoe64.graphview.series.DataPoint;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +10,7 @@ import static junit.framework.Assert.*;
 
 public class FitBitTest {
     //TODO create a FitBit account specifically for testing
-    DataPoint points[];
+    FitBit.Point points[];
 
     @Before
     public void setUp()

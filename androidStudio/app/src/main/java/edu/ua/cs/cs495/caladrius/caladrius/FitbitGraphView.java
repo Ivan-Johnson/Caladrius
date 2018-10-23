@@ -214,13 +214,31 @@ public class FitbitGraphView extends GraphView
         }
     }
 
+    private static final DataPoint dpFromPoint(FitBit.Point point)
+    {
+        if(point.isXDate()) {
+            return new DataPoint(point.getXAsDate(), point.getY());
+        } else {
+            return new DataPoint(point.getX(), point.getY());
+        }
+    }
+
+    protected static final DataPoint[] dpsFromPoints(FitBit.Point points[])
+    {
+        DataPoint dps[] = new DataPoint[points.length];
+        for (int c = 0; c < points.length; c++) {
+            dps[c] = dpFromPoint(points[c]);
+        }
+        return dps;
+    }
+
     private void makeGraphViewGraph()
     {
         double xMax = 0;
         boolean hasPoints = false;
-        for (int i=0; i<this.graphType.size(); i++)
+        for (int i = 0; i < this.graphType.size(); i++)
         {
-            DataPoint[] points = FitBit.getPoints(statsToRetrieve.get(i));
+            DataPoint[] points = dpsFromPoints(FitBit.getPoints(statsToRetrieve.get(i)));
             if (points.length > 0) {
                 hasPoints = true;
                 double tmp = points[points.length - 1].getX();
