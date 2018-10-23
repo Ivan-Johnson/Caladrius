@@ -31,6 +31,6 @@
         <activity android:name=".Calender" />
         <activity android:name=".Edit" />
         <activity android:name=".rss.FeedEditor$FeedEditorActivity" />
-        <activity android:name=".rss.conditions.ExtremeValue$ExtremeValueEditorActivity" />
+        <activity android:name=".rss.conditions.ExtremeValueEditor$ExtremeValueEditorActivity" />
     </application>
 </manifest>

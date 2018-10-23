@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import edu.ua.cs.cs495.caladrius.caladrius.R;
+import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 
 import java.util.ArrayList;
 
@@ -54,13 +55,13 @@ public class ConditionAdapter extends BaseAdapter
 			view = inflater.inflate(R.layout.rss_feed_item, null);
 		}
 		TextView text = view.findViewById(R.id.name);
-		text.setText(conditions.get(i).toString());
+		text.setText(ConditionDescriber.describe(conditions.get(i)));
 
 		view.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View v)
 			{
-				Intent intent = conditions.get(i).makeEditorIntent(c);
+				Intent intent = ConditionEditor.makeEditIntent(c, conditions.get(i));
 				c.startActivity(intent);
 			}
 		});

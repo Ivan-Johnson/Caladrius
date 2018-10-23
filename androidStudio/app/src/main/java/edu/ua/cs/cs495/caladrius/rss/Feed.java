@@ -1,8 +1,8 @@
-package edu.ua.cs.cs495.caladrius.caladrius.rss;
+package edu.ua.cs.cs495.caladrius.rss;
 
 import edu.ua.cs.cs495.caladrius.fitbit.FitBit;
-import edu.ua.cs.cs495.caladrius.caladrius.rss.conditions.Condition;
-import edu.ua.cs.cs495.caladrius.caladrius.rss.conditions.ExtremeValue;
+import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
+import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import java.util.Random;
 
 public class Feed implements Serializable
 {
-	String name;
-	String url;
-	ArrayList<Condition> conditions;
+	public String name;
+	public String url;
+	public ArrayList<Condition> conditions;
 
 	public Feed(String name, String url, ArrayList<Condition> conditions)
 	{
@@ -41,6 +41,7 @@ public class Feed implements Serializable
 
 		// TODO: don't add random conditions to new feeds
 		Random r = new Random();
+
 		String stats[] = FitBit.getValidStats();
 		int count = ExtremeValue.extremeType.values().length;
 		for (int x = 0; x < 100; x++) {

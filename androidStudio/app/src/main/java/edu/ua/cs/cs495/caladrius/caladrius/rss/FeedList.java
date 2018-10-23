@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import edu.ua.cs.cs495.caladrius.caladrius.R;
+import edu.ua.cs.cs495.caladrius.rss.Feed;
 
 public class FeedList extends Fragment
 {

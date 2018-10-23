@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import edu.ua.cs.cs495.caladrius.caladrius.R;
+import edu.ua.cs.cs495.caladrius.rss.Feed;
 
 public class FeedAdapter extends BaseAdapter
 {

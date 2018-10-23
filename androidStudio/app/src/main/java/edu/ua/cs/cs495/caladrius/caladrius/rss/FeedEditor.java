@@ -15,6 +15,7 @@ import android.widget.TextView;
 import edu.ua.cs.cs495.caladrius.caladrius.GenericEditor;
 import edu.ua.cs.cs495.caladrius.caladrius.R;
 import edu.ua.cs.cs495.caladrius.caladrius.rss.conditions.ConditionAdapter;
+import edu.ua.cs.cs495.caladrius.rss.Feed;
 
 public class FeedEditor extends Fragment
 {
