@@ -28,6 +28,10 @@ public class ConditionDescriber
 	public static String describeExtreme(ExtremeValue ev)
 	{
 		StringBuilder sb = new StringBuilder();
+		Context cntxt = Caladrius.getContext();
+		//TODO have this be a parameterized R.string.foo? That's a thing right?
+		sb.append(cntxt.getText(R.string.ev_singleValue));
+		sb.append(' ');
 		sb.append(ev.getStat());
 		sb.append(' ');
 		int tmp;
@@ -50,10 +54,9 @@ public class ConditionDescriber
 			default:
 				throw new RuntimeException("Type \"" + ev.getType() + "\" was not a valid extremeType as of the writing of this message");
 		}
-		Context cntxt = Caladrius.getContext();
 		sb.append(cntxt.getText(tmp));
 		sb.append(' ');
-		sb.append(cntxt.getText(R.string.ev_singleValue));
+		sb.append(ev.getValueString());
 
 		return sb.toString();
 	}
