@@ -1,7 +1,5 @@
 package edu.ua.cs.cs495.caladrius.fitbit;
 
-import android.util.Log;
-
 import com.jjoe64.graphview.series.DataPoint;
 
 import java.util.ArrayList;
@@ -37,7 +35,6 @@ public class FitBit {
             DataPoint dp = new DataPoint(r.nextDouble() * 10, r.nextDouble() * 10);
             points.add(dp);
         }
-        Log.i("YOLO", "Adding " + numPoints + " points.");
         DataPoint tmp[] = {};
         points.sort(new Comparator<DataPoint>() {
             @Override
