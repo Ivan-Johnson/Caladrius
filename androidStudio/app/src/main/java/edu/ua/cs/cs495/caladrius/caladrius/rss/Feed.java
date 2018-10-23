@@ -1,6 +1,6 @@
 package edu.ua.cs.cs495.caladrius.caladrius.rss;
 
-import edu.ua.cs.cs495.caladrius.caladrius.FitBit;
+import edu.ua.cs.cs495.caladrius.fitbit.FitBit;
 import edu.ua.cs.cs495.caladrius.caladrius.rss.conditions.Condition;
 import edu.ua.cs.cs495.caladrius.caladrius.rss.conditions.ExtremeValue;
 

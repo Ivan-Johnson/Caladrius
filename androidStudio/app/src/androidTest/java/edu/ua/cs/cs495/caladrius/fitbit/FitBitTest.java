@@ -1,4 +1,4 @@
-package edu.ua.cs.cs495.caladrius.caladrius;
+package edu.ua.cs.cs495.caladrius.fitbit;
 
 import com.jjoe64.graphview.series.DataPoint;
 
