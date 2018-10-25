@@ -12,7 +12,7 @@ public class FitbitGraphViewAdapter extends BaseAdapter {
     FitbitGraphView fgv[];
 
     public FitbitGraphViewAdapter(Context cntxt, FitbitGraphView.GraphViewGraph[][] graphTypes, String[][] defaultGraphStats, Integer[][] defaultGraphColors) {
-        // TODO change the constructor to take fgv configs as an argument instead of the three 2D arrays
+        // TODO change the constructor to take "Query" objects as an argument instead of the three 2D arrays
         int len = graphTypes.length;
         if (len != defaultGraphStats.length ||
                 len != defaultGraphColors.length) {

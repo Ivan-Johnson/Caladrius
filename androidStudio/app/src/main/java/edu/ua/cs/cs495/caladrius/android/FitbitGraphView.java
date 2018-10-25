@@ -81,6 +81,7 @@ public class FitbitGraphView extends GraphView
                            Boolean horizontalZoomAndScroll,
                            Boolean verticalZoomAndScroll) {
         super(context);
+        //TODO Ivan thinks that all these arguments (except for Context) should be wrapped in a Query object
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
