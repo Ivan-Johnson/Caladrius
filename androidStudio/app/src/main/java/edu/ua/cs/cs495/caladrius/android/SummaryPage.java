@@ -13,8 +13,8 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainFragment extends Fragment {
-    public MainFragment() {
+public class SummaryPage extends Fragment {
+    public SummaryPage() {
         // Empty public constructor
     }
 

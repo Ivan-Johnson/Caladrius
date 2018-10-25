@@ -19,7 +19,7 @@ public class CaladriusFragmentAdapter extends FragmentPagerAdapter{
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new MainFragment();
+            return new SummaryPage();
         } else {
             return new FeedList();
         }
