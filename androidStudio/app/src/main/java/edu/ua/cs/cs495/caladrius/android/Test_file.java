@@ -1,4 +1,4 @@
-package edu.ua.cs.cs495.caladrius.caladrius;
+package edu.ua.cs.cs495.caladrius.android;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;

@@ -1,11 +1,11 @@
-package edu.ua.cs.cs495.caladrius.caladrius;
+package edu.ua.cs.cs495.caladrius.android;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import edu.ua.cs.cs495.caladrius.caladrius.rss.FeedList;
+import edu.ua.cs.cs495.caladrius.android.rss.FeedList;
 
 public class CaladriusFragmentAdapter extends FragmentPagerAdapter{
     final int PAGE_COUNT = 2;

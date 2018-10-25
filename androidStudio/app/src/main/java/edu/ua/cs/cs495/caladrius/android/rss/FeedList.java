@@ -1,4 +1,4 @@
-package edu.ua.cs.cs495.caladrius.caladrius.rss;
+package edu.ua.cs.cs495.caladrius.android.rss;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import edu.ua.cs.cs495.caladrius.caladrius.R;
+import edu.ua.cs.cs495.caladrius.android.R;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
 
 public class FeedList extends Fragment

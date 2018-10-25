@@ -1,9 +1,9 @@
-package edu.ua.cs.cs495.caladrius.caladrius.rss.conditions;
+package edu.ua.cs.cs495.caladrius.android.rss.conditions;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import edu.ua.cs.cs495.caladrius.caladrius.Caladrius;
-import edu.ua.cs.cs495.caladrius.caladrius.R;
+import edu.ua.cs.cs495.caladrius.android.Caladrius;
+import edu.ua.cs.cs495.caladrius.android.R;
 import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 

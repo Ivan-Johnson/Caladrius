@@ -1,4 +1,4 @@
-package edu.ua.cs.cs495.caladrius.caladrius.rss.conditions;
+package edu.ua.cs.cs495.caladrius.android.rss.conditions;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import edu.ua.cs.cs495.caladrius.caladrius.GenericEditor;
-import edu.ua.cs.cs495.caladrius.caladrius.R;
+import edu.ua.cs.cs495.caladrius.android.GenericEditor;
+import edu.ua.cs.cs495.caladrius.android.R;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 
 public class ExtremeValueEditor extends Fragment

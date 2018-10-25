@@ -1,4 +1,4 @@
-package edu.ua.cs.cs495.caladrius.caladrius;
+package edu.ua.cs.cs495.caladrius.android;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

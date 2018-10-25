@@ -1,4 +1,4 @@
-package edu.ua.cs.cs495.caladrius.caladrius.rss.conditions;
+package edu.ua.cs.cs495.caladrius.android.rss.conditions;
 
 import android.content.Context;
 import android.content.Intent;
