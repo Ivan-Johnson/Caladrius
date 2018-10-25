@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class Calender extends AppCompatActivity{
+public class QueryEditor extends AppCompatActivity{
 
     private static final String TAG = "CalenderActivity";
 

@@ -1,6 +1,5 @@
 package edu.ua.cs.cs495.caladrius.android;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class MainScreen extends AppCompatActivity {
 
@@ -50,7 +48,7 @@ public class MainScreen extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.calender:
                 Intent calenderIntent = new Intent(this,
-                        Calender.class);
+                        QueryEditor.class);
                 startActivity(calenderIntent);
                 return true;
             case R.id.edit:

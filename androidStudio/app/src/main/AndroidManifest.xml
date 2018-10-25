@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AllData" />
-        <activity android:name=".Calender" />
+        <activity android:name=".QueryEditor" />
         <activity android:name=".Edit" />
         <activity android:name=".rss.FeedEditor$FeedEditorActivity" />
         <activity android:name=".rss.conditions.ExtremeValueEditor$ExtremeValueEditorActivity" />
