@@ -7,11 +7,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import edu.ua.cs.cs495.caladrius.android.rss.FeedList;
 
-public class CaladriusFragmentAdapter extends FragmentPagerAdapter{
+public class PagerAdapter extends FragmentPagerAdapter{
     final int PAGE_COUNT = 2;
     protected Context mContext;
 
-    public CaladriusFragmentAdapter(Context context, FragmentManager fm) {
+    public PagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
     }

@@ -22,8 +22,8 @@ public class MainScreen extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.home_toolbar);
         setSupportActionBar(toolbar);
 
-        CaladriusFragmentAdapter adapter =
-                new CaladriusFragmentAdapter(this, getSupportFragmentManager());
+        PagerAdapter adapter =
+                new PagerAdapter(this, getSupportFragmentManager());
 
         // Set the adapter onto the view pager
         viewPager.setAdapter(adapter);
