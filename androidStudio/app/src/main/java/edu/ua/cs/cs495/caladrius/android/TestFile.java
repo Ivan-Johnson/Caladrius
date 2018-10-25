@@ -10,7 +10,7 @@ import java.util.List;
 
 // This file just use for testing code
 
-public class Test_file {
+public class TestFile {
 
     public static void main(String[] args) {
 //        System.out.println("Hello, this is Java");
