@@ -108,7 +108,7 @@ public class FitbitGraphView extends GraphView
         // Navigate to the split graph/data view
         this.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent submitPage = new Intent (context, GraphActivity.class);
+                Intent submitPage = new Intent (context, QueryActivity.class);
                 submitPage.putExtra("startDate", "N/A");
                 submitPage.putExtra("endDate", "N/A");
                 submitPage.putExtra("item_1", "N/A");

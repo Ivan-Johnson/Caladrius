@@ -16,11 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DateFormatSymbols;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 
@@ -115,7 +112,7 @@ public class QueryEditor extends AppCompatActivity{
         submitBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent submitPage = new Intent (v.getContext(), GraphActivity.class);
+                Intent submitPage = new Intent (v.getContext(), QueryActivity.class);
                 submitPage.putExtra("startDate", mStartDate);
                 submitPage.putExtra("endDate", mEndDate);
                 submitPage.putExtra("item_1", mItem_1);

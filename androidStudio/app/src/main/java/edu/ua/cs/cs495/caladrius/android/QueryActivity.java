@@ -6,9 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class GraphActivity extends AppCompatActivity {
-
-    @SuppressLint("SetTextI18n")
+public class QueryActivity extends AppCompatActivity {
+    @SuppressLint("SetTextI18n") //TODO delete this suppression once placeholder text is removed
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
