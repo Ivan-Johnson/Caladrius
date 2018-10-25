@@ -53,7 +53,7 @@ public class MainScreen extends AppCompatActivity {
                 return true;
             case R.id.edit:
                 Intent editIntent = new Intent(this,
-                        Edit.class);
+                        SummaryPageEditor.class);
                 startActivity(editIntent);
                 return true;
             default:

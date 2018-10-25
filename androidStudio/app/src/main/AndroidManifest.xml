@@ -28,7 +28,7 @@
         </activity>
         <activity android:name=".AllData" />
         <activity android:name=".QueryEditor" />
-        <activity android:name=".Edit" />
+        <activity android:name=".SummaryPageEditor" />
         <activity android:name=".rss.FeedEditor$FeedEditorActivity" />
         <activity android:name=".rss.conditions.ExtremeValueEditor$ExtremeValueEditorActivity" />
     </application>
