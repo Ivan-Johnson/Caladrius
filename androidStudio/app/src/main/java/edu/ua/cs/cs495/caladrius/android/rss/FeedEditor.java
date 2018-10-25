@@ -1,4 +1,4 @@
-package edu.ua.cs.cs495.caladrius.caladrius.rss;
+package edu.ua.cs.cs495.caladrius.android.rss;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-import edu.ua.cs.cs495.caladrius.caladrius.GenericEditor;
-import edu.ua.cs.cs495.caladrius.caladrius.R;
-import edu.ua.cs.cs495.caladrius.caladrius.rss.conditions.ConditionAdapter;
+import edu.ua.cs.cs495.caladrius.android.GenericEditor;
+import edu.ua.cs.cs495.caladrius.android.R;
+import edu.ua.cs.cs495.caladrius.android.rss.conditions.ConditionAdapter;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
 
 public class FeedEditor extends Fragment
@@ -37,7 +37,9 @@ public class FeedEditor extends Fragment
 
 	@Nullable
 	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+	public View onCreateView(@NonNull LayoutInflater inflater,
+	                         @Nullable ViewGroup container,
+	                         @Nullable Bundle savedInstanceState)
 	{
 		Bundle args = getArguments();
 		f = (Feed) args.getSerializable(ARG_FEED);

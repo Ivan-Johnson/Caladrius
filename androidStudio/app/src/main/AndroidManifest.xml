@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.ua.cs.cs495.caladrius.caladrius">
+    package="edu.ua.cs.cs495.caladrius.android">
 
     <application
         android:allowBackup="true"
@@ -11,25 +11,24 @@
         android:name=".Caladrius"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".QueryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_graph"
+            android:theme="@style/FullscreenTheme" />
+
+        <activity android:name=".MainScreen"/>
+
+        <activity android:name=".LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".GraphActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_graph"
-            android:theme="@style/FullscreenTheme" />
-
-        <activity android:name=".MainScreen"></activity>
-        <activity android:name=".LoginScreen"></activity>
         <activity android:name=".AllData" />
-        <activity android:name=".Calender" />
-        <activity android:name=".Edit" />
+        <activity android:name=".QueryEditor" />
+        <activity android:name=".SummaryPageEditor" />
         <activity android:name=".rss.FeedEditor$FeedEditorActivity" />
         <activity android:name=".rss.conditions.ExtremeValueEditor$ExtremeValueEditorActivity" />
     </application>

@@ -1,4 +1,4 @@
-package edu.ua.cs.cs495.caladrius.caladrius.rss;
+package edu.ua.cs.cs495.caladrius.android.rss.conditions;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,21 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import edu.ua.cs.cs495.caladrius.caladrius.R;
-import edu.ua.cs.cs495.caladrius.rss.Feed;
+import edu.ua.cs.cs495.caladrius.android.R;
+import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 
-public class FeedAdapter extends BaseAdapter
+import java.util.ArrayList;
+
+
+public class ConditionAdapter extends BaseAdapter
 {
 	private static final String OUR_TAG = "FeedAdapter";
 	private final FragmentManager fm;
 	private LayoutInflater inflater;
 	private Context c;
-	private Feed[] feeds;
+	private ArrayList<Condition> conditions;
 
-	public FeedAdapter(Context c, Feed[] feeds, FragmentManager fm)
+	public ConditionAdapter(Context c, ArrayList<Condition> conditions, FragmentManager fm)
 	{
 		this.c = c;
-		this.feeds = feeds;
+		this.conditions = conditions;
 		this.fm = fm;
 		inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -30,13 +33,13 @@ public class FeedAdapter extends BaseAdapter
 	@Override
 	public int getCount()
 	{
-		return feeds.length;
+		return conditions.size();
 	}
 
 	@Override
 	public Object getItem(int i)
 	{
-		return feeds[i];
+		return conditions.get(i);
 	}
 
 	@Override
@@ -52,14 +55,14 @@ public class FeedAdapter extends BaseAdapter
 			view = inflater.inflate(R.layout.rss_feed_item, null);
 		}
 		TextView text = view.findViewById(R.id.name);
-		text.setText(feeds[i].name);
+		text.setText(ConditionDescriber.describe(conditions.get(i)));
 
 		view.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View v)
 			{
-				Intent in = FeedEditor.FeedEditorActivity.newIntent(c, feeds[i]);
-				c.startActivity(in);
+				Intent intent = ConditionEditor.makeEditIntent(c, conditions.get(i));
+				c.startActivity(intent);
 			}
 		});
 
