@@ -33,7 +33,7 @@ public class LoginScreen extends AppCompatActivity
 				                                 .equals("")) {
 					Toast.makeText(v.getContext(), "Login Successful", Toast.LENGTH_SHORT)
 					     .show();
-					Intent nextScreen = new Intent(v.getContext(), MainScreen.class);
+					Intent nextScreen = new Intent(v.getContext(), PagerActivity.class);
 					startActivityForResult(nextScreen, 0);
 				} else {
 					Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT)

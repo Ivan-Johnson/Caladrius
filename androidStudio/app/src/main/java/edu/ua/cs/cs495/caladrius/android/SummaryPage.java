@@ -44,7 +44,7 @@ public class SummaryPage extends Fragment
 	                         Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		View rootView = inflater.inflate(R.layout.graph_list, container, false);
+		View rootView = inflater.inflate(R.layout.query_activity, container, false);
 
 		LinearLayout ll = rootView.findViewById(R.id.list);
 		assert defaultGraphStats.length == defaultGraphTypes.length;

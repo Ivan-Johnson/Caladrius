@@ -17,7 +17,7 @@
             android:label="@string/title_activity_graph"
             android:theme="@style/FullscreenTheme" />
 
-        <activity android:name=".MainScreen"/>
+        <activity android:name=".PagerActivity"/>
 
         <activity android:name=".LoginScreen">
             <intent-filter>
