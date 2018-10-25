@@ -10,6 +10,6 @@ public class SummaryPageEditor extends AppCompatActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.edit);
+		setContentView(R.layout.summary_page_editor);
 	}
 }

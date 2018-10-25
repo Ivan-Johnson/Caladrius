@@ -49,7 +49,7 @@ public class QueryEditor extends AppCompatActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.calender);
+		setContentView(R.layout.query_editor);
 		mCalendarView = findViewById(R.id.calendarView);
 		final TextView startDateTextView = findViewById(R.id.start_date);
 		final TextView endDateTextView = findViewById(R.id.end_date);

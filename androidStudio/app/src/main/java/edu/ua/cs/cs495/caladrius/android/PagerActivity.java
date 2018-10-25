@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainScreen extends AppCompatActivity
+public class PagerActivity extends AppCompatActivity
 {
 
 
@@ -17,7 +17,7 @@ public class MainScreen extends AppCompatActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_screen);
+		setContentView(R.layout.pager_activity);
 		// Find the view pager that will allow the user to swipe between fragments
 		ViewPager viewPager = findViewById(R.id.viewpager);
 
