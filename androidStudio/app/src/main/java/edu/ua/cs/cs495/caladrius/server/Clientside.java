@@ -12,9 +12,11 @@ public class Clientside
 
 	/**
 	 * Asks the Caladrius server what time this user's conditions were last updated at.
+	 *
 	 * @return
 	 */
-	protected static long msLastServerUpdate() {
+	protected static long msLastServerUpdate()
+	{
 		throw new UnsupportedOperationException("Not implemented");
 		// TODO actually query the Caladrius server for condition metadata
 	}

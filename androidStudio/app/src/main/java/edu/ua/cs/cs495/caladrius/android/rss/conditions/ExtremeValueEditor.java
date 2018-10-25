@@ -17,6 +17,45 @@ import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 
 public class ExtremeValueEditor extends Fragment
 {
+	protected static final String ARG_EXTREMEVALUE = "ExtremeValueEditor EXTREMEVALUE";
+	ExtremeValue ev;
+
+	public static ExtremeValueEditor newInstance(ExtremeValue ev)
+	{
+		Bundle args = new Bundle();
+
+		args.putSerializable(ARG_EXTREMEVALUE, ev);
+
+		ExtremeValueEditor fragment = new ExtremeValueEditor();
+		fragment.setArguments(args);
+		return fragment;
+	}
+
+	@Nullable
+	@Override
+	public View onCreateView(@NonNull LayoutInflater inflater,
+	                         @Nullable ViewGroup container,
+	                         @Nullable Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		Bundle b = getArguments();
+		this.ev = (ExtremeValue) b.getSerializable(ARG_EXTREMEVALUE);
+
+		View rootView = inflater.inflate(R.layout.rss_condition_extremevalue_editor,
+			container, false);
+
+		Spinner sp = rootView.findViewById(R.id.ev_type);
+		sp.setAdapter(
+			ArrayAdapter.createFromResource(
+				getContext(),
+				R.array.rss_conditions_extremevalue_boundarytype,
+				R.layout.spinner_item
+			)
+		);
+
+		return rootView;
+	}
+
 	public static class ExtremeValueEditorActivity extends GenericEditor
 	{
 		protected static final String EXTRA_EV = "feed";
@@ -38,42 +77,5 @@ public class ExtremeValueEditor extends Fragment
 			}
 			return ExtremeValueEditor.newInstance(ev);
 		}
-	}
-
-	protected static final String ARG_EXTREMEVALUE = "ExtremeValueEditor EXTREMEVALUE";
-	ExtremeValue ev;
-
-	public static ExtremeValueEditor newInstance(ExtremeValue ev)
-	{
-		Bundle args = new Bundle();
-
-		args.putSerializable(ARG_EXTREMEVALUE, ev);
-
-		ExtremeValueEditor fragment = new ExtremeValueEditor();
-		fragment.setArguments(args);
-		return fragment;
-	}
-
-	@Nullable
-	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		Bundle b = getArguments();
-		this.ev = (ExtremeValue) b.getSerializable(ARG_EXTREMEVALUE);
-
-		View rootView = inflater.inflate(R.layout.rss_condition_extremevalue_editor,
-			container, false);
-
-		Spinner sp = rootView.findViewById(R.id.ev_type);
-		sp.setAdapter(
-			ArrayAdapter.createFromResource(
-				getContext(),
-				R.array.rss_conditions_extremevalue_boundarytype,
-				R.layout.spinner_item
-			)
-		);
-
-		return rootView;
 	}
 }

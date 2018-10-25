@@ -13,7 +13,8 @@ public class ConditionDescriber
 	 * Creates a string that describes the given condition
 	 *
 	 * @param cond condition to describe
-	 * @return strind description of cond. Is null if cond is not an instance of any of the known subclasses of Condition
+	 * @return strind description of cond. Is null if cond is not an instance of any of the known subclasses of
+	 * 	Condition
 	 */
 	@Nullable
 	public static String describe(Condition cond)
@@ -36,23 +37,24 @@ public class ConditionDescriber
 		sb.append(' ');
 		int tmp;
 		switch (ev.getType()) {
-			case equal:
-				tmp = R.string.cmp_eq;
-				break;
-			case lessThan:
-				tmp = R.string.cmp_lt;
-				break;
-			case greaterThan:
-				tmp = R.string.cmp_gt;
-				break;
-			case lessThanOrEqual:
-				tmp = R.string.cmp_lte;
-				break;
-			case greaterThanOrEqual:
-				tmp = R.string.cmp_gte;
-				break;
-			default:
-				throw new RuntimeException("Type \"" + ev.getType() + "\" was not a valid extremeType as of the writing of this message");
+		case equal:
+			tmp = R.string.cmp_eq;
+			break;
+		case lessThan:
+			tmp = R.string.cmp_lt;
+			break;
+		case greaterThan:
+			tmp = R.string.cmp_gt;
+			break;
+		case lessThanOrEqual:
+			tmp = R.string.cmp_lte;
+			break;
+		case greaterThanOrEqual:
+			tmp = R.string.cmp_gte;
+			break;
+		default:
+			throw new RuntimeException("Type \"" + ev.getType() +
+				"\" was not a valid extremeType as of the writing of this message");
 		}
 		sb.append(cntxt.getText(tmp));
 		sb.append(' ');
@@ -60,5 +62,4 @@ public class ConditionDescriber
 
 		return sb.toString();
 	}
-
 }

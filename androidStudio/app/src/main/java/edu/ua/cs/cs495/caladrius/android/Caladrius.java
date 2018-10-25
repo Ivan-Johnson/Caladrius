@@ -5,24 +5,25 @@ import android.content.Context;
 
 public class Caladrius extends Application
 {
-    protected static Context cntxt;
+	protected static Context cntxt;
 
-    @Override
-    public void onCreate()
-    {
-        super.onCreate();
+	public static Context getContext()
+	{
+		if (cntxt == null) {
+			throw new RuntimeException(Caladrius.class.toString() + " was not properly initialized");
+		}
+		return cntxt;
+	}
 
-        if (cntxt != null) {
-            throw new RuntimeException(Caladrius.class.toString() + " was initialized multiple times");
-        }
+	@Override
+	public void onCreate()
+	{
+		super.onCreate();
 
-        cntxt = getApplicationContext();
-    }
+		if (cntxt != null) {
+			throw new RuntimeException(Caladrius.class.toString() + " was initialized multiple times");
+		}
 
-    public static Context getContext() {
-        if (cntxt == null) {
-            throw new RuntimeException(Caladrius.class.toString() + " was not properly initialized");
-        }
-        return cntxt;
-    }
+		cntxt = getApplicationContext();
+	}
 }

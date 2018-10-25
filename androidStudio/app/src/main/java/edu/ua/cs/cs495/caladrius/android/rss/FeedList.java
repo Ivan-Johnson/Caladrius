@@ -20,7 +20,7 @@ public class FeedList extends Fragment
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				 Bundle savedInstanceState)
+	                         Bundle savedInstanceState)
 	{
 		View rootView = inflater.inflate(R.layout.rss_feed_list, container, false);
 
