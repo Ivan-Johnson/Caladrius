@@ -11,7 +11,6 @@ import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
 
 public class LoginScreen extends AppCompatActivity
 {
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -28,6 +27,7 @@ public class LoginScreen extends AppCompatActivity
 				final TextView txtUser = findViewById(R.id.txtUser);
 				final TextView txtPass = findViewById(R.id.txtPass);
 
+				// TODO check if user is already logged in
 				String user = txtUser.getText().toString();
 				String pass = txtPass.getText().toString();
 
