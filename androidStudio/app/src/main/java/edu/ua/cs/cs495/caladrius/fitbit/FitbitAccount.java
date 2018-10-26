@@ -2,8 +2,7 @@ package edu.ua.cs.cs495.caladrius.fitbit;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Date;
+import java.util.Collections;
 import java.util.Random;
 
 public class FitbitAccount
@@ -15,10 +14,19 @@ public class FitbitAccount
 		"Weight"
 	};
 
+	protected String identifier;
+	protected String privateToken;
+
+	public FitbitAccount(String identifier, String privateToken)
+	{
+		this.identifier = identifier;
+		this.privateToken = privateToken;
+	}
+
 	/**
 	 * @return new instance of an array listing all valid stats
 	 */
-	public static String[] getValidStats()
+	public String[] getValidStats()
 	{
 		return Arrays.copyOf(allValidStats, allValidStats.length);
 	}
@@ -27,7 +35,7 @@ public class FitbitAccount
 	 * @param stat ignored, for the moment
 	 * @return array of random points, sorted in ascending X order
 	 */
-	public static Point[] getPoints(String stat)
+	public Point[] getPoints(String stat)
 	{
 		Random r = new Random();
 		int numPoints = r.nextInt(10) + 5;
@@ -36,79 +44,10 @@ public class FitbitAccount
 			Point dp = new Point(r.nextDouble() * 10, r.nextDouble() * 10);
 			points.add(dp);
 		}
+
+		Collections.sort(points);
+
 		Point tmp[] = {};
-		points.sort(new Comparator<Point>()
-		{
-			@Override
-			public int compare(Point dataPoint, Point t1)
-			{
-				if (t1.getX() - dataPoint.getX() < 0) {
-					return 1;
-				} else {
-					return -1;
-				}
-			}
-		});
-
 		return points.toArray(tmp);
-	}
-
-	/**
-	 * A custom point class for FitbitAccount.
-	 * <p>
-	 * Ideally, we'd just use GraphView's point class, but it would be impracticle to use that on Caladrius'
-	 * server.
-	 * <p>
-	 * As a close second, we'd just use java.awt.Point, but Android doesn't support awt.
-	 * <p>
-	 * Thus, the need for a custom Point class.
-	 */
-	public static class Point
-	{
-		protected boolean xIsDate;
-		protected double fX, y;
-		protected long iX;
-
-		public Point(double x, double y)
-		{
-			this.fX = x;
-			this.y = y;
-			xIsDate = false;
-		}
-
-		public Point(Date x, double y)
-		{
-			xIsDate = true;
-			this.iX = x.getTime();
-			this.y = y;
-		}
-
-		public Date getXAsDate()
-		{
-			if (xIsDate) {
-				return new Date(iX);
-			} else {
-				throw new IllegalStateException("Attempting to get X as a date while it is not a date");
-			}
-		}
-
-		public boolean isXDate()
-		{
-			return xIsDate;
-		}
-
-		public double getX()
-		{
-			if (xIsDate) {
-				return (double) iX;
-			} else {
-				return fX;
-			}
-		}
-
-		public double getY()
-		{
-			return y;
-		}
 	}
 }

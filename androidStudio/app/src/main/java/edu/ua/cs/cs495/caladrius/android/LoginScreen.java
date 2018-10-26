@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
 
 public class LoginScreen extends AppCompatActivity
 {
@@ -26,19 +27,21 @@ public class LoginScreen extends AppCompatActivity
 			{
 				final TextView txtUser = findViewById(R.id.txtUser);
 				final TextView txtPass = findViewById(R.id.txtPass);
-				if (txtUser.getText()
-				           .toString()
-				           .equals("") && txtPass.getText()
-				                                 .toString()
-				                                 .equals("")) {
-					Toast.makeText(v.getContext(), "Login Successful", Toast.LENGTH_SHORT)
-					     .show();
-					Intent nextScreen = new Intent(v.getContext(), PagerActivity.class);
-					startActivityForResult(nextScreen, 0);
-				} else {
-					Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT)
-					     .show();
+
+				String user = txtUser.getText().toString();
+				String pass = txtPass.getText().toString();
+
+				try {
+					Caladrius.user = new FitbitAccount(user, pass);
+				} catch (IllegalArgumentException ex) {
+					Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+					return;
 				}
+
+				Toast.makeText(v.getContext(), "Login Successful", Toast.LENGTH_SHORT)
+				     .show();
+				Intent pager = new Intent(v.getContext(), PagerActivity.class);
+				startActivity(pager);
 			}
 		});
 	}

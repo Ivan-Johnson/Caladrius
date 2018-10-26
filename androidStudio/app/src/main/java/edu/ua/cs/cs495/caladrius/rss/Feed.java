@@ -1,5 +1,6 @@
 package edu.ua.cs.cs495.caladrius.rss;
 
+import edu.ua.cs.cs495.caladrius.android.Caladrius;
 import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
 import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
@@ -42,7 +43,7 @@ public class Feed implements Serializable
 		// TODO: don't add random conditions to new feeds
 		Random r = new Random();
 
-		String stats[] = FitbitAccount.getValidStats();
+		String stats[] = Caladrius.user.getValidStats();
 		int count = ExtremeValue.extremeType.values().length;
 		for (int x = 0; x < 100; x++) {
 			String stat = stats[r.nextInt(stats.length)];

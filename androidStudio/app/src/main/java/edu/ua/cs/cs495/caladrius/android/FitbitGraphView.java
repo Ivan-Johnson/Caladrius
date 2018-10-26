@@ -15,6 +15,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.series.Series;
 import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
+import edu.ua.cs.cs495.caladrius.fitbit.Point;
 
 import java.util.ArrayList;
 
@@ -96,7 +97,7 @@ public class FitbitGraphView extends GraphView
 		});
 	}
 
-	private static final DataPoint dpFromPoint(FitbitAccount.Point point)
+	private static final DataPoint dpFromPoint(Point point)
 	{
 		if (point.isXDate()) {
 			return new DataPoint(point.getXAsDate(), point.getY());
@@ -105,7 +106,7 @@ public class FitbitGraphView extends GraphView
 		}
 	}
 
-	protected static final DataPoint[] dpsFromPoints(FitbitAccount.Point points[])
+	protected static final DataPoint[] dpsFromPoints(Point points[])
 	{
 		DataPoint dps[] = new DataPoint[points.length];
 		for (int c = 0; c < points.length; c++) {
@@ -228,7 +229,7 @@ public class FitbitGraphView extends GraphView
 		double xMax = 0;
 		boolean hasPoints = false;
 		for (int i = 0; i < this.graphType.size(); i++) {
-			DataPoint[] points = dpsFromPoints(FitbitAccount.getPoints(statsToRetrieve.get(i)));
+			DataPoint[] points = dpsFromPoints(Caladrius.user.getPoints(statsToRetrieve.get(i)));
 			if (points.length > 0) {
 				hasPoints = true;
 				double tmp = points[points.length - 1].getX();
