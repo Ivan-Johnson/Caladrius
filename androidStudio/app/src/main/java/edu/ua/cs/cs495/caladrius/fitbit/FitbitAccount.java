@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Random;
 
-public class FitBit
+public class FitbitAccount
 {
 	static final String allValidStats[] = {
 		"BPM",
@@ -54,7 +54,7 @@ public class FitBit
 	}
 
 	/**
-	 * A custom point class for FitBit.
+	 * A custom point class for FitbitAccount.
 	 * <p>
 	 * Ideally, we'd just use GraphView's point class, but it would be impracticle to use that on Caladrius'
 	 * server.

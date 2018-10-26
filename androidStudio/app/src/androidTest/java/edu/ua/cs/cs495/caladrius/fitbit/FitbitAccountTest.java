@@ -8,14 +8,15 @@ import java.util.Arrays;
 
 import static junit.framework.Assert.*;
 
-public class FitBitTest {
+public class FitbitAccountTest
+{
     //TODO create a FitBit account specifically for testing
-    FitBit.Point points[];
+    FitbitAccount.Point points[];
 
     @Before
     public void setUp()
     {
-        points = FitBit.getPoints("asdf");
+        points = FitbitAccount.getPoints("asdf");
     }
 
     @After
@@ -43,8 +44,8 @@ public class FitBitTest {
     @Test
     public void getValidStats_isNewInstance()
     {
-        String arr1[] = FitBit.getValidStats();
-        String arr2[] = FitBit.getValidStats();
+        String arr1[] = FitbitAccount.getValidStats();
+        String arr2[] = FitbitAccount.getValidStats();
         assertTrue(Arrays.equals(arr1, arr2));
         arr1[0] = "";
         assertFalse(Arrays.equals(arr1, arr2));
