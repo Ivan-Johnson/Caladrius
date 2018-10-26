@@ -1,11 +1,12 @@
 package edu.ua.cs.cs495.caladrius.fitbit;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
-public class FitbitAccount
+public class FitbitAccount implements Serializable
 {
 	static final String allValidStats[] = {
 		"BPM",

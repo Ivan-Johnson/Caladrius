@@ -229,7 +229,7 @@ public class FitbitGraphView extends GraphView
 		double xMax = 0;
 		boolean hasPoints = false;
 		for (int i = 0; i < this.graphType.size(); i++) {
-			DataPoint[] points = dpsFromPoints(Caladrius.user.getPoints(statsToRetrieve.get(i)));
+			DataPoint[] points = dpsFromPoints(Caladrius.user.fAcc.getPoints(statsToRetrieve.get(i)));
 			if (points.length > 0) {
 				hasPoints = true;
 				double tmp = points[points.length - 1].getX();

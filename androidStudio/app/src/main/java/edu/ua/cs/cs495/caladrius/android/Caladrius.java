@@ -2,12 +2,12 @@ package edu.ua.cs.cs495.caladrius.android;
 
 import android.app.Application;
 import android.content.Context;
-import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
+import edu.ua.cs.cs495.caladrius.User;
 
 public class Caladrius extends Application
 {
 	protected static Context cntxt;
-	public static FitbitAccount user = null;
+	public static User user = null;
 
 	public static Context getContext()
 	{
