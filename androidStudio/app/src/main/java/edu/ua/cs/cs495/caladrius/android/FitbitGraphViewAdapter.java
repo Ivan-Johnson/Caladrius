@@ -15,7 +15,8 @@ public class FitbitGraphViewAdapter extends BaseAdapter
 	public FitbitGraphViewAdapter(Context cntxt,
 	                              FitbitGraphView.GraphViewGraph[][] graphTypes,
 	                              String[][] defaultGraphStats,
-	                              Integer[][] defaultGraphColors)
+	                              Integer[][] defaultGraphColors,
+	                              String[] defaultGraphTitles)
 	{
 		// TODO change the constructor to take "Query" objects as an argument instead of the three 2D arrays
 		int len = graphTypes.length;
@@ -35,9 +36,13 @@ public class FitbitGraphViewAdapter extends BaseAdapter
 			ArrayList<Integer> color = new ArrayList<>();
 			color.addAll(Arrays.asList(defaultGraphColors[c]));
 
-			fgv[c] = new FitbitGraphView(
-				cntxt, types, stats, color,
+			String title = defaultGraphTitles[c];
+
+			Query query = new Query(types, stats, color, title,
 				false, false, false, false);
+
+			fgv[c] = new FitbitGraphView(
+				cntxt, query);
 		}
 	}
 

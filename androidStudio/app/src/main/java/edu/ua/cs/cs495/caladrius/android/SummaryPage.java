@@ -33,6 +33,12 @@ public class SummaryPage extends Fragment
 		{Color.BLUE},
 		{Color.GREEN, Color.GRAY},
 	};
+	public final String[] defaultGraphTitles = {
+		"Heart Rate",
+		"Caloric Burn",
+		"Caloric BASAL",
+		"BPM",
+	};
 
 	public SummaryPage()
 	{
@@ -58,14 +64,19 @@ public class SummaryPage extends Fragment
 			ArrayList<Integer> color = new ArrayList<>();
 			color.addAll(Arrays.asList(defaultGraphColors[c]));
 
-			FitbitGraphView fgv = new FitbitGraphView(getContext(),
-				graphTypes,
+			String title = defaultGraphTitles[c];
+
+			Query query = new Query(graphTypes,
 				stats,
 				color,
+				title,
 				false,
 				false,
 				false,
-				false
+				false);
+
+			FitbitGraphView fgv = new FitbitGraphView(getContext(),
+				query
 			);
 
 			ll.addView(fgv, 0);

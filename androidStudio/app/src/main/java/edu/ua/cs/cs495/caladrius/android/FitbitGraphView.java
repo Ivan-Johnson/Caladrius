@@ -34,27 +34,31 @@ public class FitbitGraphView extends GraphView
 	// that can be retrieved via Fitbit API. Ex: BPM, BasalCaloricBurn, etc.
 	// Must have same number of elements as graphType list.
 	ArrayList<String> statsToRetrieve;
+
+	// Supplied seriesColors ArrayList must contain colors for each series
 	ArrayList<Integer> seriesColors;
+
+	// Supplied graphTitle is a string that is the title of the graph
+	String graphTitle;
+
 	// Supplied horizontalScroll Boolean enables/disables horizontal
 	// scrolling through the graph
 	Boolean horizontalScroll;
+
 	// Supplied verticalScroll Boolean enables/disables vertical
 	// scrolling through the graph
 	Boolean verticalScroll;
+
 	// Supplied horizontalZoomAndScroll Boolean enables/disables horizontal
 	// scrolling through the graph and horizontal zooming
 	Boolean horizontalZoomAndScroll;
+
 	// Supplied verticalZoomAndScroll Boolean enables/disables vertical
 	// scrolling through the graph and vertical zooming
 	Boolean verticalZoomAndScroll;
 
 	// Constructor
-	public FitbitGraphView(final Context context, ArrayList<GraphViewGraph> graphType,
-	                       ArrayList<String> statsToRetrieve,
-	                       ArrayList<Integer> seriesColors,
-	                       Boolean horizontalScroll, Boolean verticalScroll,
-	                       Boolean horizontalZoomAndScroll,
-	                       Boolean verticalZoomAndScroll)
+	public FitbitGraphView(final Context context, final Query query)
 	{
 		super(context);
 		//TODO Ivan thinks that all these arguments (except for Context) should be wrapped in a Query object
@@ -69,13 +73,14 @@ public class FitbitGraphView extends GraphView
 		//setLayoutParams(params);
 		//setPaddingRelative(pxPadding, pxPadding, pxPadding, pxPadding);
 
-		this.graphType = graphType;
-		this.statsToRetrieve = statsToRetrieve;
-		this.seriesColors = seriesColors;
-		this.horizontalScroll = horizontalScroll;
-		this.verticalScroll = verticalScroll;
-		this.horizontalZoomAndScroll = horizontalZoomAndScroll;
-		this.verticalZoomAndScroll = verticalZoomAndScroll;
+		this.graphType = query.getGraphType();
+		this.statsToRetrieve = query.getStatsToRetrieve();
+		this.seriesColors = query.getSeriesColors();
+		this.graphTitle = query.getGraphTitle();
+		this.horizontalScroll = query.getHorizontalScroll();
+		this.verticalScroll = query.getVerticalScroll();
+		this.horizontalZoomAndScroll = query.getHorizontalZoomAndScroll();
+		this.verticalZoomAndScroll = query.getVerticalZoomAndScroll();
 
 		GridLabelRenderer glr = this.getGridLabelRenderer();
 		glr.setPadding(32);
@@ -115,8 +120,6 @@ public class FitbitGraphView extends GraphView
 		return dps;
 	}
 
-	// Getter Methods
-
 	// converts from density independent pixels to pixels
 	private int pxFromDip(int dip)
 	{
@@ -135,7 +138,6 @@ public class FitbitGraphView extends GraphView
 		return this.graphType;
 	}
 
-	// Setter Methods
 	public void setGraphType(ArrayList<GraphViewGraph> gType)
 	{
 		this.graphType = gType;
@@ -159,6 +161,16 @@ public class FitbitGraphView extends GraphView
 	public void setSeriesColors(ArrayList<Integer> sColors)
 	{
 		this.seriesColors = sColors;
+	}
+
+	public String getGraphTitle()
+	{
+		return this.graphTitle;
+	}
+
+	public void setGraphTitle(String gTitle)
+	{
+		this.graphTitle = gTitle;
 	}
 
 	public Boolean getHorizontalScroll()
@@ -228,6 +240,9 @@ public class FitbitGraphView extends GraphView
 	{
 		double xMax = 0;
 		boolean hasPoints = false;
+
+		this.setTitle(this.getGraphTitle());
+
 		for (int i = 0; i < this.graphType.size(); i++) {
 			DataPoint[] points = dpsFromPoints(Caladrius.user.fAcc.getPoints(statsToRetrieve.get(i)));
 			if (points.length > 0) {
