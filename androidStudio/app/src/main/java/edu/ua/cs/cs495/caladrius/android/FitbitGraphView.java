@@ -242,6 +242,7 @@ public class FitbitGraphView extends GraphView
 		boolean hasPoints = false;
 
 		this.setTitle(this.getGraphTitle());
+		this.setTitleTextSize(75);
 
 		for (int i = 0; i < this.graphType.size(); i++) {
 			DataPoint[] points = dpsFromPoints(Caladrius.user.fAcc.getPoints(statsToRetrieve.get(i)));
