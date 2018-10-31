@@ -8,6 +8,8 @@ import java.util.Random;
 
 public class FitbitAccount implements Serializable
 {
+	private static final long serialVersionUID = -1474806684094301473L;
+
 	static final String allValidStats[] = {
 		"BPM",
 		"Caloric intake",

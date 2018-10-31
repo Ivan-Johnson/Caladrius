@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class ExtremeValue<T extends Serializable> implements Condition
 {
+	private static final long serialVersionUID = -7141565572258698935L;
 	protected String stat;
 	protected T value;
 	protected extremeType type;

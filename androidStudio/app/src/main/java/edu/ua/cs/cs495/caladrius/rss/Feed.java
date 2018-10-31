@@ -1,6 +1,5 @@
 package edu.ua.cs.cs495.caladrius.rss;
 
-import edu.ua.cs.cs495.caladrius.android.Caladrius;
 import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 
@@ -11,18 +10,22 @@ import java.util.Random;
 
 public class Feed implements Serializable
 {
+	private static final long serialVersionUID = -7808241266602491257L;
 	public String name;
+	protected static String BASEURL="https://caladrius.ivanjohnson.net/webapi/feed?id=";
+	public String uuid;
 	public String url;
 	public ArrayList<Condition> conditions;
 
-	public Feed(String name, String url, ArrayList<Condition> conditions)
+	public Feed(String name, String uuid, ArrayList<Condition> conditions)
 	{
 		if (conditions == null) {
 			conditions = new ArrayList<>();
 		}
 
 		this.conditions = conditions;
-		this.url = url;
+		this.uuid = uuid;
+		this.url = BASEURL + uuid;
 		this.name = name;
 	}
 
@@ -42,7 +45,7 @@ public class Feed implements Serializable
 		// TODO: don't add random conditions to new feeds
 		Random r = new Random();
 
-		String stats[] = Caladrius.user.fAcc.getValidStats();
+		String stats[] = {"asdf", "fdsa", "asdsdfsdsd"};
 		int count = ExtremeValue.extremeType.values().length;
 		for (int x = 0; x < 100; x++) {
 			String stat = stats[r.nextInt(stats.length)];
