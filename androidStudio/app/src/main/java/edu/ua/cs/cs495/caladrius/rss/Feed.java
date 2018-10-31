@@ -14,7 +14,8 @@ public class Feed implements Serializable
 	public String name;
 	protected static String BASEURL="https://caladrius.ivanjohnson.net/webapi/feed?id=";
 	public String uuid;
-	public String url;
+	public String url; // TODO delete this
+	public int id;
 	public ArrayList<Condition> conditions;
 
 	public Feed(String name, String uuid, ArrayList<Condition> conditions)
