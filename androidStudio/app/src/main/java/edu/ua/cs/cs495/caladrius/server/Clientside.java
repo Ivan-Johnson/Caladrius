@@ -96,9 +96,13 @@ public class Clientside
 			
 			Scanner s = new Scanner(rsp.getEntity().getContent(), "UTF-8");
 			s.useDelimiter("\\A");
-			String str = s.hasNext() ? s.next() : "";
+
+			String str = s.hasNext() ? s.next() : ""; // base64: ..., lastModify: ...
+			String attribute = str.split(",")[0];     // base64: ...
+			String base64 = attribute.split(" ")[1];  // ...
+
 			s.close();
-			return str;
+			return base64;
 		} finally {
 			hg.releaseConnection();
 		}
