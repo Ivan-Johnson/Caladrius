@@ -48,7 +48,7 @@ public class Point implements Comparable<Point>
 	public double getX()
 	{
 		if (xIsDate) {
-			return (double) iX;
+			return iX;
 		} else {
 			return fX;
 		}

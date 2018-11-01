@@ -1,8 +1,6 @@
 package edu.ua.cs.cs495.caladrius.server;
 
 
-import edu.ua.cs.cs495.caladrius.rss.Feed;
-import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,6 +18,9 @@ import org.apache.http.client.entity.EntityBuilder;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.HttpClientBuilder;
+
+import edu.ua.cs.cs495.caladrius.rss.Feed;
+import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 
 public class Clientside
 {
@@ -44,15 +45,15 @@ public class Clientside
 			if (statusCode != HttpStatus.SC_OK) {
 				throw new IOException("Couldn't connect to server; got code "+statusCode);
 			}
-			
-			
+
+
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			rsp.getEntity().writeTo(baos);
 			byte[] bytes = baos.toByteArray();
-			
+
 			ByteArrayInputStream bais;
 			Scanner s;
-			
+
 			bais = new ByteArrayInputStream(bytes);
 			s = new Scanner(bais, "UTF-8");
 			int numLines = 0;
@@ -61,8 +62,8 @@ public class Clientside
 				s.nextLine();
 			}
 			s.close();
-			
-			int feedids[] = new int[numLines]; 
+
+			int feedids[] = new int[numLines];
 			bais = new ByteArrayInputStream(bytes);
 			s = new Scanner(bais, "UTF-8");
 			while(s.hasNextLine()) {
@@ -70,13 +71,13 @@ public class Clientside
 				feedids[numLines] = Integer.parseInt(s.nextLine());
 			}
 			s.close();
-			
+
 			return feedids;
 		} finally {
 			hg.releaseConnection();
 		}
 	}
-	
+
 	protected static String getFeedstring(String userid, int feed) throws IOException
 	{
 		HttpClientBuilder hcb = HttpClientBuilder.create();
@@ -94,7 +95,7 @@ public class Clientside
 			if (statusCode != HttpStatus.SC_OK) {
 				throw new IOException("Couldn't connect to server; got code "+statusCode);
 			}
-			
+
 			Scanner s = new Scanner(rsp.getEntity().getContent(), "UTF-8");
 			s.useDelimiter("\\A");
 
@@ -108,7 +109,7 @@ public class Clientside
 			hg.releaseConnection();
 		}
 	}
-	
+
 	public static void setFeed(String userid, int feed, String base64) throws IOException
 	{
 		if (base64.length() > 100000) {
@@ -125,7 +126,7 @@ public class Clientside
 		EntityBuilder eb = EntityBuilder.create();
 		eb.setBinary(base64.getBytes("UTF-8"));
 		hp.setEntity(eb.build());
-		
+
 		try {
 			HttpResponse rsp = hc.execute(hp);
 			StatusLine statusLine = rsp.getStatusLine();
@@ -137,7 +138,7 @@ public class Clientside
 			hp.releaseConnection();
 		}
 	}
-	
+
 	public static Feed getFeed(String userid, int feed) throws IOException
 	{
 		String base64 = getFeedstring(userid, feed);
@@ -156,12 +157,12 @@ public class Clientside
 			}
 		}
 	}
-	
+
 	public static void setFeed(String userid, Feed f) throws IOException
 	{
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		try {
-			ObjectOutputStream out = new ObjectOutputStream(bos);   
+			ObjectOutputStream out = new ObjectOutputStream(bos);
 			out.writeObject(f);
 			out.flush();
 			byte[] bytes = bos.toByteArray();

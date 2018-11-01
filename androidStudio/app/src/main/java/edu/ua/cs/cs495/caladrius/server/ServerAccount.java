@@ -8,7 +8,7 @@ public class ServerAccount implements Serializable
 {
 	private static final long serialVersionUID = 2723214037041506590L;
 	String uuid;
-	
+
 	protected String randomUUID()
 	{
 		UUID uuid = UUID.randomUUID();

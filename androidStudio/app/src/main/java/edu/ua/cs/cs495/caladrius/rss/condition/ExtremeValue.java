@@ -38,17 +38,17 @@ public class ExtremeValue<T extends Serializable> implements Condition
 		greaterThan,
 		greaterThanOrEqual
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder("Extreme Value: {");
-		
+
                 sb.append("Any single value of ");
                 sb.append(stat);
                 sb.append(' ');
                 String tmp;
-                
+
                 switch (type) {
                 case equal:
                         tmp = "=";
