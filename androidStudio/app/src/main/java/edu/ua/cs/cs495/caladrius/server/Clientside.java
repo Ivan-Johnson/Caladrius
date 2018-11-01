@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Base64;
+import java.util.Random;
 import java.util.Scanner;
 
 import org.apache.http.HttpResponse;
@@ -178,16 +179,18 @@ public class Clientside
 	public static void main(String args[]) throws Exception
 	{
 		final String UUID = "thisisauserid1";
-		int feeds[] = getFeedIDs(UUID);
-		for (int feed : feeds) {
-			Feed f = new Feed("this is a name", "This is a URL");
-			f.id = feed;
-			//setFeed(UUID, f);
-			StringBuilder sb = new StringBuilder();
-			sb.append(feed);
-			sb.append(": ");
-			sb.append(getFeed(UUID, feed).url);
-			System.out.println(sb.toString());
+		int ids[] = getFeedIDs(UUID);
+		Random r = new Random();
+		for (int id : ids) {
+			System.out.println(id);
+			Feed fPush = new Feed("name #"+r.nextInt(), "URL #"+r.nextInt());
+			fPush.id = id;
+			setFeed(UUID, fPush);
+
+			Feed fPull = getFeed(UUID, id);
+
+			System.out.println(fPush.toString());
+			System.out.println(fPull.toString());
 		}
 	}
 }
