@@ -38,4 +38,41 @@ public class ExtremeValue<T extends Serializable> implements Condition
 		greaterThan,
 		greaterThanOrEqual
 	}
+	
+	@Override
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder("Extreme Value: {");
+		
+                sb.append("Any single value of ");
+                sb.append(stat);
+                sb.append(' ');
+                String tmp;
+                
+                switch (type) {
+                case equal:
+                        tmp = "=";
+                        break;
+                case lessThan:
+                        tmp = "<";
+                        break;
+                case greaterThan:
+                        tmp = ">";
+                        break;
+                case lessThanOrEqual:
+                        tmp = "≤";
+                        break;
+                case greaterThanOrEqual:
+                        tmp = "≥";
+                        break;
+                default:
+                        throw new RuntimeException("Type \"" + type +
+                                "\" was not a valid extremeType as of 20181101");
+                }
+                sb.append(tmp);
+                sb.append(' ');
+                sb.append(value.toString());
+		sb.append('}');
+		return sb.toString();
+	}
 }

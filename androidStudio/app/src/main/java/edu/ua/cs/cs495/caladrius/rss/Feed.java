@@ -55,4 +55,37 @@ public class Feed implements Serializable
 			this.conditions.add(c);
 		}
 	}
+	
+	@Override
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append("Feed: {");
+		
+		sb.append("name: \"");
+		sb.append(name);
+		sb.append("\", ");
+		
+		sb.append("URL: \"");
+		sb.append(url);
+		sb.append("\", ");
+		
+		sb.append("UUID: \"");
+		sb.append(uuid);
+		sb.append("\", ");
+		
+		sb.append("id: ");
+		sb.append(id);
+		sb.append(", ");
+		
+		sb.append("Conditions: [");
+		for (Condition condition : conditions) {
+			sb.append(condition);
+			sb.append(", ");
+		}
+		sb.append("], ");
+		
+		sb.append('}');
+		return sb.toString();
+	}
 }
