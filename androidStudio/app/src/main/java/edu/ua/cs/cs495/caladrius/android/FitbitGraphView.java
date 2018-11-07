@@ -326,7 +326,7 @@ public class FitbitGraphView extends GraphView
 			{
 				if (i == 1)
 				{
-					setSecondaryScale(series, c);
+					setSecondaryScale(series, seriesColors.get(i-1));
 				}
 
 				// Index 0 size 2
