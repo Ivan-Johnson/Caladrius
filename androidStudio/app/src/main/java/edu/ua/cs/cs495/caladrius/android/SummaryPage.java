@@ -22,10 +22,10 @@ public class SummaryPage extends Fragment
 		{FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph},
 	};
 	public final String[][] defaultGraphStats = {
-		{"Heartrate"},
-		{"CaloricBurn"},
-		{"CaloASDF"},
-		{"BPM", "asdf"},
+		{"Heart Rate"},
+		{"Caloric Burn"},
+		{"Caloric Basal"},
+		{"BPM", "Weight"},
 	};
 	public final Integer[][] defaultGraphColors = {
 		{Color.CYAN},
@@ -73,7 +73,8 @@ public class SummaryPage extends Fragment
 				false,
 				false,
 				false,
-				false);
+				false,
+				true);
 
 			FitbitGraphView fgv = new FitbitGraphView(getContext(),
 				query

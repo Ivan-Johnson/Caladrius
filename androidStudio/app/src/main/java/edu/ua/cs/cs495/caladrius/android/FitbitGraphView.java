@@ -3,12 +3,14 @@ package edu.ua.cs.cs495.caladrius.android;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.provider.ContactsContract;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
+import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -57,11 +59,14 @@ public class FitbitGraphView extends GraphView
 	// scrolling through the graph and vertical zooming
 	Boolean verticalZoomAndScroll;
 
+	// Supplied Legend Boolean enables/disables legend detailing series
+	// for the GraphView graph
+	Boolean legend;
+
 	// Constructor
 	public FitbitGraphView(final Context context, final Query query)
 	{
 		super(context);
-		//TODO Ivan thinks that all these arguments (except for Context) should be wrapped in a Query object
 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 			RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -81,6 +86,7 @@ public class FitbitGraphView extends GraphView
 		this.verticalScroll = query.getVerticalScroll();
 		this.horizontalZoomAndScroll = query.getHorizontalZoomAndScroll();
 		this.verticalZoomAndScroll = query.getVerticalZoomAndScroll();
+		this.legend = query.getLegend();
 
 		GridLabelRenderer glr = this.getGridLabelRenderer();
 		glr.setPadding(32);
@@ -213,6 +219,16 @@ public class FitbitGraphView extends GraphView
 		this.verticalZoomAndScroll = vZScroll;
 	}
 
+	public Boolean getLegend()
+	{
+		return this.legend;
+	}
+
+	public void setLegend(Boolean leg)
+	{
+		this.legend = leg;
+	}
+
 	private void scrollHandler(GraphView g)
 	{
 		if (getHorizontalScroll() == true) {
@@ -234,6 +250,23 @@ public class FitbitGraphView extends GraphView
 			g.getViewport()
 			 .setScalableY(true);
 		}
+	}
+
+	private void legendHandler(GraphView g)
+	{
+		if (getLegend() == true)
+		{
+			this.getLegendRenderer().setVisible(true);
+			this.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+		}
+	}
+
+	private void setSecondaryScale(Series<DataPoint> s, Integer color)
+	{
+		this.getSecondScale().addSeries(s);
+		this.getSecondScale().setMinY(0);
+		this.getSecondScale().setMaxY(10);
+		this.getGridLabelRenderer().setVerticalLabelsSecondScaleColor(color);
 	}
 
 	private void makeGraphViewGraph()
@@ -259,6 +292,8 @@ public class FitbitGraphView extends GraphView
 			                  .equals(GraphViewGraph.LineGraph)) {
 				series = new LineGraphSeries<>(points);
 				((LineGraphSeries<DataPoint>) series).setColor(c);
+				this.getGridLabelRenderer().setVerticalLabelsColor(c);
+				((LineGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
 			}
 
 			// BarGraph
@@ -275,20 +310,45 @@ public class FitbitGraphView extends GraphView
 				xMax = 6;
 				series = new BarGraphSeries<>(points_bar);
 				((BarGraphSeries<DataPoint>) series).setColor(c);
+				this.getGridLabelRenderer().setVerticalLabelsColor(c);
+				((BarGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
 			}
 
 			// PointsGraph
 			else {
 				series = new PointsGraphSeries<>(points);
 				((PointsGraphSeries<DataPoint>) series).setColor(c);
+				this.getGridLabelRenderer().setVerticalLabelsColor(c);
+				((PointsGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
 			}
 
-			this.addSeries(series);
-			scrollHandler(this);
+			if (this.graphType.size() == 2)
+			{
+				if (i == 1)
+				{
+					setSecondaryScale(series, c);
+				}
+
+				// Index 0 size 2
+				else
+				{
+					this.addSeries(series);
+					scrollHandler(this);
+					legendHandler(this);
+				}
+
+			}
+
+			if (this.graphType.size() != 2)
+			{
+				this.addSeries(series);
+				scrollHandler(this);
+				legendHandler(this);
+			}
 		}
 		if (hasPoints) {
 			getViewport().setXAxisBoundsManual(true);
-			getViewport().setMinX(0); //TODO find min x
+			getViewport().setMinX(0); //TODO find min x for negative x
 			getViewport().setMaxX(xMax);
 		}
 	}

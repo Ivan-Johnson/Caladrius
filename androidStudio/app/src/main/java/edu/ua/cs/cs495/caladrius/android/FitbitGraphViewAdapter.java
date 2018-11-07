@@ -18,7 +18,6 @@ public class FitbitGraphViewAdapter extends BaseAdapter
 	                              Integer[][] defaultGraphColors,
 	                              String[] defaultGraphTitles)
 	{
-		// TODO change the constructor to take "Query" objects as an argument instead of the three 2D arrays
 		int len = graphTypes.length;
 		if (len != defaultGraphStats.length ||
 			len != defaultGraphColors.length) {
@@ -39,7 +38,7 @@ public class FitbitGraphViewAdapter extends BaseAdapter
 			String title = defaultGraphTitles[c];
 
 			Query query = new Query(types, stats, color, title,
-				false, false, false, false);
+				false, false, false, false, true);
 
 			fgv[c] = new FitbitGraphView(
 				cntxt, query);
