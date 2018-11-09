@@ -13,6 +13,10 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The SummaryPage module represents the main View that is exposed upon logging into the application.
+ * It contains FitbitGraphView instances as well as a button to view all of the data for a given user.
+ */
 public class SummaryPage extends Fragment
 {
 	public final FitbitGraphView.GraphViewGraph[][] defaultGraphTypes = {
@@ -22,10 +26,10 @@ public class SummaryPage extends Fragment
 		{FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph},
 	};
 	public final String[][] defaultGraphStats = {
-		{"Heartrate"},
-		{"CaloricBurn"},
-		{"CaloASDF"},
-		{"BPM", "asdf"},
+		{"Heart Rate"},
+		{"Caloric Burn"},
+		{"Caloric Basal"},
+		{"BPM", "Weight"},
 	};
 	public final Integer[][] defaultGraphColors = {
 		{Color.CYAN},
@@ -73,7 +77,8 @@ public class SummaryPage extends Fragment
 				false,
 				false,
 				false,
-				false);
+				false,
+				true);
 
 			FitbitGraphView fgv = new FitbitGraphView(getContext(),
 				query

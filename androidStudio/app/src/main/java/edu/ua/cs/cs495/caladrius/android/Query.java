@@ -2,6 +2,10 @@ package edu.ua.cs.cs495.caladrius.android;
 
 import java.util.ArrayList;
 
+/**
+ * The Query module concentrates the parameters for the FitbitGraphView module.
+ * This object is usually then passed into the FitbitGraphView module.
+ */
 public class Query
 {
 	// Supplied graphType array list needs to be one of three enums,
@@ -40,6 +44,10 @@ public class Query
 	// scrolling through the graph and vertical zooming
 	Boolean verticalZoomAndScroll;
 
+	// Supplied Legend Boolean enables/disables legend detailing series
+	// for the GraphView graph
+	Boolean legend;
+
 	// Constructor
 	public Query(ArrayList<FitbitGraphView.GraphViewGraph> graphType,
 	             ArrayList<String> statsToRetrieve,
@@ -47,7 +55,8 @@ public class Query
 	             String graphTitle,
 	             Boolean horizontalScroll, Boolean verticalScroll,
 	             Boolean horizontalZoomAndScroll,
-	             Boolean verticalZoomAndScroll)
+	             Boolean verticalZoomAndScroll,
+	             Boolean legend)
 	{
 		this.graphType = graphType;
 		this.statsToRetrieve = statsToRetrieve;
@@ -57,6 +66,7 @@ public class Query
 		this.verticalScroll = verticalScroll;
 		this.horizontalZoomAndScroll = horizontalZoomAndScroll;
 		this.verticalZoomAndScroll = verticalZoomAndScroll;
+		this.legend = legend;
 	}
 
 	public ArrayList<FitbitGraphView.GraphViewGraph> getGraphType()
@@ -137,6 +147,16 @@ public class Query
 	public void setVerticalZoomAndScroll(Boolean vZScroll)
 	{
 		this.verticalZoomAndScroll = vZScroll;
+	}
+
+	public Boolean getLegend()
+	{
+		return this.legend;
+	}
+
+	public void setLegend(Boolean leg)
+	{
+		this.legend = leg;
 	}
 
 }

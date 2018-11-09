@@ -1,7 +1,5 @@
 package edu.ua.cs.cs495.caladrius.fitbit;
 
-import android.support.annotation.NonNull;
-
 import java.util.Date;
 
 /**
@@ -13,7 +11,7 @@ import java.util.Date;
  * <p>
  * Thus, the need for a custom Point class.
  */
-public class Point implements Comparable
+public class Point implements Comparable<Point>
 {
 	protected boolean xIsDate;
 	protected double fX, y;
@@ -50,7 +48,7 @@ public class Point implements Comparable
 	public double getX()
 	{
 		if (xIsDate) {
-			return (double) iX;
+			return iX;
 		} else {
 			return fX;
 		}
@@ -62,9 +60,8 @@ public class Point implements Comparable
 	}
 
 	@Override
-	public int compareTo(@NonNull Object o)
+	public int compareTo(Point other)
 	{
-		Point other = (Point) o;
 		if (isXDate() != other.isXDate()) {
 			throw new RuntimeException("Cannot compare points of different X types");
 		}
