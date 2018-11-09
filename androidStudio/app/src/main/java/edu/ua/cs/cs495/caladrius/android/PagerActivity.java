@@ -63,4 +63,5 @@ public class PagerActivity extends AppCompatActivity
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
 }

@@ -105,6 +105,18 @@ public class LoginScreen extends AppCompatActivity
 			}
 		});
 
+        final Button btnTest = findViewById(R.id.btnTest);
+
+        btnTest.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent pager = new Intent(v.getContext(), ListTest.class);
+                startActivity(pager);}
+        });
+
+
 
 
 		final Button btnFitbit = findViewById(R.id.btnFitbit);

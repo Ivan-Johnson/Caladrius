@@ -59,4 +59,15 @@
             android:layout_height="wrap_content" android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true" android:id="@+id/btnFitbit" android:layout_marginBottom="62dp"/>
 
+
+    <Button
+        android:id="@+id/btnTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:elevation="10dp"
+        android:text="List Test" />
+
 </RelativeLayout>
