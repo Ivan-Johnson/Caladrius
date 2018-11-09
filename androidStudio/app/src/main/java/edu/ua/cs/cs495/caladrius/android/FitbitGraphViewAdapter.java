@@ -8,6 +8,10 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The FitBitGraphViewAdapter module generates FitbitGraphView objects based on predetermined
+ * lists of input parameters.
+ */
 public class FitbitGraphViewAdapter extends BaseAdapter
 {
 	FitbitGraphView fgv[];

@@ -2,6 +2,10 @@ package edu.ua.cs.cs495.caladrius.android;
 
 import java.util.ArrayList;
 
+/**
+ * The Query module concentrates the parameters for the FitbitGraphView module.
+ * This object is usually then passed into the FitbitGraphView module.
+ */
 public class Query
 {
 	// Supplied graphType array list needs to be one of three enums,

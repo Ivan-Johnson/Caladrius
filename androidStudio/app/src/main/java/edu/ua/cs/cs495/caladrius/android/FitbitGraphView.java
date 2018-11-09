@@ -21,6 +21,10 @@ import edu.ua.cs.cs495.caladrius.fitbit.Point;
 
 import java.util.ArrayList;
 
+/**
+ * The FitbitGraphView module generates an instance of a GraphView graph with the supplied Query parameter class.
+ * It interacts with both the Graphview API and the Fitbit API.
+ */
 public class FitbitGraphView extends GraphView
 {
 	// Supplied graphType array list needs to be one of three enums,
