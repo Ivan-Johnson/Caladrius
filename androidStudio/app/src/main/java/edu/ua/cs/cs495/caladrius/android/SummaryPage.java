@@ -24,24 +24,28 @@ public class SummaryPage extends Fragment
 		{FitbitGraphView.GraphViewGraph.PointsGraph},
 		{FitbitGraphView.GraphViewGraph.PointsGraph},
 		{FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph},
+			{FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph, FitbitGraphView.GraphViewGraph.PointsGraph},
 	};
 	public final String[][] defaultGraphStats = {
 		{"Heart Rate"},
 		{"Caloric Burn"},
 		{"Caloric Basal"},
 		{"BPM", "Weight"},
+			{"Test1", "Test2", "Test3"},
 	};
 	public final Integer[][] defaultGraphColors = {
 		{Color.CYAN},
 		{Color.RED},
 		{Color.BLUE},
 		{Color.GREEN, Color.GRAY},
+			{Color.BLUE, Color.RED, Color.YELLOW},
 	};
 	public final String[] defaultGraphTitles = {
 		"Heart Rate",
 		"Caloric Burn",
 		"Caloric BASAL",
 		"BPM",
+			"Test 3 Charts",
 	};
 
 	public SummaryPage()
@@ -73,12 +77,7 @@ public class SummaryPage extends Fragment
 			Query query = new Query(graphTypes,
 				stats,
 				color,
-				title,
-				false,
-				false,
-				false,
-				false,
-				true);
+				title);
 
 			FitbitGraphView fgv = new FitbitGraphView(getContext(),
 				query

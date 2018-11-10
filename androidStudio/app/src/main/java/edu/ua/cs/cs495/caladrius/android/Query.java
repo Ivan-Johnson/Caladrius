@@ -1,10 +1,16 @@
 package edu.ua.cs.cs495.caladrius.android;
 
+import android.graphics.Color;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * The Query module concentrates the parameters for the FitbitGraphView module.
  * This object is usually then passed into the FitbitGraphView module.
+ * @author Ian Braudaway
  */
 public class Query
 {
@@ -47,6 +53,26 @@ public class Query
 	// Supplied Legend Boolean enables/disables legend detailing series
 	// for the GraphView graph
 	Boolean legend;
+
+	// Default Constructor 1
+	public Query(ArrayList<FitbitGraphView.GraphViewGraph> graphType,
+				 ArrayList<String> statsToRetrieve,
+				 ArrayList<Integer> seriesColors,
+				 String graphTitle)
+	{
+		this(graphType, statsToRetrieve, seriesColors,
+				graphTitle, false, false,
+				false, false, true);
+	}
+
+	// Default Constructor 2
+	public Query(ArrayList<FitbitGraphView.GraphViewGraph> graphType,
+				 ArrayList<String> statsToRetrieve,
+				 String graphTitle)
+	{
+		this(graphType, statsToRetrieve, new ArrayList<Integer> (Collections.nCopies(graphType.size(), Color.BLUE)),
+				graphTitle);
+	}
 
 	// Constructor
 	public Query(ArrayList<FitbitGraphView.GraphViewGraph> graphType,
