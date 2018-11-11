@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.github.scribejava.apis.FitbitApi20;
 import com.github.scribejava.apis.fitbit.FitBitOAuth2AccessToken;
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -23,7 +22,6 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
-
 import edu.ua.cs.cs495.caladrius.User;
 import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
