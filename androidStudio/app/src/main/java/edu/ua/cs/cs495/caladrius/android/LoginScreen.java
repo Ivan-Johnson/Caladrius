@@ -64,7 +64,6 @@ public class LoginScreen extends AppCompatActivity
 	protected void login(Context cntxt, @NonNull User u)
 	{
 		Caladrius.user = u;
-
 		Intent pager = new Intent(cntxt, PagerActivity.class);
 		startActivity(pager);
 	}
