@@ -7,7 +7,7 @@ import edu.ua.cs.cs495.caladrius.User;
 public class Caladrius extends Application
 {
 	protected static Context cntxt;
-	public static User user = null;
+	public static User user = new User();
 
 	public static Context getContext()
 	{
