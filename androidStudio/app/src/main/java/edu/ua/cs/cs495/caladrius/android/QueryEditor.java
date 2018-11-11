@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 public class QueryEditor extends AppCompatActivity
@@ -41,7 +44,7 @@ public class QueryEditor extends AppCompatActivity
 	static String getMonthForInt(int m)
 	{
 		List<String> monthStr = Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun",
-			"Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+				"Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
 		return monthStr.get(m);
 	}
 
@@ -51,6 +54,16 @@ public class QueryEditor extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.query_editor);
 		mCalendarView = findViewById(R.id.calendarView);
+
+		Toolbar myToolbar = findViewById(R.id.query_editor_toolbar);
+		setSupportActionBar(myToolbar);
+		Objects.requireNonNull(getSupportActionBar()).setTitle("Query data");
+
+		if(getSupportActionBar() != null){
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setDisplayShowHomeEnabled(true);
+		}
+
 		final TextView startDateTextView = findViewById(R.id.start_date);
 		final TextView endDateTextView = findViewById(R.id.end_date);
 
@@ -66,8 +79,8 @@ public class QueryEditor extends AppCompatActivity
 		String date = getMonthForInt(month) + " " + day + " " + year;
 		mStartDate = date;
 		startDateTextView.setText(String.format("%sth%s",
-			date.substring(0, date.length() - 5),
-			date.substring(date.length() - 5, date.length())));
+				date.substring(0, date.length() - 5),
+				date.substring(date.length() - 5, date.length())));
 
 		mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
 		{
@@ -86,8 +99,8 @@ public class QueryEditor extends AppCompatActivity
 
 				if (dateTypeRadioGroup.getCheckedRadioButtonId() == -1) {
 					Toast.makeText(getApplicationContext(), "Please select dateType",
-						Toast.LENGTH_SHORT)
-					     .show();
+							Toast.LENGTH_SHORT)
+							.show();
 				} else {
 					// get selected radio button from radioGroup
 					int selectedId = dateTypeRadioGroup.getCheckedRadioButtonId();
@@ -95,11 +108,11 @@ public class QueryEditor extends AppCompatActivity
 					// find the radiobutton by returned id
 					RadioButton selectedRadioButton = findViewById(selectedId);
 					String dateType = selectedRadioButton.getText()
-					                                     .toString();
+							.toString();
 
 					Toast.makeText(getApplicationContext(), dateType + " is selected",
-						Toast.LENGTH_SHORT)
-					     .show();
+							Toast.LENGTH_SHORT)
+							.show();
 
 					if (dateType.equals(getString(R.string.single_day))) {
 						startDateTextView.setText(dateShow);
@@ -140,7 +153,7 @@ public class QueryEditor extends AppCompatActivity
 		// Create adapter for spinner. The list options are from the String array it will use
 		// the spinner will use the default layout
 		ArrayAdapter itemSpinnerAdapter = ArrayAdapter.createFromResource(this,
-			R.array.array_item_options, R.layout.spinner_item);
+				R.array.array_item_options, R.layout.spinner_item);
 
 		// Specify dropdown layout style - simple list view with 1 item per line
 		itemSpinnerAdapter.setDropDownViewResource(R.layout.spinner_item);
@@ -203,4 +216,13 @@ public class QueryEditor extends AppCompatActivity
 			}
 		});
 	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		if(item.getItemId() == android.R.id.home){
+			finish();
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 }

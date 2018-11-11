@@ -32,12 +32,12 @@ public class LoginScreen extends AppCompatActivity
 	private static final String PROTECTED_RESOURCE_URL = "https://api.fitbit.com/1/user/%s/profile.json";
 
 	private static final OAuth20Service service = new ServiceBuilder("22D7HK")
-		.apiSecret("0eefb77c8b921283cb5e4477ac063178")
-		.scope("activity heartrate location nutrition profile settings sleep social weight") // replace with desired scope
-		//your callback URL to store and handle the authorization code sent by Fitbit
-		.callback("caladrius://authcallback")
-		//.state("some_params")
-		.build(FitbitApi20.instance());
+			.apiSecret("0eefb77c8b921283cb5e4477ac063178")
+			.scope("activity heartrate location nutrition profile settings sleep social weight") // replace with desired scope
+			//your callback URL to store and handle the authorization code sent by Fitbit
+			.callback("caladrius://authcallback")
+			//.state("some_params")
+			.build(FitbitApi20.instance());
 
 	void launchTab(final Context context, final Uri uri){
 
@@ -104,16 +104,16 @@ public class LoginScreen extends AppCompatActivity
 			}
 		});
 
-        final Button btnTest = findViewById(R.id.btnTest);
+		final Button btnTest = findViewById(R.id.btnTest);
 
-        btnTest.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent pager = new Intent(v.getContext(), ListTest.class);
-                startActivity(pager);}
-        });
+		btnTest.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent pager = new Intent(v.getContext(), ListTest.class);
+				startActivity(pager);}
+		});
 
 
 
@@ -152,7 +152,7 @@ public class LoginScreen extends AppCompatActivity
 				final FitBitOAuth2AccessToken accessToken = (FitBitOAuth2AccessToken) oauth2AccessToken;
 
 				final OAuthRequest request = new OAuthRequest(Verb.GET,
-					String.format(PROTECTED_RESOURCE_URL, accessToken.getUserId()));
+						String.format(PROTECTED_RESOURCE_URL, accessToken.getUserId()));
 				request.addHeader("x-li-format", "json");
 
 				service.signRequest(accessToken, request);

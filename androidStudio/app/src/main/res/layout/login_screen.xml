@@ -54,10 +54,10 @@
         android:elevation="10dp"
         android:text="@string/login" />
     <Button
-            android:text="Fitbit Test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true" android:id="@+id/btnFitbit" android:layout_marginBottom="62dp"/>
+        android:text="Fitbit Test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" android:id="@+id/btnFitbit" android:layout_marginBottom="62dp"/>
 
 
     <Button
