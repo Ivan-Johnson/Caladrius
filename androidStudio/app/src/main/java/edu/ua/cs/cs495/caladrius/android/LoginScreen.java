@@ -34,12 +34,12 @@ public class LoginScreen extends AppCompatActivity
 	private static final String PROTECTED_RESOURCE_URL = "https://api.fitbit.com/1/user/%s/profile.json";
 
 	private static final OAuth20Service service = new ServiceBuilder("22D7HK")
-		.apiSecret("0eefb77c8b921283cb5e4477ac063178")
-		.scope("activity heartrate location nutrition profile settings sleep social weight") // replace with desired scope
-		//your callback URL to store and handle the authorization code sent by Fitbit
-		.callback("caladrius://authcallback")
-		//.state("some_params")
-		.build(FitbitApi20.instance());
+			.apiSecret("0eefb77c8b921283cb5e4477ac063178")
+			.scope("activity heartrate location nutrition profile settings sleep social weight") // replace with desired scope
+			//your callback URL to store and handle the authorization code sent by Fitbit
+			.callback("caladrius://authcallback")
+			//.state("some_params")
+			.build(FitbitApi20.instance());
 
 	void launchTab(final Context context, final Uri uri){
 
@@ -64,7 +64,6 @@ public class LoginScreen extends AppCompatActivity
 	protected void login(Context cntxt, @NonNull User u)
 	{
 		Caladrius.user = u;
-
 		Intent pager = new Intent(cntxt, PagerActivity.class);
 		startActivity(pager);
 	}
@@ -88,16 +87,13 @@ public class LoginScreen extends AppCompatActivity
 				try {
 					if (Caladrius.user != null && Caladrius.user.fAcc != null && Caladrius.user.fAcc.getPrivateToken() != null){
 						Response str_result = new MakeAsyncCall().execute().get();
-						Toast.makeText(LoginScreen.this, str_result.getBody(), Toast.LENGTH_SHORT).show();
 						response_bool = str_result.getBody().contains(":true");
 					}
 					else
 						response_bool = false;
 
 					if (response_bool) {
-						Caladrius.user.fAcc.setPrivateToken((FitBitOAuth2AccessToken) service.refreshAccessToken(Caladrius.user.fAcc.getPrivateToken().getRefreshToken()));
-						Intent pager = new Intent(v.getContext(), PagerActivity.class);
-						startActivity(pager);
+						new RefreshAuthToken().execute();
 					}
 					else {
 						final String authorizationUrl = service.getAuthorizationUrl();
@@ -121,7 +117,7 @@ public class LoginScreen extends AppCompatActivity
 				startActivity(pager);}
 		});
 
-        final Button btnTest = findViewById(R.id.btnTest);
+		final Button btnTest = findViewById(R.id.btnTest);
 
         btnTest.setOnClickListener(new View.OnClickListener()
         {
@@ -184,7 +180,50 @@ public class LoginScreen extends AppCompatActivity
 		protected void onPostExecute(Response response) {
 			try {
 				//Log.w("RetrieveAuthToken", response.toString());
-				Toast.makeText(LoginScreen.this, response.getBody(), Toast.LENGTH_SHORT).show();
+				//Toast.makeText(LoginScreen.this, response.getBody(), Toast.LENGTH_SHORT).show();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+	class RefreshAuthToken extends AsyncTask<Void, Void, FitBitOAuth2AccessToken>
+	{
+
+		private final String PROTECTED_RESOURCE_URL = "https://api.fitbit.com/1/user/%s/profile.json";
+
+		private final OAuth20Service service = new ServiceBuilder("22D7HK")
+				.apiSecret("0eefb77c8b921283cb5e4477ac063178")
+				.scope("activity heartrate location nutrition profile settings sleep social weight") // replace with desired scope
+				//your callback URL to store and handle the authorization code sent by Fitbit
+				.callback("caladrius://authcallback")
+				//.state("some_params")
+				.build(FitbitApi20.instance());
+
+
+		protected FitBitOAuth2AccessToken doInBackground(Void... things) {
+			try{
+				final OAuth2AccessToken oauth2AccessToken = service.refreshAccessToken(Caladrius.user.fAcc.getPrivateToken().getRefreshToken());
+
+				FitBitOAuth2AccessToken accessToken = (FitBitOAuth2AccessToken) oauth2AccessToken;
+
+				return accessToken;
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+
+		}
+
+		protected void onPostExecute(FitBitOAuth2AccessToken accessToken) {
+			try {
+				Caladrius.user.fAcc.setPrivateToken(accessToken);
+				Intent pager = new Intent(LoginScreen.this, PagerActivity.class);
+				startActivity(pager);
 			}
 			catch (Exception e)
 			{

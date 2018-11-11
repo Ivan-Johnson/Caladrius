@@ -35,12 +35,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                        android:host="authcallback"
-                        android:scheme="caladrius" />
+                    android:host="authcallback"
+                    android:scheme="caladrius" />
             </intent-filter>
         </activity>
         <activity android:name=".AllData" />
-        <activity android:name=".QueryEditor" />
+        <activity android:name=".QueryEditor"
+            android:parentActivityName=".PagerActivity"/>
         <activity android:name=".SummaryPageEditor" />
         <activity android:name=".ListTest" />
         <activity android:name=".rss.FeedEditor$FeedEditorActivity" />

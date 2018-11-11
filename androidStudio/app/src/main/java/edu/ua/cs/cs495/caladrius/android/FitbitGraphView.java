@@ -24,6 +24,7 @@ import java.util.ArrayList;
 /**
  * The FitbitGraphView module generates an instance of a GraphView graph with the supplied Query parameter class.
  * It interacts with both the Graphview API and the Fitbit API.
+ * @author Ian Braudaway
  */
 public class FitbitGraphView extends GraphView
 {
