@@ -289,13 +289,13 @@ public class FitbitGraphView extends GraphView
 			DataPoint[] points = dpsFromPoints(Caladrius.user.fAcc.getPoints(statsToRetrieve.get(i)));
 			if (points.length > 0) {
 				double tmpX = points[points.length - 1].getX();
-				double tmpY = points[points.length - 1].getY();
 				xMax = xMax > tmpX ? xMax : tmpX;
 				if (xMax > xMaxOfMax)
 				{
 					xMaxOfMax = xMax;
 				}
 
+				double tmpY = points[points.length - 1].getY();
 				yMax = yMax > tmpY ? yMax : tmpY;
 				if (yMax > yMaxOfMax)
 				{
@@ -317,27 +317,33 @@ public class FitbitGraphView extends GraphView
 			// BarGraph
 			else if (this.graphType.get(i)
 			                       .equals(GraphViewGraph.BarGraph)) {
-				DataPoint points_bar[] = {
-					new DataPoint(0.5, 0),
-					new DataPoint(1.5, 2),
-					new DataPoint(2.5, 1),
-					new DataPoint(3.5, 4),
-					new DataPoint(4.5, 3),
-					new DataPoint(5.5, 5)
-				};
-				xMax = 6;
-				series = new BarGraphSeries<>(points_bar);
+//				DataPoint points_bar[] = {
+//					new DataPoint(0.5, 0),
+//					new DataPoint(1.5, 2),
+//					new DataPoint(2.5, 1),
+//					new DataPoint(3.5, 4),
+//					new DataPoint(4.5, 3),
+//					new DataPoint(5.5, 5)
+//				};
+//				xMax = 6;
+				series = new BarGraphSeries<>(points);
 				((BarGraphSeries<DataPoint>) series).setColor(c);
 				this.getGridLabelRenderer().setVerticalLabelsColor(c);
 				((BarGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
 			}
 
 			// PointsGraph
-			else {
+			else if (this.graphType.get(i)
+					               .equals(GraphViewGraph.PointsGraph)){
 				series = new PointsGraphSeries<>(points);
 				((PointsGraphSeries<DataPoint>) series).setColor(c);
 				this.getGridLabelRenderer().setVerticalLabelsColor(c);
 				((PointsGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
+			}
+
+			else
+			{
+				series = null;
 			}
 
 			if (this.graphType.size() == 2)
