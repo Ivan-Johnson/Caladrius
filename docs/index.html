@@ -15,21 +15,21 @@
   <link rel="shortcut icon" href="./img/favicon.svg" type="image/x-icon">
 </head>
 
-<body class="light">
+<body class="dark">
   <header>
     <h1>
       <a href="./">Home</a>
     </h1>
     <nav>
       <a href="https://github.com/Project-Caladrius/Caladrius">
-        <img src="./img/media/GitHub.svg" alt="GitHub" title="GitHub" class="media light">
+        <img src="./img/media/GitHub.svg" alt="GitHub" title="GitHub" class="media dark">
       </a>
       <img src="./img/sun.svg" alt="Toggle Night Mode" title="Toggle Night Mode" class="sun" id="nightModeSwitch" onclick="toggleNightMode()">
     </nav>
   </header>
   <main>
     <div class="row">
-      <section class="light container w-3">
+      <section class="dark container w-3">
         <header>
           <h2>Templates</h2>
         </header>
@@ -48,7 +48,7 @@
           </li>
         </ul>
       </section>
-      <section class="light container w-3">
+      <section class="dark container w-3">
         <header>
           <h2>Downloads</h2>
         </header>
@@ -61,13 +61,13 @@
           </li>
         </ul>
       </section>
-      <section class="light container w-3">
+      <section class="dark container w-3">
         <header>
           <h2>Showcase</h2>
         </header>
-        <details class="light">
+        <details class="dark">
           <summary class="dark">Buttons</summary>
-          <ul class="light">
+          <ul class="dark">
             <li>
               <button onclick="alert('Hello, world!')">Button</button>
             </li>
@@ -77,15 +77,10 @@
             <li>
               <button onclick="confirm('Are you sure about that?')" class="warning">Warning</button>
             </li>
-            <li>
-              <button onclick="toggleNightMode()" class="dark">Dark</button>
-            </li>
           </ul>
         </details>
       </section>
     </div>
   </main>
-  <script src="./js/night.js" async defer></script>
 </body>
-
 </html>
