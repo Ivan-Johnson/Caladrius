@@ -106,17 +106,6 @@ public class LoginScreen extends AppCompatActivity
 			}
 		});
 
-		final Button btnNoLogin = findViewById(R.id.btnNoLogin);
-
-		btnNoLogin.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				Intent pager = new Intent(v.getContext(), PagerActivity.class);
-				startActivity(pager);}
-		});
-
 		final Button btnTest = findViewById(R.id.btnTest);
 
         btnTest.setOnClickListener(new View.OnClickListener()

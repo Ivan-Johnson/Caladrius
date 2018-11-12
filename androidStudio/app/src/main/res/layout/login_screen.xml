@@ -39,11 +39,5 @@
         android:layout_marginBottom="20dp"
         android:elevation="10dp"
         android:text="List Test" />
-    <Button
-            android:text="No Login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" android:id="@+id/btnNoLogin" android:layout_marginBottom="149dp"
-            android:layout_alignStart="@+id/btnLogin" android:layout_marginStart="5dp"/>
 
 </RelativeLayout>
