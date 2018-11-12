@@ -30,6 +30,8 @@ public class TestFile
 		int millis = now.get(ChronoField.MILLI_OF_SECOND); // Note: no direct getter available.
 
 		System.out.printf("%s %02d %02d ", getMonthForInt(month), day, year);
+		String[] array = new String[] {"John", "Mary", "Bob"};
+		System.out.println(Arrays.toString(array));
 	}
 
 	static String getMonthForInt(int m)
@@ -46,3 +48,4 @@ public class TestFile
 		return sdf.format(date);
 	}
 }
+

@@ -63,21 +63,19 @@ public class SummaryPage extends Fragment
 		LinearLayout ll = rootView.findViewById(R.id.list);
 		assert defaultGraphStats.length == defaultGraphTypes.length;
 		for (int c = defaultGraphStats.length - 1; c >= 0; c--) {
-			ArrayList<FitbitGraphView.GraphViewGraph> graphTypes = new ArrayList<>();
-			graphTypes.addAll(Arrays.asList(defaultGraphTypes[c]));
+			ArrayList<FitbitGraphView.GraphViewGraph> graphTypes =
+					new ArrayList<>(Arrays.asList(defaultGraphTypes[c]));
 
-			ArrayList<String> stats = new ArrayList<>();
-			stats.addAll(Arrays.asList(defaultGraphStats[c]));
+			ArrayList<String> stats = new ArrayList<>(Arrays.asList(defaultGraphStats[c]));
 
-			ArrayList<Integer> color = new ArrayList<>();
-			color.addAll(Arrays.asList(defaultGraphColors[c]));
+			ArrayList<Integer> color = new ArrayList<>(Arrays.asList(defaultGraphColors[c]));
 
 			String title = defaultGraphTitles[c];
 
 			Query query = new Query(graphTypes,
-				stats,
-				color,
-				title);
+									stats,
+									color,
+									title);
 
 			FitbitGraphView fgv = new FitbitGraphView(getContext(),
 				query

@@ -7,6 +7,7 @@
         <item>@string/item_bpm</item>
         <item>@string/item_steps</item>
     </string-array>
+
     <string-array name="rss_conditions_extremevalue_boundarytype">
         <item>@string/cmp_lt </item>
         <item>@string/cmp_lte</item>
@@ -14,4 +15,39 @@
         <item>@string/cmp_gt </item>
         <item>@string/cmp_gte</item>
     </string-array>
+
+    <!-- These are the options displayed in the time range drop-down Spinner -->
+    <string-array name="array_time_range_options">
+        <item>@string/time_range_today</item>
+        <item>@string/time_range_week</item>
+        <item>@string/time_range_month</item>
+        <item>@string/time_range_year</item>
+    </string-array>
+
+    <!-- These are the options displayed in the graph type drop-down Spinner -->
+    <string-array name="array_graph_type_options">
+        <item>@string/type_bar</item>
+        <item>@string/type_points</item>
+        <item>@string/type_Line</item>
+    </string-array>
+
+    <!-- These are the options displayed in the graph stats drop-down Spinner -->
+    <string-array name="array_graph_stats_options">
+        <item>@string/stats_bpm</item>
+        <item>@string/stats_steps</item>
+        <item>@string/stats_caloric</item>
+    </string-array>
+
+    <!-- These are the options displayed in the graph color drop-down Spinner -->
+    <string-array name="array_graph_color_options">
+        <item>@string/color_black</item>
+        <item>@string/color_blue</item>
+        <item>@string/color_cyan</item>
+        <item>@string/color_gray</item>
+        <item>@string/color_green</item>
+        <item>@string/color_red</item>
+        <item>@string/color_yellow</item>
+    </string-array>
+
+
 </resources>

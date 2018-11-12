@@ -35,4 +35,87 @@
 
     <string name="editor_confirmation_defaulttitle">"Closing Editor"</string>
     <string name="editor_confirmation_defaultmessage">"Are you sure you want to discard unsaved changes?"</string>
+    <string name="time_range">Time Range</string>
+    <string name="hint_time_range">Time Range</string>
+    <string name="graph_type">Graph Type</string>
+    <string name="graph_stats">Graph Stats</string>
+    <string name="graph_color">Graph Color</string>
+    <string name="graph_title">Graph Title</string>
+    <string name="hint_graph_title">Title</string>
+
+    <string name="editor_activity_title_new_graph">Add a Graph</string>
+    <string name="editor_activity_title_edit_graph">Edit Graph</string>
+
+
+    <string name="time_range_today">Today</string>
+    <string name="time_range_week">Week</string>
+    <string name="time_range_month">Month</string>
+    <string name="time_range_year">Year</string>
+
+    <string name="type_bar">Bar</string>
+    <string name="type_points">Points</string>
+    <string name="type_Line">Line</string>
+
+    <string name="stats_bpm">BPM</string>
+    <string name="stats_steps">Steps</string>
+    <string name="stats_caloric">Caloric</string>
+
+
+    <string name="color_black">Black</string>
+    <string name="color_blue">Blue</string>
+    <string name="color_cyan">Cyan</string>
+    <string name="color_gray">Gray</string>
+    <string name="color_green">Green</string>
+    <string name="color_red">Red</string>
+    <string name="color_yellow">Yellow</string>
+
+
+    <!-- Dialog message to ask the user to confirm deleting the current graph [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_msg">Delete this graph?</string>
+    
+    <!-- Dialog button text for the option to confirm deleting the current graph [CHAR LIMIT=20] -->
+    <string name="delete">Delete</string>
+    
+    <!-- Dialog button text for the option to cancel deletion of the current graph [CHAR LIMIT=20] -->
+    <string name="cancel">Cancel</string>
+
+    <!-- Dialog button text for the option to keep editing the current graph [CHAR LIMIT=20] -->
+    <string name="keep_editing">Keep Editing</string>
+
+    <!-- Toast message in editor when current graph was successfully deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_graph_successful">Graph deleted</string>
+
+    <!-- Toast message in editor when current graph has failed to be deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_graph_failed">Error with deleting graph</string>
+
+    <!-- Toast message in editor when new graph has been successfully inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_graph_successful">Graph saved</string>
+
+    <!-- Toast message in editor when new graph has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_graph_failed">Error with saving graph</string>
+
+    <!-- Toast message in editor when new graph has been successfully inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_update_graph_successful">Graph updated</string>
+
+    <!-- Toast message in editor when new graph has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_update_graph_failed">Error with updating graph</string>
+
+    <!-- Label for editor menu option to save graph and leave editor [CHAR LIMIT=20] -->
+    <string name="action_save">Save</string>
+
+    <!-- Label for editor overflow menu option that deletes the current graph [CHAR LIMIT=20] -->
+    <string name="action_delete">Delete</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+
+    <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Discard</string>
+
+
+    <!-- Label for overflow menu option that inserts fake graph data into the app [CHAR LIMIT=20] -->
+    <string name="action_insert_dummy_data">Insert Dummy Data</string>
+
+    <!-- Label for overflow menu option that deletes all graph data in the app [CHAR LIMIT=20] -->
+    <string name="action_delete_all_entries">Delete All Pets</string>
 </resources>
