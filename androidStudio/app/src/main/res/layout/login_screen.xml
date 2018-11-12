@@ -19,45 +19,15 @@
         android:contentDescription="@string/todo"
         app:srcCompat="@drawable/caladrius_logo" />
 
-    <EditText
-        android:id="@+id/txtUser"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_centerInParent="true"
-        android:background="#11000000"
-        android:drawableStart="@drawable/ic_action_user"
-        android:ems="10"
-        android:hint="@string/username"
-        android:inputType="textPersonName"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/txtPass"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="223dp"
-        android:background="#11000000"
-        android:drawableStart="@drawable/ic_action_pass"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword" />
-
     <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="139dp"
-        android:elevation="10dp"
-        android:text="@string/login" />
-    <Button
-        android:text="Fitbit Test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true" android:id="@+id/btnFitbit" android:layout_marginBottom="62dp"/>
+            android:id="@+id/btnLogin"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="270dp"
+            android:elevation="10dp"
+            android:text="Fitbit Login"/>
 
 
     <Button

@@ -1,5 +1,7 @@
 package edu.ua.cs.cs495.caladrius.fitbit;
 
+import com.github.scribejava.apis.fitbit.FitBitOAuth2AccessToken;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,13 +19,26 @@ public class FitbitAccount implements Serializable
 		"Weight"
 	};
 
-	protected String identifier;
-	protected String privateToken;
+	protected FitBitOAuth2AccessToken privateToken;
 
-	public FitbitAccount(String identifier, String privateToken)
+	public FitbitAccount()
 	{
-		this.identifier = identifier;
+		this.privateToken = null;
+	}
+
+	public FitbitAccount(FitBitOAuth2AccessToken privateToken)
+	{
 		this.privateToken = privateToken;
+	}
+
+	public FitBitOAuth2AccessToken getPrivateToken()
+	{
+		return this.privateToken;
+	}
+
+	public void setPrivateToken(FitBitOAuth2AccessToken token)
+	{
+		this.privateToken = token;
 	}
 
 	/**

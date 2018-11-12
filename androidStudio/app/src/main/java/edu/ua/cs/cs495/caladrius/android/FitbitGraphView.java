@@ -16,8 +16,8 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.series.Series;
-import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
-import edu.ua.cs.cs495.caladrius.fitbit.Point;
+import edu.ua.cs.cs495.caladrius.fitbit.*;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -266,28 +266,65 @@ public class FitbitGraphView extends GraphView
 		}
 	}
 
-	private void setSecondaryScale(Series<DataPoint> s, Integer color)
+	private void setSecondaryScale(Series<DataPoint> s, Integer color, double maxY)
 	{
 		this.getSecondScale().addSeries(s);
 		this.getSecondScale().setMinY(0);
-		this.getSecondScale().setMaxY(10);
+		this.getSecondScale().setMaxY(maxY);
 		this.getGridLabelRenderer().setVerticalLabelsSecondScaleColor(color);
+	}
+
+	private DataPoint[] makePointsFromFitbit(String statToRetrieve)
+	{
+		Fitbit fitbit = new Fitbit();
+		JSONArray arr = fitbit.getFitbitData(statToRetrieve);
+		int numPoints = arr.length();
+
+		Point[] points = new Point[numPoints];
+		try
+		{
+			for (int x = 0; x < numPoints; x++) {
+				Point dp = new Point((double)x, (double)arr.getJSONObject(x).getInt("value"));
+				points[x] = dp;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		DataPoint[] dataPoints = dpsFromPoints(points);
+		return dataPoints;
 	}
 
 	private void makeGraphViewGraph()
 	{
 		double xMax = 0;
-		boolean hasPoints = false;
+		double yMax = 0;
+
+		double xMaxOfMax = 0;
+		double yMaxOfMax = 0;
 
 		this.setTitle(this.getGraphTitle());
 		this.setTitleTextSize(75);
 
 		for (int i = 0; i < this.graphType.size(); i++) {
-			DataPoint[] points = dpsFromPoints(Caladrius.user.fAcc.getPoints(statsToRetrieve.get(i)));
+			//DataPoint[] points = dpsFromPoints(Caladrius.user.fAcc.getPoints(statsToRetrieve.get(i)));
+			DataPoint[] points = makePointsFromFitbit(statsToRetrieve.get(i));
 			if (points.length > 0) {
-				hasPoints = true;
-				double tmp = points[points.length - 1].getX();
-				xMax = xMax > tmp ? xMax : tmp;
+				double tmpX = points[points.length - 1].getX();
+				xMax = xMax > tmpX ? xMax : tmpX;
+				if (xMax > xMaxOfMax)
+				{
+					xMaxOfMax = xMax;
+				}
+
+				double tmpY = points[points.length - 1].getY();
+				yMax = yMax > tmpY ? yMax : tmpY;
+				if (yMax > yMaxOfMax)
+				{
+					yMaxOfMax = yMax;
+				}
 			}
 
 			Series<DataPoint> series;
@@ -304,34 +341,40 @@ public class FitbitGraphView extends GraphView
 			// BarGraph
 			else if (this.graphType.get(i)
 			                       .equals(GraphViewGraph.BarGraph)) {
-				DataPoint points_bar[] = {
-					new DataPoint(0.5, 0),
-					new DataPoint(1.5, 2),
-					new DataPoint(2.5, 1),
-					new DataPoint(3.5, 4),
-					new DataPoint(4.5, 3),
-					new DataPoint(5.5, 5)
-				};
-				xMax = 6;
-				series = new BarGraphSeries<>(points_bar);
+//				DataPoint points_bar[] = {
+//					new DataPoint(0.5, 0),
+//					new DataPoint(1.5, 2),
+//					new DataPoint(2.5, 1),
+//					new DataPoint(3.5, 4),
+//					new DataPoint(4.5, 3),
+//					new DataPoint(5.5, 5)
+//				};
+//				xMax = 6;
+				series = new BarGraphSeries<>(points);
 				((BarGraphSeries<DataPoint>) series).setColor(c);
 				this.getGridLabelRenderer().setVerticalLabelsColor(c);
 				((BarGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
 			}
 
 			// PointsGraph
-			else {
+			else if (this.graphType.get(i)
+					               .equals(GraphViewGraph.PointsGraph)){
 				series = new PointsGraphSeries<>(points);
 				((PointsGraphSeries<DataPoint>) series).setColor(c);
 				this.getGridLabelRenderer().setVerticalLabelsColor(c);
 				((PointsGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
 			}
 
+			else
+			{
+				series = null;
+			}
+
 			if (this.graphType.size() == 2)
 			{
 				if (i == 1)
 				{
-					setSecondaryScale(series, seriesColors.get(i-1));
+					setSecondaryScale(series, seriesColors.get(i-1), Math.round(yMax + 1));
 				}
 
 				// Index 0 size 2
@@ -351,11 +394,13 @@ public class FitbitGraphView extends GraphView
 				legendHandler(this);
 			}
 		}
-		if (hasPoints) {
-			getViewport().setXAxisBoundsManual(true);
-			getViewport().setMinX(0); //TODO find min x for negative x
-			getViewport().setMaxX(xMax);
-		}
+		getViewport().setXAxisBoundsManual(true);
+		getViewport().setMinX(0); //TODO find min x for negative x
+		getViewport().setMaxX(Math.round(xMaxOfMax + 1));
+
+		getViewport().setYAxisBoundsManual(true);
+		getViewport().setMinY(0);
+		getViewport().setMaxY(Math.round(yMaxOfMax + 1));
 	}
 
 	public enum GraphViewGraph
