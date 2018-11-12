@@ -107,7 +107,6 @@ public class TestFile
 		System.out.println(response.getCode());
 		System.out.println(response.getBody());
 		System.out.println();
->>>>>>> c08146b4d7c1ca462e25fe1d65dfbf93663ba4a2
 	}
 
 	/*static String getMonthForInt(int m)
