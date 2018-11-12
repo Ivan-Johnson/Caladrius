@@ -18,11 +18,11 @@ public class Fitbit {
 	public JSONArray getFitbitData(String stat)
 	{
 		try{
-			String ret = new MakeAnyCall().execute(String.format("https://api.fitbit.com/1/user/%s/activities/%s/date/today/1y.json",
+			String ret = new MakeAnyCall().execute(String.format("https://api.fitbit.com/1/user/%s/activities/%s/date/2018-11-06/1w.json",
 							Caladrius.user.fAcc.privateToken.getUserId(), stat)).get();
 			JSONObject obj = new JSONObject(ret);
 
-			return obj.getJSONArray("activities-log-" + stat);
+			return obj.getJSONArray("activities-" + stat);
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -32,7 +32,7 @@ public class Fitbit {
 
 
 
-	public static class MakeAnyCall extends AsyncTask<String, Void, String>
+	class MakeAnyCall extends AsyncTask<String, Void, String>
 	{
 		private final OAuth20Service service = new ServiceBuilder("22D7HK")
 				.apiSecret("0eefb77c8b921283cb5e4477ac063178")
