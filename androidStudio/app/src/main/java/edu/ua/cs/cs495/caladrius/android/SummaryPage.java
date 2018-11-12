@@ -45,7 +45,7 @@ public class SummaryPage extends Fragment
 		"Calories",
 		"Steps",
 		"CaloriesBMR",
-		"Floors and Elevation",
+		"Steps vs Minutes Sedentary",
 		"Minutes of Activity",
 	};
 
