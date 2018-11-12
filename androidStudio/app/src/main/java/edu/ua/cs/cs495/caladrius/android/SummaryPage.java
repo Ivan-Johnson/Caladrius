@@ -28,11 +28,11 @@ public class SummaryPage extends Fragment
 			FitbitGraphView.GraphViewGraph.PointsGraph},
 	};
 	public final String[][] defaultGraphStats = {
-		{"Heart Rate"},
-		{"Caloric Burn"},
-		{"Caloric Basal"},
-		{"BPM", "Weight"},
-		{"Test1", "Test2", "Test3"},
+		{"calories"},
+		{"steps"},
+		{"caloriesBMR"},
+		{"steps", "minutesSedentary"},
+		{"minutesLightlyActive", "minutesFairlyActive", "minutesVeryActive"},
 	};
 	public final Integer[][] defaultGraphColors = {
 		{Color.DKGRAY},
@@ -42,11 +42,11 @@ public class SummaryPage extends Fragment
 		{Color.BLUE, Color.RED, Color.BLACK},
 	};
 	public final String[] defaultGraphTitles = {
-		"Heart Rate",
-		"Caloric Burn",
-		"Caloric BASAL",
-		"BPM",
-		"Test 3 Charts",
+		"Calories",
+		"Steps",
+		"CaloriesBMR",
+		"Floors and Elevation",
+		"Minutes of Activity",
 	};
 
 	public SummaryPage()

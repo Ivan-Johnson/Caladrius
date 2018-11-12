@@ -16,8 +16,8 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.series.Series;
-import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
-import edu.ua.cs.cs495.caladrius.fitbit.Point;
+import edu.ua.cs.cs495.caladrius.fitbit.*;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -274,6 +274,29 @@ public class FitbitGraphView extends GraphView
 		this.getGridLabelRenderer().setVerticalLabelsSecondScaleColor(color);
 	}
 
+	private DataPoint[] makePointsFromFitbit(String statToRetrieve)
+	{
+		Fitbit fitbit = new Fitbit();
+		JSONArray arr = fitbit.getFitbitData(statToRetrieve);
+		int numPoints = arr.length();
+
+		Point[] points = new Point[numPoints];
+		try
+		{
+			for (int x = 0; x < numPoints; x++) {
+				Point dp = new Point((double)x, (double)arr.getJSONObject(x).getInt("value"));
+				points[x] = dp;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		DataPoint[] dataPoints = dpsFromPoints(points);
+		return dataPoints;
+	}
+
 	private void makeGraphViewGraph()
 	{
 		double xMax = 0;
@@ -286,7 +309,8 @@ public class FitbitGraphView extends GraphView
 		this.setTitleTextSize(75);
 
 		for (int i = 0; i < this.graphType.size(); i++) {
-			DataPoint[] points = dpsFromPoints(Caladrius.user.fAcc.getPoints(statsToRetrieve.get(i)));
+			//DataPoint[] points = dpsFromPoints(Caladrius.user.fAcc.getPoints(statsToRetrieve.get(i)));
+			DataPoint[] points = makePointsFromFitbit(statsToRetrieve.get(i));
 			if (points.length > 0) {
 				double tmpX = points[points.length - 1].getX();
 				xMax = xMax > tmpX ? xMax : tmpX;
