@@ -277,7 +277,7 @@ public class FitbitGraphView extends GraphView
 	private void makeGraphViewGraph()
 	{
 		double xMax = 0;
-		boolean hasPoints = false;
+		double yMax = 0;
 
 		this.setTitle(this.getGraphTitle());
 		this.setTitleTextSize(75);
@@ -285,9 +285,10 @@ public class FitbitGraphView extends GraphView
 		for (int i = 0; i < this.graphType.size(); i++) {
 			DataPoint[] points = dpsFromPoints(Caladrius.user.fAcc.getPoints(statsToRetrieve.get(i)));
 			if (points.length > 0) {
-				hasPoints = true;
-				double tmp = points[points.length - 1].getX();
-				xMax = xMax > tmp ? xMax : tmp;
+				double tmpX = points[points.length - 1].getX();
+				double tmpY = points[points.length - 1].getY();
+				xMax = xMax > tmpX ? xMax : tmpX;
+				yMax = yMax > tmpY ? yMax : tmpY;
 			}
 
 			Series<DataPoint> series;
@@ -351,11 +352,13 @@ public class FitbitGraphView extends GraphView
 				legendHandler(this);
 			}
 		}
-		if (hasPoints) {
-			getViewport().setXAxisBoundsManual(true);
-			getViewport().setMinX(0); //TODO find min x for negative x
-			getViewport().setMaxX(xMax);
-		}
+		getViewport().setXAxisBoundsManual(true);
+		getViewport().setMinX(0); //TODO find min x for negative x
+		getViewport().setMaxX(Math.round(xMax + 1));
+
+		getViewport().setYAxisBoundsManual(true);
+		getViewport().setMinY(0);
+		getViewport().setMaxY(Math.round(yMax + 1));
 	}
 
 	public enum GraphViewGraph
