@@ -266,7 +266,7 @@ public class FitbitGraphView extends GraphView
 		}
 	}
 
-	private void setSecondaryScale(Series<DataPoint> s, Integer color)
+	private void setSecondaryScale(Series<DataPoint> s, Integer color, double maxY)
 	{
 		this.getSecondScale().addSeries(s);
 		this.getSecondScale().setMinY(0);
@@ -279,6 +279,9 @@ public class FitbitGraphView extends GraphView
 		double xMax = 0;
 		double yMax = 0;
 
+		double xMaxOfMax = 0;
+		double yMaxOfMax = 0;
+
 		this.setTitle(this.getGraphTitle());
 		this.setTitleTextSize(75);
 
@@ -288,7 +291,16 @@ public class FitbitGraphView extends GraphView
 				double tmpX = points[points.length - 1].getX();
 				double tmpY = points[points.length - 1].getY();
 				xMax = xMax > tmpX ? xMax : tmpX;
+				if (xMax > xMaxOfMax)
+				{
+					xMaxOfMax = xMax;
+				}
+
 				yMax = yMax > tmpY ? yMax : tmpY;
+				if (yMax > yMaxOfMax)
+				{
+					yMaxOfMax = yMax;
+				}
 			}
 
 			Series<DataPoint> series;
@@ -332,7 +344,7 @@ public class FitbitGraphView extends GraphView
 			{
 				if (i == 1)
 				{
-					setSecondaryScale(series, seriesColors.get(i-1));
+					setSecondaryScale(series, seriesColors.get(i-1), Math.round(yMaxOfMax + 1));
 				}
 
 				// Index 0 size 2
@@ -354,11 +366,11 @@ public class FitbitGraphView extends GraphView
 		}
 		getViewport().setXAxisBoundsManual(true);
 		getViewport().setMinX(0); //TODO find min x for negative x
-		getViewport().setMaxX(Math.round(xMax + 1));
+		getViewport().setMaxX(Math.round(xMaxOfMax + 1));
 
 		getViewport().setYAxisBoundsManual(true);
 		getViewport().setMinY(0);
-		getViewport().setMaxY(Math.round(yMax + 1));
+		getViewport().setMaxY(Math.round(yMaxOfMax + 1));
 	}
 
 	public enum GraphViewGraph
