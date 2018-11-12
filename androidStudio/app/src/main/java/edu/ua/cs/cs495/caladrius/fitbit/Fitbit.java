@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 public class Fitbit {
 
-	private Fitbit() {
+	public Fitbit() {
 	}
 
 	public JSONArray getFitbitData(String stat)
