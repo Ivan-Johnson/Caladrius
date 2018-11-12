@@ -270,7 +270,7 @@ public class FitbitGraphView extends GraphView
 	{
 		this.getSecondScale().addSeries(s);
 		this.getSecondScale().setMinY(0);
-		this.getSecondScale().setMaxY(10);
+		this.getSecondScale().setMaxY(maxY);
 		this.getGridLabelRenderer().setVerticalLabelsSecondScaleColor(color);
 	}
 
@@ -374,7 +374,7 @@ public class FitbitGraphView extends GraphView
 			{
 				if (i == 1)
 				{
-					setSecondaryScale(series, seriesColors.get(i-1), Math.round(yMaxOfMax + 1));
+					setSecondaryScale(series, seriesColors.get(i-1), Math.round(yMax + 1));
 				}
 
 				// Index 0 size 2
