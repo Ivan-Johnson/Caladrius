@@ -18,9 +18,19 @@ public class Fitbit {
 	public JSONArray getFitbitData(String stat)
 	{
 		try{
-			String ret = new MakeAnyCall().execute(String.format("https://api.fitbit.com/1/user/%s/activities/%s/date/2018-11-06/1w.json",
+			String ret = new MakeAnyCall().execute(String.format("https://api.fitbit.com/1/user/%s/activities/%s/date/2018-10-07/1w.json",
 							Caladrius.user.fAcc.privateToken.getUserId(), stat)).get();
 			JSONObject obj = new JSONObject(ret);
+			/*System.out.println("\nOBJECT");
+			System.out.println(obj.toString());
+
+			JSONArray arr = obj.getJSONArray("activities-"+stat);
+			System.out.println("\nARRAY");
+			System.out.println(arr.toString());
+
+			System.out.println("\nVALUES");
+			for(int i = 0; i < arr.length(); i++)
+				System.out.println(arr.getJSONObject(i).getInt("value"));*/
 
 			return obj.getJSONArray("activities-" + stat);
 		}

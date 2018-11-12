@@ -1,6 +1,6 @@
 package edu.ua.cs.cs495.caladrius.android;
 
-import java.util.Scanner;
+import java.util.*;
 
 import android.os.AsyncTask;
 import com.github.scribejava.apis.FitbitApi20;
@@ -24,9 +24,6 @@ import com.github.scribejava.core.oauth.OAuth20Service;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 // This file just use for testing code
 
@@ -80,7 +77,7 @@ public class TestFile
 
 		//GenerateRandomData(accessToken);
 
-		final OAuthRequest request = new OAuthRequest(Verb.GET, String.format("https://api.fitbit.com/1/user/%s/activities/steps/date/2018-11-06/1w.json", accessToken.getUserId()));
+		final OAuthRequest request = new OAuthRequest(Verb.GET, String.format("https://api.fitbit.com/1/user/%s/activities/steps/date/2018-10-07/1w.json", accessToken.getUserId()));
 
 		request.addHeader("x-li-format", "json");
 		service.signRequest(accessToken, request);
@@ -108,17 +105,28 @@ public class TestFile
 
 	public static void GenerateRandomData(FitBitOAuth2AccessToken accessToken)
 	{
-		for (int i = 1; i < 7; i++)
+		Random r = new Random();
+		for (int i = 1; i <= 7; i++)
 		{
 			for (int j = 0; j < 24; j++)
 			{
+				/**
+				 * Random r = new Random();
+				 * 		int numPoints = r.nextInt(10) + 5;
+				 * 		ArrayList<Point> points = new ArrayList<>();
+				 * 		for (int x = 0; x < numPoints; x++) {
+				 * 			Point dp = new Point(r.nextDouble()
+				 */
 				try {
 					final OAuthRequest request = new OAuthRequest(Verb.POST, String.format("https://api.fitbit.com/1/user/%s/activities.json", accessToken.getUserId()));
-					request.addParameter("activityId", "90013");
+					if(r.nextInt(10) % 2 == 0)
+						request.addParameter("activityId", "90013");
+					else
+						request.addParameter("activityId", "90009");
 					request.addParameter("startTime", String.format("%s:00:00", j));
-					request.addParameter("durationMillis", "3600000");
-					request.addParameter("date", String.format("2018-11-0%s", i));
-					request.addParameter("distance", String.format("3.%s%s", j, i));
+					request.addParameter("durationMillis", String.format("%s", (r.nextInt(36)+1)*100000));
+					request.addParameter("date", String.format("2018-09-0%s", i));
+					request.addParameter("distance", String.format("%s.%s%s", r.nextInt(10), r.nextInt(10), r.nextInt(9)+1));
 
 					request.addHeader("x-li-format", "json");
 					service.signRequest(accessToken, request);
