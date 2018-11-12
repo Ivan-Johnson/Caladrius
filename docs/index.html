@@ -1,59 +1,98 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Caladrius</title>
-    <link rel="stylesheet" href="stylesheet.css">
-    <style>
-      .column {
-	  float: left;
-	  width: 33.33%;
-      }
-      .column:after {
-	  content: "";
-	  display: table;
-	  clear: both;
-      }
-      .link {
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
 
-      }
-    </style>
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Index</title>
+  <meta name="description" content="A free and simple website template for building websites fast">
+  <link rel="stylesheet" href="./css/template.min.css">
+  <link rel="stylesheet" href="./css/night.css">
+  <link rel="shortcut icon" href="./img/favicon.svg" type="image/x-icon">
+</head>
+
+<body class="light">
+  <!--[if lt IE 7]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  <header>
+    <h1>
+      <a href="./">Home</a>
+    </h1>
+    <nav>
+      <a href="https://github.com/airicbear/simple-website-template">
+        <img src="./img/media/GitHub.svg" alt="GitHub" title="GitHub" class="media light">
+      </a>
+      <img src="./img/sun.svg" alt="Toggle Night Mode" title="Toggle Night Mode" class="sun" id="nightModeSwitch" onclick="toggleNightMode()">
+    </nav>
+  </header>
+  <main>
     <div class="row">
-      <div class="column">
-	<a href="https://Project-Caladrius.github.io/Caladrius/">
-	  Goals
-	</a>
-      </div>
-      <div class="column">
-	<a href="./deliverables.html">
-	  Deliverables
-	</a>
-      </div>
-      <div class="column">
-	<a href="./authors.html">
-	  Authors
-	</a>
-      </div>
+      <section class="light container w-3">
+        <header>
+          <h2>Templates</h2>
+        </header>
+        <ul>
+          <li>
+            <a href="./template/blank.html">Blank</a>
+          </li>
+          <li>
+            <a href="./template/grid-1-3.html">1x3 Grid</a>
+          </li>
+          <li>
+            <a href="./template/grid-2-2.html">2x2 Grid</a>
+          </li>
+          <li>
+            <a href="./template/grid-3-3.html">3x3 Grid</a>
+          </li>
+        </ul>
+      </section>
+      <section class="light container w-3">
+        <header>
+          <h2>Downloads</h2>
+        </header>
+        <ul>
+          <li>
+            <a href="https://github.com/airicbear/simple-website-template/releases/latest">Latest release</a>
+          </li>
+          <li>
+            <a href="https://github.com/airicbear/simple-website-template/releases">All releases</a>
+          </li>
+        </ul>
+      </section>
+      <section class="light container w-3">
+        <header>
+          <h2>Showcase</h2>
+        </header>
+        <details class="light">
+          <summary class="dark">Buttons</summary>
+          <ul class="light">
+            <li>
+              <button onclick="alert('Hello, world!')">Button</button>
+            </li>
+            <li>
+              <button onclick="alert('Success!')" class="success">Success</button>
+            </li>
+            <li>
+              <button onclick="confirm('Are you sure about that?')" class="warning">Warning</button>
+            </li>
+            <li>
+              <button onclick="toggleNightMode()" class="dark">Dark</button>
+            </li>
+          </ul>
+        </details>
+      </section>
     </div>
-    	<p>
-    	This is a proof of concept to show that we know how to embed YouTube videos<br/>
-		</p>
-    <iframe width="420" height="315"
-       src="https://youtube.com/embed/s7tWHJfhiyo">
-    </iframe>
+  </main>
+  <footer>
+    <p>Copyright &copy; 2018 Eric Nguyen</p>
+  </footer>
+  <script src="./js/night.js" async defer></script>
+</body>
 
-    <!--this: -->
-    <br/>
-    <!--is a Dirty Hack-->
-
-    These are our project goals:<br/>
-    <ul>
-      <li>Link with wearables</li>
-      <li>Visualize health data</li>
-      <li>Edit health data</li>
-      <li>Automate health related actions</li>
-      <li>Import old data from Apple’s Health Kit service</li>
-    </ul>
-  </body>
 </html>
