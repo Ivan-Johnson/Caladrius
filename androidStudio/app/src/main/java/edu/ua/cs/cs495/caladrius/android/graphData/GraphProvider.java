@@ -11,6 +11,12 @@ import android.util.Log;
 
 import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
 
+/**
+ * This class is for insert, edit, delete function for graph setting table,
+ * and make sure all the input was valid.
+ *
+ * @author Hansheng Li
+ */
 public class GraphProvider extends ContentProvider {
 
     /** Tag for the log messages */

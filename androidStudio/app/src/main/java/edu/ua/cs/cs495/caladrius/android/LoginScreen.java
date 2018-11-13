@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.github.scribejava.apis.FitbitApi20;
@@ -24,10 +25,18 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.CubeGrid;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
+
 import edu.ua.cs.cs495.caladrius.User;
 import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 
+/**
+ * This class is for Login to Fit bit account, lead to the Fit bit web, get user token, then
+ * use token to query the data form Fit bit server.
+ */
 public class LoginScreen extends AppCompatActivity
 {
 
@@ -41,32 +50,6 @@ public class LoginScreen extends AppCompatActivity
 			//.state("some_params")
 			.build(FitbitApi20.instance());
 
-	void launchTab(final Context context, final Uri uri){
-
-
-		CustomTabsServiceConnection connection = new CustomTabsServiceConnection() {
-			@Override
-			public void onCustomTabsServiceConnected(ComponentName componentName, CustomTabsClient client) {
-				final CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-				final CustomTabsIntent intent = builder.build();
-				client.warmup(0L); // This prevents backgrounding after redirection
-				intent.launchUrl(context, uri);//pass the url you need to open
-			}
-
-			@Override
-			public void onServiceDisconnected(ComponentName name) {}
-		};
-		CustomTabsClient.bindCustomTabsService(this, "com.android.chrome", connection);//mention package name which can handle the CCT their many browser present.
-	}
-
-
-
-	protected void login(Context cntxt, @NonNull User u)
-	{
-		Caladrius.user = u;
-		Intent pager = new Intent(cntxt, PagerActivity.class);
-		startActivity(pager);
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -76,6 +59,12 @@ public class LoginScreen extends AppCompatActivity
 
 		setContentView(R.layout.login_screen);
 
+		final ProgressBar progressBar = findViewById(R.id.loadingAnimation);
+		Sprite cubeGridLoading = new CubeGrid();
+		progressBar.setIndeterminateDrawable(cubeGridLoading);
+
+		progressBar.setVisibility(View.INVISIBLE);
+
 		final Button btnLogin = findViewById(R.id.btnLogin);
 
 		btnLogin.setOnClickListener(new View.OnClickListener()
@@ -83,6 +72,9 @@ public class LoginScreen extends AppCompatActivity
 			@Override
 			public void onClick(View v)
 			{
+
+				progressBar.setVisibility(View.VISIBLE);
+
 				Boolean response_bool;
 				try {
 					if (Caladrius.user != null && Caladrius.user.fAcc != null && Caladrius.user.fAcc.getPrivateToken() != null){
@@ -108,14 +100,38 @@ public class LoginScreen extends AppCompatActivity
 
 		final Button btnTest = findViewById(R.id.btnTest);
 
-        btnTest.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent pager = new Intent(v.getContext(), ListTest.class);
-                startActivity(pager);}
-        });
+		btnTest.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent pager = new Intent(v.getContext(), ListTest.class);
+				startActivity(pager);}
+		});
+	}
+
+
+	void launchTab(final Context context, final Uri uri){
+		CustomTabsServiceConnection connection = new CustomTabsServiceConnection() {
+			@Override
+			public void onCustomTabsServiceConnected(ComponentName componentName, CustomTabsClient client) {
+				final CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+				final CustomTabsIntent intent = builder.build();
+				client.warmup(0L); // This prevents backgrounding after redirection
+				intent.launchUrl(context, uri);//pass the url you need to open
+			}
+
+			@Override
+			public void onServiceDisconnected(ComponentName name) {}
+		};
+		CustomTabsClient.bindCustomTabsService(this, "com.android.chrome", connection);//mention package name which can handle the CCT their many browser present.
+	}
+
+	protected void login(Context cntxt, @NonNull User u)
+	{
+		Caladrius.user = u;
+		Intent pager = new Intent(cntxt, PagerActivity.class);
+		startActivity(pager);
 	}
 
 
@@ -211,7 +227,10 @@ public class LoginScreen extends AppCompatActivity
 		protected void onPostExecute(FitBitOAuth2AccessToken accessToken) {
 			try {
 				Caladrius.user.fAcc.setPrivateToken(accessToken);
+
 				Intent pager = new Intent(LoginScreen.this, PagerActivity.class);
+				ProgressBar progressBar = findViewById(R.id.loadingAnimation);
+				progressBar.setVisibility(View.GONE);
 				startActivity(pager);
 			}
 			catch (Exception e)

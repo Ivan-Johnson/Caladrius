@@ -20,15 +20,26 @@
         app:srcCompat="@drawable/caladrius_logo" />
 
     <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="270dp"
-            android:elevation="10dp"
-            android:text="Fitbit Login"/>
+        android:id="@+id/btnLogin"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="270dp"
+        android:elevation="10dp"
+        android:text="@string/fitbit_login"/>
 
+    <com.github.ybq.android.spinkit.SpinKitView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/loadingAnimation"
+        style="@style/SpinKitView.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="330dp"
+        app:SpinKit_Color="#f2fcff" />
 
     <Button
         android:id="@+id/btnTest"

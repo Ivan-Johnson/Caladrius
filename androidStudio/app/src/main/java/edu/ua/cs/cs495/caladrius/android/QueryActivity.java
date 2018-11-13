@@ -6,6 +6,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+/**
+ * This class is for showing the result from custom query data from fitbit.
+ *
+ * @author PeterJackson
+ */
+
 public class QueryActivity extends AppCompatActivity
 {
 	@SuppressLint("SetTextI18n") //TODO delete this suppression once placeholder text is removed

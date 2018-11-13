@@ -29,6 +29,11 @@ import java.util.Objects;
 
 import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
 
+/**
+ * This is use for add or edit graph setting page.
+ *
+ * @author Hansheng Li
+ */
 public class GraphEditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 

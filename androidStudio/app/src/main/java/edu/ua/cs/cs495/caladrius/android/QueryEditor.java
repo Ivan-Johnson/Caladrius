@@ -12,18 +12,28 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.CubeGrid;
+import com.github.ybq.android.spinkit.style.Wave;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * Custom query page for query many different data from fitbit server with different
+ * time range and attributes.
+ *
+ * @author Hansheng Li
+ */
 public class QueryEditor extends AppCompatActivity
 {
 
@@ -40,6 +50,8 @@ public class QueryEditor extends AppCompatActivity
 	//    /** EditText field to pick item to show on the graph */
 	private Spinner mItemSpinner_1;
 	private Spinner mItemSpinner_2;
+
+    private ProgressBar progressBar = null;
 
 	static String getMonthForInt(int m)
 	{
@@ -63,6 +75,11 @@ public class QueryEditor extends AppCompatActivity
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 			getSupportActionBar().setDisplayShowHomeEnabled(true);
 		}
+
+        progressBar = findViewById(R.id.query_loading);
+//        Sprite waveLoading = new Wave();
+//        progressBar.setIndeterminateDrawable(waveLoading);
+        progressBar.setVisibility(View.INVISIBLE);
 
 		final TextView startDateTextView = findViewById(R.id.start_date);
 		final TextView endDateTextView = findViewById(R.id.end_date);
@@ -143,6 +160,7 @@ public class QueryEditor extends AppCompatActivity
 				startActivityForResult(submitPage, 0);
 			}
 		});
+
 	}
 
 	/**

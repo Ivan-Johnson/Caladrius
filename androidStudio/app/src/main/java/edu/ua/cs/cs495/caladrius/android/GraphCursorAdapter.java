@@ -19,6 +19,11 @@ import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
 
 import static edu.ua.cs.cs495.caladrius.android.Caladrius.getContext;
 
+/**
+ * This is a cursor adapter for update graph list value by getting value from graph setting table.
+ *
+ * @author Hansheng Li
+ */
 public class GraphCursorAdapter extends CursorAdapter {
 
     public GraphCursorAdapter(Context context, Cursor c) {

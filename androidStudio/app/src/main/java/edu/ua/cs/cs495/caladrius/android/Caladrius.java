@@ -4,6 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import edu.ua.cs.cs495.caladrius.User;
 
+/**
+ * Logic check page of the the app with no error.
+ */
+
 public class Caladrius extends Application
 {
 	protected static Context cntxt;

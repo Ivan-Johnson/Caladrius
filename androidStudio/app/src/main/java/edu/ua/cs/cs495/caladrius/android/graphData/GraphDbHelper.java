@@ -5,6 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
 
+/**
+ * This class help to build sql database and crate a table for graph setting
+ *
+ * @author Hansheng Li
+ */
 public class GraphDbHelper extends SQLiteOpenHelper {
 
     public static final String LOG_TAG = GraphDbHelper.class.getSimpleName();

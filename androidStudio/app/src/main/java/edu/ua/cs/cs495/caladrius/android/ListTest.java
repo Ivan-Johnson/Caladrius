@@ -22,6 +22,11 @@ import java.util.Objects;
 
 import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
 
+/**
+ * This just a test file for database to store graph settings.
+ *
+ * @author Hansheng Li
+ */
 public class ListTest extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 

@@ -4,6 +4,11 @@ import android.content.ContentResolver;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+/**
+ * This class store all the String, URI and attributes values.
+ *
+ * @author Hansheng Li
+ */
 public final class GraphContract {
 
     private GraphContract(){}

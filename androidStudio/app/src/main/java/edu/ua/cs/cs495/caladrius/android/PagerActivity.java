@@ -9,10 +9,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * PagerActivity is the home page for the app, it have toolbar with calender page and
+ * edit page, also have two page fragment switch by using sliding tabs, one is summary
+ * page, another is rss page.
+ *
+ * @author Hansheng Li
+ */
 public class PagerActivity extends AppCompatActivity
 {
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -55,8 +60,10 @@ public class PagerActivity extends AppCompatActivity
 			startActivity(calenderIntent);
 			return true;
 		case R.id.edit:
+//			Intent editIntent = new Intent(this,
+//					SummaryPageEditor.class);
 			Intent editIntent = new Intent(this,
-				SummaryPageEditor.class);
+					ListTest.class);
 			startActivity(editIntent);
 			return true;
 		default:
