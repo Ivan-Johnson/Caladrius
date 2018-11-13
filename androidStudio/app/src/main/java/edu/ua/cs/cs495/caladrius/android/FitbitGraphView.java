@@ -373,6 +373,11 @@ public class FitbitGraphView extends GraphView
 					this.addSeries(series);
 					scrollHandler(this);
 					legendHandler(this);
+
+					getViewport().setYAxisBoundsManual(true);
+					getViewport().setMinY(0);
+					getViewport().setMaxY(yMax * 1.05);
+					yMax = Double.MIN_VALUE;
 				}
 
 			}
@@ -389,6 +394,10 @@ public class FitbitGraphView extends GraphView
 		getViewport().setMinX(xMin - xBorder); //TODO find min x for negative x
 		getViewport().setMaxX(xMax + xBorder);
 		getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getContext()));
+
+		if (graphType.size() == 2) {
+			return;
+		}
 
 		getViewport().setYAxisBoundsManual(true);
 		getViewport().setMinY(0);
