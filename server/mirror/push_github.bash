@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd /caladrius2
+pushd /CaladriusMirror/
 git fetch -p origin
 git push --mirror
 popd
