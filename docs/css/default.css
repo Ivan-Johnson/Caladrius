@@ -1,7 +1,6 @@
 /**
  * Box-sizing
  */
-
 * {
   box-sizing: border-box;
 }
@@ -9,7 +8,6 @@
 /**
  * Font-family
  */
-
 * {
   font-family: sans-serif;
 }
@@ -21,7 +19,6 @@ code {
 /**
  * Text color palette
  */
-
 .light {
   color: rgb(43, 43, 43);
 }
@@ -40,7 +37,6 @@ a {
 /**
  * Background color palette
  */
-
 body.dark,
 body.dark:hover,
 summary.dark,
