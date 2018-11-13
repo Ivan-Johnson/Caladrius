@@ -3,7 +3,6 @@ package edu.ua.cs.cs495.caladrius.android;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.provider.ContactsContract;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.RelativeLayout;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LegendRenderer;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -19,7 +19,9 @@ import com.jjoe64.graphview.series.Series;
 import edu.ua.cs.cs495.caladrius.fitbit.*;
 import org.json.JSONArray;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * The FitbitGraphView module generates an instance of a GraphView graph with the supplied Query parameter class.
@@ -280,11 +282,15 @@ public class FitbitGraphView extends GraphView
 		JSONArray arr = fitbit.getFitbitData(statToRetrieve);
 		int numPoints = arr.length();
 
-		Point[] points = new Point[numPoints];
+		DataPoint[] points = new DataPoint[numPoints];
 		try
 		{
 			for (int x = 0; x < numPoints; x++) {
-				Point dp = new Point((double)x, (double)arr.getJSONObject(x).getInt("value"));
+				String dt = arr.getJSONObject(x).getString("dateTime");
+				SimpleDateFormat ISO8601DATEFORMAT = new SimpleDateFormat("yyyy-MM-dd");
+				Date date = ISO8601DATEFORMAT.parse(dt);
+				DataPoint dp = new DataPoint(date, arr.getJSONObject(x).getInt("value"));
+
 				points[x] = dp;
 			}
 		}
@@ -293,24 +299,26 @@ public class FitbitGraphView extends GraphView
 			e.printStackTrace();
 		}
 
-		DataPoint[] dataPoints = dpsFromPoints(points);
-		return dataPoints;
+		return points;
 	}
 
 	private void makeGraphViewGraph()
 	{
-		double xMax = 0;
+		double xMax = Double.MIN_VALUE;
+		double xMin = Double.MAX_VALUE;
 		double yMax = 0;
 
 		this.setTitle(this.getGraphTitle());
 		this.setTitleTextSize(75);
 
 		for (int i = 0; i < this.graphType.size(); i++) {
-			//DataPoint[] points = dpsFromPoints(Caladrius.user.fAcc.getPoints(statsToRetrieve.get(i)));
 			DataPoint[] points = makePointsFromFitbit(statsToRetrieve.get(i));
 			if (points.length > 0) {
-				double tmpX = points[points.length - 1].getX();
+				double tmpX;
+				tmpX = points[points.length - 1].getX();
 				xMax = xMax > tmpX ? xMax : tmpX;
+				tmpX = points[0].getX();
+				xMin = xMin < tmpX ? xMin : tmpX;
 
 				for (DataPoint dp : points) {
 					double tmpY = dp.getY();
@@ -332,15 +340,6 @@ public class FitbitGraphView extends GraphView
 			// BarGraph
 			else if (this.graphType.get(i)
 			                       .equals(GraphViewGraph.BarGraph)) {
-//				DataPoint points_bar[] = {
-//					new DataPoint(0.5, 0),
-//					new DataPoint(1.5, 2),
-//					new DataPoint(2.5, 1),
-//					new DataPoint(3.5, 4),
-//					new DataPoint(4.5, 3),
-//					new DataPoint(5.5, 5)
-//				};
-//				xMax = 6;
 				series = new BarGraphSeries<>(points);
 				((BarGraphSeries<DataPoint>) series).setColor(c);
 				this.getGridLabelRenderer().setVerticalLabelsColor(c);
@@ -386,12 +385,14 @@ public class FitbitGraphView extends GraphView
 			}
 		}
 		getViewport().setXAxisBoundsManual(true);
-		getViewport().setMinX(0); //TODO find min x for negative x
-		getViewport().setMaxX(Math.round(xMax * 1.05));
+		double xBorder = (xMax - xMin) * 0.05;
+		getViewport().setMinX(xMin - xBorder); //TODO find min x for negative x
+		getViewport().setMaxX(xMax + xBorder);
+		getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getContext()));
 
 		getViewport().setYAxisBoundsManual(true);
 		getViewport().setMinY(0);
-		getViewport().setMaxY(Math.round(yMax * 1.05));
+		getViewport().setMaxY(yMax * 1.05);
 	}
 
 	public enum GraphViewGraph
