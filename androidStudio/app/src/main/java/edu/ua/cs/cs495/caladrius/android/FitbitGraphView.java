@@ -268,12 +268,13 @@ public class FitbitGraphView extends GraphView
 		}
 	}
 
-	private void setSecondaryScale(Series<DataPoint> s, Integer color, double maxY)
+	private void setSecondaryScale(Series<DataPoint> s, Integer color, Integer firstColor, double maxY)
 	{
 		this.getSecondScale().addSeries(s);
 		this.getSecondScale().setMinY(0);
 		this.getSecondScale().setMaxY(maxY);
 		this.getGridLabelRenderer().setVerticalLabelsSecondScaleColor(color);
+		this.getGridLabelRenderer().setVerticalLabelsColor(firstColor);
 	}
 
 	private DataPoint[] makePointsFromFitbit(String statToRetrieve)
@@ -364,7 +365,7 @@ public class FitbitGraphView extends GraphView
 			{
 				if (i == 1)
 				{
-					setSecondaryScale(series, seriesColors.get(i-1), Math.round(yMax + 1));
+					setSecondaryScale(series, seriesColors.get(i), seriesColors.get(i-1), Math.round(yMax + 1));
 				}
 
 				// Index 0 size 2
