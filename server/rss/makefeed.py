@@ -15,7 +15,7 @@ conn = sqlite3.connect(DB_FILE)
 
 def makefeed(id):
     item0 = Item(
-        title = "Now is is " + datetime.datetime.now().isoformat(),
+        title = "Now is " + datetime.datetime.now().isoformat(),
         link = "https://caladrius.ivanjohnson.net",
         description = "foo",
         author = "email@example.com (Ivan Johnson)",
