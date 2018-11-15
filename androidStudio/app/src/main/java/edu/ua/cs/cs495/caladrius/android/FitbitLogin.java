@@ -87,5 +87,3 @@ public class FitbitLogin extends AppCompatActivity
 		}
 	}
 }
-
-
