@@ -88,6 +88,7 @@ public class SummaryPage extends Fragment
 			}
 			catch (Exception e) {
 				Toast.makeText(this.getContext(), e.toString(), Toast.LENGTH_LONG).show();
+				e.printStackTrace();
 			}
 		}
 

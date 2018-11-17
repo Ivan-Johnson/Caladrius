@@ -20,6 +20,7 @@ import edu.ua.cs.cs495.caladrius.fitbit.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,7 +74,7 @@ public class FitbitGraphView extends GraphView
 	Boolean legend;
 
 	// Constructor
-	public FitbitGraphView(final Context context, final Query query) throws JSONException, InterruptedException, ExecutionException
+	public FitbitGraphView(final Context context, final Query query) throws JSONException, InterruptedException, ExecutionException, IOException
 	{
 		super(context);
 
@@ -281,7 +282,7 @@ public class FitbitGraphView extends GraphView
 		this.getGridLabelRenderer().setHorizontalLabelsAngle(30);
 	}
 
-	private DataPoint[] makePointsFromFitbit(String statToRetrieve) throws JSONException, InterruptedException, ExecutionException
+	private DataPoint[] makePointsFromFitbit(String statToRetrieve) throws JSONException, InterruptedException, ExecutionException, IOException
 	{
 		Fitbit fitbit = new Fitbit();
 		JSONArray arr = fitbit.getFitbitData(statToRetrieve);
@@ -307,7 +308,7 @@ public class FitbitGraphView extends GraphView
 		return points;
 	}
 
-	private void makeGraphViewGraph() throws JSONException, InterruptedException, ExecutionException
+	private void makeGraphViewGraph() throws JSONException, InterruptedException, ExecutionException, IOException
 	{
 		double xMax = Double.MIN_VALUE;
 		double xMin = Double.MAX_VALUE;

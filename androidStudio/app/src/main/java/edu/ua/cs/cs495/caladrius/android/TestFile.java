@@ -33,6 +33,9 @@ public class TestFile
 {
 	private static final String NETWORK_NAME = "Fitbit";
 
+	private static final String ACTIVITY_ID_WALKING = "90013";
+	private static final String ACTIVITY_ID_RUNNING = "90009";
+
 	private static final String PROTECTED_RESOURCE_URL = "https://api.fitbit.com/1/user/%s/profile.json";
 	private static OAuth20Service service = new ServiceBuilder("22D7HK")
 			.apiSecret("0eefb77c8b921283cb5e4477ac063178")
@@ -128,7 +131,7 @@ public class TestFile
 		Random r = new Random();
 		for (int i = 1; i <= 7; i++)
 		{
-			for (int j = 0; j < 24; j++)
+			for (int j = 7; j < 24; j++)
 			{
 				/**
 				 * Random r = new Random();
@@ -139,13 +142,13 @@ public class TestFile
 				 */
 				try {
 					final OAuthRequest request = new OAuthRequest(Verb.POST, String.format("https://api.fitbit.com/1/user/%s/activities.json", accessToken.getUserId()));
-					if(r.nextInt(10) % 2 == 0)
-						request.addParameter("activityId", "90013");
+					if(j <= 10)
+						request.addParameter("activityId", ACTIVITY_ID_RUNNING);
 					else
-						request.addParameter("activityId", "90009");
+						request.addParameter("activityId",ACTIVITY_ID_WALKING);
 					request.addParameter("startTime", String.format("%s:00:00", j));
 					request.addParameter("durationMillis", String.format("%s", (r.nextInt(36)+1)*100000));
-					request.addParameter("date", String.format("2018-09-0%s", i));
+					request.addParameter("date", String.format("2018-09-%02d", i));
 					request.addParameter("distance", String.format("%s.%s%s", r.nextInt(10), r.nextInt(10), r.nextInt(9)+1));
 
 					request.addHeader("x-li-format", "json");

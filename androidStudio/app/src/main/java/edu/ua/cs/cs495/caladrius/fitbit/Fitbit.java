@@ -1,9 +1,11 @@
 package edu.ua.cs.cs495.caladrius.fitbit;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import com.github.scribejava.apis.FitbitApi20;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import edu.ua.cs.cs495.caladrius.android.Caladrius;
@@ -19,11 +21,15 @@ public class Fitbit {
 	public Fitbit() {
 	}
 
-	public JSONArray getFitbitData(String stat) throws JSONException, InterruptedException, ExecutionException
+	public JSONArray getFitbitData(String stat) throws JSONException, InterruptedException, ExecutionException, IOException
 	{
-		String ret = new MakeAnyCall().execute(String.format("https://api.fitbit.com/1/user/%s/activities/%s/date/2018-10-07/1w.json",
+		PseudoResponse ret = new MakeAnyCall().execute(String.format("https://api.fitbit.com/1/user/%s/activities/%s/date/2018-10-07/1w.json",
 						Caladrius.user.fAcc.privateToken.getUserId(), stat)).get();
-		JSONObject obj = new JSONObject(ret);
+
+		if (ret.code > 299 || ret.code < 200)
+			throw new IOException(ret.body);
+
+		JSONObject obj = new JSONObject(ret.body);
 		/*System.out.println("\nOBJECT");
 		System.out.println(obj.toString());
 
@@ -40,7 +46,7 @@ public class Fitbit {
 
 
 
-	class MakeAnyCall extends AsyncTask<String, Void, String>
+	class MakeAnyCall extends AsyncTask<String, Void, PseudoResponse>
 	{
 		private final OAuth20Service service = new ServiceBuilder("22D7HK")
 				.apiSecret("0eefb77c8b921283cb5e4477ac063178")
@@ -51,7 +57,7 @@ public class Fitbit {
 				.build(FitbitApi20.instance());
 
 
-		protected String doInBackground(String... url) {
+		protected PseudoResponse doInBackground(String... url) {
 			try{
 				/**
 				 * Get Profile
@@ -62,7 +68,8 @@ public class Fitbit {
 				request.addHeader("x-li-format", "json");
 
 				service.signRequest(Caladrius.user.fAcc.getPrivateToken(), request);
-				return service.execute(request).getBody();
+				Response response = service.execute(request);
+				return new PseudoResponse(response.getBody(), response.getCode());
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -71,13 +78,16 @@ public class Fitbit {
 
 		}
 
-		protected void onPostExecute(String response) {
-			try {
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
+		protected void onPostExecute(PseudoResponse response) {}
 	}
+
+	class PseudoResponse{
+	    String body;
+	    int code;
+
+	    PseudoResponse(String b, int c){
+	        this.body = b;
+	        this.code = c;
+        }
+    }
 }

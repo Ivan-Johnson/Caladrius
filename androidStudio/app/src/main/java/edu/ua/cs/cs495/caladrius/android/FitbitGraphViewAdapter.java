@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import org.json.JSONException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
@@ -22,7 +23,7 @@ public class FitbitGraphViewAdapter extends BaseAdapter
 	                              FitbitGraphView.GraphViewGraph[][] graphTypes,
 	                              String[][] defaultGraphStats,
 	                              Integer[][] defaultGraphColors,
-	                              String[] defaultGraphTitles) throws JSONException, InterruptedException, ExecutionException
+	                              String[] defaultGraphTitles) throws JSONException, InterruptedException, ExecutionException, IOException
 	{
 		int len = graphTypes.length;
 		if (len != defaultGraphStats.length ||
