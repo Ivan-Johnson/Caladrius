@@ -98,6 +98,20 @@ public class LoginScreen extends AppCompatActivity
 			}
 		});
 
+		final Button btnNoLogin = findViewById(R.id.btnNoLogin);
+
+		btnNoLogin.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent pager = new Intent(v.getContext(), PagerActivity.class);
+				pager.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+				pager.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				pager.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+				startActivity(pager);}
+		});
+
 		final Button btnTest = findViewById(R.id.btnTest);
 
 		btnTest.setOnClickListener(new View.OnClickListener()
@@ -120,6 +134,7 @@ public class LoginScreen extends AppCompatActivity
 
                 intent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 intent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
 				client.warmup(0L); // This prevents backgrounding after redirection
 				intent.launchUrl(context, uri);//pass the url you need to open

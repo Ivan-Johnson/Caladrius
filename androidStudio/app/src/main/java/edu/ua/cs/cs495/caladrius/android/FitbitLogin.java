@@ -78,6 +78,9 @@ public class FitbitLogin extends AppCompatActivity
 			try {
 				Caladrius.user.fAcc = new FitbitAccount(accessToken);
 				Intent pager = new Intent(FitbitLogin.this, PagerActivity.class);
+				pager.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+				pager.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				pager.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 				startActivity(pager);
 			}
 			catch (Exception e)

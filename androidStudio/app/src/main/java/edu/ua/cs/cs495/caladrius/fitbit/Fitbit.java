@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-public class Fitbit {
+public class Fitbit implements FitbitInterface{
 
 	public Fitbit() {
 	}
@@ -31,13 +31,13 @@ public class Fitbit {
 
 		JSONObject obj = new JSONObject(ret.body);
 		/*System.out.println("\nOBJECT");
-		System.out.println(obj.toString());
+		System.out.println(obj.toString());*/
 
-		JSONArray arr = obj.getJSONArray("activities-"+stat);
-		System.out.println("\nARRAY");
-		System.out.println(arr.toString());
+		/*JSONArray arr = obj.getJSONArray("activities-"+stat);
+		System.out.println(String.format("\nARRAY %s", stat));
+		System.out.println(arr.toString());*/
 
-		System.out.println("\nVALUES");
+		/*System.out.println("\nVALUES");
 		for(int i = 0; i < arr.length(); i++)
 			System.out.println(arr.getJSONObject(i).getInt("value"));*/
 
@@ -69,6 +69,7 @@ public class Fitbit {
 
 				service.signRequest(Caladrius.user.fAcc.getPrivateToken(), request);
 				Response response = service.execute(request);
+				//Log.w("TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG",response.getHeaders().toString());
 				return new PseudoResponse(response.getBody(), response.getCode());
 			}
 			catch (Exception e) {
