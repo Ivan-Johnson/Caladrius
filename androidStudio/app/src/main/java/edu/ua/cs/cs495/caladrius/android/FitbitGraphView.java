@@ -403,6 +403,8 @@ public class FitbitGraphView extends GraphView
 		getViewport().setYAxisBoundsManual(true);
 		getViewport().setMinY(0);
 		getViewport().setMaxY(yMax * 1.05);
+
+		getGridLabelRenderer().setHorizontalLabelsAngle(30);
 	}
 
 	public enum GraphViewGraph
