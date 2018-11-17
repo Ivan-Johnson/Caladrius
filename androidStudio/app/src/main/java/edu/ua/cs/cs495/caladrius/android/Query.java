@@ -2,9 +2,8 @@ package edu.ua.cs.cs495.caladrius.android;
 
 import android.graphics.Color;
 
-import java.lang.reflect.Array;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -12,7 +11,7 @@ import java.util.Collections;
  * This object is usually then passed into the FitbitGraphView module.
  * @author Ian Braudaway
  */
-public class Query
+public class Query implements Serializable
 {
 	// Supplied graphType array list needs to be one of three enums,
 	// there needs to be the same number of elements as the statsToRetrieve
