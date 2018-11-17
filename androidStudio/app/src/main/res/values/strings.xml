@@ -57,8 +57,8 @@
     <string name="type_Line">Line</string>
 
     <string name="stats_bpm">BPM</string>
-    <string name="stats_steps">Steps</string>
-    <string name="stats_caloric">Caloric</string>
+    <string name="stats_steps">steps</string>
+    <string name="stats_caloric">calories</string>
 
 
     <string name="color_black">Black</string>
