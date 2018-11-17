@@ -23,7 +23,7 @@ public class SummaryPage extends Fragment
 	public final FitbitGraphView.GraphViewGraph[][] defaultGraphTypes = {
 		{FitbitGraphView.GraphViewGraph.BarGraph},
 		{FitbitGraphView.GraphViewGraph.PointsGraph},
-		{FitbitGraphView.GraphViewGraph.PointsGraph},
+		{FitbitGraphView.GraphViewGraph.PointsGraph, FitbitGraphView.GraphViewGraph.PointsGraph},
 		{FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph},
 		{FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph,
 			FitbitGraphView.GraphViewGraph.PointsGraph},
@@ -31,21 +31,21 @@ public class SummaryPage extends Fragment
 	public final String[][] defaultGraphStats = {
 		{"calories"},
 		{"steps"},
-		{"caloriesBMR"},
+		{"caloriesBMR", "activityCalories"},
 		{"steps", "minutesSedentary"},
 		{"minutesLightlyActive", "minutesFairlyActive", "minutesVeryActive"},
 	};
 	public final Integer[][] defaultGraphColors = {
 		{Color.DKGRAY},
 		{Color.RED},
-		{Color.BLUE},
+		{Color.BLUE, Color.GREEN},
 		{Color.BLACK, Color.MAGENTA},
 		{Color.BLUE, Color.RED, Color.BLACK},
 	};
 	public final String[] defaultGraphTitles = {
 		"Calories",
 		"Steps",
-		"CaloriesBMR",
+		"CaloriesBMR vs activityCalories",
 		"Steps vs Minutes Sedentary",
 		"Minutes of Activity",
 	};

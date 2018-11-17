@@ -3,6 +3,7 @@ package edu.ua.cs.cs495.caladrius.android;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -276,8 +277,8 @@ public class FitbitGraphView extends GraphView
 		this.getSecondScale().addSeries(s);
 		this.getSecondScale().setMinY(0);
 		this.getSecondScale().setMaxY(maxY);
-		this.getGridLabelRenderer().setVerticalLabelsSecondScaleColor(color);
-		this.getGridLabelRenderer().setVerticalLabelsColor(firstColor);
+		this.getGridLabelRenderer().setVerticalLabelsSecondScaleColor(Color.BLACK);
+		this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
 
 		this.getGridLabelRenderer().setHorizontalLabelsAngle(30);
 	}
@@ -339,7 +340,7 @@ public class FitbitGraphView extends GraphView
 			                  .equals(GraphViewGraph.LineGraph)) {
 				series = new LineGraphSeries<>(points);
 				((LineGraphSeries<DataPoint>) series).setColor(c);
-				this.getGridLabelRenderer().setVerticalLabelsColor(c);
+				this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
 				((LineGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
 			}
 
@@ -348,7 +349,7 @@ public class FitbitGraphView extends GraphView
 			                       .equals(GraphViewGraph.BarGraph)) {
 				series = new BarGraphSeries<>(points);
 				((BarGraphSeries<DataPoint>) series).setColor(c);
-				this.getGridLabelRenderer().setVerticalLabelsColor(c);
+				this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
 				((BarGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
 			}
 
@@ -357,7 +358,7 @@ public class FitbitGraphView extends GraphView
 					               .equals(GraphViewGraph.PointsGraph)){
 				series = new PointsGraphSeries<>(points);
 				((PointsGraphSeries<DataPoint>) series).setColor(c);
-				this.getGridLabelRenderer().setVerticalLabelsColor(c);
+				this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
 				((PointsGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
 			}
 
@@ -397,7 +398,7 @@ public class FitbitGraphView extends GraphView
 		}
 		getViewport().setXAxisBoundsManual(true);
 		double xBorder = (xMax - xMin) * 0.05;
-		getViewport().setMinX(xMin - xBorder); //TODO find min x for negative x
+		getViewport().setMinX(xMin - xBorder);
 		getViewport().setMaxX(xMax + xBorder);
 		getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getContext()));
 
