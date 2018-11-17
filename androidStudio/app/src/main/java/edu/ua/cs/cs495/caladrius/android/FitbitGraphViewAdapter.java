@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 /**
  * The FitBitGraphViewAdapter module generates FitbitGraphView objects based on predetermined
@@ -20,7 +22,7 @@ public class FitbitGraphViewAdapter extends BaseAdapter
 	                              FitbitGraphView.GraphViewGraph[][] graphTypes,
 	                              String[][] defaultGraphStats,
 	                              Integer[][] defaultGraphColors,
-	                              String[] defaultGraphTitles)
+	                              String[] defaultGraphTitles) throws JSONException, InterruptedException, ExecutionException
 	{
 		int len = graphTypes.length;
 		if (len != defaultGraphStats.length ||

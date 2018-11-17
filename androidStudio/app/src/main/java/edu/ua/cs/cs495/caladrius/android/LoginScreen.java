@@ -117,6 +117,10 @@ public class LoginScreen extends AppCompatActivity
 			public void onCustomTabsServiceConnected(ComponentName componentName, CustomTabsClient client) {
 				final CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
 				final CustomTabsIntent intent = builder.build();
+
+                intent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
 				client.warmup(0L); // This prevents backgrounding after redirection
 				intent.launchUrl(context, uri);//pass the url you need to open
 			}

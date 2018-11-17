@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,11 +79,16 @@ public class SummaryPage extends Fragment
 									color,
 									title);
 
-			FitbitGraphView fgv = new FitbitGraphView(getContext(),
-				query
-			);
+			try {
+				FitbitGraphView fgv = new FitbitGraphView(getContext(),
+						query
+				);
 
-			ll.addView(fgv, 0);
+				ll.addView(fgv, 0);
+			}
+			catch (Exception e) {
+				Toast.makeText(this.getContext(), e.toString(), Toast.LENGTH_LONG).show();
+			}
 		}
 
 		return rootView;

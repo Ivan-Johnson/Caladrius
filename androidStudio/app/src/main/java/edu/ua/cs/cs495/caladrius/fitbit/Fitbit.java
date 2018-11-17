@@ -8,36 +8,34 @@ import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import edu.ua.cs.cs495.caladrius.android.Caladrius;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class Fitbit {
 
 	public Fitbit() {
 	}
 
-	public JSONArray getFitbitData(String stat)
+	public JSONArray getFitbitData(String stat) throws JSONException, InterruptedException, ExecutionException
 	{
-		try{
-			String ret = new MakeAnyCall().execute(String.format("https://api.fitbit.com/1/user/%s/activities/%s/date/2018-10-07/1w.json",
-							Caladrius.user.fAcc.privateToken.getUserId(), stat)).get();
-			JSONObject obj = new JSONObject(ret);
-			/*System.out.println("\nOBJECT");
-			System.out.println(obj.toString());
+		String ret = new MakeAnyCall().execute(String.format("https://api.fitbit.com/1/user/%s/activities/%s/date/2018-10-07/1w.json",
+						Caladrius.user.fAcc.privateToken.getUserId(), stat)).get();
+		JSONObject obj = new JSONObject(ret);
+		/*System.out.println("\nOBJECT");
+		System.out.println(obj.toString());
 
-			JSONArray arr = obj.getJSONArray("activities-"+stat);
-			System.out.println("\nARRAY");
-			System.out.println(arr.toString());
+		JSONArray arr = obj.getJSONArray("activities-"+stat);
+		System.out.println("\nARRAY");
+		System.out.println(arr.toString());
 
-			System.out.println("\nVALUES");
-			for(int i = 0; i < arr.length(); i++)
-				System.out.println(arr.getJSONObject(i).getInt("value"));*/
+		System.out.println("\nVALUES");
+		for(int i = 0; i < arr.length(); i++)
+			System.out.println(arr.getJSONObject(i).getInt("value"));*/
 
-			return obj.getJSONArray("activities-" + stat);
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-		return null;
+		return obj.getJSONArray("activities-" + stat);
 	}
 
 
