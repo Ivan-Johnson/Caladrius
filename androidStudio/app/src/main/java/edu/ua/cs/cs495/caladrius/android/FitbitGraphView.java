@@ -275,6 +275,8 @@ public class FitbitGraphView extends GraphView
 		this.getSecondScale().setMaxY(maxY);
 		this.getGridLabelRenderer().setVerticalLabelsSecondScaleColor(color);
 		this.getGridLabelRenderer().setVerticalLabelsColor(firstColor);
+
+		this.getGridLabelRenderer().setHorizontalLabelsAngle(30);
 	}
 
 	private DataPoint[] makePointsFromFitbit(String statToRetrieve)
