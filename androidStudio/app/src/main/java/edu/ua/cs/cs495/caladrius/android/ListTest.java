@@ -129,7 +129,7 @@ public class ListTest extends AppCompatActivity implements LoaderManager.LoaderC
         ContentValues values = new ContentValues();
         values.put(GraphEntry.COLUMN_GRAPH_TIME_RANGE, GraphEntry.TIME_RANGE_TODAY);
         values.put(GraphEntry.COLUMN_GRAPH_TYPE, GraphEntry.BAR_GRAPH);
-        values.put(GraphEntry.COLUMN_GRAPH_STATS, GraphEntry.STATS_BPM);
+        values.put(GraphEntry.COLUMN_GRAPH_STATS, GraphEntry.STATS_CALORIC);
         values.put(GraphEntry.COLUMN_GRAPH_COLORS, GraphEntry.COLOR_BLACK);
         values.put(GraphEntry.COLUMN_GRAPH_TITLE, "Heart Rate");
 

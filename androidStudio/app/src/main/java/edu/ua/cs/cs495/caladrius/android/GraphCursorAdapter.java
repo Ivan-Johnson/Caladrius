@@ -1,7 +1,6 @@
 package edu.ua.cs.cs495.caladrius.android;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -26,6 +25,50 @@ import static edu.ua.cs.cs495.caladrius.android.Caladrius.getContext;
  */
 public class GraphCursorAdapter extends CursorAdapter {
 
+
+    public final FitbitGraphView.GraphViewGraph[][] defaultGraphTypes = {
+            {FitbitGraphView.GraphViewGraph.BarGraph},
+            {FitbitGraphView.GraphViewGraph.PointsGraph},
+            {FitbitGraphView.GraphViewGraph.PointsGraph},
+            {FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph},
+            {FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph,
+                    FitbitGraphView.GraphViewGraph.PointsGraph},
+    };
+    public final String[][] defaultGraphStats = {
+            {"calories"},
+            {"steps"},
+            {"caloriesBMR"},
+            {"steps", "minutesSedentary"},
+            {"minutesLightlyActive", "minutesFairlyActive", "minutesVeryActive"},
+    };
+
+    public final String[] defaultGraphTitles = {
+            "Calories",
+            "Steps",
+            "CaloriesBMR",
+            "Steps vs Minutes Sedentary",
+            "Minutes of Activity",
+    };
+
+    private int GetColour(Integer selection){
+        if (selection == GraphEntry.COLOR_BLACK) {
+            return Color.BLACK;
+        } else if (selection == GraphEntry.COLOR_BLUE) {
+            return Color.BLUE;
+        } else if (selection == GraphEntry.COLOR_CYAN) {
+            return Color.CYAN;
+        } else if (selection == GraphEntry.COLOR_GRAY) {
+            return Color.GRAY;
+        } else if (selection == GraphEntry.COLOR_GREEN) {
+            return Color.GREEN;
+        } else if (selection == GraphEntry.COLOR_RED) {
+            return Color.RED;
+        } else if (selection == GraphEntry.COLOR_YELLOW) {
+            return Color.YELLOW;
+        }
+        return Color.DKGRAY;
+    }
+
     public GraphCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
     }
@@ -38,8 +81,6 @@ public class GraphCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        LinearLayout graphList = view.findViewById(R.id.graph_item);
-
 
         // Find the columns of graph attributes that we're interested in
         int timeRangeColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_TIME_RANGE);
@@ -49,11 +90,11 @@ public class GraphCursorAdapter extends CursorAdapter {
         int titleColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_TITLE);
 
         // Read the graph attributes from the Cursor for the current graph
-        String graphtimerange = cursor.getString(timeRangeColumnIndex);
-        String graphtype = cursor.getString(typeColumnIndex);
-        String graphstats = cursor.getString(statsColumnIndex);
-        String graphcolor = cursor.getString(colorColumnIndex);
-        String graphtitle = cursor.getString(titleColumnIndex);
+        String graphTimeRange = cursor.getString(timeRangeColumnIndex);
+        String graphType = cursor.getString(typeColumnIndex);
+        final String graphStats = cursor.getString(statsColumnIndex);
+        String graphColor = cursor.getString(colorColumnIndex);
+        String graphTitle = cursor.getString(titleColumnIndex);
 
 //        FitbitGraphView.GraphViewGraph[] defaultGraphTypes =
 //                {FitbitGraphView.GraphViewGraph.BarGraph};
@@ -83,37 +124,65 @@ public class GraphCursorAdapter extends CursorAdapter {
 //        );
 //
 //        graphList.addView(fgv, 0);
-
 //        List<String> timeRangeArrayList = Arrays.asList(Resources.getSystem().getStringArray(R.array.array_time_range_options));
-
 //        String[] timeRangeArrayList = Resources.getSystem().getStringArray(R.array.array_time_range_options);
 
         List<String> timeRangeList = Arrays.asList(context.getResources().getStringArray(R.array.array_time_range_options));
 
-
         List<String> typeList = Arrays.asList(context.getResources().getStringArray(R.array.array_graph_type_options));
 
 
-        List<String> statsList = Arrays.asList(context.getResources().getStringArray(R.array.array_graph_stats_options));
+        final List<String> statsList = Arrays.asList(context.getResources().getStringArray(R.array.array_graph_stats_options));
 
 
         List<String> colorList = Arrays.asList(context.getResources().getStringArray(R.array.array_graph_color_options));
 
 
+        LinearLayout graph_container = view.findViewById(R.id.graph_container);
+
+        assert defaultGraphStats.length == defaultGraphTypes.length;
+        for (int c = 0; c >= 0; c--) {
+            ArrayList<FitbitGraphView.GraphViewGraph> graphTypes =
+                    new ArrayList<>(Arrays.asList(defaultGraphTypes[c]));
+
+            ArrayList<String> stats = new ArrayList<String>(){{
+                add(statsList.get(Integer.valueOf(graphStats)));
+            }};
+
+            ArrayList<Integer> color = new ArrayList<>(Arrays.asList(GetColour(Integer.valueOf(graphColor))));
+
+            String title = defaultGraphTitles[c];
+            Query query = new Query(graphTypes,
+                    stats,
+                    color,
+                    title);
+            FitbitGraphView fgv = new FitbitGraphView(getContext(),
+                    query
+            );
+            if((graph_container).getChildCount() > 0)
+                (graph_container).removeAllViews();
+            graph_container.addView(fgv);
+            break;
+        }
+
+
+
         TextView timeRangeTextView = view.findViewById(R.id.time_range);
-        timeRangeTextView.setText(timeRangeList.get(Integer.valueOf(graphtimerange)));
+        timeRangeTextView.setText(timeRangeList.get(Integer.valueOf(graphTimeRange)));
 
         TextView typeTextView = view.findViewById(R.id.graph_type);
-        typeTextView.setText(typeList.get(Integer.valueOf(graphtype)));
+        typeTextView.setText(typeList.get(Integer.valueOf(graphType)));
 
         TextView statsTextView = view.findViewById(R.id.graph_stats);
-        statsTextView.setText(statsList.get(Integer.valueOf(graphstats)));
+        statsTextView.setText(statsList.get(Integer.valueOf(graphStats)));
 
         TextView colorTextView = view.findViewById(R.id.graph_color);
-        colorTextView.setText(colorList.get(Integer.valueOf(graphcolor)));
+        colorTextView.setText(colorList.get(Integer.valueOf(graphColor)));
 
         TextView titleTextView = view.findViewById(R.id.graph_title);
-        titleTextView.setText(graphtitle);
+        titleTextView.setText(graphTitle);
+
+
 
     }
 }
