@@ -285,8 +285,7 @@ public class FitbitGraphView extends GraphView
 
 	private DataPoint[] makePointsFromFitbit(String statToRetrieve) throws JSONException, InterruptedException, ExecutionException, IOException
 	{
-		Fitbit fitbit = new Fitbit();
-		JSONArray arr = fitbit.getFitbitData(statToRetrieve);
+		JSONArray arr = Caladrius.fitbitInterface.getFitbitData(statToRetrieve);
 		int numPoints = arr.length();
 
 		DataPoint[] points = new DataPoint[numPoints];

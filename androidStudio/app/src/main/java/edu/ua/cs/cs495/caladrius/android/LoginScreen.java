@@ -30,7 +30,9 @@ import com.github.ybq.android.spinkit.style.CubeGrid;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
 
 import edu.ua.cs.cs495.caladrius.User;
+import edu.ua.cs.cs495.caladrius.fitbit.Fitbit;
 import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
+import edu.ua.cs.cs495.caladrius.fitbit.PseudoFitbit;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 
 /**
@@ -73,6 +75,8 @@ public class LoginScreen extends AppCompatActivity
 			public void onClick(View v)
 			{
 
+				Caladrius.fitbitInterface = new Fitbit();
+
 				progressBar.setVisibility(View.VISIBLE);
 
 				Boolean response_bool;
@@ -105,6 +109,8 @@ public class LoginScreen extends AppCompatActivity
 			@Override
 			public void onClick(View v)
 			{
+				Caladrius.fitbitInterface = new PseudoFitbit();
+
 				Intent pager = new Intent(v.getContext(), PagerActivity.class);
 				pager.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				pager.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
