@@ -10,11 +10,14 @@ import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
+import org.json.JSONException;
 
 import static edu.ua.cs.cs495.caladrius.android.Caladrius.getContext;
 
@@ -156,9 +159,16 @@ public class GraphCursorAdapter extends CursorAdapter {
                     stats,
                     color,
                     title);
-            FitbitGraphView fgv = new FitbitGraphView(getContext(),
-                    query
-            );
+            FitbitGraphView fgv = null;
+            try {
+                fgv = new FitbitGraphView(getContext(),
+                        query
+                );
+            } catch (JSONException | InterruptedException | ExecutionException | IOException e) {
+                e.printStackTrace();
+                continue;
+            }
+
             if((graph_container).getChildCount() > 0)
                 (graph_container).removeAllViews();
             graph_container.addView(fgv);
