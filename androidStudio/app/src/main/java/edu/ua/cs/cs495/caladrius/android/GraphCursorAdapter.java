@@ -158,7 +158,7 @@ public class GraphCursorAdapter extends CursorAdapter {
             Query query = new Query(graphTypes,
                     stats,
                     color,
-                    title);
+                    graphTitle);
             FitbitGraphView fgv = null;
             try {
                 fgv = new FitbitGraphView(getContext(),
