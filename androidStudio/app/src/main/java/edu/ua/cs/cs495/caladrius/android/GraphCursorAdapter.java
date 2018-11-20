@@ -1,6 +1,7 @@
 package edu.ua.cs.cs495.caladrius.android;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -120,6 +121,14 @@ public class GraphCursorAdapter extends CursorAdapter {
         FitbitGraphView fgv = null;
         try {
             fgv = new FitbitGraphView(getContext(), query);
+
+            fgv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), GraphEditorActivity.class);
+                    getContext().startActivity(intent);
+                }
+            });
         } catch (JSONException | InterruptedException | ExecutionException | IOException e) {
             e.printStackTrace();
         }
