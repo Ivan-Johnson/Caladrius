@@ -28,31 +28,6 @@ import static edu.ua.cs.cs495.caladrius.android.Caladrius.getContext;
  */
 public class GraphCursorAdapter extends CursorAdapter {
 
-
-    public final FitbitGraphView.GraphViewGraph[][] defaultGraphTypes = {
-            {FitbitGraphView.GraphViewGraph.BarGraph},
-            {FitbitGraphView.GraphViewGraph.PointsGraph},
-            {FitbitGraphView.GraphViewGraph.PointsGraph},
-            {FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph},
-            {FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph,
-                    FitbitGraphView.GraphViewGraph.PointsGraph},
-    };
-    public final String[][] defaultGraphStats = {
-            {"calories"},
-            {"steps"},
-            {"caloriesBMR"},
-            {"steps", "minutesSedentary"},
-            {"minutesLightlyActive", "minutesFairlyActive", "minutesVeryActive"},
-    };
-
-    public final String[] defaultGraphTitles = {
-            "Calories",
-            "Steps",
-            "CaloriesBMR",
-            "Steps vs Minutes Sedentary",
-            "Minutes of Activity",
-    };
-
     private FitbitGraphView.GraphViewGraph getGraphType(int graphType){
         if (graphType == GraphEntry.BAR_GRAPH){
             return FitbitGraphView.GraphViewGraph.BarGraph;
@@ -124,44 +99,34 @@ public class GraphCursorAdapter extends CursorAdapter {
 
         LinearLayout graph_container = view.findViewById(R.id.graph_container);
 
-        assert defaultGraphStats.length == defaultGraphTypes.length;
-        for (int c = 0; c >= 0; c--) {
-            ArrayList<FitbitGraphView.GraphViewGraph> graphTypes =
-                    new ArrayList<FitbitGraphView.GraphViewGraph>(){{
-                        add(getGraphType(Integer.valueOf(graphType)));
-            }};
+        ArrayList<FitbitGraphView.GraphViewGraph> graphTypes =
+                new ArrayList<FitbitGraphView.GraphViewGraph>(){{
+                    add(getGraphType(Integer.valueOf(graphType)));
+        }};
 
-//            ArrayList<FitbitGraphView.GraphViewGraph> graphTypes =
-//                    new ArrayList<>(Arrays.asList(defaultGraphTypes[c]));
+        ArrayList<String> stats = new ArrayList<String>(){{
+            add(statsList.get(Integer.valueOf(graphStats)));
+        }};
 
-            ArrayList<String> stats = new ArrayList<String>(){{
-                add(statsList.get(Integer.valueOf(graphStats)));
-            }};
+        ArrayList<Integer> color = new ArrayList<Integer>(){{
+            add(GetColour(Integer.valueOf(graphColor)));
+        }};
 
-            ArrayList<Integer> color = new ArrayList<Integer>(){{
-                add(GetColour(Integer.valueOf(graphColor)));
-            }};
+        Query query = new Query(graphTypes,
+                                stats,
+                                color,
+                                graphTitle);
 
-            Query query = new Query(graphTypes,
-                                    stats,
-                                    color,
-                                    graphTitle);
-
-            FitbitGraphView fgv = null;
-            try {
-                fgv = new FitbitGraphView(getContext(), query);
-            } catch (JSONException | InterruptedException | ExecutionException | IOException e) {
-                e.printStackTrace();
-                continue;
-            }
-
-            if((graph_container).getChildCount() > 0)
-                (graph_container).removeAllViews();
-            graph_container.addView(fgv);
-            break;
+        FitbitGraphView fgv = null;
+        try {
+            fgv = new FitbitGraphView(getContext(), query);
+        } catch (JSONException | InterruptedException | ExecutionException | IOException e) {
+            e.printStackTrace();
         }
 
-
+        if((graph_container).getChildCount() > 0)
+            (graph_container).removeAllViews();
+        graph_container.addView(fgv);
 
         TextView timeRangeTextView = view.findViewById(R.id.time_range);
         timeRangeTextView.setText(timeRangeList.get(Integer.valueOf(graphTimeRange)));

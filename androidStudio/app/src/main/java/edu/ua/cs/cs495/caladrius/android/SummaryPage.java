@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * The SummaryPage module represents the main View that is exposed upon logging into the application.
@@ -80,10 +81,20 @@ public class SummaryPage extends Fragment
 									title);
 
 			try {
-				FitbitGraphView fgv = new FitbitGraphView(getContext(),
-						query
-				);
-
+				FitbitGraphView fgv = new FitbitGraphView(getContext(),query);
+				// Navigate to the split graph/data view
+				fgv.setOnClickListener(new View.OnClickListener()
+				{
+					public void onClick(View v)
+					{
+						Intent submitPage = new Intent(getContext(), QueryActivity.class);
+						submitPage.putExtra("startDate", "N/A");
+						submitPage.putExtra("endDate", "N/A");
+						submitPage.putExtra("item_1", "N/A");
+						submitPage.putExtra("item_2", "N/A");
+						Objects.requireNonNull(getContext()).startActivity(submitPage);
+					}
+				});
 				ll.addView(fgv, 0);
 			}
 			catch (Exception e) {
