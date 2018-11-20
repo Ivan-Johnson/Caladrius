@@ -53,6 +53,17 @@ public class GraphCursorAdapter extends CursorAdapter {
             "Minutes of Activity",
     };
 
+    private FitbitGraphView.GraphViewGraph getGraphType(int graphType){
+        if (graphType == GraphEntry.BAR_GRAPH){
+            return FitbitGraphView.GraphViewGraph.BarGraph;
+        } else if (graphType == GraphEntry.LINE_GRAPH){
+            return FitbitGraphView.GraphViewGraph.LineGraph;
+        } else if (graphType == GraphEntry.POINTS_GRAPH){
+            return FitbitGraphView.GraphViewGraph.PointsGraph;
+        }
+        return FitbitGraphView.GraphViewGraph.BarGraph;
+    }
+
     private int GetColour(Integer selection){
         if (selection == GraphEntry.COLOR_BLACK) {
             return Color.BLACK;
@@ -94,41 +105,11 @@ public class GraphCursorAdapter extends CursorAdapter {
 
         // Read the graph attributes from the Cursor for the current graph
         String graphTimeRange = cursor.getString(timeRangeColumnIndex);
-        String graphType = cursor.getString(typeColumnIndex);
+        final String graphType = cursor.getString(typeColumnIndex);
         final String graphStats = cursor.getString(statsColumnIndex);
-        String graphColor = cursor.getString(colorColumnIndex);
+        final String graphColor = cursor.getString(colorColumnIndex);
         String graphTitle = cursor.getString(titleColumnIndex);
 
-//        FitbitGraphView.GraphViewGraph[] defaultGraphTypes =
-//                {FitbitGraphView.GraphViewGraph.BarGraph};
-//
-//        String[] defaultGraphStats = {"Heart Rate"};
-//
-//        ArrayList<FitbitGraphView.GraphViewGraph> graphTypes =
-//                new ArrayList<>(Arrays.asList(defaultGraphTypes));
-//
-//        Integer[] defaultGraphColors = {Color.CYAN};
-//
-//        String[] defaultGraphTitles = {"Heart Rate"};
-//
-//        ArrayList<String> stats = new ArrayList<>(Arrays.asList(defaultGraphStats));
-//
-//        ArrayList<Integer> color = new ArrayList<>(Arrays.asList(defaultGraphColors));
-//
-//        String title = defaultGraphTitles[0];
-//
-//        Query query = new Query(graphTypes,
-//                stats,
-//                color,
-//                title);
-//
-//        FitbitGraphView fgv = new FitbitGraphView(getContext(),
-//                query
-//        );
-//
-//        graphList.addView(fgv, 0);
-//        List<String> timeRangeArrayList = Arrays.asList(Resources.getSystem().getStringArray(R.array.array_time_range_options));
-//        String[] timeRangeArrayList = Resources.getSystem().getStringArray(R.array.array_time_range_options);
 
         List<String> timeRangeList = Arrays.asList(context.getResources().getStringArray(R.array.array_time_range_options));
 
@@ -146,24 +127,29 @@ public class GraphCursorAdapter extends CursorAdapter {
         assert defaultGraphStats.length == defaultGraphTypes.length;
         for (int c = 0; c >= 0; c--) {
             ArrayList<FitbitGraphView.GraphViewGraph> graphTypes =
-                    new ArrayList<>(Arrays.asList(defaultGraphTypes[c]));
+                    new ArrayList<FitbitGraphView.GraphViewGraph>(){{
+                        add(getGraphType(Integer.valueOf(graphType)));
+            }};
+
+//            ArrayList<FitbitGraphView.GraphViewGraph> graphTypes =
+//                    new ArrayList<>(Arrays.asList(defaultGraphTypes[c]));
 
             ArrayList<String> stats = new ArrayList<String>(){{
                 add(statsList.get(Integer.valueOf(graphStats)));
             }};
 
-            ArrayList<Integer> color = new ArrayList<>(Arrays.asList(GetColour(Integer.valueOf(graphColor))));
+            ArrayList<Integer> color = new ArrayList<Integer>(){{
+                add(GetColour(Integer.valueOf(graphColor)));
+            }};
 
-            String title = defaultGraphTitles[c];
             Query query = new Query(graphTypes,
-                    stats,
-                    color,
-                    graphTitle);
+                                    stats,
+                                    color,
+                                    graphTitle);
+
             FitbitGraphView fgv = null;
             try {
-                fgv = new FitbitGraphView(getContext(),
-                        query
-                );
+                fgv = new FitbitGraphView(getContext(), query);
             } catch (JSONException | InterruptedException | ExecutionException | IOException e) {
                 e.printStackTrace();
                 continue;
