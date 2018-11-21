@@ -44,21 +44,21 @@ public class GraphCursorAdapter extends CursorAdapter {
 
     private int GetColour(Integer selection){
         if (selection == GraphEntry.COLOR_BLACK) {
-            return Color.BLACK;
+            return Color.parseColor("#1e272e");
         } else if (selection == GraphEntry.COLOR_BLUE) {
-            return Color.BLUE;
+            return Color.parseColor("#3498db");
         } else if (selection == GraphEntry.COLOR_CYAN) {
-            return Color.CYAN;
+            return Color.parseColor("#00BCD4");
         } else if (selection == GraphEntry.COLOR_GRAY) {
-            return Color.GRAY;
+            return Color.parseColor("#808e9b");
         } else if (selection == GraphEntry.COLOR_GREEN) {
-            return Color.GREEN;
+            return Color.parseColor("#2ecc71");
         } else if (selection == GraphEntry.COLOR_RED) {
-            return Color.RED;
+            return Color.parseColor("#e74c3c");
         } else if (selection == GraphEntry.COLOR_YELLOW) {
-            return Color.YELLOW;
+            return Color.parseColor("#f0932b");
         }
-        return Color.DKGRAY;
+        return Color.parseColor("#1e272e");
     }
 
     public GraphCursorAdapter(Context context, Cursor c) {
