@@ -43,6 +43,7 @@
             android:layout_alignParentRight="true"
             app:backgroundTint="#dd4108"
             android:layout_margin="16dp"
+            android:tint="#ffffff"
             app:srcCompat="@drawable/add_button" />
 
 </RelativeLayout>
