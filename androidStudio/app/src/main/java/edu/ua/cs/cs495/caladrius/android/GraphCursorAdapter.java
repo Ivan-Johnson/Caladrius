@@ -1,9 +1,11 @@
 package edu.ua.cs.cs495.caladrius.android;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,13 +73,13 @@ public class GraphCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-
         // Find the columns of graph attributes that we're interested in
         int timeRangeColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_TIME_RANGE);
         int typeColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_TYPE);
         int statsColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_STATS);
         int colorColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_COLORS);
         int titleColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_TITLE);
+        int idColumnIndex = cursor.getColumnIndex(GraphEntry._ID);
 
         // Read the graph attributes from the Cursor for the current graph
         String graphTimeRange = cursor.getString(timeRangeColumnIndex);
@@ -85,6 +87,7 @@ public class GraphCursorAdapter extends CursorAdapter {
         final String graphStats = cursor.getString(statsColumnIndex);
         final String graphColor = cursor.getString(colorColumnIndex);
         String graphTitle = cursor.getString(titleColumnIndex);
+        final String graphId = cursor.getString(idColumnIndex);
 
 
         List<String> timeRangeList = Arrays.asList(context.getResources().getStringArray(R.array.array_time_range_options));
@@ -126,6 +129,12 @@ public class GraphCursorAdapter extends CursorAdapter {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getContext(), GraphEditorActivity.class);
+
+                    Uri currentPetUri = ContentUris.withAppendedId(
+                            GraphEntry.CONTENT_URI, Integer.valueOf(graphId));
+
+                    intent.setData(currentPetUri);
+
                     getContext().startActivity(intent);
                 }
             });

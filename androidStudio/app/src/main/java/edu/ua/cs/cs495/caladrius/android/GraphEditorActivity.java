@@ -61,12 +61,10 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
     private boolean mGraphHasChanged = false;
 
-
     private int mTimeRange = GraphEntry.TIME_RANGE_TODAY;
     private int mType = GraphEntry.BAR_GRAPH;
     private int mStats = GraphEntry.STATS_BPM;
     private int mColor = GraphEntry.COLOR_BLACK;
-    
     
     // OnTouchListener that listens for any user touches on a View, implying that they are modifying
     // the view, and we change the mGraphHasChanged boolean to true.

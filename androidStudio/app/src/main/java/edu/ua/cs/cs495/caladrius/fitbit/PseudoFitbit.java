@@ -27,7 +27,7 @@ public class PseudoFitbit implements FitbitInterface {
 
             case "activityCalories": return new JSONArray("[{\"dateTime\":\"2018-10-01\",\"value\":\"4038\"},{\"dateTime\":\"2018-10-02\",\"value\":\"3905\"},{\"dateTime\":\"2018-10-03\",\"value\":\"5128\"},{\"dateTime\":\"2018-10-04\",\"value\":\"4132\"},{\"dateTime\":\"2018-10-05\",\"value\":\"5099\"},{\"dateTime\":\"2018-10-06\",\"value\":\"4130\"},{\"dateTime\":\"2018-10-07\",\"value\":\"3239\"}]");
 
-            default: throw new IllegalArgumentException("ARE YOU AN IDIOT?? THAT IS NOT A VALID ARGUMENT FOR PSEUDOFITBIT GETFITBITDATA! SHAME ON YOU!!");
+            default: throw new IllegalArgumentException(String.format("[%s] IS NOT A VALID ARGUMENT FOR PSEUDOFITBIT GETFITBITDATA!.", stat));
         }
     }
 }
