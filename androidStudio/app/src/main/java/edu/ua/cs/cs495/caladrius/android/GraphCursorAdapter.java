@@ -146,20 +146,20 @@ public class GraphCursorAdapter extends CursorAdapter {
             (graph_container).removeAllViews();
         graph_container.addView(fgv);
 
-        TextView timeRangeTextView = view.findViewById(R.id.time_range);
-        timeRangeTextView.setText(timeRangeList.get(Integer.valueOf(graphTimeRange)));
-
-        TextView typeTextView = view.findViewById(R.id.graph_type);
-        typeTextView.setText(typeList.get(Integer.valueOf(graphType)));
-
-        TextView statsTextView = view.findViewById(R.id.graph_stats);
-        statsTextView.setText(statsList.get(Integer.valueOf(graphStats)));
-
-        TextView colorTextView = view.findViewById(R.id.graph_color);
-        colorTextView.setText(colorList.get(Integer.valueOf(graphColor)));
-
-        TextView titleTextView = view.findViewById(R.id.graph_title);
-        titleTextView.setText(graphTitle);
+//        TextView timeRangeTextView = view.findViewById(R.id.time_range);
+//        timeRangeTextView.setText(timeRangeList.get(Integer.valueOf(graphTimeRange)));
+//
+//        TextView typeTextView = view.findViewById(R.id.graph_type);
+//        typeTextView.setText(typeList.get(Integer.valueOf(graphType)));
+//
+//        TextView statsTextView = view.findViewById(R.id.graph_stats);
+//        statsTextView.setText(statsList.get(Integer.valueOf(graphStats)));
+//
+//        TextView colorTextView = view.findViewById(R.id.graph_color);
+//        colorTextView.setText(colorList.get(Integer.valueOf(graphColor)));
+//
+//        TextView titleTextView = view.findViewById(R.id.graph_title);
+//        titleTextView.setText(graphTitle);
 
 
 
