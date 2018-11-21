@@ -7,9 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,7 +61,9 @@ public class SummaryPage extends Fragment
 		super.onCreate(savedInstanceState);
 		View rootView = inflater.inflate(R.layout.query_activity, container, false);
 
-		LinearLayout ll = rootView.findViewById(R.id.list);
+
+		ArrayList queries = new ArrayList();
+
 		assert defaultGraphStats.length == defaultGraphTypes.length;
 		for (int c = defaultGraphStats.length - 1; c >= 0; c--) {
 			ArrayList<FitbitGraphView.GraphViewGraph> graphTypes =
@@ -75,32 +75,27 @@ public class SummaryPage extends Fragment
 
 			String title = defaultGraphTitles[c];
 
-			Query query = new Query(graphTypes,
-									stats,
-									color,
-									title);
+			queries.add(new Query(graphTypes, stats, color, title));
+		}
 
-			try {
-				FitbitGraphView fgv = new FitbitGraphView(getContext(),query);
-				// Navigate to the split graph/data view
-				fgv.setOnClickListener(new View.OnClickListener()
-				{
-					public void onClick(View v)
-					{
-						Intent submitPage = new Intent(getContext(), QueryActivity.class);
-						submitPage.putExtra("startDate", "N/A");
-						submitPage.putExtra("endDate", "N/A");
-						submitPage.putExtra("item_1", "N/A");
-						submitPage.putExtra("item_2", "N/A");
-						Objects.requireNonNull(getContext()).startActivity(submitPage);
-					}
-				});
-				ll.addView(fgv, 0);
-			}
-			catch (Exception e) {
-				Toast.makeText(this.getContext(), e.toString(), Toast.LENGTH_LONG).show();
-				e.printStackTrace();
-			}
+		ListView ll = rootView.findViewById(R.id.graph_list);
+		try {
+			ll.setAdapter(new FitbitGraphViewAdapter(ll.getContext(), queries, new FitbitGraphViewAdapter.FitbitGraphViewOnClickAdapter() {
+				@Override
+				public void onClick(FitbitGraphView fgv) {
+					Intent submitPage = new Intent(getContext(), QueryActivity.class);
+					submitPage.putExtra("startDate", "N/A");
+					submitPage.putExtra("endDate", "N/A");
+					submitPage.putExtra("item_1", "N/A");
+					submitPage.putExtra("item_2", "N/A");
+					Objects.requireNonNull(getContext()).startActivity(submitPage);
+				}
+			}));
+		} catch (Exception e) {
+			TextView tv = new TextView(ll.getContext());
+			tv.setText("Something bad happened.");
+			LinearLayout linearLayout = rootView.findViewById(R.id.topList);
+			linearLayout.addView(tv);
 		}
 
 		return rootView;

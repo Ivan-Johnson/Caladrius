@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/list"
+    android:id="@+id/topList"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:gravity="center"
     android:layout_height="wrap_content">
+
+    <ListView android:id="@+id/graph_list" android:layout_width="match_parent"
+              android:layout_height="match_parent"/>
 
     <Button
         android:id="@+id/viewAllData"
@@ -19,5 +18,3 @@
         android:text="@string/view_all_data"
         android:textSize="28sp"/>
 </LinearLayout>
-
-</ScrollView>

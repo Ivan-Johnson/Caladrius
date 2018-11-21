@@ -8,7 +8,6 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -17,51 +16,43 @@ import java.util.concurrent.ExecutionException;
  */
 public class FitbitGraphViewAdapter extends BaseAdapter
 {
-	FitbitGraphView fgv[];
+	public interface FitbitGraphViewOnClickAdapter {
+		void onClick(FitbitGraphView fgv);
+	}
 
-	public FitbitGraphViewAdapter(Context cntxt,
-	                              FitbitGraphView.GraphViewGraph[][] graphTypes,
-	                              String[][] defaultGraphStats,
-	                              Integer[][] defaultGraphColors,
-	                              String[] defaultGraphTitles) throws JSONException, InterruptedException, ExecutionException, IOException
+	ArrayList<FitbitGraphView> fgvs;
+	public FitbitGraphViewAdapter(final Context cntxt,
+								  final ArrayList<Query> queries, final FitbitGraphViewOnClickAdapter onClick)  throws JSONException, InterruptedException, ExecutionException, IOException
 	{
-		int len = graphTypes.length;
-		if (len != defaultGraphStats.length ||
-			len != defaultGraphColors.length) {
-			throw new IllegalArgumentException("arrays must all be the same length");
-		}
-
-		fgv = new FitbitGraphView[len];
-		for (int c = 0; c < len; c++) {
-			ArrayList<FitbitGraphView.GraphViewGraph> types = new ArrayList<>();
-			types.addAll(Arrays.asList(graphTypes[c]));
-
-			ArrayList<String> stats = new ArrayList<>();
-			stats.addAll(Arrays.asList(defaultGraphStats[c]));
-
-			ArrayList<Integer> color = new ArrayList<>();
-			color.addAll(Arrays.asList(defaultGraphColors[c]));
-
-			String title = defaultGraphTitles[c];
-
-			Query query = new Query(types, stats, color, title,
-				false, false, false, false, true);
-
-			fgv[c] = new FitbitGraphView(
-				cntxt, query);
-		}
+	    fgvs = new ArrayList();
+	    for (int x = 0; x < queries.size(); x++) {
+	    	FitbitGraphView fgv = new FitbitGraphView(cntxt, queries.get(x));
+	    	if (onClick != null) {
+				fgv.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						if (!(view instanceof FitbitGraphView)) {
+							throw new RuntimeException("This should never happen");
+						}
+						FitbitGraphView fgv = (FitbitGraphView) view;
+						onClick.onClick(fgv);
+					}
+				});
+			}
+	        fgvs.add(fgv);
+        }
 	}
 
 	@Override
 	public int getCount()
 	{
-		return fgv.length;
+		return fgvs.size();
 	}
 
 	@Override
 	public Object getItem(int i)
 	{
-		return fgv[i];
+		return fgvs.get(i);
 	}
 
 	@Override
@@ -73,6 +64,6 @@ public class FitbitGraphViewAdapter extends BaseAdapter
 	@Override
 	public View getView(int i, View view, ViewGroup viewGroup)
 	{
-		return fgv[i];
+		return fgvs.get(i);
 	}
 }
