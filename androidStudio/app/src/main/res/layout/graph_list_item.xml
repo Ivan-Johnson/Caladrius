@@ -11,9 +11,10 @@
     <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="310dp"
             android:orientation="vertical"
-            android:background="#d6fcfcfc">
+            android:background="@drawable/graph_shadow"
+            android:paddingTop="8dp">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/graph_container"
