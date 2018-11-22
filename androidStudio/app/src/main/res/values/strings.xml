@@ -119,4 +119,8 @@
     <!-- Label for overflow menu option that deletes all graph data in the app [CHAR LIMIT=20] -->
     <string name="action_delete_all_entries">Delete All Graphs</string>
     <string name="fitbit_login">Fitbit Login</string>
+    <string name="add_second_graph">Add second graph</string>
+    <string name="graph_2_type">Graph 2 Type</string>
+    <string name="graph_2_stats">Graph 2 Stats</string>
+    <string name="graph_2_color">Graph 2 Color</string>
 </resources>
