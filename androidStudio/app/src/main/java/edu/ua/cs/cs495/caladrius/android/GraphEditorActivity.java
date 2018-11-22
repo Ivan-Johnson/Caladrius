@@ -7,6 +7,7 @@ import android.content.*;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,9 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
@@ -56,8 +60,6 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
     private LinearLayout mSecondGraphLinearLayout;
 
-
-
     /** EditText field to enter the graph2's Type */
     private Spinner mType2Spinner;
 
@@ -67,6 +69,11 @@ public class GraphEditorActivity extends AppCompatActivity implements
     /** EditText field to enter the graph2's Color */
     private Spinner mColor2Spinner;
 
+
+    private CalendarView mCalendarView;
+
+    private String mStartDate = "N/A";
+    private String mEndDate = "N/A";
 
     private boolean mGraphHasChanged = false;
 
@@ -86,6 +93,12 @@ public class GraphEditorActivity extends AppCompatActivity implements
         }
     };
 
+    static String getMonthForInt(int m)
+    {
+        List<String> monthStr = Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+        return monthStr.get(m);
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -124,6 +137,67 @@ public class GraphEditorActivity extends AppCompatActivity implements
             // and display the current values in the editor
             getLoaderManager().initLoader(EXISTING_GRAPH_LOADER, null, this);
         }
+
+        final TextView startDateTextView = findViewById(R.id.start_date);
+        final TextView endDateTextView = findViewById(R.id.end_date);
+
+        final RadioGroup dateTypeRadioGroup = findViewById(R.id.time_range_type);
+
+        LocalDateTime now = LocalDateTime.now();
+        int year = now.getYear();
+        int month = now.getMonthValue();
+        int day = now.getDayOfMonth();
+
+        String date = getMonthForInt(month) + " " + day + " " + year;
+        mStartDate = date;
+        startDateTextView.setText(String.format("%sth%s",
+                date.substring(0, date.length() - 5),
+                date.substring(date.length() - 5, date.length())));
+
+        mCalendarView = findViewById(R.id.calendarView);
+        mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
+        {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int i1, int i2)
+            {
+                Integer month = i1;
+                String day;
+                if (i2 < 10) {
+                    day = " " + String.valueOf(i2);
+                } else {
+                    day = String.valueOf(i2);
+                }
+                String date = getMonthForInt(month) + " " + day + " " + year;
+                String dateShow = getMonthForInt(month) + " " + day + "th " + year;
+
+                if (dateTypeRadioGroup.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(getApplicationContext(), "Please select dateType",
+                            Toast.LENGTH_SHORT)
+                            .show();
+                } else {
+                    // get selected radio button from radioGroup
+                    int selectedId = dateTypeRadioGroup.getCheckedRadioButtonId();
+
+                    // find the radiobutton by returned id
+                    RadioButton selectedRadioButton = findViewById(selectedId);
+                    String dateType = selectedRadioButton.getText()
+                            .toString();
+
+//                    Toast.makeText(getApplicationContext(), dateType + " is selected",
+//                            Toast.LENGTH_SHORT)
+//                            .show();
+
+                    if (dateType.equals(getString(R.string.single_day))) {
+                        startDateTextView.setText(dateShow);
+                        mStartDate = date;
+                    } else if (dateType.equals(getString(R.string.several_days))) {
+                        endDateTextView.setText(dateShow);
+                        mEndDate = date;
+                    }
+                }
+            }
+        });
+
 
         // Find all relevant views that we will need to read user input from
         mTimeRangeSpinner = findViewById(R.id.spinner_time_range);
