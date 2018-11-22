@@ -59,6 +59,18 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
     private LinearLayout mSecondGraphLinearLayout;
 
+
+
+    /** EditText field to enter the graph2's Type */
+    private Spinner mType2Spinner;
+
+    /** EditText field to enter the graph2's Stats */
+    private Spinner mStats2Spinner;
+
+    /** EditText field to enter the graph2's Color */
+    private Spinner mColor2Spinner;
+
+
     private boolean mGraphHasChanged = false;
 
     private int mTimeRange = GraphEntry.TIME_RANGE_TODAY;

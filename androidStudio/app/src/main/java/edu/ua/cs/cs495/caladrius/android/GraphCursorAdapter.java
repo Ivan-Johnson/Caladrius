@@ -79,6 +79,10 @@ public class GraphCursorAdapter extends CursorAdapter {
         int statsColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_STATS);
         int colorColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_COLORS);
         int titleColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_TITLE);
+        int graph2TypeColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH2_TYPE);
+        int graph2StatsColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH2_STATS);
+        int graph2ColorColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH2_COLORS);
+        int numberGraphsColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_NUMBER_OF_GRAPH);
         int idColumnIndex = cursor.getColumnIndex(GraphEntry._ID);
 
         // Read the graph attributes from the Cursor for the current graph
@@ -88,6 +92,10 @@ public class GraphCursorAdapter extends CursorAdapter {
         final String graphColor = cursor.getString(colorColumnIndex);
         String graphTitle = cursor.getString(titleColumnIndex);
         final String graphId = cursor.getString(idColumnIndex);
+        final String graph2Type = cursor.getString(graph2TypeColumnIndex);
+        final String graph2Stats = cursor.getString(graph2StatsColumnIndex);
+        final String graph2Color = cursor.getString(graph2ColorColumnIndex);
+        final String numberOfGraph = cursor.getString(numberGraphsColumnIndex);
 
 
         List<String> timeRangeList = Arrays.asList(context.getResources().getStringArray(R.array.array_time_range_options));
@@ -115,6 +123,12 @@ public class GraphCursorAdapter extends CursorAdapter {
         ArrayList<Integer> color = new ArrayList<Integer>(){{
             add(GetColour(Integer.valueOf(graphColor)));
         }};
+
+        if(Integer.valueOf(numberOfGraph) == GraphEntry.GRAPH_NUMBER_TWO){
+            stats.add(statsList.get(Integer.valueOf(graph2Stats)));
+            color.add(GetColour(Integer.valueOf(graph2Color)));
+            graphTypes.add(getGraphType(Integer.valueOf(graph2Type)));
+        }
 
         Query query = new Query(graphTypes,
                                 stats,
@@ -144,6 +158,7 @@ public class GraphCursorAdapter extends CursorAdapter {
 
         if((graph_container).getChildCount() > 0)
             (graph_container).removeAllViews();
+
         graph_container.addView(fgv);
 
 //        TextView timeRangeTextView = view.findViewById(R.id.time_range);
