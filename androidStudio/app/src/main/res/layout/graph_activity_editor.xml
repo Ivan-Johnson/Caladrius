@@ -299,9 +299,11 @@
                         android:text="@string/add_second_graph"
                         android:textSize="16sp"
                         android:layout_marginTop="5dp"
-                        android:textColor="#ff6348"/>
+                        android:textColor="#ff6348"
+                        android:onClick="secondGraphClicked"/>
 
                 <LinearLayout
+                        android:id="@+id/second_graph_layout"
                         xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:tools="http://schemas.android.com/tools"
                         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -309,7 +311,8 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:animateLayoutChanges="true"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft="20dp"
+                        android:visibility="invisible">
 
                     <!-- Overview category -->
                     <LinearLayout

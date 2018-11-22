@@ -19,11 +19,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.*;
 
 import java.util.Objects;
 
@@ -59,6 +57,8 @@ public class GraphEditorActivity extends AppCompatActivity implements
     /** EditText field to enter the graph's Title */
     private EditText mTitleEditText;
 
+    private LinearLayout mSecondGraphLinearLayout;
+
     private boolean mGraphHasChanged = false;
 
     private int mTimeRange = GraphEntry.TIME_RANGE_TODAY;
@@ -86,6 +86,8 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
         Toolbar myToolbar = findViewById(R.id.graph_editor_toolbar);
         setSupportActionBar(myToolbar);
+
+        mSecondGraphLinearLayout = findViewById(R.id.second_graph_layout);
 
         // Examine the intent that was used to launch this activity,
         // in order to figure out if we're creating a new graph or editing an existing one.
@@ -663,4 +665,19 @@ public class GraphEditorActivity extends AppCompatActivity implements
         alertDialog.show();
     }
 
+    public void secondGraphClicked(View view) {
+
+
+        Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+        Animation slideDown = AnimationUtils.loadAnimation(this, R.anim.slide_down);
+        //code to check if this checkbox is checked!
+        CheckBox checkBox = (CheckBox)view;
+        if(checkBox.isChecked()){
+            mSecondGraphLinearLayout.setVisibility(View.VISIBLE);
+            mSecondGraphLinearLayout.startAnimation(slideUp);
+        } else {
+            mSecondGraphLinearLayout.setVisibility(View.INVISIBLE);
+            mSecondGraphLinearLayout.startAnimation(slideDown);
+        }
+    }
 }
