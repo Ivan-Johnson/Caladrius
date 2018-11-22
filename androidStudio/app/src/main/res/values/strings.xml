@@ -123,4 +123,6 @@
     <string name="graph_2_type">Graph 2 Type</string>
     <string name="graph_2_stats">Graph 2 Stats</string>
     <string name="graph_2_color">Graph 2 Color</string>
+    <string name="relative_time_range">Relative time range</string>
+    <string name="relative_days">Relative days</string>
 </resources>
