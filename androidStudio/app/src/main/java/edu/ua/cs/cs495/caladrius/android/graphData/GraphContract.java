@@ -66,10 +66,26 @@ public final class GraphContract {
         public final static String COLUMN_GRAPH_STATS ="stats";
         public final static String COLUMN_GRAPH_COLORS ="colors";
         public final static String COLUMN_GRAPH_TITLE ="title";
+        public final static String COLUMN_GRAPH_TIME_RANGE_TYPE ="timeRangeType";
+        public final static String COLUMN_GRAPH2_TYPE ="type2";
+        public final static String COLUMN_GRAPH2_STATS ="stats2";
+        public final static String COLUMN_GRAPH2_COLORS ="colors2";
+        public final static String COLUMN_NUMBER_OF_GRAPH ="graphNumber";
+        public final static String COLUMN_GRAPH_START_TIME ="start";
+        public final static String COLUMN_GRAPH_END_TIME ="end";
 
         public static final int BAR_GRAPH = 0;
         public static final int POINTS_GRAPH = 1;
         public static final int LINE_GRAPH = 2;
+
+
+        public static final int TIME_RANGE_TYPE_SINGLE = 0;
+        public static final int TIME_RANGE_TYPE_SEVERAL = 1;
+        public static final int TIME_RANGE_TYPE_RELVTIVE = 2;
+
+
+        public static final int GRAPH_NUMBER_ONE = 0;
+        public static final int GRAPH_NUMBER_TWO = 1;
 
 
         public static final int TIME_RANGE_TODAY= 0;

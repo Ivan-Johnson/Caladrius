@@ -193,7 +193,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_width="wrap_content"
                                 android:paddingRight="16dp"
-                                android:paddingTop="12dp"
+                                android:paddingTop="15dp"
                                 android:spinnerMode="dropdown"/>
                     </LinearLayout>
 
@@ -219,7 +219,7 @@
 
                         <!-- Stats drop-down spinner -->
                         <Spinner
-                                android:paddingTop="12dp"
+                                android:paddingTop="15dp"
                                 android:id="@+id/spinner_graph_stats"
                                 android:layout_height="wrap_content"
                                 android:layout_width="wrap_content"
@@ -250,7 +250,7 @@
 
                         <!-- Gender drop-down spinner -->
                         <Spinner
-                                android:paddingTop="12dp"
+                                android:paddingTop="15dp"
                                 android:id="@+id/spinner_graph_color"
                                 android:layout_height="wrap_content"
                                 android:layout_width="wrap_content"
@@ -286,7 +286,8 @@
                                 android:hint="@string/hint_graph_title"
                                 android:backgroundTint="#ff6348"
                                 android:inputType="textCapWords"
-                                style="@style/EditorFieldStyle"/>
+                                style="@style/EditorFieldStyle"
+                                android:layout_width="170dp"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -296,7 +297,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/add_second_graph"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:layout_marginTop="5dp"
                         android:textColor="#ff6348"/>
 
@@ -331,7 +332,7 @@
                             <!-- Type drop-down spinner -->
                             <Spinner
                                     android:id="@+id/spinner_graph2_type"
-                                    android:paddingTop="12dp"
+                                    android:paddingTop="15dp"
                                     android:layout_height="wrap_content"
                                     android:layout_width="wrap_content"
                                     android:paddingRight="16dp"
@@ -362,7 +363,7 @@
                             <!-- Stats drop-down spinner -->
                             <Spinner
                                     android:id="@+id/spinner_graph2_stats"
-                                    android:paddingTop="12dp"
+                                    android:paddingTop="15dp"
                                     android:layout_height="wrap_content"
                                     android:layout_width="wrap_content"
                                     android:paddingRight="16dp"
@@ -394,7 +395,7 @@
                             <Spinner
                                     android:id="@+id/spinner_graph2_color"
                                     android:layout_height="wrap_content"
-                                    android:paddingTop="12dp"
+                                    android:paddingTop="15dp"
                                     android:layout_width="wrap_content"
                                     android:paddingRight="16dp"
                                     android:spinnerMode="dropdown"/>

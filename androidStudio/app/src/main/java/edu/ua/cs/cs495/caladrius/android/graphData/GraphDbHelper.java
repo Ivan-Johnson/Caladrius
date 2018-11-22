@@ -36,6 +36,13 @@ public class GraphDbHelper extends SQLiteOpenHelper {
                 + GraphEntry.COLUMN_GRAPH_TYPE + " INTEGER NOT NULL, "
                 + GraphEntry.COLUMN_GRAPH_STATS + " INTEGER NOT NULL, "
                 + GraphEntry.COLUMN_GRAPH_COLORS + " INTEGER NOT NULL, "
+                + GraphEntry.COLUMN_GRAPH_TIME_RANGE_TYPE + " INTEGER NOT NULL, "
+                + GraphEntry.COLUMN_NUMBER_OF_GRAPH + " INTEGER NOT NULL, "
+                + GraphEntry.COLUMN_GRAPH2_COLORS + " INTEGER NOT NULL, "
+                + GraphEntry.COLUMN_GRAPH2_STATS + " INTEGER NOT NULL, "
+                + GraphEntry.COLUMN_GRAPH2_TYPE + " INTEGER NOT NULL, "
+                + GraphEntry.COLUMN_GRAPH_START_TIME + " TEXT NOT NULL, "
+                + GraphEntry.COLUMN_GRAPH_END_TIME + " TEXT NOT NULL, "
                 + GraphEntry.COLUMN_GRAPH_TITLE + " TEXT NOT NULL);";
 
         // Execute the SQL statement
