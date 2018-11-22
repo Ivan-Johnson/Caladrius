@@ -108,7 +108,6 @@ public class GraphCursorAdapter extends CursorAdapter {
 
         List<String> colorList = Arrays.asList(context.getResources().getStringArray(R.array.array_graph_color_options));
 
-
         LinearLayout graph_container = view.findViewById(R.id.graph_container);
 
         ArrayList<FitbitGraphView.GraphViewGraph> graphTypes =
