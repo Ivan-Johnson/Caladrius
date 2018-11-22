@@ -81,7 +81,7 @@ public final class GraphContract {
 
         public static final int TIME_RANGE_TYPE_SINGLE = 0;
         public static final int TIME_RANGE_TYPE_SEVERAL = 1;
-        public static final int TIME_RANGE_TYPE_RELVTIVE = 2;
+        public static final int TIME_RANGE_TYPE_RELATIVE = 2;
 
 
         public static final int GRAPH_NUMBER_ONE = 0;

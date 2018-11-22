@@ -146,8 +146,6 @@ public class GraphProvider extends ContentProvider {
             throw new IllegalArgumentException("Graph requires a title");
         }
 
-        // No need to check the breed, any value is valid (including null).
-
         // Get writeable database
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 

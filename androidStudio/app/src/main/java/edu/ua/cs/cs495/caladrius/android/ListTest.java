@@ -92,7 +92,15 @@ public class ListTest extends AppCompatActivity implements LoaderManager.LoaderC
                         GraphEntry.COLUMN_GRAPH_COLORS,
                         GraphEntry.COLUMN_GRAPH_STATS,
                         GraphEntry.COLUMN_GRAPH_TITLE,
-                        GraphEntry.COLUMN_GRAPH_TYPE};
+                        GraphEntry.COLUMN_GRAPH_TYPE,
+                        GraphEntry.COLUMN_NUMBER_OF_GRAPH,
+                        GraphEntry.COLUMN_GRAPH2_TYPE,
+                        GraphEntry.COLUMN_GRAPH2_STATS,
+                        GraphEntry.COLUMN_GRAPH2_COLORS,
+                        GraphEntry.COLUMN_GRAPH_TIME_RANGE_TYPE,
+                        GraphEntry.COLUMN_GRAPH_START_TIME,
+                        GraphEntry.COLUMN_GRAPH_END_TIME
+                        };
 
                 // Returns a new CursorLoader
                 return new CursorLoader(
@@ -131,7 +139,14 @@ public class ListTest extends AppCompatActivity implements LoaderManager.LoaderC
         values.put(GraphEntry.COLUMN_GRAPH_TYPE, GraphEntry.BAR_GRAPH);
         values.put(GraphEntry.COLUMN_GRAPH_STATS, GraphEntry.STATS_CALORIC);
         values.put(GraphEntry.COLUMN_GRAPH_COLORS, GraphEntry.COLOR_BLACK);
-        values.put(GraphEntry.COLUMN_GRAPH_TITLE, "Heart Rate");
+        values.put(GraphEntry.COLUMN_GRAPH_TITLE, "Caloric");
+        values.put(GraphEntry.COLUMN_NUMBER_OF_GRAPH, GraphEntry.GRAPH_NUMBER_TWO);
+        values.put(GraphEntry.COLUMN_GRAPH2_COLORS, GraphEntry.COLOR_BLUE);
+        values.put(GraphEntry.COLUMN_GRAPH2_STATS, GraphEntry.STATS_STEPS);
+        values.put(GraphEntry.COLUMN_GRAPH2_TYPE, GraphEntry.LINE_GRAPH);
+        values.put(GraphEntry.COLUMN_GRAPH_TIME_RANGE_TYPE, GraphEntry.TIME_RANGE_TYPE_RELATIVE);
+        values.put(GraphEntry.COLUMN_GRAPH_START_TIME, "Dec 22th 2018");
+        values.put(GraphEntry.COLUMN_GRAPH_END_TIME, "Nov 5th 2018");
 
         // Insert a new row for Toto into the provider using the ContentResolver.
         // Use the {@link GraphEntry#CONTENT_URI} to indicate that we want to insert
