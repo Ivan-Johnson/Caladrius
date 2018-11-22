@@ -1,57 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.ua.cs.cs495.caladrius.android">
+          package="edu.ua.cs.cs495.caladrius.android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY"/>
     <application
-        android:allowBackup="true"
-        android:icon="@drawable/caladrius_logo"
-        android:label="@string/app_name"
-        android:roundIcon="@drawable/caladrius_logo"
-        android:supportsRtl="true"
-        android:name=".Caladrius"
-        android:theme="@style/AppTheme">
+            android:allowBackup="true"
+            android:icon="@drawable/caladrius_logo"
+            android:label="@string/app_name"
+            android:roundIcon="@drawable/caladrius_logo"
+            android:supportsRtl="true"
+            android:name=".Caladrius"
+            android:theme="@style/AppTheme">
 
         <activity
-            android:name=".QueryActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_graph"
-            android:theme="@style/FullscreenTheme" />
+                android:name=".QueryActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:label="@string/title_activity_graph"
+                android:theme="@style/FullscreenTheme"/>
 
         <activity android:name=".PagerActivity"/>
 
         <activity android:name=".LoginScreen">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <activity android:name=".FitbitLogin">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
                 <data
-                    android:host="authcallback"
-                    android:scheme="caladrius" />
+                        android:host="authcallback"
+                        android:scheme="caladrius"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AllData" />
+        <activity android:name=".AllData"/>
         <activity android:name=".GraphEditorActivity"
-            android:parentActivityName=".ListTest"/>
+                  android:parentActivityName=".ListTest"
+                  android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".QueryEditor"
-            android:parentActivityName=".PagerActivity"/>
-        <activity android:name=".SummaryPageEditor" />
-        <activity android:name=".ListTest" />
-        <activity android:name=".rss.FeedEditor$FeedEditorActivity" />
-        <activity android:name=".rss.conditions.ExtremeValueEditor$ExtremeValueEditorActivity" />
+                  android:parentActivityName=".PagerActivity"/>
+        <activity android:name=".SummaryPageEditor"/>
+        <activity android:name=".ListTest"/>
+        <activity android:name=".rss.FeedEditor$FeedEditorActivity"/>
+        <activity android:name=".rss.conditions.ExtremeValueEditor$ExtremeValueEditorActivity"/>
 
         <provider
-            android:name=".graphData.GraphProvider"
-            android:authorities="edu.ua.cs.cs495.caladrius.android"
-            android:exported="false" />
+                android:name=".graphData.GraphProvider"
+                android:authorities="edu.ua.cs.cs495.caladrius.android"
+                android:exported="false"/>
     </application>
 </manifest>
