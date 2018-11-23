@@ -53,7 +53,13 @@ public class Query implements Serializable
 	// for the GraphView graph
 	Boolean legend;
 
-	// Default Constructor 1
+	/**
+	 *
+	 * @param graphType see below
+	 * @param statsToRetrieve see below
+	 * @param seriesColors see below
+	 * @param graphTitle see below
+	 */
 	public Query(ArrayList<FitbitGraphView.GraphViewGraph> graphType,
 				 ArrayList<String> statsToRetrieve,
 				 ArrayList<Integer> seriesColors,
@@ -64,7 +70,12 @@ public class Query implements Serializable
 				false, false, true);
 	}
 
-	// Default Constructor 2
+	/**
+	 *
+	 * @param graphType see below
+	 * @param statsToRetrieve see below
+	 * @param graphTitle see below
+	 */
 	public Query(ArrayList<FitbitGraphView.GraphViewGraph> graphType,
 				 ArrayList<String> statsToRetrieve,
 				 String graphTitle)
@@ -73,7 +84,26 @@ public class Query implements Serializable
 				graphTitle);
 	}
 
-	// Constructor
+	/**
+	 *
+	 * @param graphType use one of the enumerated graph types:
+	 *                  FitbitGraphView.GraphViewGraph.BarGraph,
+	 *                  FitbitGraphView.GraphViewGraph.LineGraph,
+	 *                  FitbitGraphView.GraphViewGraph.PointsGraph
+	 * @param statsToRetrieve strings representing statistics to retrieve from Fitbit, must follow Fitbit standards
+	 *                        Examples:
+	 *                        "calories", "steps", "caloriesBMR", "activityCalories", "steps", "minutesSedentary",
+	 * 						  "minutesLightlyActive", "minutesFairlyActive", "minutesVeryActive"
+	 * @param seriesColors colors from Color module
+	 *                     Examples:
+	 *                     Color.DKGRAY, Color.RED, Color.BLUE, Color.GREEN, Color.BLACK, Color.MAGENTA
+	 * @param graphTitle string representing title of graph
+	 * @param horizontalScroll boolean turning horizontal scrolling on the graph on or off
+	 * @param verticalScroll boolean turning vertical scrolling on the graph on or off
+	 * @param horizontalZoomAndScroll boolean turning horizontal scrolling and zooming on the graph on or off
+	 * @param verticalZoomAndScroll boolean turning vertical scrolling and zooming on the graph on or off
+	 * @param legend boolean turning legend feature on or off
+	 */
 	public Query(ArrayList<FitbitGraphView.GraphViewGraph> graphType,
 	             ArrayList<String> statsToRetrieve,
 	             ArrayList<Integer> seriesColors,

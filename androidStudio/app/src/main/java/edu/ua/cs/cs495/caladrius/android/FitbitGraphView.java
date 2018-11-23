@@ -74,7 +74,15 @@ public class FitbitGraphView extends GraphView
 	// for the GraphView graph
 	Boolean legend;
 
-	// Constructor
+	/**
+	 *
+	 * @param context
+	 * @param query Query object containing parameters needed to generate a graph
+	 * @throws JSONException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 * @throws IOException
+	 */
 	public FitbitGraphView(final Context context, final Query query) throws JSONException, InterruptedException, ExecutionException, IOException
 	{
 		super(context);
