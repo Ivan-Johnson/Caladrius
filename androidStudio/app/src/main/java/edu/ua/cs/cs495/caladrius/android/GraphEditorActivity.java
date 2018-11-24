@@ -42,7 +42,6 @@ public class GraphEditorActivity extends AppCompatActivity implements
     /** Content URI for the existing graph (null if it's a new graph) */
     private Uri mCurrentGraphUri;
 
-
     /** EditText field to enter the graph's Time Range */
     private Spinner mTimeRangeSpinner;
 
@@ -751,12 +750,11 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
     public void secondGraphClicked(View view) {
 
-
         Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
         Animation slideDown = AnimationUtils.loadAnimation(this, R.anim.slide_down);
         //code to check if this checkbox is checked!
-        CheckBox checkBox = (CheckBox)view;
-        if(checkBox.isChecked()){
+        Switch secondGraphSwitch = (Switch)view;
+        if(secondGraphSwitch.isChecked()){
             mSecondGraphLinearLayout.setVisibility(View.VISIBLE);
             mSecondGraphLinearLayout.startAnimation(slideUp);
         } else {
