@@ -53,10 +53,6 @@ a {
 body.dark,
 body.dark:hover,
 summary.dark,
-details.dark>ol,
-details.dark>ol:hover,
-details.dark>ul,
-details.dark>ul:hover,
 details.dark>p,
 details.dark>p:hover,
 details.dark>div,
@@ -96,10 +92,6 @@ summary.light:hover {
 body.light,
 body.light:hover,
 summary.light,
-details.light>ol,
-details.light>ol:hover,
-details.light>ul,
-details.light>ul:hover,
 details.light>p,
 details.light>p:hover,
 details.light>div,
@@ -180,9 +172,7 @@ img.media {
  * Margin
  */
 
-body,
-ul,
-ol {
+body {
   margin: 0;
 }
 
@@ -191,17 +181,11 @@ nav>* {
   margin: 0 5px 0 5px;
 }
 
-li {
-  margin: 5px 0 5px 0;
-}
-
 .row {
   margin: 10px;
 }
 
-details>details,
-details>ul,
-details>ol {
+details>details {
   margin-left: 15px;
 }
 
@@ -228,14 +212,6 @@ code,
   padding: 5px;
 }
 
-details>ol {
-  padding: 1px 0 1px 30px;
-}
-
-details>ul {
-  padding: 10px 20px 10px 20px;
-}
-
 body>header {
   padding: 1px 60px 1px 60px;
 }
@@ -246,10 +222,6 @@ main {
 
 footer {
   padding: 0 0 10px 60px;
-}
-
-ul {
-  padding-left: 20px;
 }
 
 /**
@@ -286,15 +258,6 @@ section>a,
 
 .row {
   display: flex;
-}
-
-/**
- * List-style-type
- */
-
-ul,
-summary {
-  list-style-type: none;
 }
 
 /**
