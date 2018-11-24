@@ -1,64 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
-    <android.support.v7.widget.Toolbar
-            android:id="@+id/graph_editor_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
-            app:titleTextColor="@android:color/white"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            android:background="#8F2980b9"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/graph_editor_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CF2E7D32"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        app:titleTextColor="@android:color/white" />
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/graph_editor_toolbar">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/graph_editor_toolbar">
+
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      xmlns:tools="http://schemas.android.com/tools"
-                      xmlns:app="http://schemas.android.com/apk/res-auto"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:orientation="vertical"
-                      tools:context=".GraphEditorActivity">
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".GraphEditorActivity">
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
 
                     <CalendarView
-                            android:id="@+id/calendarView"
-                            android:layout_marginTop="10dp"
-                            android:layout_width="320dp"
-                            android:layout_height="340dp"
-                            android:background="@drawable/calender_background"
-                            android:theme="@style/CalenderViewCustom"
-                            android:dateTextAppearance="@style/CalenderViewDateCustomText"
-                            android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"/>
+                        android:id="@+id/calendarView"
+                        android:layout_width="320dp"
+                        android:layout_height="340dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/calender_background"
+                        android:dateTextAppearance="@style/CalenderViewDateCustomText"
+                        android:theme="@style/CalenderViewCustom"
+                        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
                 </RelativeLayout>
 
-                <LinearLayout
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_view"
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    card_view:cardCornerRadius="4dp">
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingTop="10dp"
-                        android:paddingLeft="18dp">
+                        android:orientation="horizontal">
 
-                    <!-- Select type -->
-                    <RadioGroup
+                        <!-- Select type -->
+                        <RadioGroup
                             android:id="@+id/time_range_type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -66,311 +72,175 @@
                             android:paddingLeft="12dp">
 
 
-                        <RadioButton
+                            <RadioButton
                                 android:id="@+id/Single_day"
                                 style="@style/CategoryStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:checked="true"
                                 android:padding="6dp"
-                                android:text="@string/single_day"/>
+                                android:text="@string/single_day" />
 
 
-                        <RadioButton
+                            <RadioButton
                                 android:id="@+id/several_days"
                                 style="@style/CategoryStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="6dp"
-                                android:text="@string/several_days"/>
+                                android:text="@string/several_days" />
 
-                        <RadioButton
+                            <RadioButton
                                 android:id="@+id/time_range"
                                 style="@style/CategoryStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="6dp"
-                                android:text="@string/relative_days"/>
-                    </RadioGroup>
+                                android:text="@string/relative_days" />
+                        </RadioGroup>
 
-                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                  android:layout_width="match_parent"
-                                  android:layout_height="match_parent"
-                                  android:orientation="vertical">
+                        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
 
-                        <LinearLayout
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:paddingTop="8dp">
 
-                            <TextView
+                                <TextView
                                     style="@style/startEndStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/start_date"
-                                    android:paddingLeft="8dp"/>
+                                    android:paddingLeft="4dp"
+                                    android:text="@string/start_date" />
 
-                            <TextView
+                                <TextView
                                     android:id="@+id/start_date"
                                     style="@style/DateStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:paddingLeft="8dp"
-                                    android:text="N/A"/>
-                        </LinearLayout>
+                                    android:paddingLeft="4dp"
+                                    android:text="N/A" />
+                            </LinearLayout>
 
 
-                        <LinearLayout
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:paddingTop="12dp">
-                            <TextView
+
+                                <TextView
                                     style="@style/startEndStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/end_date"
-                                    android:paddingLeft="8dp"/>
+                                    android:paddingLeft="4dp"
+                                    android:text="@string/end_date" />
 
-                            <TextView
+                                <TextView
                                     android:id="@+id/end_date"
                                     style="@style/DateStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingLeft="8dp"
-                                    android:text="N/A"/>
-                        </LinearLayout>
+                                    android:text="N/A" />
+                            </LinearLayout>
 
-                        <LinearLayout
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
-                            <Spinner
+
+                                <Spinner
                                     android:id="@+id/spinner_time_range"
-                                    android:layout_height="wrap_content"
                                     android:layout_width="wrap_content"
-                                    android:spinnerMode="dropdown"
-                                    android:paddingTop="12dp"/>
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="12dp"
+                                    android:spinnerMode="dropdown" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
 
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
 
             <!-- Layout for the editor -->
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                          xmlns:tools="http://schemas.android.com/tools"
-                          xmlns:app="http://schemas.android.com/apk/res-auto"
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:orientation="vertical"
-                          android:paddingLeft="45dp">
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                card_view:cardCornerRadius="4dp">
 
-                <!-- Overview category -->
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                    <!-- Label -->
-                    <TextView
-                            android:text="@string/graph_type"
-                            style="@style/CategoryStyle"/>
-
-                    <!-- Input field -->
-                    <LinearLayout
-                            android:layout_height="wrap_content"
-                            android:layout_width="0dp"
-                            android:layout_weight="2"
-                            android:orientation="vertical">
-
-                        <!-- Type drop-down spinner -->
-                        <Spinner
-                                android:id="@+id/spinner_graph_type"
-                                android:layout_height="wrap_content"
-                                android:layout_width="wrap_content"
-                                android:paddingRight="16dp"
-                                android:paddingTop="15dp"
-                                android:spinnerMode="dropdown"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- Overview category -->
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                    <!-- Label -->
-                    <TextView
-                            android:text="@string/graph_stats"
-                            style="@style/CategoryStyle"/>
-
-                    <!-- Input field -->
-                    <LinearLayout
-                            android:layout_height="wrap_content"
-                            android:layout_width="0dp"
-                            android:layout_weight="2"
-                            android:orientation="vertical">
-
-                        <!-- Stats drop-down spinner -->
-                        <Spinner
-                                android:paddingTop="15dp"
-                                android:id="@+id/spinner_graph_stats"
-                                android:layout_height="wrap_content"
-                                android:layout_width="wrap_content"
-                                android:paddingRight="16dp"
-                                android:spinnerMode="dropdown"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-                <!-- Overview category -->
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                    <!-- Label -->
-                    <TextView
-                            android:text="@string/graph_color"
-                            style="@style/CategoryStyle"/>
-
-                    <!-- Input field -->
-                    <LinearLayout
-                            android:layout_height="wrap_content"
-                            android:layout_width="0dp"
-                            android:layout_weight="2"
-                            android:orientation="vertical">
-
-                        <!-- Gender drop-down spinner -->
-                        <Spinner
-                                android:paddingTop="15dp"
-                                android:id="@+id/spinner_graph_color"
-                                android:layout_height="wrap_content"
-                                android:layout_width="wrap_content"
-                                android:paddingRight="16dp"
-                                android:spinnerMode="dropdown"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-                <!-- Overview category -->
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                    <!-- Label -->
-                    <TextView
-                            android:text="@string/graph_title"
-                            style="@style/CategoryStyle"/>
-
-                    <!-- Input fields -->
-                    <LinearLayout
-                            android:layout_height="wrap_content"
-                            android:layout_width="0dp"
-                            android:layout_weight="2"
-                            android:paddingLeft="4dp"
-                            android:orientation="vertical">
-
-                        <!-- Title field -->
-                        <EditText
-                                android:id="@+id/edit_graph_title"
-                                android:hint="@string/hint_graph_title"
-                                android:backgroundTint="#ff6348"
-                                android:inputType="textCapWords"
-                                style="@style/EditorFieldStyle"
-                                android:layout_width="170dp"/>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <CheckBox
-                        android:id="@+id/add_second_graph"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/add_second_graph"
-                        android:textSize="16sp"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#ff6348"
-                        android:onClick="secondGraphClicked"/>
-
-                <LinearLayout
-                        android:id="@+id/second_graph_layout"
-                        xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:tools="http://schemas.android.com/tools"
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:animateLayoutChanges="true"
-                        android:paddingLeft="20dp"
-                        android:visibility="invisible">
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="25dp">
 
                     <!-- Overview category -->
                     <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <!-- Label -->
                         <TextView
-                                android:text="@string/graph_2_type"
-                                style="@style/Graph2Style"/>
+                            style="@style/CategoryStyle"
+                            android:text="@string/graph_type" />
 
                         <!-- Input field -->
                         <LinearLayout
-                                android:layout_height="wrap_content"
-                                android:layout_width="0dp"
-                                android:layout_weight="2"
-                                android:orientation="vertical">
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:orientation="vertical">
 
                             <!-- Type drop-down spinner -->
                             <Spinner
-                                    android:id="@+id/spinner_graph2_type"
-                                    android:paddingTop="15dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_width="wrap_content"
-                                    android:paddingRight="16dp"
-                                    android:spinnerMode="dropdown"/>
+                                android:id="@+id/spinner_graph_type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingRight="16dp"
+                                android:paddingTop="15dp"
+                                android:spinnerMode="dropdown" />
                         </LinearLayout>
 
                     </LinearLayout>
 
-
                     <!-- Overview category -->
                     <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <!-- Label -->
                         <TextView
-                                android:text="@string/graph_2_stats"
-                                style="@style/Graph2Style"/>
+                            style="@style/CategoryStyle"
+                            android:text="@string/graph_stats" />
 
                         <!-- Input field -->
                         <LinearLayout
-                                android:layout_height="wrap_content"
-                                android:layout_width="0dp"
-                                android:layout_weight="2"
-                                android:orientation="vertical">
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:orientation="vertical">
 
                             <!-- Stats drop-down spinner -->
                             <Spinner
-                                    android:id="@+id/spinner_graph2_stats"
-                                    android:paddingTop="15dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_width="wrap_content"
-                                    android:paddingRight="16dp"
-                                    android:spinnerMode="dropdown"/>
+                                android:id="@+id/spinner_graph_stats"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingRight="16dp"
+                                android:paddingTop="15dp"
+                                android:spinnerMode="dropdown" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -378,38 +248,203 @@
 
                     <!-- Overview category -->
                     <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <!-- Label -->
                         <TextView
-                                android:text="@string/graph_2_color"
-                                style="@style/Graph2Style"/>
+                            style="@style/CategoryStyle"
+                            android:text="@string/graph_color" />
 
                         <!-- Input field -->
                         <LinearLayout
-                                android:layout_height="wrap_content"
-                                android:layout_width="0dp"
-                                android:layout_weight="2"
-                                android:orientation="vertical">
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:orientation="vertical">
 
                             <!-- Gender drop-down spinner -->
                             <Spinner
-                                    android:id="@+id/spinner_graph2_color"
-                                    android:layout_height="wrap_content"
-                                    android:paddingTop="15dp"
-                                    android:layout_width="wrap_content"
-                                    android:paddingRight="16dp"
-                                    android:spinnerMode="dropdown"/>
+                                android:id="@+id/spinner_graph_color"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingRight="16dp"
+                                android:paddingTop="15dp"
+                                android:spinnerMode="dropdown" />
                         </LinearLayout>
 
+                    </LinearLayout>
+
+
+                    <!-- Overview category -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Label -->
+                        <TextView
+                            style="@style/CategoryStyle"
+                            android:text="@string/graph_title" />
+
+                        <!-- Input fields -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:orientation="vertical"
+                            android:paddingLeft="4dp">
+
+                            <!-- Title field -->
+                            <EditText
+                                android:id="@+id/edit_graph_title"
+                                style="@style/EditorFieldStyle"
+                                android:layout_width="170dp"
+                                android:backgroundTint="#ff6348"
+                                android:hint="@string/hint_graph_title"
+                                android:inputType="textCapWords" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                card_view:cardCornerRadius="4dp">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp">
+
+                    <CheckBox
+                        android:id="@+id/add_second_graph"
+                        style="@style/CheckBoxStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:onClick="secondGraphClicked"
+                        android:text="@string/add_second_graph"/>
+
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:id="@+id/second_graph_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical"
+                        android:paddingLeft="20dp"
+                        android:visibility="gone">
+
+                        <!-- Overview category -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <!-- Label -->
+                            <TextView
+                                style="@style/Graph2Style"
+                                android:text="@string/graph_2_type" />
+
+                            <!-- Input field -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:orientation="vertical">
+
+                                <!-- Type drop-down spinner -->
+                                <Spinner
+                                    android:id="@+id/spinner_graph2_type"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingRight="16dp"
+                                    android:paddingTop="15dp"
+                                    android:spinnerMode="dropdown" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                        <!-- Overview category -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <!-- Label -->
+                            <TextView
+                                style="@style/Graph2Style"
+                                android:text="@string/graph_2_stats" />
+
+                            <!-- Input field -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:orientation="vertical">
+
+                                <!-- Stats drop-down spinner -->
+                                <Spinner
+                                    android:id="@+id/spinner_graph2_stats"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingRight="16dp"
+                                    android:paddingTop="15dp"
+                                    android:spinnerMode="dropdown" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                        <!-- Overview category -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <!-- Label -->
+                            <TextView
+                                style="@style/Graph2Style"
+                                android:text="@string/graph_2_color" />
+
+                            <!-- Input field -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:orientation="vertical">
+
+                                <!-- Gender drop-down spinner -->
+                                <Spinner
+                                    android:id="@+id/spinner_graph2_color"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingRight="16dp"
+                                    android:paddingTop="15dp"
+                                    android:spinnerMode="dropdown" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
