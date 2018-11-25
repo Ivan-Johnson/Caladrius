@@ -776,6 +776,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
             mStartDateTextView.setText(startTime);
             mEndDateTextView.setText(endTime);
+            mNumberOfGraph = numGraph;
 
             switch (numGraph) {
                 case GraphEntry.GRAPH_NUMBER_ONE:
