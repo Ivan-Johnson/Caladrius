@@ -71,8 +71,6 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
     private RadioGroup mTimeRangeTypeRadioGroup;
 
-    private CalendarView mCalendarView;
-
     private String mStartDate = "N/A";
     private String mEndDate = "N/A";
 
@@ -148,10 +146,6 @@ public class GraphEditorActivity extends AppCompatActivity implements
             getLoaderManager().initLoader(EXISTING_GRAPH_LOADER, null, this);
         }
 
-        final RadioGroup dateTypeRadioGroup = findViewById(R.id.time_range_type);
-
-
-
 
         // Find all relevant views that we will need to read user input from
         mTimeRangeSpinner = findViewById(R.id.spinner_time_range);
@@ -210,7 +204,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
                 date.substring(0, date.length() - 5),
                 date.substring(date.length() - 5, date.length())));
 
-        mCalendarView = findViewById(R.id.calendarView);
+        CalendarView mCalendarView = findViewById(R.id.calendarView);
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
         {
             @Override
@@ -226,13 +220,13 @@ public class GraphEditorActivity extends AppCompatActivity implements
                 String date = getMonthForInt(month) + " " + day + " " + year;
                 String dateShow = getMonthForInt(month) + " " + day + "th " + year;
 
-                if (dateTypeRadioGroup.getCheckedRadioButtonId() == -1) {
+                if (mTimeRangeTypeRadioGroup.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(getApplicationContext(), "Please select dateType",
                             Toast.LENGTH_SHORT)
                             .show();
                 } else {
                     // get selected radio button from radioGroup
-                    int selectedId = dateTypeRadioGroup.getCheckedRadioButtonId();
+                    int selectedId = mTimeRangeTypeRadioGroup.getCheckedRadioButtonId();
 
                     // find the radiobutton by returned id
                     RadioButton selectedRadioButton = findViewById(selectedId);
