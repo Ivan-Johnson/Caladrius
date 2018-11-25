@@ -172,6 +172,9 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
         mSecondGraphSwitch = findViewById(R.id.second_graph_switch);
         mSecondGraphSwitch.setOnTouchListener(mTouchListener);
+        if (mSecondGraphSwitch.isChecked()){
+            mSecondGraphLinearLayout.setVisibility(View.VISIBLE);
+        }
 
         mTimeRangeTypeRadioGroup = findViewById(R.id.time_range_type);
         mTimeRangeTypeRadioGroup.setOnTouchListener(mTouchListener);
