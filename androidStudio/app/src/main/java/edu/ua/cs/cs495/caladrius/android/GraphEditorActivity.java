@@ -1023,9 +1023,11 @@ public class GraphEditorActivity extends AppCompatActivity implements
         Switch secondGraphSwitch = (Switch)view;
         if(secondGraphSwitch.isChecked()){
             mSecondGraphLinearLayout.setVisibility(View.VISIBLE);
+            mNumberOfGraph = GraphEntry.GRAPH_NUMBER_TWO;
             mSecondGraphLinearLayout.startAnimation(slideUp);
         } else {
             mSecondGraphLinearLayout.setVisibility(View.INVISIBLE);
+            mNumberOfGraph = GraphEntry.GRAPH_NUMBER_ONE;
             mSecondGraphLinearLayout.startAnimation(slideDown);
         }
     }
