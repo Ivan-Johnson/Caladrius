@@ -53,6 +53,12 @@ public class ExtremeValueEditor extends Fragment
 			)
 		);
 
+		EditText stat = rootView.findViewById(R.id.ev_statname);
+		stat.setText(this.ev.getStat());
+
+		EditText val = rootView.findViewById(R.id.ev_val);
+		val.setText(this.ev.getValueString());
+
 		return rootView;
 	}
 
