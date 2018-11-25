@@ -125,6 +125,8 @@ public class LoginScreen extends AppCompatActivity
 			@Override
 			public void onClick(View v)
 			{
+				Caladrius.fitbitInterface = new PseudoFitbit();
+
 				Intent pager = new Intent(v.getContext(), ListTest.class);
 				startActivity(pager);}
 		});
