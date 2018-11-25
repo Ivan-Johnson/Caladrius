@@ -91,7 +91,7 @@
                                 android:text="@string/several_days" />
 
                             <RadioButton
-                                android:id="@+id/time_range"
+                                android:id="@+id/relative_days"
                                 style="@style/CategoryStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -330,7 +330,7 @@
                     android:layout_marginBottom="10dp">
 
                     <Switch
-                        android:id="@+id/add_second_graph"
+                        android:id="@+id/second_graph_switch"
                         style="@style/CheckBoxStyle"
                         android:layout_width="200dp"
                         android:paddingLeft="10dp"

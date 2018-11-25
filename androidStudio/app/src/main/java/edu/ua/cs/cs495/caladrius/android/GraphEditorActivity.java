@@ -18,7 +18,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 
 import java.time.LocalDateTime;
@@ -68,6 +67,9 @@ public class GraphEditorActivity extends AppCompatActivity implements
     /** EditText field to enter the graph2's Color */
     private Spinner mColor2Spinner;
 
+    private Switch mSecondGraphSwitch;
+
+    private RadioGroup mTimeRangeTypeRadioGroup;
 
     private CalendarView mCalendarView;
 
@@ -80,6 +82,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
     private int mType = GraphEntry.BAR_GRAPH;
     private int mStats = GraphEntry.STATS_BPM;
     private int mColor = GraphEntry.COLOR_BLACK;
+    private int mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
     
     // OnTouchListener that listens for any user touches on a View, implying that they are modifying
     // the view, and we change the mGraphHasChanged boolean to true.
@@ -211,8 +214,30 @@ public class GraphEditorActivity extends AppCompatActivity implements
         mColorSpinner.setOnTouchListener(mTouchListener);
         mTitleEditText.setOnTouchListener(mTouchListener);
 
-
         setupSpinner();
+
+        mSecondGraphSwitch = findViewById(R.id.second_graph_switch);
+        mSecondGraphSwitch.setOnTouchListener(mTouchListener);
+
+        mTimeRangeTypeRadioGroup = findViewById(R.id.time_range_type);
+        mTimeRangeTypeRadioGroup.setOnTouchListener(mTouchListener);
+
+        mTimeRangeTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case R.id.Single_day:
+                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_RELATIVE;
+                        break;
+                    case R.id.several_days:
+                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SEVERAL;
+                        break;
+                    case R.id.relative_days:
+                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_RELATIVE;
+                        break;
+                }
+            }
+        });
     }
 
     /**
@@ -461,6 +486,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
         values.put(GraphEntry.COLUMN_GRAPH_STATS, mStats);
         values.put(GraphEntry.COLUMN_GRAPH_COLORS, mColor);
         values.put(GraphEntry.COLUMN_GRAPH_TITLE, TitleString);
+        values.put(GraphEntry.COLUMN_GRAPH_TIME_RANGE_TYPE, mTimeRangeType);
 
         if (mCurrentGraphUri == null) {
 
@@ -569,7 +595,14 @@ public class GraphEditorActivity extends AppCompatActivity implements
                 GraphEntry.COLUMN_GRAPH_TITLE,
                 GraphEntry.COLUMN_GRAPH_TYPE,
                 GraphEntry.COLUMN_GRAPH_STATS,
-                GraphEntry.COLUMN_GRAPH_COLORS};
+                GraphEntry.COLUMN_GRAPH_COLORS,
+                GraphEntry.COLUMN_GRAPH_TIME_RANGE_TYPE,
+                GraphEntry.COLUMN_GRAPH2_COLORS,
+                GraphEntry.COLUMN_GRAPH2_STATS,
+                GraphEntry.COLUMN_GRAPH2_TYPE,
+                GraphEntry.COLUMN_NUMBER_OF_GRAPH,
+                GraphEntry.COLUMN_GRAPH_START_TIME,
+                GraphEntry.COLUMN_GRAPH_END_TIME};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -597,15 +630,40 @@ public class GraphEditorActivity extends AppCompatActivity implements
             int statsColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_STATS);
             int colorColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_COLORS);
 
+            int numGraphColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_NUMBER_OF_GRAPH);
+            int type2ColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH2_TYPE);
+            int stats2ColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH2_STATS);
+            int color2ColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH2_COLORS);
+            int timeRangeTypeColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_TIME_RANGE_TYPE);
+            int startTimeColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_START_TIME);
+            int endTimeColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_END_TIME);
+
             int timeRange = cursor.getInt(timeRangeColumnIndex);
             int type = cursor.getInt(typeColumnIndex);
             int stats = cursor.getInt(statsColumnIndex);
             int color = cursor.getInt(colorColumnIndex);
             String title = cursor.getString(titleColumnIndex);
 
+            int numGraph = cursor.getInt(numGraphColumnIndex);
+            int type2 = cursor.getInt(type2ColumnIndex);
+            int stats2 = cursor.getInt(stats2ColumnIndex);
+            int color2 = cursor.getInt(color2ColumnIndex);
+            int timeRangeType = cursor.getInt(timeRangeTypeColumnIndex);
+            String startTime = cursor.getString(startTimeColumnIndex);
+            String endTime = cursor.getString(endTimeColumnIndex);
+
             // Update the views on the screen with the values from the database
             mTitleEditText.setText(title);
+//            mSecondGraphSwitch
 
+            switch (numGraph) {
+                case GraphEntry.GRAPH_NUMBER_ONE:
+                    mSecondGraphSwitch.setChecked(false);
+                    break;
+                case GraphEntry.GRAPH_NUMBER_TWO:
+                    mSecondGraphSwitch.setChecked(true);
+                    break;
+            }
 
             switch (timeRange) {
                 case GraphEntry.TIME_RANGE_TODAY:
@@ -622,6 +680,66 @@ public class GraphEditorActivity extends AppCompatActivity implements
                     break;
                 default:
                     mTimeRangeSpinner.setSelection(0);
+                    break;
+            }
+
+
+            switch (type2) {
+                case GraphEntry.BAR_GRAPH:
+                    mType2Spinner.setSelection(0);
+                    break;
+                case GraphEntry.POINTS_GRAPH:
+                    mType2Spinner.setSelection(1);
+                    break;
+                case GraphEntry.LINE_GRAPH:
+                    mType2Spinner.setSelection(2);
+                    break;
+                default:
+                    mType2Spinner.setSelection(0);
+                    break;
+            }
+
+
+            switch (stats2) {
+                case GraphEntry.STATS_BPM:
+                    mStats2Spinner.setSelection(0);
+                    break;
+                case GraphEntry.STATS_STEPS:
+                    mStats2Spinner.setSelection(1);
+                    break;
+                case GraphEntry.STATS_CALORIC:
+                    mStats2Spinner.setSelection(2);
+                    break;
+                default:
+                    mStats2Spinner.setSelection(0);
+                    break;
+            }
+
+
+            switch (color2) {
+                case GraphEntry.COLOR_BLACK:
+                    mColor2Spinner.setSelection(0);
+                    break;
+                case GraphEntry.COLOR_BLUE:
+                    mColor2Spinner.setSelection(1);
+                    break;
+                case GraphEntry.COLOR_CYAN:
+                    mColor2Spinner.setSelection(2);
+                    break;
+                case GraphEntry.COLOR_GRAY:
+                    mColor2Spinner.setSelection(3);
+                    break;
+                case GraphEntry.COLOR_GREEN:
+                    mColor2Spinner.setSelection(4);
+                    break;
+                case GraphEntry.COLOR_RED:
+                    mColor2Spinner.setSelection(5);
+                    break;
+                case GraphEntry.COLOR_YELLOW:
+                    mColor2Spinner.setSelection(6);
+                    break;
+                default:
+                    mColor2Spinner.setSelection(0);
                     break;
             }
 
@@ -752,6 +870,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
         Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
         Animation slideDown = AnimationUtils.loadAnimation(this, R.anim.slide_down);
+
         //code to check if this checkbox is checked!
         Switch secondGraphSwitch = (Switch)view;
         if(secondGraphSwitch.isChecked()){
