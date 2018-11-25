@@ -76,6 +76,10 @@ public class GraphEditorActivity extends AppCompatActivity implements
     private String mStartDate = "N/A";
     private String mEndDate = "N/A";
 
+
+    private EditText mStartDateEditText;
+    private EditText mEndDateEditText;
+
     private boolean mGraphHasChanged = false;
 
     private int mTimeRange = GraphEntry.TIME_RANGE_TODAY;
@@ -654,6 +658,9 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
             // Update the views on the screen with the values from the database
             mTitleEditText.setText(title);
+
+            mStartDateEditText.setText(startTime);
+            mEndDateEditText.setText(endTime);
 //            mSecondGraphSwitch
 
             switch (numGraph) {
