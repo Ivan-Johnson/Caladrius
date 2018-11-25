@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import edu.ua.cs.cs495.caladrius.android.GenericEditor;
 import edu.ua.cs.cs495.caladrius.android.R;
