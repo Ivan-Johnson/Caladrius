@@ -77,8 +77,8 @@ public class GraphEditorActivity extends AppCompatActivity implements
     private String mEndDate = "N/A";
 
 
-    private EditText mStartDateEditText;
-    private EditText mEndDateEditText;
+    private TextView mStartDateTextView;
+    private TextView mEndDateTextView;
 
     private boolean mGraphHasChanged = false;
 
@@ -148,10 +148,56 @@ public class GraphEditorActivity extends AppCompatActivity implements
             getLoaderManager().initLoader(EXISTING_GRAPH_LOADER, null, this);
         }
 
-        final TextView startDateTextView = findViewById(R.id.start_date);
-        final TextView endDateTextView = findViewById(R.id.end_date);
-
         final RadioGroup dateTypeRadioGroup = findViewById(R.id.time_range_type);
+
+
+
+
+        // Find all relevant views that we will need to read user input from
+        mTimeRangeSpinner = findViewById(R.id.spinner_time_range);
+        mTypeSpinner = findViewById(R.id.spinner_graph_type);
+        mStatsSpinner = findViewById(R.id.spinner_graph_stats);
+        mColorSpinner = findViewById(R.id.spinner_graph_color);
+        mType2Spinner = findViewById(R.id.spinner_graph2_type);
+        mStats2Spinner = findViewById(R.id.spinner_graph2_stats);
+        mColor2Spinner = findViewById(R.id.spinner_graph2_color);
+        mTitleEditText = findViewById(R.id.edit_graph_title);
+        mStartDateTextView = findViewById(R.id.start_date);
+        mEndDateTextView = findViewById(R.id.end_date);
+
+        mTimeRangeSpinner.setOnTouchListener(mTouchListener);
+        mTypeSpinner.setOnTouchListener(mTouchListener);
+        mStatsSpinner.setOnTouchListener(mTouchListener);
+        mColorSpinner.setOnTouchListener(mTouchListener);
+        mType2Spinner.setOnTouchListener(mTouchListener);
+        mStats2Spinner.setOnTouchListener(mTouchListener);
+        mColor2Spinner.setOnTouchListener(mTouchListener);
+        mTitleEditText.setOnTouchListener(mTouchListener);
+
+        setupSpinner();
+
+        mSecondGraphSwitch = findViewById(R.id.second_graph_switch);
+        mSecondGraphSwitch.setOnTouchListener(mTouchListener);
+
+        mTimeRangeTypeRadioGroup = findViewById(R.id.time_range_type);
+        mTimeRangeTypeRadioGroup.setOnTouchListener(mTouchListener);
+
+        mTimeRangeTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case R.id.Single_day:
+                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_RELATIVE;
+                        break;
+                    case R.id.several_days:
+                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SEVERAL;
+                        break;
+                    case R.id.relative_days:
+                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_RELATIVE;
+                        break;
+                }
+            }
+        });
 
         LocalDateTime now = LocalDateTime.now();
         int year = now.getYear();
@@ -160,7 +206,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
         String date = getMonthForInt(month) + " " + day + " " + year;
         mStartDate = date;
-        startDateTextView.setText(String.format("%sth%s",
+        mStartDateTextView.setText(String.format("%sth%s",
                 date.substring(0, date.length() - 5),
                 date.substring(date.length() - 5, date.length())));
 
@@ -193,56 +239,13 @@ public class GraphEditorActivity extends AppCompatActivity implements
                     String dateType = selectedRadioButton.getText()
                             .toString();
 
-//                    Toast.makeText(getApplicationContext(), dateType + " is selected",
-//                            Toast.LENGTH_SHORT)
-//                            .show();
-
                     if (dateType.equals(getString(R.string.single_day))) {
-                        startDateTextView.setText(dateShow);
+                        mStartDateTextView.setText(dateShow);
                         mStartDate = date;
                     } else if (dateType.equals(getString(R.string.several_days))) {
-                        endDateTextView.setText(dateShow);
+                        mEndDateTextView.setText(dateShow);
                         mEndDate = date;
                     }
-                }
-            }
-        });
-
-
-        // Find all relevant views that we will need to read user input from
-        mTimeRangeSpinner = findViewById(R.id.spinner_time_range);
-        mTypeSpinner = findViewById(R.id.spinner_graph_type);
-        mStatsSpinner = findViewById(R.id.spinner_graph_stats);
-        mColorSpinner = findViewById(R.id.spinner_graph_color);
-        mTitleEditText = findViewById(R.id.edit_graph_title);
-
-        mTimeRangeSpinner.setOnTouchListener(mTouchListener);
-        mTypeSpinner.setOnTouchListener(mTouchListener);
-        mStatsSpinner.setOnTouchListener(mTouchListener);
-        mColorSpinner.setOnTouchListener(mTouchListener);
-        mTitleEditText.setOnTouchListener(mTouchListener);
-
-        setupSpinner();
-
-        mSecondGraphSwitch = findViewById(R.id.second_graph_switch);
-        mSecondGraphSwitch.setOnTouchListener(mTouchListener);
-
-        mTimeRangeTypeRadioGroup = findViewById(R.id.time_range_type);
-        mTimeRangeTypeRadioGroup.setOnTouchListener(mTouchListener);
-
-        mTimeRangeTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i){
-                    case R.id.Single_day:
-                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_RELATIVE;
-                        break;
-                    case R.id.several_days:
-                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SEVERAL;
-                        break;
-                    case R.id.relative_days:
-                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_RELATIVE;
-                        break;
                 }
             }
         });
@@ -421,7 +424,112 @@ public class GraphEditorActivity extends AppCompatActivity implements
                 mColor = GraphEntry.COLOR_BLACK;
             }
         });
-        
+
+
+
+        /*
+          Graph2 Type Spinner
+         */
+
+        // Apply the adapter to the spinner
+        mType2Spinner.setAdapter(graphTypeSpinnerAdapter);
+
+        // Set the integer mSelected to the constant values
+        mType2Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selection = (String) parent.getItemAtPosition(position);
+                if (!TextUtils.isEmpty(selection)) {
+                    if (selection.equals(getString(R.string.type_bar))) {
+                        mType2 = GraphEntry.BAR_GRAPH;
+                    } else if (selection.equals(getString(R.string.type_points))) {
+                        mType2 = GraphEntry.POINTS_GRAPH;
+                    } else {
+                        mType2 = GraphEntry.LINE_GRAPH;
+                    }
+                }
+            }
+
+            // Because AdapterView is an abstract class, onNothingSelected must be defined
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mType2 = GraphEntry.TIME_RANGE_TODAY;
+            }
+        });
+
+
+        /*
+          Graph2 Stats Spinner
+         */
+
+        // Apply the adapter to the spinner
+        mStats2Spinner.setAdapter(StatsSpinnerAdapter);
+
+        // Set the integer mSelected to the constant values
+        mStats2Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selection = (String) parent.getItemAtPosition(position);
+                if (!TextUtils.isEmpty(selection)) {
+                    if (selection.equals(getString(R.string.stats_bpm))) {
+                        mStats2 = GraphEntry.STATS_BPM;
+                    } else if (selection.equals(getString(R.string.stats_steps))) {
+                        mStats2 = GraphEntry.STATS_STEPS;
+                    } else if (selection.equals(getString(R.string.stats_caloric))) {
+                        mStats2 = GraphEntry.STATS_CALORIC;
+                    } else {
+                        mStats2 = GraphEntry.STATS_BPM;
+                    }
+                }
+            }
+
+            // Because AdapterView is an abstract class, onNothingSelected must be defined
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mStats2 = GraphEntry.STATS_BPM;
+            }
+        });
+
+
+        /*
+          Graph2 Color Spinner
+         */
+
+        // Apply the adapter to the spinner
+        mColor2Spinner.setAdapter(colorSpinnerAdapter);
+
+        // Set the integer mSelected to the constant values
+        mColor2Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selection = (String) parent.getItemAtPosition(position);
+                if (!TextUtils.isEmpty(selection)) {
+                    if (selection.equals(getString(R.string.color_black))) {
+                        mColor2 = GraphEntry.COLOR_BLACK;
+                    } else if (selection.equals(getString(R.string.color_blue))) {
+                        mColor2 = GraphEntry.COLOR_BLUE;
+                    } else if (selection.equals(getString(R.string.color_cyan))) {
+                        mColor2 = GraphEntry.COLOR_CYAN;
+                    } else if (selection.equals(getString(R.string.color_gray))) {
+                        mColor = GraphEntry.COLOR_GRAY;
+                    } else if (selection.equals(getString(R.string.color_green))) {
+                        mColor2 = GraphEntry.COLOR_GREEN;
+                    } else if (selection.equals(getString(R.string.color_red))) {
+                        mColor2 = GraphEntry.COLOR_RED;
+                    } else if (selection.equals(getString(R.string.color_yellow))) {
+                        mColor2 = GraphEntry.COLOR_YELLOW;
+                    } else {
+                        mColor2 = GraphEntry.COLOR_BLACK;
+                    }
+                }
+            }
+
+            // Because AdapterView is an abstract class, onNothingSelected must be defined
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mColor2 = GraphEntry.COLOR_BLACK;
+            }
+        });
 
     }
 
@@ -481,8 +589,8 @@ public class GraphEditorActivity extends AppCompatActivity implements
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String TitleString = mTitleEditText.getText().toString().trim();
-        String StartDateString = mStartDateEditText.getText().toString().trim();
-        String EndDateString = mEndDateEditText.getText().toString().trim();
+        String StartDateString = mStartDate;
+        String EndDateString = mEndDate;
 
         if (mCurrentGraphUri == null &&
                 mColor == 0 && mTimeRange == 0 && mType == 0 && mStats == 0
@@ -672,8 +780,8 @@ public class GraphEditorActivity extends AppCompatActivity implements
             // Update the views on the screen with the values from the database
             mTitleEditText.setText(title);
 
-            mStartDateEditText.setText(startTime);
-            mEndDateEditText.setText(endTime);
+            mStartDateTextView.setText(startTime);
+            mEndDateTextView.setText(endTime);
 //            mSecondGraphSwitch
 
             switch (numGraph) {
@@ -853,8 +961,8 @@ public class GraphEditorActivity extends AppCompatActivity implements
         mStats2Spinner.setSelection(0);
         mColor2Spinner.setSelection(0);
         mSecondGraphSwitch.setChecked(false);
-        mStartDateEditText.setText("N/A");
-        mStartDateEditText.setText("N/A");
+        mStartDateTextView.setText("N/A");
+        mStartDateTextView.setText("N/A");
     }
 
     /**
