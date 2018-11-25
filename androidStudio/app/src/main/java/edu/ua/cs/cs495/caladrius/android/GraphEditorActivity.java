@@ -82,10 +82,10 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
     private int mTimeRange = GraphEntry.TIME_RANGE_TODAY;
     private int mType = GraphEntry.BAR_GRAPH;
-    private int mStats = GraphEntry.STATS_BPM;
+    private int mStats = GraphEntry.STATS_CALORIC;
     private int mColor = GraphEntry.COLOR_BLACK;
     private int mType2 = GraphEntry.BAR_GRAPH;
-    private int mStats2 = GraphEntry.STATS_BPM;
+    private int mStats2 = GraphEntry.STATS_STEPS;
     private int mColor2 = GraphEntry.COLOR_BLACK;
     private int mNumberOfGraph = GraphEntry.GRAPH_NUMBER_ONE;
     private int mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
@@ -202,10 +202,10 @@ public class GraphEditorActivity extends AppCompatActivity implements
         int day = now.getDayOfMonth();
 
         String date = getMonthForInt(month) + " " + day + " " + year;
-        mStartDate = date;
-        mStartDateTextView.setText(String.format("%sth%s",
+        mStartDate = String.format("%sth%s",
                 date.substring(0, date.length() - 5),
-                date.substring(date.length() - 5, date.length())));
+                date.substring(date.length() - 5, date.length()));
+        mStartDateTextView.setText(mStartDate);
 
         CalendarView mCalendarView = findViewById(R.id.calendarView);
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
@@ -238,10 +238,10 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
                     if (dateType.equals(getString(R.string.single_day))) {
                         mStartDateTextView.setText(dateShow);
-                        mStartDate = date;
+                        mStartDate = dateShow;
                     } else if (dateType.equals(getString(R.string.several_days))) {
                         mEndDateTextView.setText(dateShow);
-                        mEndDate = date;
+                        mEndDate = dateShow;
                     }
                 }
             }
@@ -469,7 +469,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.stats_bpm))) {
-                        mStats2 = GraphEntry.STATS_CALORIC;
+                        mStats2 = GraphEntry.STATS_BPM;
                     } else if (selection.equals(getString(R.string.stats_steps))) {
                         mStats2 = GraphEntry.STATS_STEPS;
                     } else if (selection.equals(getString(R.string.stats_caloric))) {
@@ -855,7 +855,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
                     mStats2Spinner.setSelection(2);
                     break;
                 default:
-                    mStats2Spinner.setSelection(0);
+                    mStats2Spinner.setSelection(1);
                     break;
             }
 
@@ -915,7 +915,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
                     mStatsSpinner.setSelection(2);
                     break;
                 default:
-                    mStatsSpinner.setSelection(0);
+                    mStatsSpinner.setSelection(1);
                     break;
             }
 
@@ -957,13 +957,15 @@ public class GraphEditorActivity extends AppCompatActivity implements
         mTitleEditText.setText("");
         mTimeRangeSpinner.setSelection(0);
         mTypeSpinner.setSelection(0);
-        mStatsSpinner.setSelection(0);
+        mStatsSpinner.setSelection(1);
         mColorSpinner.setSelection(0);
 
         ((RadioButton)mTimeRangeTypeRadioGroup.getChildAt(0)).setChecked(true);
+
         mType2Spinner.setSelection(0);
-        mStats2Spinner.setSelection(0);
+        mStats2Spinner.setSelection(1);
         mColor2Spinner.setSelection(0);
+
         mSecondGraphSwitch.setChecked(false);
         mStartDateTextView.setText("N/A");
         mStartDateTextView.setText("N/A");
