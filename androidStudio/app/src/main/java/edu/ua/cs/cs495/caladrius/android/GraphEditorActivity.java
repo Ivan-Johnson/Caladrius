@@ -172,9 +172,6 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
         mSecondGraphSwitch = findViewById(R.id.second_graph_switch);
         mSecondGraphSwitch.setOnTouchListener(mTouchListener);
-        if (mSecondGraphSwitch.isChecked()){
-            mSecondGraphLinearLayout.setVisibility(View.VISIBLE);
-        }
 
         mTimeRangeTypeRadioGroup = findViewById(R.id.time_range_type);
         mTimeRangeTypeRadioGroup.setOnTouchListener(mTouchListener);
@@ -779,14 +776,15 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
             mStartDateTextView.setText(startTime);
             mEndDateTextView.setText(endTime);
-//            mSecondGraphSwitch
 
             switch (numGraph) {
                 case GraphEntry.GRAPH_NUMBER_ONE:
                     mSecondGraphSwitch.setChecked(false);
+//                    mSecondGraphLinearLayout.setVisibility(View.INVISIBLE);
                     break;
                 case GraphEntry.GRAPH_NUMBER_TWO:
                     mSecondGraphSwitch.setChecked(true);
+                    mSecondGraphLinearLayout.setVisibility(View.VISIBLE);
                     break;
             }
 
