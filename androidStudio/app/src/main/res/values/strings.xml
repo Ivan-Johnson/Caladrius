@@ -125,4 +125,7 @@
     <string name="graph_2_color">Graph 2 Color</string>
     <string name="relative_time_range">Relative time range</string>
     <string name="relative_days">Relative days</string>
+
+
+    <string name="error_contact_server">Error: we could not contact our server</string>
 </resources>
