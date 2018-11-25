@@ -665,6 +665,18 @@ public class GraphEditorActivity extends AppCompatActivity implements
                     break;
             }
 
+            switch (timeRangeType) {
+                case GraphEntry.TIME_RANGE_TYPE_SINGLE:
+                    ((RadioButton)mTimeRangeTypeRadioGroup.getChildAt(0)).setChecked(true);
+                    break;
+                case GraphEntry.TIME_RANGE_TYPE_SEVERAL:
+                    ((RadioButton)mTimeRangeTypeRadioGroup.getChildAt(1)).setChecked(true);
+                    break;
+                case GraphEntry.TIME_RANGE_TYPE_RELATIVE:
+                    ((RadioButton)mTimeRangeTypeRadioGroup.getChildAt(2)).setChecked(true);
+                    break;
+            }
+
             switch (timeRange) {
                 case GraphEntry.TIME_RANGE_TODAY:
                     mTimeRangeSpinner.setSelection(0);
