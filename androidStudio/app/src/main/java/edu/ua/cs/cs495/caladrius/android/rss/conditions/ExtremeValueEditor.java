@@ -1,19 +1,15 @@
 package edu.ua.cs.cs495.caladrius.android.rss.conditions;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import edu.ua.cs.cs495.caladrius.android.GenericEditor;
 import edu.ua.cs.cs495.caladrius.android.R;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 
@@ -62,39 +58,5 @@ public class ExtremeValueEditor extends Fragment
 		val.setText(this.ev.getValueString());
 
 		return rootView;
-	}
-
-	public static class ExtremeValueEditorActivity extends GenericEditor
-	{
-		protected ExtremeValueEditorActivity () {
-			super("Extreme Value", true);
-		}
-
-		protected static final String EXTRA_EV = "feed";
-
-		public static Intent newIntent(Context cntxt, ExtremeValue ev)
-		{
-			Intent in = new Intent(cntxt, ExtremeValueEditorActivity.class);
-			in.putExtra(EXTRA_EV, ev);
-			return in;
-		}
-
-		@Override
-		protected Fragment makeFragment()
-		{
-			Bundle bun = getIntent().getExtras();
-			ExtremeValue ev = null;
-			if (bun != null) {
-				ev = (ExtremeValue) bun.getSerializable(EXTRA_EV);
-			}
-			return ExtremeValueEditor.newInstance(ev);
-		}
-
-		@Override
-		protected void doSave()
-		{
-			// TODO implement this
-			Log.i("editor", "Saving extreme value");
-		}
 	}
 }

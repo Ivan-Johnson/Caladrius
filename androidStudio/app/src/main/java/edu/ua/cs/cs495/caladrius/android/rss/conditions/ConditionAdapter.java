@@ -57,13 +57,9 @@ public class ConditionAdapter extends BaseAdapter
 		TextView text = view.findViewById(R.id.name);
 		text.setText(ConditionDescriber.describe(conditions.get(i)));
 
-		view.setOnClickListener(new View.OnClickListener()
-		{
-			public void onClick(View v)
-			{
-				Intent intent = ConditionEditor.makeEditIntent(c, conditions.get(i));
-				c.startActivity(intent);
-			}
+		view.setOnClickListener((View v) -> {
+			Intent intent = ConditionEditor.createIntent(c, conditions.get(i));
+			c.startActivity(intent);
 		});
 
 		return view;

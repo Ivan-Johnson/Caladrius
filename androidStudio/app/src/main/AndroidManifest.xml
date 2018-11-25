@@ -48,7 +48,7 @@
         <activity android:name=".SummaryPageEditor"/>
         <activity android:name=".ListTest"/>
         <activity android:name=".rss.FeedEditor$FeedEditorActivity"/>
-        <activity android:name=".rss.conditions.ExtremeValueEditor$ExtremeValueEditorActivity"/>
+        <activity android:name=".rss.conditions.ConditionEditor"/>
 
         <provider
                 android:name=".graphData.GraphProvider"
