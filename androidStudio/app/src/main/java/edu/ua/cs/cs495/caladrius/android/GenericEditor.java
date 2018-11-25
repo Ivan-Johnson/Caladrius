@@ -10,14 +10,24 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 public abstract class GenericEditor extends AppCompatActivity
 {
+	protected final boolean alwaysSave;
+	protected final String title;
 	protected abstract Fragment makeFragment();
+
+	/**
+	 * @param alwaysSave when true, save automatically without prompting the user; regardless of what shouldConfirmCancel returns
+	 */
+	protected GenericEditor(String title, boolean alwaysSave)
+	{
+		this.title = title;
+		this.alwaysSave = alwaysSave;
+	}
 
 	@Override
 	public void onBackPressed()
@@ -32,16 +42,19 @@ public abstract class GenericEditor extends AppCompatActivity
 		setContentView(R.layout.activity_editor);
 
 		Toolbar tb = findViewById(R.id.editor_toolbar);
-		tb.setTitle("tmp toolbar title"); //TODO give editors a real title
-		tb.setNavigationIcon(R.drawable.ic_baseline_cancel_24px);
+		tb.setTitle(title);
+		if (alwaysSave) {
+			tb.setNavigationIcon(R.drawable.back_button);
+		} else {
+			tb.setNavigationIcon(R.drawable.ic_baseline_cancel_24px);
+		}
 		//NOTE: gotta set the support action bar BEFORE setting the navigation on click listener
 		setSupportActionBar(tb);
-		tb.setNavigationOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
+		tb.setNavigationOnClickListener((View v) -> {
+			if (!alwaysSave) {
 				onCancelClick();
+			} else {
+				save();
 			}
 		});
 
@@ -59,9 +72,12 @@ public abstract class GenericEditor extends AppCompatActivity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.editor_menu, menu);
-		return true;
+		if (alwaysSave) {
+			return false;
+		} else {
+			getMenuInflater().inflate(R.menu.editor_menu, menu);
+			return true;
+		}
 	}
 
 	@Override
@@ -69,8 +85,8 @@ public abstract class GenericEditor extends AppCompatActivity
 	{
 		switch (item.getItemId()) {
 		case R.id.editor_save:
-			//TODO call abstract save function
-			Log.i("TMP", "Totally saving this thing rn");
+			// TODO support failed saves
+			doSave();
 			finish();
 			return true;
 		default:
@@ -82,6 +98,8 @@ public abstract class GenericEditor extends AppCompatActivity
 	{
 		// NOP; subclass might want to do something though.
 	}
+
+	protected abstract void doSave();
 
 	/**
 	 * Determines whether or not the user will be asked for confirmation before navigating away without saving.
@@ -99,6 +117,12 @@ public abstract class GenericEditor extends AppCompatActivity
 		finish();
 	}
 
+	private void save()
+	{
+		doSave();
+		cancel();
+	}
+
 	protected CharSequence getConfirmationTitle(Context cntxt)
 	{
 		return cntxt.getText(R.string.editor_confirmation_defaulttitle);
@@ -111,6 +135,9 @@ public abstract class GenericEditor extends AppCompatActivity
 
 	protected void onCancelClick()
 	{
+		if (alwaysSave) {
+			throw new RuntimeException("This should never happen");
+		}
 		if (!shouldConfirmCancel()) {
 			cancel();
 		}

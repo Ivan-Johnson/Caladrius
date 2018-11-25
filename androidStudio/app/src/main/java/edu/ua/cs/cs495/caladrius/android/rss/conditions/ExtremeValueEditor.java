@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,10 @@ public class ExtremeValueEditor extends Fragment
 
 	public static class ExtremeValueEditorActivity extends GenericEditor
 	{
+		protected ExtremeValueEditorActivity () {
+			super("Extreme Value", true);
+		}
+
 		protected static final String EXTRA_EV = "feed";
 
 		public static Intent newIntent(Context cntxt, ExtremeValue ev)
@@ -83,6 +88,13 @@ public class ExtremeValueEditor extends Fragment
 				ev = (ExtremeValue) bun.getSerializable(EXTRA_EV);
 			}
 			return ExtremeValueEditor.newInstance(ev);
+		}
+
+		@Override
+		protected void doSave()
+		{
+			// TODO implement this
+			Log.i("editor", "Saving extreme value");
 		}
 	}
 }

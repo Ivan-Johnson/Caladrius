@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ public class FeedEditor extends Fragment
 	private static final String LOGTAG = "FEED_EDITOR";
 	protected Feed f;
 
-	public static FeedEditor newInstance(Feed f)
+	public static FeedEditor newInstance(@NonNull Feed f)
 	{
 		FeedEditor fe = new FeedEditor();
 
@@ -64,7 +65,12 @@ public class FeedEditor extends Fragment
 
 	public static class FeedEditorActivity extends GenericEditor
 	{
+		protected FeedEditorActivity () {
+			super("Feed Editor", false);
+		}
 		protected static final String EXTRA_FEED = "feed";
+
+		Feed f;
 
 		public static Intent newIntent(Context cntxt, Feed feed)
 		{
@@ -78,11 +84,18 @@ public class FeedEditor extends Fragment
 		{
 			Bundle bun = getIntent().getExtras();
 			if (bun != null) {
-				Feed f = (Feed) bun.getSerializable(EXTRA_FEED);
+				f = (Feed) bun.getSerializable(EXTRA_FEED);
 				return newInstance(f);
 			} else {
 				return new FeedEditor();
 			}
+		}
+
+		@Override
+		protected void doSave()
+		{
+			Log.i("editor", "Saving feed");
+			// ???
 		}
 	}
 }
