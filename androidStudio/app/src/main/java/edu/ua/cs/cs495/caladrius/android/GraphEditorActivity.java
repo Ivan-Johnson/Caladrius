@@ -181,13 +181,16 @@ public class GraphEditorActivity extends AppCompatActivity implements
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i){
                     case R.id.Single_day:
-                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_RELATIVE;
+                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
                         break;
                     case R.id.several_days:
                         mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SEVERAL;
                         break;
                     case R.id.relative_days:
                         mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_RELATIVE;
+                        break;
+                    default:
+                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
                         break;
                 }
             }
@@ -781,11 +784,13 @@ public class GraphEditorActivity extends AppCompatActivity implements
             switch (numGraph) {
                 case GraphEntry.GRAPH_NUMBER_ONE:
                     mSecondGraphSwitch.setChecked(false);
-//                    mSecondGraphLinearLayout.setVisibility(View.INVISIBLE);
                     break;
                 case GraphEntry.GRAPH_NUMBER_TWO:
                     mSecondGraphSwitch.setChecked(true);
                     mSecondGraphLinearLayout.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    mSecondGraphSwitch.setChecked(false);
                     break;
             }
 
@@ -798,6 +803,9 @@ public class GraphEditorActivity extends AppCompatActivity implements
                     break;
                 case GraphEntry.TIME_RANGE_TYPE_RELATIVE:
                     ((RadioButton)mTimeRangeTypeRadioGroup.getChildAt(2)).setChecked(true);
+                    break;
+                default:
+                    ((RadioButton)mTimeRangeTypeRadioGroup.getChildAt(0)).setChecked(true);
                     break;
             }
 

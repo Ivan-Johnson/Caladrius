@@ -29,7 +29,7 @@ public class SummaryPage extends Fragment
 		{FitbitGraphView.GraphViewGraph.BarGraph},
 		{FitbitGraphView.GraphViewGraph.PointsGraph},
 		{FitbitGraphView.GraphViewGraph.PointsGraph, FitbitGraphView.GraphViewGraph.PointsGraph},
-		{FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph},
+		{FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.BarGraph},
 		{FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph,
 			FitbitGraphView.GraphViewGraph.PointsGraph},
 	};
