@@ -86,6 +86,10 @@ public class GraphEditorActivity extends AppCompatActivity implements
     private int mType = GraphEntry.BAR_GRAPH;
     private int mStats = GraphEntry.STATS_BPM;
     private int mColor = GraphEntry.COLOR_BLACK;
+    private int mType2 = GraphEntry.BAR_GRAPH;
+    private int mStats2 = GraphEntry.STATS_BPM;
+    private int mColor2 = GraphEntry.COLOR_BLACK;
+    private int mNumberOfGraph = GraphEntry.GRAPH_NUMBER_ONE;
     private int mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
     
     // OnTouchListener that listens for any user touches on a View, implying that they are modifying
@@ -477,6 +481,8 @@ public class GraphEditorActivity extends AppCompatActivity implements
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String TitleString = mTitleEditText.getText().toString().trim();
+        String StartDateString = mStartDateEditText.getText().toString().trim();
+        String EndDateString = mEndDateEditText.getText().toString().trim();
 
         if (mCurrentGraphUri == null &&
                 mColor == 0 && mTimeRange == 0 && mType == 0 && mStats == 0
@@ -490,7 +496,14 @@ public class GraphEditorActivity extends AppCompatActivity implements
         values.put(GraphEntry.COLUMN_GRAPH_STATS, mStats);
         values.put(GraphEntry.COLUMN_GRAPH_COLORS, mColor);
         values.put(GraphEntry.COLUMN_GRAPH_TITLE, TitleString);
+
         values.put(GraphEntry.COLUMN_GRAPH_TIME_RANGE_TYPE, mTimeRangeType);
+        values.put(GraphEntry.COLUMN_GRAPH2_TYPE, mType2);
+        values.put(GraphEntry.COLUMN_GRAPH2_STATS, mStats2);
+        values.put(GraphEntry.COLUMN_GRAPH2_COLORS, mColor2);
+        values.put(GraphEntry.COLUMN_NUMBER_OF_GRAPH, mNumberOfGraph);
+        values.put(GraphEntry.COLUMN_GRAPH_START_TIME, StartDateString);
+        values.put(GraphEntry.COLUMN_GRAPH_END_TIME, EndDateString);
 
         if (mCurrentGraphUri == null) {
 
