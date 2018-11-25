@@ -51,11 +51,7 @@ public abstract class GenericEditor extends AppCompatActivity
 		//NOTE: gotta set the support action bar BEFORE setting the navigation on click listener
 		setSupportActionBar(tb);
 		tb.setNavigationOnClickListener((View v) -> {
-			if (!alwaysSave) {
-				onCancelClick();
-			} else {
-				save();
-			}
+			onCancelClick();
 		});
 
 		FragmentManager fm = getSupportFragmentManager();
@@ -120,7 +116,7 @@ public abstract class GenericEditor extends AppCompatActivity
 	private void save()
 	{
 		doSave();
-		cancel();
+		finish();
 	}
 
 	protected CharSequence getConfirmationTitle(Context cntxt)
@@ -136,8 +132,10 @@ public abstract class GenericEditor extends AppCompatActivity
 	protected void onCancelClick()
 	{
 		if (alwaysSave) {
-			throw new RuntimeException("This should never happen");
+			save();
+			return;
 		}
+
 		if (!shouldConfirmCancel()) {
 			cancel();
 		}
