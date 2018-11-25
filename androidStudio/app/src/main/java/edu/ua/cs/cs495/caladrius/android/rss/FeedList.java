@@ -17,6 +17,9 @@ import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 
 import java.io.IOException;
 
+/**
+ * This fragment shows a list of all the user's RSS feeds, which are obtained from Caladrius' server via the ClientSide class.
+ */
 public class FeedList extends Fragment
 {
 	protected class AsyncInitialize extends AsyncTask<Void, Void, Feed[]>
@@ -24,13 +27,13 @@ public class FeedList extends Fragment
 		@Override
 		protected void onPreExecute()
 		{
-			//TODO: loading bar
+			// TODO: add progress bar
 		}
 
 		@Override
 		protected void onPostExecute(Feed[] feeds)
 		{
-			//TODO: remove loading bar
+			// TODO: remove progress bar bar
 			ListView lv = FeedList.this.feedView;
 			if (feeds == null) {
 				TextView tv = new TextView(getContext());
@@ -47,6 +50,10 @@ public class FeedList extends Fragment
 			lv.setAdapter(adapter);
 		}
 
+		/**
+		 * @param sa ignored
+		 * @return an array of feeds obtained from the Caladrius server
+		 */
 		@Override
 		protected Feed[] doInBackground(Void... sa)
 		{
@@ -54,16 +61,24 @@ public class FeedList extends Fragment
 				int ids[] = cs.getFeedIDs(acc);
 				Feed feeds[] = new Feed[ids.length];
 				for (int c = 0; c < ids.length; c++) {
-					//TODO loading bar
 					feeds[c] = cs.getFeed(acc, ids[c]);
 					if (isCancelled()) {
 						break;
 					}
+					// TODO change 2nd generic type to a float or something
+					// https://developer.android.com/reference/android/os/AsyncTask
+					// publishProgress(c / ids.length); (for example)
 				}
 				return feeds;
 			} catch (IOException e) {
 				return null;
 			}
+		}
+
+		@Override
+		protected void onProgressUpdate(Void... values)
+		{
+			// TODO: update progres bar
 		}
 	}
 
