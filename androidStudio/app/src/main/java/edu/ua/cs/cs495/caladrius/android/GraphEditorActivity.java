@@ -361,7 +361,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
                     } else if (selection.equals(getString(R.string.stats_caloric))) {
                         mStats = GraphEntry.STATS_CALORIC;
                     } else {
-                        mStats = GraphEntry.STATS_BPM;
+                        mStats = GraphEntry.STATS_CALORIC;
                     }
                 }
             }
@@ -369,7 +369,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
             // Because AdapterView is an abstract class, onNothingSelected must be defined
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mStats = GraphEntry.STATS_BPM;
+                mStats = GraphEntry.STATS_CALORIC;
             }
         });
 
@@ -469,13 +469,13 @@ public class GraphEditorActivity extends AppCompatActivity implements
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.stats_bpm))) {
-                        mStats2 = GraphEntry.STATS_BPM;
+                        mStats2 = GraphEntry.STATS_CALORIC;
                     } else if (selection.equals(getString(R.string.stats_steps))) {
                         mStats2 = GraphEntry.STATS_STEPS;
                     } else if (selection.equals(getString(R.string.stats_caloric))) {
                         mStats2 = GraphEntry.STATS_CALORIC;
                     } else {
-                        mStats2 = GraphEntry.STATS_BPM;
+                        mStats2 = GraphEntry.STATS_CALORIC;
                     }
                 }
             }
@@ -483,7 +483,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
             // Because AdapterView is an abstract class, onNothingSelected must be defined
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mStats2 = GraphEntry.STATS_BPM;
+                mStats2 = GraphEntry.STATS_CALORIC;
             }
         });
 
