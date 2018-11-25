@@ -18,6 +18,9 @@ public class ServerAccount implements Serializable
 
 	public ServerAccount()
 	{
-		uuid = randomUUID();
+		//uuid = randomUUID();
+
+		// this is only for testing purposes
+		uuid = "thisisauserid1";
 	}
 }

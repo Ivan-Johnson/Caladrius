@@ -21,8 +21,9 @@ public class Clientside
 {
 	public OkHttpClient client = new OkHttpClient();
 
-	public int[] getFeedIDs(String userid) throws IOException
+	public int[] getFeedIDs(ServerAccount sa) throws IOException
 	{
+		String userid = sa.uuid;
 		final String URL = "https://caladrius.ivanjohnson.net/webapi/config/feeds";
 
 		Request request = new Request.Builder()
@@ -95,8 +96,9 @@ public class Clientside
 		return base64;
 	}
 
-	public void setFeed(String userid, int feed, String base64) throws IOException
+	public void setFeed(ServerAccount sa, int feed, String base64) throws IOException
 	{
+		String userid = sa.uuid;
 		final String URL_BASE = "https://caladrius.ivanjohnson.net/webapi/config/feed";
 		final String URL_QUERY_KEY = "id";
 		final String url = URL_BASE + "?" + URL_QUERY_KEY + "=" + feed;
@@ -125,8 +127,9 @@ public class Clientside
 		}
 	}
 
-	public Feed getFeed(String userid, int feed) throws IOException
+	public Feed getFeed(ServerAccount sa, int feed) throws IOException
 	{
+		String userid = sa.uuid;
 		String base64 = getFeedstring(userid, feed);
 		byte bytes[] = Base64.getDecoder().decode(base64);
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
@@ -144,7 +147,7 @@ public class Clientside
 		}
 	}
 
-	public void setFeed(String userid, Feed f) throws IOException
+	public void setFeed(ServerAccount sa, Feed f) throws IOException
 	{
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		try {
@@ -153,7 +156,7 @@ public class Clientside
 			out.flush();
 			byte[] bytes = bos.toByteArray();
 			String base64 = Base64.getEncoder().encodeToString(bytes);
-			setFeed(userid, f.id, base64);
+			setFeed(sa, f.id, base64);
 		} finally {
 			try {
 				bos.close();
@@ -166,16 +169,19 @@ public class Clientside
 	public static void main(String args[]) throws IOException
 	{
 		final String UUID = "thisisauserid1";
+		ServerAccount sa = new ServerAccount();
+		sa.uuid = UUID;
+
 		Clientside cs = new Clientside();
-		int ids[] = cs.getFeedIDs(UUID);
+		int ids[] = cs.getFeedIDs(sa);
 		Random r = new Random();
 		for (int id : ids) {
 			System.out.println(id);
 			Feed fPush = new Feed("name #"+r.nextInt(), "URL #"+r.nextInt());
 			fPush.id = id;
-			cs.setFeed(UUID, fPush);
+			cs.setFeed(sa, fPush);
 
-			Feed fPull = cs.getFeed(UUID, id);
+			Feed fPull = cs.getFeed(sa, id);
 
 			System.out.println(fPush.toString());
 			System.out.println(fPull.toString());

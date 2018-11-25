@@ -14,7 +14,7 @@ public class User implements Serializable
 	public User()
 	{
 		this.fAcc = new FitbitAccount();
-		this.sAcc = null;
+		this.sAcc = new ServerAccount();
 	}
 
 	public User(FitbitAccount fAcc, ServerAccount sAcc)
