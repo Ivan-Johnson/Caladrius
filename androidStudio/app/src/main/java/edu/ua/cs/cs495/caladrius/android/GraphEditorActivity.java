@@ -834,6 +834,14 @@ public class GraphEditorActivity extends AppCompatActivity implements
         mTypeSpinner.setSelection(0);
         mStatsSpinner.setSelection(0);
         mColorSpinner.setSelection(0);
+
+        ((RadioButton)mTimeRangeTypeRadioGroup.getChildAt(0)).setChecked(true);
+        mType2Spinner.setSelection(0);
+        mStats2Spinner.setSelection(0);
+        mColor2Spinner.setSelection(0);
+        mSecondGraphSwitch.setChecked(false);
+        mStartDateEditText.setText("N/A");
+        mStartDateEditText.setText("N/A");
     }
 
     /**
