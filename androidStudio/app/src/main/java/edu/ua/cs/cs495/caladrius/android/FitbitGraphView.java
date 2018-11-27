@@ -336,6 +336,8 @@ public class FitbitGraphView extends GraphView
 				this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
 				((LineGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
 				((LineGraphSeries<DataPoint>) series).setAnimated(true);
+				((LineGraphSeries<DataPoint>) series).setDrawBackground(true);
+				((LineGraphSeries<DataPoint>) series).setDrawDataPoints(true);
 			}
 
 			// BarGraph
