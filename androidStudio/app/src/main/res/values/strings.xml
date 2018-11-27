@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Caladrius</string>
 
 
@@ -128,4 +128,6 @@
 
 
     <string name="error_contact_server">Error: we could not contact our server</string>
+    <string name="log_out">Log out</string>
+    <string name="Info">Info</string>
 </resources>
