@@ -8,6 +8,7 @@
                  android:layout_height="match_parent">
 
         <ImageView
+                android:id="@+id/background"
                 android:src="@drawable/edit_mode"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"

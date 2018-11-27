@@ -37,11 +37,7 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 	                         Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		View view = inflater.inflate(R.layout.list_test, container, false);
-
-
-		FloatingActionButton fab = view.findViewById(R.id.add_graph);
-		fab.setVisibility(View.INVISIBLE);
+		View view = inflater.inflate(R.layout.summary_page, container, false);
 
 		Toolbar myToolbar = view.findViewById(R.id.graph_list_toolbar);
 		myToolbar.setVisibility(View.GONE);
