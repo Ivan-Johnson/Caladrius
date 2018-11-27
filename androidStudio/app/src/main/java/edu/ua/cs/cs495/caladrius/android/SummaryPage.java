@@ -81,56 +81,6 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 
 		return view;
 	}
-//
-//	private void setupDrawerContent(NavigationView navigationView) {
-//		navigationView.setNavigationItemSelectedListener(
-//			new NavigationView.OnNavigationItemSelectedListener() {
-//				@Override
-//				public boolean onNavigationItemSelected(MenuItem menuItem) {
-//					selectDrawerItem(menuItem);
-//					return true;
-//				}
-//			});
-//	}
-//
-//	public void selectDrawerItem(MenuItem menuItem) {
-//		// Create a new fragment and specify the fragment to show based on nav item clicked
-//		Fragment fragment = null;
-//		Class fragmentClass;
-//		switch(menuItem.getItemId()) {
-//		case R.id.nav_first_fragment:
-//			fragmentClass = AllData.class;
-//			break;
-//		case R.id.nav_second_fragment:
-//			fragmentClass = AllData.class;
-//			break;
-//		case R.id.nav_third_fragment:
-//			fragmentClass = AllData.class;
-//			break;
-//		default:
-//			fragmentClass = AllData.class;
-//		}
-//
-//		try {
-//			fragment = (Fragment) fragmentClass.newInstance();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		// Insert the fragment by replacing any existing fragment
-//		FragmentManager fragmentManager = getFragmentManager();
-//		fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-//
-//		// Highlight the selected item has been done by NavigationView
-//		menuItem.setChecked(true);
-//
-//
-//		// Set action bar title
-////		setTitle(menuItem.getTitle());
-//
-//		// Close the navigation drawer
-//		mDrawer.closeDrawers();
-//	}
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int loaderID, Bundle bundle) {
