@@ -36,8 +36,8 @@ import edu.ua.cs.cs495.caladrius.fitbit.PseudoFitbit;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 
 /**
- * This class is for Login to Fit bit account, lead to the Fit bit web, get user token, then
- * use token to query the data form Fit bit server.
+ * This class is for Login to Fit bit account, lead to the Fit bit web, get user token, then use token to query the data
+ * form Fit bit server.
  */
 public class LoginScreen extends AppCompatActivity
 {
@@ -45,12 +45,12 @@ public class LoginScreen extends AppCompatActivity
 	private static final String PROTECTED_RESOURCE_URL = "https://api.fitbit.com/1/user/%s/profile.json";
 
 	private static final OAuth20Service service = new ServiceBuilder("22D7HK")
-			.apiSecret("0eefb77c8b921283cb5e4477ac063178")
-			.scope("activity heartrate location nutrition profile settings sleep social weight") // replace with desired scope
-			//your callback URL to store and handle the authorization code sent by Fitbit
-			.callback("caladrius://authcallback")
-			//.state("some_params")
-			.build(FitbitApi20.instance());
+		.apiSecret("0eefb77c8b921283cb5e4477ac063178")
+		.scope("activity heartrate location nutrition profile settings sleep social weight") // replace with desired scope
+		//your callback URL to store and handle the authorization code sent by Fitbit
+		.callback("caladrius://authcallback")
+		//.state("some_params")
+		.build(FitbitApi20.instance());
 
 
 	@Override
@@ -69,79 +69,63 @@ public class LoginScreen extends AppCompatActivity
 
 		final Button btnLogin = findViewById(R.id.btnLogin);
 
-		btnLogin.setOnClickListener(new View.OnClickListener()
+		btnLogin.setOnClickListener(v ->
 		{
-			@Override
-			public void onClick(View v)
-			{
 
-				Caladrius.fitbitInterface = new Fitbit();
+			Caladrius.fitbitInterface = new Fitbit();
 
-				progressBar.setVisibility(View.VISIBLE);
+			progressBar.setVisibility(View.VISIBLE);
 
-				Boolean response_bool;
-				try {
-					if (Caladrius.user != null && Caladrius.user.fAcc != null && Caladrius.user.fAcc.getPrivateToken() != null){
-						Response str_result = new MakeAsyncCall().execute().get();
-						response_bool = str_result.getBody().contains(":true");
-					}
-					else
-						response_bool = false;
-
-					if (response_bool) {
-						new RefreshAuthToken().execute();
-					}
-					else {
-						final String authorizationUrl = service.getAuthorizationUrl();
-						launchTab(v.getContext(), Uri.parse(authorizationUrl));
-					}
+			Boolean response_bool;
+			try {
+				if (Caladrius.user != null && Caladrius.user.fAcc != null &&
+					Caladrius.user.fAcc.getPrivateToken() != null) {
+					Response str_result = new MakeAsyncCall().execute()
+					                                         .get();
+					response_bool = str_result.getBody()
+					                          .contains(":true");
+				} else {
+					response_bool = false;
 				}
-				catch (Exception e) {
-					e.printStackTrace();
+
+				if (response_bool) {
+					new RefreshAuthToken().execute();
+				} else {
+					final String authorizationUrl = service.getAuthorizationUrl();
+					launchTab(v.getContext(), Uri.parse(authorizationUrl));
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		});
 
 		final Button btnNoLogin = findViewById(R.id.btnNoLogin);
 
-		btnNoLogin.setOnClickListener(new View.OnClickListener()
+		btnNoLogin.setOnClickListener(v ->
 		{
-			@Override
-			public void onClick(View v)
-			{
-				Caladrius.fitbitInterface = new PseudoFitbit();
+			Caladrius.fitbitInterface = new PseudoFitbit();
 
-				Intent pager = new Intent(v.getContext(), PagerActivity.class);
-				pager.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-				pager.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				pager.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-				startActivity(pager);}
-		});
-
-		final Button btnTest = findViewById(R.id.btnTest);
-
-		btnTest.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				Caladrius.fitbitInterface = new PseudoFitbit();
-
-				Intent pager = new Intent(v.getContext(), ListTest.class);
-				startActivity(pager);}
+			Intent pager = new Intent(v.getContext(), PagerActivity.class);
+			pager.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			pager.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			pager.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(pager);
 		});
 	}
 
 
-	void launchTab(final Context context, final Uri uri){
-		CustomTabsServiceConnection connection = new CustomTabsServiceConnection() {
+	void launchTab(final Context context, final Uri uri)
+	{
+		CustomTabsServiceConnection connection = new CustomTabsServiceConnection()
+		{
 			@Override
-			public void onCustomTabsServiceConnected(ComponentName componentName, CustomTabsClient client) {
+			public void onCustomTabsServiceConnected(ComponentName componentName, CustomTabsClient client)
+			{
 				final CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
 				final CustomTabsIntent intent = builder.build();
 
-                intent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                intent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+				intent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				intent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
 				client.warmup(0L); // This prevents backgrounding after redirection
@@ -149,9 +133,13 @@ public class LoginScreen extends AppCompatActivity
 			}
 
 			@Override
-			public void onServiceDisconnected(ComponentName name) {}
+			public void onServiceDisconnected(ComponentName name)
+			{
+			}
 		};
-		CustomTabsClient.bindCustomTabsService(this, "com.android.chrome", connection);//mention package name which can handle the CCT their many browser present.
+		CustomTabsClient.bindCustomTabsService(this,
+			"com.android.chrome",
+			connection);//mention package name which can handle the CCT their many browser present.
 	}
 
 	protected void login(Context cntxt, @NonNull User u)
@@ -168,16 +156,17 @@ public class LoginScreen extends AppCompatActivity
 		private final String PROTECTED_RESOURCE_URL = "https://api.fitbit.com/1/user/%s/profile.json";
 
 		private final OAuth20Service service = new ServiceBuilder("22D7HK")
-				.apiSecret("0eefb77c8b921283cb5e4477ac063178")
-				.scope("activity heartrate location nutrition profile settings sleep social weight") // replace with desired scope
-				//your callback URL to store and handle the authorization code sent by Fitbit
-				.callback("caladrius://authcallback")
-				//.state("some_params")
-				.build(FitbitApi20.instance());
+			.apiSecret("0eefb77c8b921283cb5e4477ac063178")
+			.scope("activity heartrate location nutrition profile settings sleep social weight") // replace with desired scope
+			//your callback URL to store and handle the authorization code sent by Fitbit
+			.callback("caladrius://authcallback")
+			//.state("some_params")
+			.build(FitbitApi20.instance());
 
 
-		protected Response doInBackground(Void... things) {
-			try{
+		protected Response doInBackground(Void... things)
+		{
+			try {
 				/**
 				 * Refresh token
 				 */
@@ -186,8 +175,11 @@ public class LoginScreen extends AppCompatActivity
 				/**
 				 * Retrieve State of Token
 				 */
-				final OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.fitbit.com/1.1/oauth2/introspect");
-				request.addParameter("token", Caladrius.user.fAcc.getPrivateToken().getAccessToken());
+				final OAuthRequest request =
+					new OAuthRequest(Verb.POST, "https://api.fitbit.com/1.1/oauth2/introspect");
+				request.addParameter("token",
+					Caladrius.user.fAcc.getPrivateToken()
+					                   .getAccessToken());
 
 
 				/**
@@ -201,21 +193,18 @@ public class LoginScreen extends AppCompatActivity
 
 				service.signRequest(Caladrius.user.fAcc.getPrivateToken(), request);
 				return service.execute(request);
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
 			}
-
 		}
 
-		protected void onPostExecute(Response response) {
+		protected void onPostExecute(Response response)
+		{
 			try {
 				//Log.w("RetrieveAuthToken", response.toString());
 				//Toast.makeText(LoginScreen.this, response.getBody(), Toast.LENGTH_SHORT).show();
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -228,30 +217,32 @@ public class LoginScreen extends AppCompatActivity
 		private final String PROTECTED_RESOURCE_URL = "https://api.fitbit.com/1/user/%s/profile.json";
 
 		private final OAuth20Service service = new ServiceBuilder("22D7HK")
-				.apiSecret("0eefb77c8b921283cb5e4477ac063178")
-				.scope("activity heartrate location nutrition profile settings sleep social weight") // replace with desired scope
-				//your callback URL to store and handle the authorization code sent by Fitbit
-				.callback("caladrius://authcallback")
-				//.state("some_params")
-				.build(FitbitApi20.instance());
+			.apiSecret("0eefb77c8b921283cb5e4477ac063178")
+			.scope("activity heartrate location nutrition profile settings sleep social weight") // replace with desired scope
+			//your callback URL to store and handle the authorization code sent by Fitbit
+			.callback("caladrius://authcallback")
+			//.state("some_params")
+			.build(FitbitApi20.instance());
 
 
-		protected FitBitOAuth2AccessToken doInBackground(Void... things) {
-			try{
-				final OAuth2AccessToken oauth2AccessToken = service.refreshAccessToken(Caladrius.user.fAcc.getPrivateToken().getRefreshToken());
+		protected FitBitOAuth2AccessToken doInBackground(Void... things)
+		{
+			try {
+				final OAuth2AccessToken oauth2AccessToken =
+					service.refreshAccessToken(Caladrius.user.fAcc.getPrivateToken()
+					                                              .getRefreshToken());
 
 				FitBitOAuth2AccessToken accessToken = (FitBitOAuth2AccessToken) oauth2AccessToken;
 
 				return accessToken;
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
 			}
-
 		}
 
-		protected void onPostExecute(FitBitOAuth2AccessToken accessToken) {
+		protected void onPostExecute(FitBitOAuth2AccessToken accessToken)
+		{
 			try {
 				Caladrius.user.fAcc.setPrivateToken(accessToken);
 
@@ -259,9 +250,7 @@ public class LoginScreen extends AppCompatActivity
 				ProgressBar progressBar = findViewById(R.id.loadingAnimation);
 				progressBar.setVisibility(View.GONE);
 				startActivity(pager);
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
