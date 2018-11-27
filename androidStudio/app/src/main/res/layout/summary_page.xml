@@ -1,43 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
+<android.support.v4.widget.DrawerLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/drawer_layout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:fitsSystemWindows="true"
+		tools:openDrawer="start">
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	                xmlns:app="http://schemas.android.com/apk/res-auto"
+	                android:layout_width="match_parent"
+	                android:layout_height="match_parent">
 
-	<FrameLayout android:layout_width="match_parent"
-	             android:layout_height="match_parent">
+		<FrameLayout android:layout_width="match_parent"
+		             android:layout_height="match_parent">
 
-		<ImageView
-				android:id="@+id/background"
-				android:src="@drawable/summary_page_background"
-				android:scaleType="centerCrop"
-				android:adjustViewBounds="true"
+			<ImageView
+					android:id="@+id/background"
+					android:src="@drawable/summary_page_background"
+					android:scaleType="centerCrop"
+					android:adjustViewBounds="true"
+					android:layout_height="match_parent"
+					android:layout_width="match_parent"/>
+
+		</FrameLayout>
+
+		<android.support.v7.widget.Toolbar
+				xmlns:android="http://schemas.android.com/apk/res/android"
+				xmlns:app="http://schemas.android.com/apk/res-auto"
+				android:id="@+id/summary_page_toolbar"
+				android:minHeight="?attr/actionBarSize"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:titleTextColor="@android:color/white"
+				app:titleTextAppearance="@style/Toolbar.TitleText"
+				android:fitsSystemWindows="true"
+				android:background="#00000000">
+		</android.support.v7.widget.Toolbar>
+
+		<ListView
+				android:layout_below="@+id/summary_page_toolbar"
+				android:id="@+id/graph_list"
+				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:layout_width="match_parent"/>
+				android:divider="@null"
+				android:dividerHeight="0dp"
+		/>
 
-	</FrameLayout>
+	</RelativeLayout>
 
-
-	<android.support.v7.widget.Toolbar
-			xmlns:android="http://schemas.android.com/apk/res/android"
-			xmlns:app="http://schemas.android.com/apk/res-auto"
-			android:id="@+id/summary_page_toolbar"
-			android:minHeight="?attr/actionBarSize"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			app:titleTextColor="@android:color/white"
-			app:titleTextAppearance="@style/Toolbar.TitleText"
-			android:fitsSystemWindows="true"
-			android:background="#00000000">
-	</android.support.v7.widget.Toolbar>
-
-	<ListView
-			android:layout_below="@+id/summary_page_toolbar"
-			android:id="@+id/graph_list"
-			android:layout_width="match_parent"
+	<android.support.design.widget.NavigationView
+			android:id="@+id/nav_view"
+			android:layout_width="240dp"
 			android:layout_height="match_parent"
-			android:divider="@null"
-			android:dividerHeight="0dp"
-	/>
+			android:layout_gravity="start"
+			android:fitsSystemWindows="true"
+			app:headerLayout="@layout/nav_header_main"
+			app:menu="@menu/summary_page_menu_drawer"/>
 
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>
