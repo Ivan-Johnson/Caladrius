@@ -79,25 +79,6 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		mCursorAdapter = new GraphCursorAdapter(getContext(), null, 1);
 		graphListView.setAdapter(mCursorAdapter);
 
-		// Setup item click listener
-		graphListView.setOnItemClickListener((adapterView, view1, position, id) ->
-		{
-
-			Intent intent = new Intent(getContext(), QueryActivity.class);
-			intent.putExtra("startDate", "N/A");
-			intent.putExtra("endDate", "N/A");
-			intent.putExtra("item_1", "N/A");
-			intent.putExtra("item_2", "N/A");
-			startActivity(intent);
-//			Objects.requireNonNull(getContext()).startActivity(intent);
-
-//				Uri currentPetUri = ContentUris.withAppendedId(GraphContract.GraphEntry.CONTENT_URI, id);
-//
-//				intent.setData(currentPetUri);
-//
-//				startActivity(intent);
-		});
-
 		getLoaderManager().initLoader(GRAPH_LOADER, null, this);
 
 //		ArrayList queries = new ArrayList();

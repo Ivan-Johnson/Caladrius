@@ -61,19 +61,6 @@ public class ListTest extends AppCompatActivity implements LoaderManager.LoaderC
         mCursorAdapter = new GraphCursorAdapter(this, null, 0);
         graphListView.setAdapter(mCursorAdapter);
 
-        // Setup item click listener
-//        graphListView.setOnItemClickListener((adapterView, view, position, id) ->
-//        {
-//
-//            Intent intent = new Intent(ListTest.this, GraphEditorActivity.class);
-//
-//            Uri currentPetUri = ContentUris.withAppendedId(GraphEntry.CONTENT_URI, id);
-//
-//            intent.setData(currentPetUri);
-//
-//            startActivity(intent);
-//        });
-
         getLoaderManager().initLoader(GRAPH_LOADER, null, this);
     }
 
