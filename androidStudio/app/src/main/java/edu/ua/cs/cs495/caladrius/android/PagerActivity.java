@@ -26,9 +26,6 @@ public class PagerActivity extends AppCompatActivity
 		// Find the view pager that will allow the user to swipe between fragments
 		ViewPager viewPager = findViewById(R.id.viewpager);
 
-		Toolbar toolbar = findViewById(R.id.home_toolbar);
-		setSupportActionBar(toolbar);
-
 		PagerAdapter adapter =
 			new PagerAdapter(this, getSupportFragmentManager());
 
@@ -40,35 +37,6 @@ public class PagerActivity extends AppCompatActivity
 		tabLayout.setupWithViewPager(viewPager);
 	}
 
-	// Menu icons are inflated just as they were with actionbar
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_main, menu);
-		return true;
-	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.calender:
-			Intent calenderIntent = new Intent(this,
-				QueryEditor.class);
-			startActivity(calenderIntent);
-			return true;
-		case R.id.edit:
-//			Intent editIntent = new Intent(this,
-//					SummaryPageEditor.class);
-			Intent editIntent = new Intent(this,
-					ListTest.class);
-			startActivity(editIntent);
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
 
 }

@@ -6,10 +6,13 @@ import android.support.v4.content.Loader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -33,14 +36,21 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 	}
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		View view = inflater.inflate(R.layout.summary_page, container, false);
 
-		Toolbar myToolbar = view.findViewById(R.id.graph_list_toolbar);
-		myToolbar.setVisibility(View.GONE);
+		Toolbar toolbar = view.findViewById(R.id.summary_page_toolbar);
+		((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+
 		ListView graphListView = view.findViewById(R.id.graph_list);
 
 		mCursorAdapter = new GraphCursorAdapter(getContext(), null, 1);
@@ -50,7 +60,6 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 
 		return view;
 	}
-
 
 
 	@Override
@@ -107,6 +116,35 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		 * This prevents memory leaks.
 		 */
 		mCursorAdapter.swapCursor(null);
+	}
+
+	// Menu icons are inflated just as they were with actionbar
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.menu_main, menu);
+		super.onCreateOptionsMenu(menu,inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.calender:
+			Intent calenderIntent = new Intent(getContext(),
+				QueryEditor.class);
+			startActivity(calenderIntent);
+			return true;
+		case R.id.edit:
+//			Intent editIntent = new Intent(this,
+//					SummaryPageEditor.class);
+			Intent editIntent = new Intent(getContext(),
+				ListTest.class);
+			startActivity(editIntent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 }
