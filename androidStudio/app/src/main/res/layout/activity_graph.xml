@@ -2,25 +2,35 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#f3ffed"
-    android:padding="10dp">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="#f3ffed"
+              android:padding="10dp">
 
 
+	<android.support.v7.widget.CardView
+			xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            card_view:cardCornerRadius="4dp">
 
-    <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="200dip"
-        android:id="@+id/graph" />
+		<com.jjoe64.graphview.GraphView
+				android:layout_width="match_parent"
+				android:layout_height="200dip"
+				android:id="@+id/graph"/>
 
-    <TextView
-        android:id="@+id/queryInfo"
-        android:paddingTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Query Info:"
-        android:textSize="29sp" />
+	</android.support.v7.widget.CardView>
+
+	<TextView
+			android:id="@+id/queryInfo"
+			android:paddingTop="10dp"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:text="Query Info:"
+			android:textSize="29sp"/>
 
 </LinearLayout>
