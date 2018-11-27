@@ -31,6 +31,8 @@ import static edu.ua.cs.cs495.caladrius.android.Caladrius.getContext;
  */
 public class GraphCursorAdapter extends CursorAdapter {
 
+    private Integer mPosition;
+
     private FitbitGraphView.GraphViewGraph getGraphType(int graphType){
         if (graphType == GraphEntry.BAR_GRAPH){
             return FitbitGraphView.GraphViewGraph.BarGraph;
@@ -61,8 +63,9 @@ public class GraphCursorAdapter extends CursorAdapter {
         return Color.parseColor("#1e272e");
     }
 
-    public GraphCursorAdapter(Context context, Cursor c) {
+    public GraphCursorAdapter(Context context, Cursor c, Integer p) {
         super(context, c, 0 /* flags */);
+        mPosition = p;
     }
 
     @Override
@@ -137,10 +140,9 @@ public class GraphCursorAdapter extends CursorAdapter {
         FitbitGraphView fgv = null;
         try {
             fgv = new FitbitGraphView(getContext(), query);
-
-            fgv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            if (mPosition == 0){
+                fgv.setOnClickListener(view1 ->
+                {
                     Intent intent = new Intent(getContext(), GraphEditorActivity.class);
 
                     Uri currentPetUri = ContentUris.withAppendedId(
@@ -149,8 +151,20 @@ public class GraphCursorAdapter extends CursorAdapter {
                     intent.setData(currentPetUri);
 
                     getContext().startActivity(intent);
-                }
-            });
+                });
+            }
+            else {
+                fgv.setOnClickListener(view1 ->
+                {
+                    Intent intent = new Intent(getContext(), QueryActivity.class);
+                    intent.putExtra("startDate", "N/A");
+                    intent.putExtra("endDate", "N/A");
+                    intent.putExtra("item_1", "N/A");
+                    intent.putExtra("item_2", "N/A");
+                    getContext().startActivity(intent);
+                });
+
+            }
         } catch (JSONException | InterruptedException | ExecutionException | IOException e) {
             e.printStackTrace();
         }

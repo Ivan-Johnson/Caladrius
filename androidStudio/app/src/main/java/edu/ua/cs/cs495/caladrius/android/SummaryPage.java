@@ -54,7 +54,7 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 //		"Minutes of Activity",
 //	};
 
-	GraphCursorAdapter mCursorAdapter;
+	private GraphCursorAdapter mCursorAdapter;
 	private static final int GRAPH_LOADER = 0;
 	public SummaryPage()
 	{
@@ -76,27 +76,26 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		myToolbar.setVisibility(View.GONE);
 		ListView graphListView = view.findViewById(R.id.graph_list);
 
-		mCursorAdapter = new GraphCursorAdapter(getContext(), null);
+		mCursorAdapter = new GraphCursorAdapter(getContext(), null, 1);
 		graphListView.setAdapter(mCursorAdapter);
 
 		// Setup item click listener
-		graphListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+		graphListView.setOnItemClickListener((adapterView, view1, position, id) ->
+		{
 
-				Intent intent = new Intent(getContext(), QueryActivity.class);
-				intent.putExtra("startDate", "N/A");
-				intent.putExtra("endDate", "N/A");
-				intent.putExtra("item_1", "N/A");
-				intent.putExtra("item_2", "N/A");
-				Objects.requireNonNull(getContext()).startActivity(intent);
+			Intent intent = new Intent(getContext(), QueryActivity.class);
+			intent.putExtra("startDate", "N/A");
+			intent.putExtra("endDate", "N/A");
+			intent.putExtra("item_1", "N/A");
+			intent.putExtra("item_2", "N/A");
+			startActivity(intent);
+//			Objects.requireNonNull(getContext()).startActivity(intent);
 
 //				Uri currentPetUri = ContentUris.withAppendedId(GraphContract.GraphEntry.CONTENT_URI, id);
 //
 //				intent.setData(currentPetUri);
 //
 //				startActivity(intent);
-			}
 		});
 
 		getLoaderManager().initLoader(GRAPH_LOADER, null, this);
