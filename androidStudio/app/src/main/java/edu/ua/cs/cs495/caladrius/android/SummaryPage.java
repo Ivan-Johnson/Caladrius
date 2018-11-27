@@ -189,7 +189,9 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		int id = item.getItemId();
 
 		if (id == R.id.nav_alldata) {
-			// Handle the camera action
+			Intent editIntent = new Intent(getContext(),
+				AllData.class);
+			startActivity(editIntent);
 		} else if (id == R.id.nav_logout) {
 
 		} else if (id == R.id.nav_menu_info) {
