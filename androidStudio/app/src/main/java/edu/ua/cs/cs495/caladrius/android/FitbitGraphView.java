@@ -335,6 +335,7 @@ public class FitbitGraphView extends GraphView
 				((LineGraphSeries<DataPoint>) series).setColor(c);
 				this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
 				((LineGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
+				((LineGraphSeries<DataPoint>) series).setAnimated(true);
 			}
 
 			// BarGraph
@@ -344,6 +345,7 @@ public class FitbitGraphView extends GraphView
 				((BarGraphSeries<DataPoint>) series).setColor(c);
 				this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
 				((BarGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
+				((BarGraphSeries<DataPoint>) series).setAnimated(true);
 			}
 
 			// PointsGraph
