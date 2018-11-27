@@ -3,7 +3,9 @@ package edu.ua.cs.cs495.caladrius.android;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -37,6 +39,24 @@ public class PagerActivity extends AppCompatActivity
 		tabLayout.setupWithViewPager(viewPager);
 	}
 
+	@Override
+	public void onBackPressed() {
+
+		int count = getFragmentManager().getBackStackEntryCount();
+
+		if (count == 0) {
+			super.onBackPressed();
+			DrawerLayout drawer = findViewById(R.id.drawer_layout);
+			if (drawer.isDrawerOpen(GravityCompat.START)) {
+				drawer.closeDrawer(GravityCompat.START);
+			} else {
+				super.onBackPressed();
+			}
+		} else {
+			getFragmentManager().popBackStack();
+		}
+
+	}
 
 
 }
