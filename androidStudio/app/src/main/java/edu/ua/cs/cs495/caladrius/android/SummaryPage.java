@@ -1,5 +1,8 @@
 package edu.ua.cs.cs495.caladrius.android;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -7,6 +10,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -25,7 +31,7 @@ import java.util.Objects;
  * The SummaryPage module represents the main View that is exposed upon logging into the application.
  * It contains FitbitGraphView instances as well as a button to view all of the data for a given user.
  */
-public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
+public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, NavigationView.OnNavigationItemSelectedListener
 {
 
 	private GraphCursorAdapter mCursorAdapter;
@@ -51,6 +57,21 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		Toolbar toolbar = view.findViewById(R.id.summary_page_toolbar);
 		((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
 
+
+		DrawerLayout drawer = view.findViewById(R.id.drawer_layout);
+
+
+		ActionBarDrawerToggle toggle =
+			new ActionBarDrawerToggle(getActivity(), drawer, toolbar,
+				R.string.navigation_drawer_open,
+				R.string.navigation_drawer_close);
+		drawer.addDrawerListener(toggle);
+		toggle.syncState();
+
+		NavigationView navigationView = view.findViewById(R.id.nav_view);
+		navigationView.setNavigationItemSelectedListener(this);
+
+
 		ListView graphListView = view.findViewById(R.id.graph_list);
 
 		mCursorAdapter = new GraphCursorAdapter(getContext(), null, 1);
@@ -60,7 +81,56 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 
 		return view;
 	}
-
+//
+//	private void setupDrawerContent(NavigationView navigationView) {
+//		navigationView.setNavigationItemSelectedListener(
+//			new NavigationView.OnNavigationItemSelectedListener() {
+//				@Override
+//				public boolean onNavigationItemSelected(MenuItem menuItem) {
+//					selectDrawerItem(menuItem);
+//					return true;
+//				}
+//			});
+//	}
+//
+//	public void selectDrawerItem(MenuItem menuItem) {
+//		// Create a new fragment and specify the fragment to show based on nav item clicked
+//		Fragment fragment = null;
+//		Class fragmentClass;
+//		switch(menuItem.getItemId()) {
+//		case R.id.nav_first_fragment:
+//			fragmentClass = AllData.class;
+//			break;
+//		case R.id.nav_second_fragment:
+//			fragmentClass = AllData.class;
+//			break;
+//		case R.id.nav_third_fragment:
+//			fragmentClass = AllData.class;
+//			break;
+//		default:
+//			fragmentClass = AllData.class;
+//		}
+//
+//		try {
+//			fragment = (Fragment) fragmentClass.newInstance();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		// Insert the fragment by replacing any existing fragment
+//		FragmentManager fragmentManager = getFragmentManager();
+//		fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+//
+//		// Highlight the selected item has been done by NavigationView
+//		menuItem.setChecked(true);
+//
+//
+//		// Set action bar title
+////		setTitle(menuItem.getTitle());
+//
+//		// Close the navigation drawer
+//		mDrawer.closeDrawers();
+//	}
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int loaderID, Bundle bundle) {
@@ -118,6 +188,16 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		mCursorAdapter.swapCursor(null);
 	}
 
+	@Override
+	public void onDetach() {
+		DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
+		if (drawer.isDrawerOpen(GravityCompat.START)) {
+			drawer.closeDrawer(GravityCompat.START);
+		} else {
+			super.onDetach();
+		}
+	}
+
 	// Menu icons are inflated just as they were with actionbar
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -147,4 +227,27 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		}
 	}
 
+
+
+
+
+
+	@SuppressWarnings("StatementWithEmptyBody")
+	@Override
+	public boolean onNavigationItemSelected(MenuItem item) {
+		// Handle navigation view item clicks here.
+		int id = item.getItemId();
+
+		if (id == R.id.nav_alldata) {
+			// Handle the camera action
+		} else if (id == R.id.nav_logout) {
+
+		} else if (id == R.id.nav_menu_info) {
+
+		}
+
+		DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
+		drawer.closeDrawer(GravityCompat.START);
+		return true;
+	}
 }
