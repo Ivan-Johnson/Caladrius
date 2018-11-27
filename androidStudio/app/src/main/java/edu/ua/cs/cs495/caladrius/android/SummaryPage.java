@@ -24,35 +24,6 @@ import java.util.Objects;
  */
 public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
-//	public final FitbitGraphView.GraphViewGraph[][] defaultGraphTypes = {
-//		{FitbitGraphView.GraphViewGraph.BarGraph},
-//		{FitbitGraphView.GraphViewGraph.PointsGraph},
-//		{FitbitGraphView.GraphViewGraph.PointsGraph, FitbitGraphView.GraphViewGraph.PointsGraph},
-//		{FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.BarGraph},
-//		{FitbitGraphView.GraphViewGraph.BarGraph, FitbitGraphView.GraphViewGraph.LineGraph,
-//			FitbitGraphView.GraphViewGraph.PointsGraph},
-//	};
-//	public final String[][] defaultGraphStats = {
-//		{"calories"},
-//		{"steps"},
-//		{"caloriesBMR", "activityCalories"},
-//		{"steps", "minutesSedentary"},
-//		{"minutesLightlyActive", "minutesFairlyActive", "minutesVeryActive"},
-//	};
-//	public final Integer[][] defaultGraphColors = {
-//		{Color.DKGRAY},
-//		{Color.RED},
-//		{Color.BLUE, Color.GREEN},
-//		{Color.BLACK, Color.MAGENTA},
-//		{Color.BLUE, Color.RED, Color.BLACK},
-//	};
-//	public final String[] defaultGraphTitles = {
-//		"Calories",
-//		"Steps",
-//		"CaloriesBMR vs activityCalories",
-//		"Steps vs Minutes Sedentary",
-//		"Minutes of Activity",
-//	};
 
 	private GraphCursorAdapter mCursorAdapter;
 	private static final int GRAPH_LOADER = 0;
@@ -81,47 +52,6 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 
 		getLoaderManager().initLoader(GRAPH_LOADER, null, this);
 
-//		ArrayList queries = new ArrayList();
-//
-//		assert defaultGraphStats.length == defaultGraphTypes.length;
-//		for (int c = defaultGraphStats.length - 1; c >= 0; c--) {
-//			ArrayList<FitbitGraphView.GraphViewGraph> graphTypes =
-//					new ArrayList<>(Arrays.asList(defaultGraphTypes[c]));
-//
-//			ArrayList<String> stats = new ArrayList<>(Arrays.asList(defaultGraphStats[c]));
-//
-//			ArrayList<Integer> color = new ArrayList<>(Arrays.asList(defaultGraphColors[c]));
-//
-//			String title = defaultGraphTitles[c];
-//
-//			queries.add(new Query(graphTypes, stats, color, title));
-//		}
-//
-//		alldata = new Button(getContext());
-//		alldata.setText(R.string.view_all_data);
-//		alldata.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
-//
-//		SummaryPageAdapter.FitbitGraphViewOnClickAdapter onClick = new SummaryPageAdapter.FitbitGraphViewOnClickAdapter() {
-//			@Override
-//			public void onClick(FitbitGraphView fgv) {
-//				Intent submitPage = new Intent(getContext(), QueryActivity.class);
-//				submitPage.putExtra("startDate", "N/A");
-//				submitPage.putExtra("endDate", "N/A");
-//				submitPage.putExtra("item_1", "N/A");
-//				submitPage.putExtra("item_2", "N/A");
-//				Objects.requireNonNull(getContext()).startActivity(submitPage);
-//			}
-//		};
-//
-//		ListView ll = new ListView(getContext());
-//		try {
-//			ll.setAdapter(new SummaryPageAdapter(ll.getContext(), queries, onClick, alldata));
-//		} catch (JSONException | InterruptedException | IOException | ExecutionException e) {
-//			TextView tv = new TextView(ll.getContext());
-//			tv.setText("Caladrius failed to construct the summary page adapter; "+e.getLocalizedMessage());
-//			ll.addView(tv);
-//		}
-//
 		return view;
 	}
 
@@ -183,15 +113,4 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		mCursorAdapter.swapCursor(null);
 	}
 
-//	@Override
-//	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//		super.onActivityCreated(savedInstanceState);
-//		alldata.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View view) {
-//				Intent nextScreen = new Intent(SummaryPage.this.getContext(), AllData.class);
-//				startActivity(nextScreen);
-//			}
-//		});
-//	}
 }
