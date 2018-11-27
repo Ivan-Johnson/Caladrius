@@ -46,7 +46,8 @@
         <activity android:name=".QueryEditor"
                   android:parentActivityName=".PagerActivity"/>
         <activity android:name=".SummaryPageEditor"/>
-        <activity android:name=".ListTest"/>
+        <activity android:name=".ListTest"
+                  android:parentActivityName=".PagerActivity"/>
         <activity android:name=".rss.FeedEditor$FeedEditorActivity"/>
         <activity android:name=".rss.conditions.ConditionEditor"/>
 

@@ -41,16 +41,19 @@ public class ListTest extends AppCompatActivity implements LoaderManager.LoaderC
 
         Toolbar myToolbar = findViewById(R.id.graph_list_toolbar);
         setSupportActionBar(myToolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Graph List");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Edit Mode");
+
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = findViewById(R.id.add_graph);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ListTest.this, GraphEditorActivity.class);
-                startActivity(intent);
-            }
+        fab.setOnClickListener(view ->
+        {
+            Intent intent = new Intent(ListTest.this, GraphEditorActivity.class);
+            startActivity(intent);
         });
 
         ListView graphListView = findViewById(R.id.graph_list);
