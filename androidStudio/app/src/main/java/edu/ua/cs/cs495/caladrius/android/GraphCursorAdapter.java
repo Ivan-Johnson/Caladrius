@@ -86,9 +86,16 @@ public class GraphCursorAdapter extends CursorAdapter {
         int graph2StatsColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH2_STATS);
         int graph2ColorColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH2_COLORS);
         int numberGraphsColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_NUMBER_OF_GRAPH);
+        int timeRangeTypeGraphsColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_TIME_RANGE_TYPE);
+        int startTimeColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_START_TIME);
+        int endTimeColumnIndex = cursor.getColumnIndex(GraphEntry.COLUMN_GRAPH_END_TIME);
+
         int idColumnIndex = cursor.getColumnIndex(GraphEntry._ID);
 
         // Read the graph attributes from the Cursor for the current graph
+        String timeRangeTypeGraphs = cursor.getString(timeRangeTypeGraphsColumnIndex);
+        String startTime = cursor.getString(startTimeColumnIndex);
+        String endTime = cursor.getString(endTimeColumnIndex);
         String graphTimeRange = cursor.getString(timeRangeColumnIndex);
         final String graphType = cursor.getString(typeColumnIndex);
         final String graphStats = cursor.getString(statsColumnIndex);
@@ -121,6 +128,7 @@ public class GraphCursorAdapter extends CursorAdapter {
         ArrayList<String> stats = new ArrayList<String>(){{
             add(statsList.get(Integer.valueOf(graphStats)));
         }};
+
 
         ArrayList<Integer> color = new ArrayList<Integer>(){{
             add(GetColour(Integer.valueOf(graphColor)));
@@ -157,10 +165,17 @@ public class GraphCursorAdapter extends CursorAdapter {
                 fgv.setOnClickListener(view1 ->
                 {
                     Intent intent = new Intent(getContext(), QueryActivity.class);
-                    intent.putExtra("startDate", "N/A");
-                    intent.putExtra("endDate", "N/A");
-                    intent.putExtra("item_1", "N/A");
-                    intent.putExtra("item_2", "N/A");
+                    intent.putExtra("startDate", startTime);
+                    intent.putExtra("endDate", endTime);
+                    intent.putExtra("graph_1_status", statsList.get(Integer.valueOf(graphStats)));
+                    intent.putExtra("graph_2_status", statsList.get(Integer.valueOf(graph2Stats)));
+                    intent.putExtra("num_graph", numberOfGraph);
+                    intent.putExtra("graph_1_color", String.valueOf(GetColour(Integer.valueOf(graphColor))));
+                    intent.putExtra("graph_2_color", String.valueOf(GetColour(Integer.valueOf(graph2Color))));
+                    intent.putExtra("graph_1_type", typeList.get(Integer.valueOf(graphType)));
+                    intent.putExtra("graph_2_type", typeList.get(Integer.valueOf(graph2Type)));
+                    intent.putExtra("time_range_type", timeRangeTypeGraphs);
+                    intent.putExtra("relative_time_type", timeRangeList.get(Integer.valueOf(graphTimeRange)));
                     getContext().startActivity(intent);
                 });
 
@@ -173,22 +188,6 @@ public class GraphCursorAdapter extends CursorAdapter {
             (graph_container).removeAllViews();
 
         graph_container.addView(fgv);
-
-//        TextView timeRangeTextView = view.findViewById(R.id.time_range);
-//        timeRangeTextView.setText(timeRangeList.get(Integer.valueOf(graphTimeRange)));
-//
-//        TextView typeTextView = view.findViewById(R.id.graph_type);
-//        typeTextView.setText(typeList.get(Integer.valueOf(graphType)));
-//
-//        TextView statsTextView = view.findViewById(R.id.graph_stats);
-//        statsTextView.setText(statsList.get(Integer.valueOf(graphStats)));
-//
-//        TextView colorTextView = view.findViewById(R.id.graph_color);
-//        colorTextView.setText(colorList.get(Integer.valueOf(graphColor)));
-//
-//        TextView titleTextView = view.findViewById(R.id.graph_title);
-//        titleTextView.setText(graphTitle);
-
 
 
     }

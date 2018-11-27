@@ -31,6 +31,6 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:text="Query Info:"
-			android:textSize="29sp"/>
+			android:textSize="18sp"/>
 
 </LinearLayout>
