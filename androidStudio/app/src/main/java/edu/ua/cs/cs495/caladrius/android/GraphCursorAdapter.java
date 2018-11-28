@@ -167,15 +167,15 @@ public class GraphCursorAdapter extends CursorAdapter {
                     Intent intent = new Intent(getContext(), QueryActivity.class);
                     intent.putExtra("startDate", startTime);
                     intent.putExtra("endDate", endTime);
-                    intent.putExtra("graph_1_status", statsList.get(Integer.valueOf(graphStats)));
-                    intent.putExtra("graph_2_status", statsList.get(Integer.valueOf(graph2Stats)));
-                    intent.putExtra("num_graph", numberOfGraph);
-                    intent.putExtra("graph_1_color", String.valueOf(GetColour(Integer.valueOf(graphColor))));
-                    intent.putExtra("graph_2_color", String.valueOf(GetColour(Integer.valueOf(graph2Color))));
-                    intent.putExtra("graph_1_type", typeList.get(Integer.valueOf(graphType)));
-                    intent.putExtra("graph_2_type", typeList.get(Integer.valueOf(graph2Type)));
-                    intent.putExtra("time_range_type", timeRangeTypeGraphs);
-                    intent.putExtra("relative_time_type", timeRangeList.get(Integer.valueOf(graphTimeRange)));
+                    intent.putExtra("graph_1_status", Integer.valueOf(graphStats));
+                    intent.putExtra("graph_2_status", Integer.valueOf(graph2Stats));
+                    intent.putExtra("num_graph", Integer.valueOf(numberOfGraph));
+                    intent.putExtra("graph_1_color", GetColour(Integer.valueOf(graphColor)));
+                    intent.putExtra("graph_2_color", GetColour(Integer.valueOf(graph2Color)));
+                    intent.putExtra("graph_1_type", Integer.valueOf(graphType));
+                    intent.putExtra("graph_2_type", Integer.valueOf(graph2Type));
+                    intent.putExtra("time_range_type", Integer.valueOf(timeRangeTypeGraphs));
+                    intent.putExtra("relative_time_type", Integer.valueOf(graphTimeRange));
                     getContext().startActivity(intent);
                 });
 

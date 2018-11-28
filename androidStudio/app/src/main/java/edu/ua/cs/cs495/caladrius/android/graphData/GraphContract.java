@@ -106,9 +106,5 @@ public final class GraphContract {
         public static final int COLOR_YELLOW = 6;
 
 
-
-//        public static boolean isValidGraphType(int gender) {
-//            return gender == GENDER_UNKNOWN || gender == GENDER_MALE || gender == GENDER_FEMALE;
-//        }
     }
 }

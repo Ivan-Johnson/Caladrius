@@ -123,6 +123,8 @@ public class GraphEditorActivity extends AppCompatActivity implements
         // in order to figure out if we're creating a new graph or editing an existing one.
         Intent intent = getIntent();
         mCurrentGraphUri = intent.getData();
+        int queryFlag = Objects.requireNonNull(intent.getExtras())
+                .getInt("query_flag");
 
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -137,6 +139,8 @@ public class GraphEditorActivity extends AppCompatActivity implements
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
             // (It doesn't make sense to delete a graph that hasn't been created yet.)
             invalidateOptionsMenu();
+        } else if (queryFlag == 1){
+
         } else {
             // Otherwise this is an existing graph, so change app bar to say "Edit Graph"
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.editor_activity_title_edit_graph));
@@ -208,41 +212,36 @@ public class GraphEditorActivity extends AppCompatActivity implements
         mStartDateTextView.setText(mStartDate);
 
         CalendarView mCalendarView = findViewById(R.id.calendarView);
-        mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
-        {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int i1, int i2)
-            {
-                Integer month = i1;
-                String day;
-                if (i2 < 10) {
-                    day = " " + String.valueOf(i2);
-                } else {
-                    day = String.valueOf(i2);
-                }
-                String date = getMonthForInt(month) + " " + day + " " + year;
-                String dateShow = getMonthForInt(month) + " " + day + "th " + year;
+        mCalendarView.setOnDateChangeListener((calendarView, year1, i1, i2) -> {
+            Integer month1 = i1;
+            String day1;
+            if (i2 < 10) {
+                day1 = " " + String.valueOf(i2);
+            } else {
+                day1 = String.valueOf(i2);
+            }
+            String date1 = getMonthForInt(month1) + " " + day1 + " " + year1;
+            String dateShow = getMonthForInt(month1) + " " + day1 + "th " + year1;
 
-                if (mTimeRangeTypeRadioGroup.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(getApplicationContext(), "Please select dateType",
-                            Toast.LENGTH_SHORT)
-                            .show();
-                } else {
-                    // get selected radio button from radioGroup
-                    int selectedId = mTimeRangeTypeRadioGroup.getCheckedRadioButtonId();
+            if (mTimeRangeTypeRadioGroup.getCheckedRadioButtonId() == -1) {
+                Toast.makeText(getApplicationContext(), "Please select dateType",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            } else {
+                // get selected radio button from radioGroup
+                int selectedId = mTimeRangeTypeRadioGroup.getCheckedRadioButtonId();
 
-                    // find the radiobutton by returned id
-                    RadioButton selectedRadioButton = findViewById(selectedId);
-                    String dateType = selectedRadioButton.getText()
-                            .toString();
+                // find the radiobutton by returned id
+                RadioButton selectedRadioButton = findViewById(selectedId);
+                String dateType = selectedRadioButton.getText()
+                        .toString();
 
-                    if (dateType.equals(getString(R.string.single_day))) {
-                        mStartDateTextView.setText(dateShow);
-                        mStartDate = dateShow;
-                    } else if (dateType.equals(getString(R.string.several_days))) {
-                        mEndDateTextView.setText(dateShow);
-                        mEndDate = dateShow;
-                    }
+                if (dateType.equals(getString(R.string.single_day))) {
+                    mStartDateTextView.setText(dateShow);
+                    mStartDate = dateShow;
+                } else if (dateType.equals(getString(R.string.several_days))) {
+                    mEndDateTextView.setText(dateShow);
+                    mEndDate = dateShow;
                 }
             }
         });
@@ -535,19 +534,15 @@ public class GraphEditorActivity extends AppCompatActivity implements
         // for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.delete_dialog_msg);
-        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the graph.
-                deleteGraph();
-            }
+        builder.setPositiveButton(R.string.delete, (dialog, id) -> {
+            // User clicked the "Delete" button, so delete the graph.
+            deleteGraph();
         });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the graph.
-                if (dialog != null) {
-                    dialog.dismiss();
-                }
+        builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
+            // User clicked the "Cancel" button, so dismiss the dialog
+            // and continue editing the graph.
+            if (dialog != null) {
+                dialog.dismiss();
             }
         });
 

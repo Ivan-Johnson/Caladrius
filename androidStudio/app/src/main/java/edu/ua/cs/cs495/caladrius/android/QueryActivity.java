@@ -27,25 +27,25 @@ public class QueryActivity extends AppCompatActivity
 		                         .getString("startDate");
 		String endDate = intent.getExtras()
 		                       .getString("endDate");
-		String graph_1_status = intent.getExtras()
-		                      .getString("graph_1_status");
-		String graph_2_status = intent.getExtras()
-		                              .getString("graph_2_status");
-		String num_graph = intent.getExtras()
-		                              .getString("num_graph");
-		String graph_1_color = intent.getExtras()
-		                              .getString("graph_1_color");
-		String graph_2_color = intent.getExtras()
-		                              .getString("graph_2_color");
-		String graph_1_type = intent.getExtras()
-		                              .getString("graph_1_type");
-		String graph_2_type = intent.getExtras()
-		                              .getString("graph_2_type");
+		int graph_1_status = intent.getExtras()
+		                      .getInt("graph_1_status");
+		int graph_2_status = intent.getExtras()
+		                              .getInt("graph_2_status");
+		int num_graph = intent.getExtras()
+		                              .getInt("num_graph");
+		int graph_1_color = intent.getExtras()
+		                              .getInt("graph_1_color");
+		int graph_2_color = intent.getExtras()
+		                              .getInt("graph_2_color");
+		int graph_1_type = intent.getExtras()
+		                              .getInt("graph_1_type");
+		int graph_2_type = intent.getExtras()
+		                              .getInt("graph_2_type");
 		// 0->single day 1->several day 2->relative day
-		String time_range_type = intent.getExtras()
-		                              .getString("time_range_type");
-		String relative_time_type = intent.getExtras()
-		                              .getString("relative_time_type");
+		int time_range_type = intent.getExtras()
+		                              .getInt("time_range_type");
+		int relative_time_type = intent.getExtras()
+		                              .getInt("relative_time_type");
 
 
 		final TextView queryInfoTextView = findViewById(R.id.queryInfo);

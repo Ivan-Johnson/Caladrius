@@ -137,15 +137,6 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		mCursorAdapter.swapCursor(null);
 	}
 
-//	@Override
-//	public void onDetach() {
-//		DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
-//		if (drawer.isDrawerOpen(GravityCompat.START)) {
-//			drawer.closeDrawer(GravityCompat.START);
-//		} else {
-//			super.onDetach();
-//		}
-//	}
 
 	// Menu icons are inflated just as they were with actionbar
 	@Override
