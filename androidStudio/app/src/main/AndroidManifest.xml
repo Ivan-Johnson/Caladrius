@@ -17,7 +17,8 @@
                 android:name=".QueryActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"
                 android:label="@string/title_activity_graph"
-                android:theme="@style/FullscreenTheme"/>
+                android:theme="@style/FullscreenTheme"
+                android:parentActivityName=".PagerActivity"/>
 
         <activity android:name=".PagerActivity"/>
 
