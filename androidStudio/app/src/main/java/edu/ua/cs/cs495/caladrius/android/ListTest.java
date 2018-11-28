@@ -34,8 +34,7 @@ public class ListTest extends AppCompatActivity implements LoaderManager.LoaderC
     private static final int GRAPH_LOADER = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_test);
 
@@ -43,7 +42,7 @@ public class ListTest extends AppCompatActivity implements LoaderManager.LoaderC
         setSupportActionBar(myToolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("Edit Mode");
 
-        if(getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -88,7 +87,7 @@ public class ListTest extends AppCompatActivity implements LoaderManager.LoaderC
                         GraphEntry.COLUMN_GRAPH_TIME_RANGE_TYPE,
                         GraphEntry.COLUMN_GRAPH_START_TIME,
                         GraphEntry.COLUMN_GRAPH_END_TIME
-                        };
+                };
 
                 // Returns a new CursorLoader
                 return new CursorLoader(
@@ -144,6 +143,7 @@ public class ListTest extends AppCompatActivity implements LoaderManager.LoaderC
 //                Intent intent = new Intent(ListTest.this, QueryEditor.class);
 //                startActivity(intent);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_catalog.xml file.

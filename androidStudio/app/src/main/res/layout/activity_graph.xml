@@ -5,8 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:background="#f3ffed"
-              android:padding="10dp">
+              android:background="#f3ffed">
 
 
 	<android.support.v7.widget.Toolbar
@@ -22,6 +21,13 @@
 		android:background="@color/colorAccent">
 	</android.support.v7.widget.Toolbar>
 
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:background="#f3ffed"
+		android:padding="10dp">
 	<android.support.v7.widget.CardView
 			xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view"
@@ -45,5 +51,7 @@
 			android:layout_height="match_parent"
 			android:text="Query Info:"
 			android:textSize="18sp"/>
+
+	</LinearLayout>
 
 </LinearLayout>
