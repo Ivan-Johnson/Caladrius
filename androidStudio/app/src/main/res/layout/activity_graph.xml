@@ -9,6 +9,19 @@
               android:padding="10dp">
 
 
+	<android.support.v7.widget.Toolbar
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/activity_graph_toolbar"
+		android:minHeight="?attr/actionBarSize"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:titleTextColor="@android:color/white"
+		app:titleTextAppearance="@style/Toolbar.TitleText"
+		android:fitsSystemWindows="true"
+		android:background="@color/colorAccent">
+	</android.support.v7.widget.Toolbar>
+
 	<android.support.v7.widget.CardView
 			xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view"

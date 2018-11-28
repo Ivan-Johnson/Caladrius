@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 /**
  * This class is for showing the result from custom query data from fitbit.
@@ -21,7 +24,14 @@ public class QueryActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_graph);
+		Toolbar myToolbar = findViewById(R.id.activity_graph_toolbar);
+		setSupportActionBar(myToolbar);
+		Objects.requireNonNull(getSupportActionBar()).setTitle("Query Activity");
 
+		if(getSupportActionBar() != null){
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setDisplayShowHomeEnabled(true);
+		}
 		Intent intent = getIntent();
 		String startDate = intent.getExtras()
 		                         .getString("startDate");
