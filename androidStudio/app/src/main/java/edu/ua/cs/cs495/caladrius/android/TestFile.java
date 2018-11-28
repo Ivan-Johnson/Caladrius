@@ -25,7 +25,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
 
-import static edu.ua.cs.cs495.caladrius.android.QueryEditor.getMonthForInt;
 
 // This file just use for testing code
 
@@ -44,6 +43,14 @@ public class TestFile
 			.callback("caladrius://authcallback")
 			//.state("some_params")
 			.build(FitbitApi20.instance());
+
+
+	static String getMonthForInt(int m)
+	{
+		List<String> monthStr = Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+				"Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+		return monthStr.get(m);
+	}
 
 	public static void main(String... args) throws Exception
 	{

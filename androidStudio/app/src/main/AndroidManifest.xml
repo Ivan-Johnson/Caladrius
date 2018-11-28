@@ -44,8 +44,6 @@
         <activity android:name=".GraphEditorActivity"
                   android:parentActivityName=".ListTest"
                   android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".QueryEditor"
-                  android:parentActivityName=".PagerActivity"/>
         <activity android:name=".ListTest"
                   android:parentActivityName=".PagerActivity"/>
         <activity android:name=".rss.FeedEditor$FeedEditorActivity"/>
