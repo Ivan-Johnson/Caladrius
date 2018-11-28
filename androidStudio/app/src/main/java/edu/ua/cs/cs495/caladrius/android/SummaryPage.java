@@ -151,9 +151,10 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.calender:
-			Intent calenderIntent = new Intent(getContext(),
-				QueryEditor.class);
-			startActivity(calenderIntent);
+			Intent queryIntent = new Intent(getContext(),
+				GraphEditorActivity.class);
+			queryIntent.putExtra("query_flag", 1);
+			startActivity(queryIntent);
 			return true;
 		case R.id.edit:
 			Intent editIntent = new Intent(getContext(),

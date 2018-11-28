@@ -63,7 +63,7 @@ public class GraphCursorAdapter extends CursorAdapter {
         return Color.parseColor("#1e272e");
     }
 
-    public GraphCursorAdapter(Context context, Cursor c, Integer p) {
+    GraphCursorAdapter(Context context, Cursor c, Integer p) {
         super(context, c, 0 /* flags */);
         mPosition = p;
     }
