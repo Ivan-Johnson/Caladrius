@@ -92,8 +92,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
     private int mColor2 = GraphEntry.COLOR_BLACK;
     private int mNumberOfGraph = GraphEntry.GRAPH_NUMBER_ONE;
     private int mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
-    private int mQueryFlag;
-    
+    private Bundle bundle;
     // OnTouchListener that listens for any user touches on a View, implying that they are modifying
     // the view, and we change the mGraphHasChanged boolean to true.
 
@@ -125,8 +124,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
         // in order to figure out if we're creating a new graph or editing an existing one.
         Intent intent = getIntent();
         mCurrentGraphUri = intent.getData();
-        mQueryFlag = Objects.requireNonNull(intent.getExtras())
-                .getInt("query_flag");
+        bundle = intent.getExtras();
 
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -134,7 +132,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
         }
         // If the intent DOES NOT contain a graph content URI, then we know that we are
         // creating a new graph.
-        if (mQueryFlag == 1) {
+        if (bundle != null) {
             // This is a query page, so change the app bar to say "Query data"
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.editor_activity_title_query_data));
 
@@ -587,7 +585,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
         String StartDateString = mStartDate;
         String EndDateString = mEndDate;
 
-        if (mQueryFlag == 1){
+        if (bundle != null){
             Intent intent = new Intent(getContext(), QueryActivity.class);
             intent.putExtra("startDate", StartDateString);
             intent.putExtra("endDate", EndDateString);

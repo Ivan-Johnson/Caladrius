@@ -153,7 +153,7 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		case R.id.calender:
 			Intent queryIntent = new Intent(getContext(),
 				GraphEditorActivity.class);
-			queryIntent.putExtra("query_flag", 1);
+			queryIntent.putExtra("query_flag", "a");
 			startActivity(queryIntent);
 			return true;
 		case R.id.edit:
