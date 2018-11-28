@@ -165,8 +165,6 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 			startActivity(calenderIntent);
 			return true;
 		case R.id.edit:
-//			Intent editIntent = new Intent(this,
-//					SummaryPageEditor.class);
 			Intent editIntent = new Intent(getContext(),
 				ListTest.class);
 			startActivity(editIntent);
