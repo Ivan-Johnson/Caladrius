@@ -4,13 +4,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import edu.ua.cs.cs495.caladrius.android.Caladrius;
 import edu.ua.cs.cs495.caladrius.android.R;
+import edu.ua.cs.cs495.caladrius.android.miscadapters.ProgressAdapter;
+import edu.ua.cs.cs495.caladrius.android.miscadapters.TextAdapter;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
 import edu.ua.cs.cs495.caladrius.server.Clientside;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
@@ -22,26 +25,31 @@ import java.io.IOException;
  */
 public class FeedList extends Fragment
 {
-	protected class AsyncInitialize extends AsyncTask<Void, Void, Feed[]>
+	protected class AsyncInitialize extends AsyncTask<Void, Float, Feed[]>
 	{
+		ListView lv = FeedList.this.feedView;
+		ProgressAdapter progressAdapter;
+		ListAdapter initAdapter;
+
 		@Override
 		protected void onPreExecute()
 		{
-			// TODO: add progress bar
+			initAdapter = lv.getAdapter();
+
+			progressAdapter = new ProgressAdapter(lv.getContext());
+			lv.setAdapter(progressAdapter);
 		}
 
 		@Override
 		protected void onPostExecute(Feed[] feeds)
 		{
-			// TODO: remove progress bar bar
-			ListView lv = FeedList.this.feedView;
 			if (feeds == null) {
-				TextView tv = new TextView(getContext());
-				tv.setText(R.string.error_contact_server);
+				lv.setAdapter(new TextAdapter(lv.getContext(), R.string.error_contact_server));
 
-				lv.addView(tv);
 				return;
 			}
+
+			lv.setAdapter(initAdapter);
 
 			FragmentManager fm = getActivity().getSupportFragmentManager();
 			FeedAdapter adapter;
@@ -65,20 +73,23 @@ public class FeedList extends Fragment
 					if (isCancelled()) {
 						break;
 					}
-					// TODO change 2nd generic type to a float or something
-					// https://developer.android.com/reference/android/os/AsyncTask
-					// publishProgress(c / ids.length); (for example)
+					publishProgress((float) c / ids.length);
 				}
 				return feeds;
 			} catch (IOException e) {
+				//Log.w("FeedList", e);
+				Log.w("TAG8322", "Hello, World!", e);
 				return null;
 			}
 		}
 
 		@Override
-		protected void onProgressUpdate(Void... values)
+		protected void onProgressUpdate(Float... values)
 		{
-			// TODO: update progres bar
+			if (values == null || values.length != 1) {
+				throw new IllegalArgumentException();
+			}
+			progressAdapter.updateProgress(values[0]);
 		}
 	}
 
