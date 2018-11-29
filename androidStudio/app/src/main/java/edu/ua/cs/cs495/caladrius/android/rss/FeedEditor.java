@@ -1,12 +1,12 @@
 package edu.ua.cs.cs495.caladrius.android.rss;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +16,16 @@ import android.widget.TextView;
 import edu.ua.cs.cs495.caladrius.android.GenericEditor;
 import edu.ua.cs.cs495.caladrius.android.R;
 import edu.ua.cs.cs495.caladrius.android.rss.conditions.ConditionAdapter;
+import edu.ua.cs.cs495.caladrius.android.rss.conditions.ConditionEditor;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
+import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 
 public class FeedEditor extends Fragment
 {
 	protected static final String ARG_FEED = "FeedEditor_feed";
 	private static final String LOGTAG = "FEED_EDITOR";
 	protected Feed f;
+	ConditionAdapter adapter;
 
 	public static FeedEditor newInstance(@NonNull Feed f)
 	{
@@ -54,13 +57,29 @@ public class FeedEditor extends Fragment
 
 		ListView ll = rootView.findViewById(R.id.ConditionList);
 
-		FragmentManager fm = getActivity().getSupportFragmentManager();
-		ConditionAdapter adapter;
-		adapter = new ConditionAdapter(getContext(), f.conditions, fm);
+		adapter = new ConditionAdapter(f.conditions, getContext(), (int i, Condition cond) ->
+		{
+			Intent in = ConditionEditor.createIntent(getContext(), cond);
+			startActivityForResult(in, i);
+		});
 
 		ll.setAdapter(adapter);
 
 		return rootView;
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		int index = requestCode;
+		if (resultCode == Activity.RESULT_CANCELED) {
+			return;
+		} else if (resultCode != Activity.RESULT_OK) {
+			throw new RuntimeException("Condition editor yielded an unexpected result");
+		}
+
+		Condition cond = ConditionEditor.getCondition(data);
+		adapter.setItem(index, cond);
 	}
 
 	public static class FeedEditorActivity extends GenericEditor
