@@ -3,7 +3,6 @@ package edu.ua.cs.cs495.caladrius.android.rss.conditions;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,24 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import edu.ua.cs.cs495.caladrius.android.R;
+import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 
-public class ExtremeValueEditor extends Fragment
+public class ExtremeValueEditor extends ConditionEditorFragment
 {
 	protected static final String ARG_EXTREMEVALUE = "ExtremeValueEditor EXTREMEVALUE";
 	ExtremeValue ev;
+	EditText stat;
+	EditText val;
+
+	@Override
+	Condition getCondition()
+	{
+		// TODO
+		return new ExtremeValue(stat.getText().toString(),
+			val.getText().toString(),
+			ExtremeValue.extremeType.lessThan);
+	}
 
 	public static ExtremeValueEditor newInstance(ExtremeValue ev)
 	{
@@ -51,10 +62,10 @@ public class ExtremeValueEditor extends Fragment
 			)
 		);
 
-		EditText stat = rootView.findViewById(R.id.ev_statname);
+		stat = rootView.findViewById(R.id.ev_statname);
 		stat.setText(this.ev.getStat());
 
-		EditText val = rootView.findViewById(R.id.ev_val);
+		val = rootView.findViewById(R.id.ev_val);
 		val.setText(this.ev.getValueString());
 
 		return rootView;
