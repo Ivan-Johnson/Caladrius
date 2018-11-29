@@ -129,7 +129,7 @@ public abstract class GenericEditor extends AppCompatActivity
 		return cntxt.getText(R.string.editor_confirmation_defaultmessage);
 	}
 
-	protected void onCancelClick()
+	private void onCancelClick()
 	{
 		if (alwaysSave) {
 			save();
