@@ -16,10 +16,20 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 public class Clientside
 {
-	public OkHttpClient client = new OkHttpClient();
+	public OkHttpClient client;
+
+	public Clientside()
+	{
+		HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+		logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+		client = new OkHttpClient.Builder()
+			.addInterceptor(logging)
+			.build();
+	}
 
 	public int[] getFeedIDs(ServerAccount sa) throws IOException
 	{
