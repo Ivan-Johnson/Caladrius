@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -143,7 +144,12 @@ public class GraphCursorAdapter extends CursorAdapter {
         Query query = new Query(graphTypes,
                                 stats,
                                 color,
-                                graphTitle);
+                                graphTitle,
+                                startTime,
+                                endTime,
+                                Integer.valueOf(timeRangeTypeGraphs),
+                                Integer.valueOf(graphTimeRange));
+
 
         FitbitGraphView fgv = null;
         try {
@@ -160,8 +166,7 @@ public class GraphCursorAdapter extends CursorAdapter {
 
                     getContext().startActivity(intent);
                 });
-            }
-            else {
+            } else {
                 fgv.setOnClickListener(view1 ->
                 {
                     Intent intent = new Intent(getContext(), QueryActivity.class);

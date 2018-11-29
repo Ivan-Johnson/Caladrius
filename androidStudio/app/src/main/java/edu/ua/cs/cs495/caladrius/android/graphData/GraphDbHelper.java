@@ -43,7 +43,7 @@ public class GraphDbHelper extends SQLiteOpenHelper {
                 + GraphEntry.COLUMN_GRAPH2_TYPE + " INTEGER NOT NULL, "
                 + GraphEntry.COLUMN_GRAPH_START_TIME + " TEXT NOT NULL, "
                 + GraphEntry.COLUMN_GRAPH_END_TIME + " TEXT NOT NULL, "
-                + GraphEntry.COLUMN_GRAPH_TITLE + " TEXT NOT NULL);";
+                + GraphEntry.COLUMN_GRAPH_TITLE + " TEXT);";
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_GRAPHS_TABLE);
