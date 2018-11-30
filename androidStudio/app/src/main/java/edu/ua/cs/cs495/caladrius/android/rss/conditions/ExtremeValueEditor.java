@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import edu.ua.cs.cs495.caladrius.android.Caladrius;
 import edu.ua.cs.cs495.caladrius.android.R;
 import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
@@ -16,16 +17,24 @@ import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 public class ExtremeValueEditor extends ConditionEditorFragment
 {
 	protected static final String ARG_EXTREMEVALUE = "ExtremeValueEditor EXTREMEVALUE";
-	ExtremeValue ev;
-	EditText stat;
-	EditText val;
+	protected ExtremeValue ev;
+	protected EditText stat;
+	protected EditText val;
 
 	@Override
 	Condition getCondition()
 	{
-		// TODO
-		return new ExtremeValue(stat.getText().toString(),
-			val.getText().toString(),
+		String text = val.getText().toString();
+		Double val;
+		try {
+			val = Double.valueOf(text);
+		} catch(NumberFormatException nfe) {
+			// TODO it's awful to silently change the value like this. Instead, change val to some sort of input field that ONLY produced valid numbers
+			// (e.g. you can't type letters in it)
+			val = 0.0;
+		}
+		return new ExtremeValue<>(stat.getText().toString(),
+			val,
 			ExtremeValue.extremeType.lessThan);
 	}
 
@@ -48,6 +57,7 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 	{
 		super.onCreate(savedInstanceState);
 		Bundle b = getArguments();
+		assert b != null;
 		this.ev = (ExtremeValue) b.getSerializable(ARG_EXTREMEVALUE);
 
 		View rootView = inflater.inflate(R.layout.rss_condition_extremevalue_editor,
@@ -56,7 +66,7 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 		Spinner sp = rootView.findViewById(R.id.ev_type);
 		sp.setAdapter(
 			ArrayAdapter.createFromResource(
-				getContext(),
+				Caladrius.getContext(),
 				R.array.rss_conditions_extremevalue_boundarytype,
 				R.layout.spinner_item
 			)
