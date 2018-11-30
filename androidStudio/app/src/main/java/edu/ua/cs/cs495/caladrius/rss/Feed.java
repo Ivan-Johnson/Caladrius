@@ -38,7 +38,7 @@ public class Feed implements Serializable
 
 		String stats[] = Fitbit.getSupportedStats();
 		int count = ExtremeValue.extremeType.values().length;
-		for (int x = 0; x < 20; x++) {
+		for (int x = 0; x < 5; x++) {
 			String stat = stats[r.nextInt(stats.length)];
 			ExtremeValue.extremeType type = ExtremeValue.extremeType.values()[r.nextInt(count)];
 			Condition c = new ExtremeValue<>(stat, r.nextDouble() * 30 + 10, type);
