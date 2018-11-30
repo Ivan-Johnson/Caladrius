@@ -1,6 +1,7 @@
 package edu.ua.cs.cs495.caladrius.rss.condition;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class ExtremeValue<T extends Serializable> implements Condition
 {
@@ -83,9 +84,9 @@ public class ExtremeValue<T extends Serializable> implements Condition
 		}
 		ExtremeValue other = (ExtremeValue) obj;
 		boolean equal = true;
-		equal = equal && other.type.equals(this.type);
-		equal = equal && other.stat.equals(this.stat);
-		equal = equal && other.value.equals(this.value);
+		equal = equal && Objects.equals(other.type, this.type);
+		equal = equal && Objects.equals(other.stat, this.stat);
+		equal = equal && Objects.equals(other.value, this.value);
 
 		return equal;
 	}
