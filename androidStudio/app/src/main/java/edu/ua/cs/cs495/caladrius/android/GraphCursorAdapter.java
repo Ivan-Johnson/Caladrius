@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,37 +34,7 @@ public class GraphCursorAdapter extends CursorAdapter {
 
     private Integer mPosition;
 
-    private FitbitGraphView.GraphViewGraph getGraphType(int graphType){
-        if (graphType == GraphEntry.BAR_GRAPH){
-            return FitbitGraphView.GraphViewGraph.BarGraph;
-        } else if (graphType == GraphEntry.LINE_GRAPH){
-            return FitbitGraphView.GraphViewGraph.LineGraph;
-        } else if (graphType == GraphEntry.POINTS_GRAPH){
-            return FitbitGraphView.GraphViewGraph.PointsGraph;
-        }
-        return FitbitGraphView.GraphViewGraph.BarGraph;
-    }
-
-    private int GetColour(Integer selection){
-        if (selection == GraphEntry.COLOR_BLACK) {
-            return Color.parseColor("#1e272e");
-        } else if (selection == GraphEntry.COLOR_BLUE) {
-            return Color.parseColor("#3498db");
-        } else if (selection == GraphEntry.COLOR_CYAN) {
-            return Color.parseColor("#00BCD4");
-        } else if (selection == GraphEntry.COLOR_GRAY) {
-            return Color.parseColor("#808e9b");
-        } else if (selection == GraphEntry.COLOR_GREEN) {
-            return Color.parseColor("#2ecc71");
-        } else if (selection == GraphEntry.COLOR_RED) {
-            return Color.parseColor("#e74c3c");
-        } else if (selection == GraphEntry.COLOR_YELLOW) {
-            return Color.parseColor("#f0932b");
-        }
-        return Color.parseColor("#1e272e");
-    }
-
-    public GraphCursorAdapter(Context context, Cursor c, Integer p) {
+    GraphCursorAdapter(Context context, Cursor c, Integer p) {
         super(context, c, 0 /* flags */);
         mPosition = p;
     }
@@ -122,7 +93,7 @@ public class GraphCursorAdapter extends CursorAdapter {
 
         ArrayList<FitbitGraphView.GraphViewGraph> graphTypes =
                 new ArrayList<FitbitGraphView.GraphViewGraph>(){{
-                    add(getGraphType(Integer.valueOf(graphType)));
+                    add(GraphEntry.getGraphType(Integer.valueOf(graphType)));
         }};
 
         ArrayList<String> stats = new ArrayList<String>(){{
@@ -131,19 +102,24 @@ public class GraphCursorAdapter extends CursorAdapter {
 
 
         ArrayList<Integer> color = new ArrayList<Integer>(){{
-            add(GetColour(Integer.valueOf(graphColor)));
+            add(GraphEntry.GetColour(Integer.valueOf(graphColor)));
         }};
 
         if(Integer.valueOf(numberOfGraph) == GraphEntry.GRAPH_NUMBER_TWO){
             stats.add(statsList.get(Integer.valueOf(graph2Stats)));
-            color.add(GetColour(Integer.valueOf(graph2Color)));
-            graphTypes.add(getGraphType(Integer.valueOf(graph2Type)));
+            color.add(GraphEntry.GetColour(Integer.valueOf(graph2Color)));
+            graphTypes.add(GraphEntry.getGraphType(Integer.valueOf(graph2Type)));
         }
 
         Query query = new Query(graphTypes,
                                 stats,
                                 color,
-                                graphTitle);
+                                graphTitle,
+                                startTime,
+                                endTime,
+                                Integer.valueOf(timeRangeTypeGraphs),
+                                Integer.valueOf(graphTimeRange));
+
 
         FitbitGraphView fgv = null;
         try {
@@ -160,22 +136,21 @@ public class GraphCursorAdapter extends CursorAdapter {
 
                     getContext().startActivity(intent);
                 });
-            }
-            else {
+            } else {
                 fgv.setOnClickListener(view1 ->
                 {
                     Intent intent = new Intent(getContext(), QueryActivity.class);
                     intent.putExtra("startDate", startTime);
                     intent.putExtra("endDate", endTime);
-                    intent.putExtra("graph_1_status", statsList.get(Integer.valueOf(graphStats)));
-                    intent.putExtra("graph_2_status", statsList.get(Integer.valueOf(graph2Stats)));
-                    intent.putExtra("num_graph", numberOfGraph);
-                    intent.putExtra("graph_1_color", String.valueOf(GetColour(Integer.valueOf(graphColor))));
-                    intent.putExtra("graph_2_color", String.valueOf(GetColour(Integer.valueOf(graph2Color))));
-                    intent.putExtra("graph_1_type", typeList.get(Integer.valueOf(graphType)));
-                    intent.putExtra("graph_2_type", typeList.get(Integer.valueOf(graph2Type)));
-                    intent.putExtra("time_range_type", timeRangeTypeGraphs);
-                    intent.putExtra("relative_time_type", timeRangeList.get(Integer.valueOf(graphTimeRange)));
+                    intent.putExtra("graph_1_status", Integer.valueOf(graphStats));
+                    intent.putExtra("graph_2_status", Integer.valueOf(graph2Stats));
+                    intent.putExtra("num_graph", Integer.valueOf(numberOfGraph));
+                    intent.putExtra("graph_1_color", GraphEntry.GetColour(Integer.valueOf(graphColor)));
+                    intent.putExtra("graph_2_color", GraphEntry.GetColour(Integer.valueOf(graph2Color)));
+                    intent.putExtra("graph_1_type", Integer.valueOf(graphType));
+                    intent.putExtra("graph_2_type", Integer.valueOf(graph2Type));
+                    intent.putExtra("time_range_type", Integer.valueOf(timeRangeTypeGraphs));
+                    intent.putExtra("relative_time_type", Integer.valueOf(graphTimeRange));
                     getContext().startActivity(intent);
                 });
 

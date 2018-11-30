@@ -1,8 +1,11 @@
 package edu.ua.cs.cs495.caladrius.android.graphData;
 
 import android.content.ContentResolver;
+import android.graphics.Color;
 import android.net.Uri;
 import android.provider.BaseColumns;
+
+import edu.ua.cs.cs495.caladrius.android.FitbitGraphView;
 
 /**
  * This class store all the String, URI and attributes values.
@@ -111,10 +114,35 @@ public final class GraphContract {
         public static final int COLOR_RED = 5;
         public static final int COLOR_YELLOW = 6;
 
+        public static FitbitGraphView.GraphViewGraph getGraphType(int graphType){
+            if (graphType == GraphEntry.BAR_GRAPH){
+                return FitbitGraphView.GraphViewGraph.BarGraph;
+            } else if (graphType == GraphEntry.LINE_GRAPH){
+                return FitbitGraphView.GraphViewGraph.LineGraph;
+            } else if (graphType == GraphEntry.POINTS_GRAPH){
+                return FitbitGraphView.GraphViewGraph.PointsGraph;
+            }
+            return FitbitGraphView.GraphViewGraph.BarGraph;
+        }
 
+        public static int GetColour(Integer selection){
+            if (selection == GraphEntry.COLOR_BLACK) {
+                return Color.parseColor("#1e272e");
+            } else if (selection == GraphEntry.COLOR_BLUE) {
+                return Color.parseColor("#3498db");
+            } else if (selection == GraphEntry.COLOR_CYAN) {
+                return Color.parseColor("#00BCD4");
+            } else if (selection == GraphEntry.COLOR_GRAY) {
+                return Color.parseColor("#808e9b");
+            } else if (selection == GraphEntry.COLOR_GREEN) {
+                return Color.parseColor("#2ecc71");
+            } else if (selection == GraphEntry.COLOR_RED) {
+                return Color.parseColor("#e74c3c");
+            } else if (selection == GraphEntry.COLOR_YELLOW) {
+                return Color.parseColor("#f0932b");
+            }
+            return Color.parseColor("#1e272e");
+        }
 
-//        public static boolean isValidGraphType(int gender) {
-//            return gender == GENDER_UNKNOWN || gender == GENDER_MALE || gender == GENDER_FEMALE;
-//        }
     }
 }

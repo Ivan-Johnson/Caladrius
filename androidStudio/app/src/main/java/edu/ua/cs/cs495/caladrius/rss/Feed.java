@@ -2,19 +2,21 @@ package edu.ua.cs.cs495.caladrius.rss;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 
+import edu.ua.cs.cs495.caladrius.fitbit.Fitbit;
 import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 
 public class Feed implements Serializable
 {
 	private static final long serialVersionUID = -7808241266602491257L;
+	// don't forget to update the "equals" function when adding new fields
 	public String name;
-	protected static String BASEURL="https://caladrius.ivanjohnson.net/webapi/feed?id=";
+	protected static final String BASEURL="https://caladrius.ivanjohnson.net/webapi/feed?id=";
 	public String uuid;
-	public String url; // TODO delete this
 	public int id;
 	public ArrayList<Condition> conditions;
 
@@ -26,34 +28,47 @@ public class Feed implements Serializable
 
 		this.conditions = conditions;
 		this.uuid = uuid;
-		this.url = BASEURL + uuid;
 		this.name = name;
 	}
 
-	public Feed(String name, String url, Condition[] conditions)
+	public Feed(String name)
 	{
-		this(
-			name,
-			url,
-			new ArrayList<>(Arrays.asList(conditions))
-		);
-	}
-
-	public Feed(String name, String url)
-	{
-		this(name, url, new ArrayList<Condition>());
+		this(name, UUID.randomUUID().toString(), null);
 
 		// TODO: don't add random conditions to new feeds
 		Random r = new Random();
 
-		String stats[] = {"asdf", "fdsa", "asdsdfsdsd"};
+		String stats[] = Fitbit.getSupportedStats();
 		int count = ExtremeValue.extremeType.values().length;
-		for (int x = 0; x < 100; x++) {
+		for (int x = 0; x < 5; x++) {
 			String stat = stats[r.nextInt(stats.length)];
 			ExtremeValue.extremeType type = ExtremeValue.extremeType.values()[r.nextInt(count)];
 			Condition c = new ExtremeValue<>(stat, r.nextDouble() * 30 + 10, type);
 			this.conditions.add(c);
 		}
+	}
+
+	public String getURL()
+	{
+		return BASEURL + uuid;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Feed)) {
+			return false;
+		}
+		Feed other = (Feed) obj;
+
+		boolean equal = true;
+
+		// note that short circuiting can remove the need to perform each of these potentially expensive evaluations
+		equal = equal && other.id == this.id;
+		equal = equal && Objects.equals(other.uuid, this.uuid);
+		equal = equal && Objects.equals(other.name, this.name);
+		equal = equal && Objects.equals(other.conditions, this.conditions);
+
+		return equal;
 	}
 
 	@Override
@@ -64,10 +79,6 @@ public class Feed implements Serializable
 
 		sb.append("name: \"");
 		sb.append(name);
-		sb.append("\", ");
-
-		sb.append("URL: \"");
-		sb.append(url);
 		sb.append("\", ");
 
 		sb.append("UUID: \"");

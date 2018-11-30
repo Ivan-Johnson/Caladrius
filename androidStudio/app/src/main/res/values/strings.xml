@@ -45,6 +45,7 @@
 
     <string name="editor_activity_title_new_graph">Add a Graph</string>
     <string name="editor_activity_title_edit_graph">Edit Graph</string>
+    <string name="editor_activity_title_query_data">Query data</string>
 
 
     <string name="time_range_today">Today</string>
@@ -136,6 +137,8 @@
     <string name="error_contact_server">Error: we could not contact our server</string>
     <string name="log_out">Log out</string>
     <string name="Info">Info</string>
+
+    <string name="rss_feed_default_name">Unnamed Feed</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

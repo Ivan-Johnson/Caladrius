@@ -3,20 +3,40 @@ package edu.ua.cs.cs495.caladrius.android.rss.conditions;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import edu.ua.cs.cs495.caladrius.android.Caladrius;
 import edu.ua.cs.cs495.caladrius.android.R;
+import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 
-public class ExtremeValueEditor extends Fragment
+public class ExtremeValueEditor extends ConditionEditorFragment
 {
 	protected static final String ARG_EXTREMEVALUE = "ExtremeValueEditor EXTREMEVALUE";
-	ExtremeValue ev;
+	protected ExtremeValue ev;
+	protected EditText stat;
+	protected EditText val;
+
+	@Override
+	Condition getCondition()
+	{
+		String text = val.getText().toString();
+		Double val;
+		try {
+			val = Double.valueOf(text);
+		} catch(NumberFormatException nfe) {
+			// TODO it's awful to silently change the value like this. Instead, change val to some sort of input field that ONLY produced valid numbers
+			// (e.g. you can't type letters in it)
+			val = 0.0;
+		}
+		return new ExtremeValue<>(stat.getText().toString(),
+			val,
+			ExtremeValue.extremeType.lessThan);
+	}
 
 	public static ExtremeValueEditor newInstance(ExtremeValue ev)
 	{
@@ -37,6 +57,7 @@ public class ExtremeValueEditor extends Fragment
 	{
 		super.onCreate(savedInstanceState);
 		Bundle b = getArguments();
+		assert b != null;
 		this.ev = (ExtremeValue) b.getSerializable(ARG_EXTREMEVALUE);
 
 		View rootView = inflater.inflate(R.layout.rss_condition_extremevalue_editor,
@@ -45,16 +66,16 @@ public class ExtremeValueEditor extends Fragment
 		Spinner sp = rootView.findViewById(R.id.ev_type);
 		sp.setAdapter(
 			ArrayAdapter.createFromResource(
-				getContext(),
+				Caladrius.getContext(),
 				R.array.rss_conditions_extremevalue_boundarytype,
 				R.layout.spinner_item
 			)
 		);
 
-		EditText stat = rootView.findViewById(R.id.ev_statname);
+		stat = rootView.findViewById(R.id.ev_statname);
 		stat.setText(this.ev.getStat());
 
-		EditText val = rootView.findViewById(R.id.ev_val);
+		val = rootView.findViewById(R.id.ev_val);
 		val.setText(this.ev.getValueString());
 
 		return rootView;

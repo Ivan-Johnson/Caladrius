@@ -10,7 +10,7 @@ import sqlite3
 import calendar
 import time
 
-DB_FILE="/tmp/caladrius.db"
+DB_FILE="/srv/caladrius.db"
 conn = sqlite3.connect(DB_FILE)
 
 def makefeed(id):

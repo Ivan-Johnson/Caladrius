@@ -82,8 +82,7 @@ public abstract class GenericEditor extends AppCompatActivity
 		switch (item.getItemId()) {
 		case R.id.editor_save:
 			// TODO support failed saves
-			doSave();
-			finish();
+			save();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -113,7 +112,7 @@ public abstract class GenericEditor extends AppCompatActivity
 		finish();
 	}
 
-	private void save()
+	protected void save()
 	{
 		doSave();
 		finish();
@@ -129,7 +128,7 @@ public abstract class GenericEditor extends AppCompatActivity
 		return cntxt.getText(R.string.editor_confirmation_defaultmessage);
 	}
 
-	protected void onCancelClick()
+	private void onCancelClick()
 	{
 		if (alwaysSave) {
 			save();
@@ -148,6 +147,7 @@ public abstract class GenericEditor extends AppCompatActivity
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
+				dialog.dismiss();
 				cancel();
 			}
 		});

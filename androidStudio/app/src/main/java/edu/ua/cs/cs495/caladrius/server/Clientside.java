@@ -10,16 +10,27 @@ import java.util.Base64;
 import java.util.Random;
 import java.util.Scanner;
 
+import android.support.annotation.NonNull;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 public class Clientside
 {
-	public OkHttpClient client = new OkHttpClient();
+	public OkHttpClient client;
+
+	public Clientside()
+	{
+		HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+		logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+		client = new OkHttpClient.Builder()
+			//.addInterceptor(logging)
+			.build();
+	}
 
 	public int[] getFeedIDs(ServerAccount sa) throws IOException
 	{
@@ -59,7 +70,7 @@ public class Clientside
 		return feedids;
 	}
 
-	protected String getFeedstring(String userid, int feed)
+	protected String getFeedstring(String userid, int feed) throws IOException
 	{
 		final String URL_BASE = "https://caladrius.ivanjohnson.net/webapi/config/feed";
 		final String URL_QUERY_KEY = "id";
@@ -147,8 +158,11 @@ public class Clientside
 		}
 	}
 
-	public void setFeed(ServerAccount sa, Feed f) throws IOException
+	public void setFeed(ServerAccount sa, @NonNull Feed f) throws IOException
 	{
+		if (f == null) {
+			throw new NullPointerException("Cannot set feed to null");
+		}
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(bos);
@@ -174,10 +188,11 @@ public class Clientside
 
 		Clientside cs = new Clientside();
 		int ids[] = cs.getFeedIDs(sa);
+		//int ids[] = {1001};
 		Random r = new Random();
 		for (int id : ids) {
 			System.out.println(id);
-			Feed fPush = new Feed("name #"+r.nextInt(), "URL #"+r.nextInt());
+			Feed fPush = new Feed("name #"+r.nextInt());
 			fPush.id = id;
 			cs.setFeed(sa, fPush);
 

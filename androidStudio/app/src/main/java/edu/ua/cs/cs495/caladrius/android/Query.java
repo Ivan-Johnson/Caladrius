@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
 /**
  * The Query module concentrates the parameters for the FitbitGraphView module.
  * This object is usually then passed into the FitbitGraphView module.
@@ -53,6 +54,19 @@ public class Query implements Serializable
 	// for the GraphView graph
 	Boolean legend;
 
+
+	String startTime; //This is a string of stat date
+	String endTime; //This is a string of end date
+	int timeRangeType;
+	// This meas time range type was
+	// single day (timeRangeType == GraphEntry.TIME_RANGE_TYPE_SINGLE)
+	// or several day ( == GraphEntry.TIME_RANGE_TYPE_SEVERAL )
+	// or relative day ( == GraphEntry.TIME_RANGE_TYPE_RELATIVE)
+	int timeRange;
+	// This will be used if time range type was == GraphEntry.TIME_RANGE_TYPE_RELATIVE
+	// Then by compare timeRange value with GraphEntry.TIME_RANGE_TODAY or TIME_RANGE_WEEK, etc.
+	// or TIME_RANGE_MONTH or TIME_RANGE_YEAR etc.
+
 	/**
 	 *
 	 * @param graphType see below
@@ -63,11 +77,15 @@ public class Query implements Serializable
 	public Query(ArrayList<FitbitGraphView.GraphViewGraph> graphType,
 				 ArrayList<String> statsToRetrieve,
 				 ArrayList<Integer> seriesColors,
-				 String graphTitle)
+				 String graphTitle,
+				 String startTime,
+				 String endTime,
+				 int timeRangeType,
+				 int timeRange)
 	{
-		this(graphType, statsToRetrieve, seriesColors,
-				graphTitle, false, false,
-				false, false, true);
+		this(graphType, statsToRetrieve, seriesColors, graphTitle, false,
+				false,false, false,
+				true, startTime, endTime, timeRangeType, timeRange);
 	}
 
 	/**
@@ -76,13 +94,13 @@ public class Query implements Serializable
 	 * @param statsToRetrieve see below
 	 * @param graphTitle see below
 	 */
-	public Query(ArrayList<FitbitGraphView.GraphViewGraph> graphType,
-				 ArrayList<String> statsToRetrieve,
-				 String graphTitle)
-	{
-		this(graphType, statsToRetrieve, new ArrayList<Integer> (Collections.nCopies(graphType.size(), Color.BLUE)),
-				graphTitle);
-	}
+//	public Query(ArrayList<FitbitGraphView.GraphViewGraph> graphType,
+//				 ArrayList<String> statsToRetrieve,
+//				 String graphTitle)
+//	{
+//		this(graphType, statsToRetrieve, new ArrayList<Integer> (Collections.nCopies(graphType.size(), Color.BLUE)),
+//				graphTitle);
+//	}
 
 	/**
 	 *
@@ -111,7 +129,11 @@ public class Query implements Serializable
 	             Boolean horizontalScroll, Boolean verticalScroll,
 	             Boolean horizontalZoomAndScroll,
 	             Boolean verticalZoomAndScroll,
-	             Boolean legend)
+	             Boolean legend,
+				 String startTime,
+				 String endTime,
+				 int timeRangeType,
+				 int timeRange)
 	{
 		this.graphType = graphType;
 		this.statsToRetrieve = statsToRetrieve;
@@ -122,6 +144,10 @@ public class Query implements Serializable
 		this.horizontalZoomAndScroll = horizontalZoomAndScroll;
 		this.verticalZoomAndScroll = verticalZoomAndScroll;
 		this.legend = legend;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.timeRangeType =timeRangeType;
+		this.timeRange = timeRange;
 	}
 
 	public ArrayList<FitbitGraphView.GraphViewGraph> getGraphType()

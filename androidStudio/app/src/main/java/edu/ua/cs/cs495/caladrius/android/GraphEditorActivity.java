@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.*;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +27,8 @@ import java.util.List;
 import java.util.Objects;
 
 import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
+
+import static edu.ua.cs.cs495.caladrius.android.Caladrius.getContext;
 
 /**
  * This is use for add or edit graph setting page.
@@ -89,16 +92,14 @@ public class GraphEditorActivity extends AppCompatActivity implements
     private int mColor2 = GraphEntry.COLOR_BLACK;
     private int mNumberOfGraph = GraphEntry.GRAPH_NUMBER_ONE;
     private int mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
-    
+    private Bundle bundle;
     // OnTouchListener that listens for any user touches on a View, implying that they are modifying
     // the view, and we change the mGraphHasChanged boolean to true.
 
-    private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            mGraphHasChanged = true;
-            return false;
-        }
+    @SuppressLint("ClickableViewAccessibility")
+    private View.OnTouchListener mTouchListener = (view, motionEvent) -> {
+        mGraphHasChanged = true;
+        return false;
     };
 
     static String getMonthForInt(int m)
@@ -123,6 +124,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
         // in order to figure out if we're creating a new graph or editing an existing one.
         Intent intent = getIntent();
         mCurrentGraphUri = intent.getData();
+        bundle = intent.getExtras();
 
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -130,7 +132,14 @@ public class GraphEditorActivity extends AppCompatActivity implements
         }
         // If the intent DOES NOT contain a graph content URI, then we know that we are
         // creating a new graph.
-        if (mCurrentGraphUri == null) {
+        if (bundle != null) {
+            // This is a query page, so change the app bar to say "Query data"
+            Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.editor_activity_title_query_data));
+
+            // Invalidate the options menu, so the "Delete" menu option can be hidden.
+            // (It doesn't make sense to delete a graph that hasn't been created yet.)
+            invalidateOptionsMenu();
+        } else if (mCurrentGraphUri == null){
             // This is a new graph, so change the app bar to say "Add a Graph"
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.editor_activity_title_new_graph));
 
@@ -176,23 +185,20 @@ public class GraphEditorActivity extends AppCompatActivity implements
         mTimeRangeTypeRadioGroup = findViewById(R.id.time_range_type);
         mTimeRangeTypeRadioGroup.setOnTouchListener(mTouchListener);
 
-        mTimeRangeTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i){
-                    case R.id.Single_day:
-                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
-                        break;
-                    case R.id.several_days:
-                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SEVERAL;
-                        break;
-                    case R.id.relative_days:
-                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_RELATIVE;
-                        break;
-                    default:
-                        mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
-                        break;
-                }
+        mTimeRangeTypeRadioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
+            switch (i){
+                case R.id.Single_day:
+                    mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
+                    break;
+                case R.id.several_days:
+                    mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SEVERAL;
+                    break;
+                case R.id.relative_days:
+                    mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_RELATIVE;
+                    break;
+                default:
+                    mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
+                    break;
             }
         });
 
@@ -208,41 +214,35 @@ public class GraphEditorActivity extends AppCompatActivity implements
         mStartDateTextView.setText(mStartDate);
 
         CalendarView mCalendarView = findViewById(R.id.calendarView);
-        mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
-        {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int i1, int i2)
-            {
-                Integer month = i1;
-                String day;
-                if (i2 < 10) {
-                    day = " " + String.valueOf(i2);
-                } else {
-                    day = String.valueOf(i2);
-                }
-                String date = getMonthForInt(month) + " " + day + " " + year;
-                String dateShow = getMonthForInt(month) + " " + day + "th " + year;
+        mCalendarView.setOnDateChangeListener((calendarView, year1, i1, i2) -> {
+            Integer month1 = i1;
+            String day1;
+            if (i2 < 10) {
+                day1 = " " + String.valueOf(i2);
+            } else {
+                day1 = String.valueOf(i2);
+            }
+            String dateShow = getMonthForInt(month1) + " " + day1 + "th " + year1;
 
-                if (mTimeRangeTypeRadioGroup.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(getApplicationContext(), "Please select dateType",
-                            Toast.LENGTH_SHORT)
-                            .show();
-                } else {
-                    // get selected radio button from radioGroup
-                    int selectedId = mTimeRangeTypeRadioGroup.getCheckedRadioButtonId();
+            if (mTimeRangeTypeRadioGroup.getCheckedRadioButtonId() == -1) {
+                Toast.makeText(getApplicationContext(), "Please select dateType",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            } else {
+                // get selected radio button from radioGroup
+                int selectedId = mTimeRangeTypeRadioGroup.getCheckedRadioButtonId();
 
-                    // find the radiobutton by returned id
-                    RadioButton selectedRadioButton = findViewById(selectedId);
-                    String dateType = selectedRadioButton.getText()
-                            .toString();
+                // find the radiobutton by returned id
+                RadioButton selectedRadioButton = findViewById(selectedId);
+                String dateType = selectedRadioButton.getText()
+                        .toString();
 
-                    if (dateType.equals(getString(R.string.single_day))) {
-                        mStartDateTextView.setText(dateShow);
-                        mStartDate = dateShow;
-                    } else if (dateType.equals(getString(R.string.several_days))) {
-                        mEndDateTextView.setText(dateShow);
-                        mEndDate = dateShow;
-                    }
+                if (dateType.equals(getString(R.string.single_day))) {
+                    mStartDateTextView.setText(dateShow);
+                    mStartDate = dateShow;
+                } else if (dateType.equals(getString(R.string.several_days))) {
+                    mEndDateTextView.setText(dateShow);
+                    mEndDate = dateShow;
                 }
             }
         });
@@ -559,19 +559,15 @@ public class GraphEditorActivity extends AppCompatActivity implements
         // for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.delete_dialog_msg);
-        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the graph.
-                deleteGraph();
-            }
+        builder.setPositiveButton(R.string.delete, (dialog, id) -> {
+            // User clicked the "Delete" button, so delete the graph.
+            deleteGraph();
         });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the graph.
-                if (dialog != null) {
-                    dialog.dismiss();
-                }
+        builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
+            // User clicked the "Cancel" button, so dismiss the dialog
+            // and continue editing the graph.
+            if (dialog != null) {
+                dialog.dismiss();
             }
         });
 
@@ -612,6 +608,23 @@ public class GraphEditorActivity extends AppCompatActivity implements
         String TitleString = mTitleEditText.getText().toString().trim();
         String StartDateString = mStartDate;
         String EndDateString = mEndDate;
+
+        if (bundle != null){
+            Intent intent = new Intent(getContext(), QueryActivity.class);
+            intent.putExtra("startDate", StartDateString);
+            intent.putExtra("endDate", EndDateString);
+            intent.putExtra("graph_1_status", mStats);
+            intent.putExtra("graph_2_status", mStats2);
+            intent.putExtra("num_graph", mNumberOfGraph);
+            intent.putExtra("graph_1_color", GetColour(mColor));
+            intent.putExtra("graph_2_color", GetColour(mColor2));
+            intent.putExtra("graph_1_type", mType);
+            intent.putExtra("graph_2_type", mType2);
+            intent.putExtra("time_range_type", mTimeRangeType);
+            intent.putExtra("relative_time_type", mTimeRange);
+            getContext().startActivity(intent);
+            return;
+        }
 
         if (mCurrentGraphUri == null &&
                 mColor == 0 && mTimeRange == 0 && mType == 0 && mStats == 0
@@ -716,12 +729,9 @@ public class GraphEditorActivity extends AppCompatActivity implements
                 // Create a click listener to handle the user confirming that
                 // changes should be discarded.
                 DialogInterface.OnClickListener discardButtonClickListener =
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // User clicked "Discard" button, navigate to parent activity.
-                                NavUtils.navigateUpFromSameTask(GraphEditorActivity.this);
-                            }
+                        (dialogInterface, i) -> {
+                            // User clicked "Discard" button, navigate to parent activity.
+                            NavUtils.navigateUpFromSameTask(GraphEditorActivity.this);
                         };
 
                 // Show a dialog that notifies the user they have unsaved changes
@@ -1045,12 +1055,9 @@ public class GraphEditorActivity extends AppCompatActivity implements
         // Otherwise if there are unsaved changes, setup a dialog to warn the user.
         // Create a click listener to handle the user confirming that changes should be discarded.
         DialogInterface.OnClickListener discardButtonClickListener =
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // User clicked "Discard" button, close the current activity.
-                        finish();
-                    }
+                (dialogInterface, i) -> {
+                    // User clicked "Discard" button, close the current activity.
+                    finish();
                 };
 
         // Show dialog that there are unsaved changes
@@ -1065,13 +1072,11 @@ public class GraphEditorActivity extends AppCompatActivity implements
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.unsaved_changes_dialog_msg);
         builder.setPositiveButton(R.string.discard, discardButtonClickListener);
-        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Keep editing" button, so dismiss the dialog
-                // and continue editing the graph.
-                if (dialog != null) {
-                    dialog.dismiss();
-                }
+        builder.setNegativeButton(R.string.keep_editing, (dialog, id) -> {
+            // User clicked the "Keep editing" button, so dismiss the dialog
+            // and continue editing the graph.
+            if (dialog != null) {
+                dialog.dismiss();
             }
         });
 
@@ -1096,5 +1101,24 @@ public class GraphEditorActivity extends AppCompatActivity implements
             mNumberOfGraph = GraphEntry.GRAPH_NUMBER_ONE;
             mSecondGraphLinearLayout.startAnimation(slideDown);
         }
+    }
+
+    private int GetColour(Integer selection){
+        if (selection == GraphEntry.COLOR_BLACK) {
+            return Color.parseColor("#1e272e");
+        } else if (selection == GraphEntry.COLOR_BLUE) {
+            return Color.parseColor("#3498db");
+        } else if (selection == GraphEntry.COLOR_CYAN) {
+            return Color.parseColor("#00BCD4");
+        } else if (selection == GraphEntry.COLOR_GRAY) {
+            return Color.parseColor("#808e9b");
+        } else if (selection == GraphEntry.COLOR_GREEN) {
+            return Color.parseColor("#2ecc71");
+        } else if (selection == GraphEntry.COLOR_RED) {
+            return Color.parseColor("#e74c3c");
+        } else if (selection == GraphEntry.COLOR_YELLOW) {
+            return Color.parseColor("#f0932b");
+        }
+        return Color.parseColor("#1e272e");
     }
 }

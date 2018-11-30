@@ -21,6 +21,12 @@ public class Fitbit implements FitbitInterface{
 	public Fitbit() {
 	}
 
+	public static String[] getSupportedStats()
+	{
+		String[] stats = { "minutesSedentary", "steps", "calories" };
+		return stats;
+	}
+
 	public JSONArray getFitbitData(String stat) throws JSONException, InterruptedException, ExecutionException, IOException
 	{
 		PseudoResponse ret = new MakeAnyCall().execute(String.format("https://api.fitbit.com/1/user/%s/activities/%s/date/2018-10-07/1w.json",
