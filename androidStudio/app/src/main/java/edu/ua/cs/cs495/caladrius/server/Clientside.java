@@ -27,7 +27,7 @@ public class Clientside
 		HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
 		logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
 		client = new OkHttpClient.Builder()
-			.addInterceptor(logging)
+			//.addInterceptor(logging)
 			.build();
 	}
 
