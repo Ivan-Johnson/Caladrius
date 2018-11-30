@@ -132,6 +132,8 @@
     <string name="log_out">Log out</string>
     <string name="Info">Info</string>
 
+    <string name="rss_feed_default_name">Unnamed Feed</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Caladrius</string>

@@ -72,4 +72,9 @@ public class ConditionAdapter extends BaseAdapter
 
 		return view;
 	}
+
+	public ArrayList<Condition> getConditions()
+	{
+		return conditions;
+	}
 }

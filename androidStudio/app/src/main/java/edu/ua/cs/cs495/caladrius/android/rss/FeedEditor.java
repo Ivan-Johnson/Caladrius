@@ -13,18 +13,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+import edu.ua.cs.cs495.caladrius.android.Caladrius;
 import edu.ua.cs.cs495.caladrius.android.GenericEditor;
 import edu.ua.cs.cs495.caladrius.android.R;
 import edu.ua.cs.cs495.caladrius.android.rss.conditions.ConditionAdapter;
 import edu.ua.cs.cs495.caladrius.android.rss.conditions.ConditionEditor;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
 import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
+import edu.ua.cs.cs495.caladrius.server.Clientside;
+import edu.ua.cs.cs495.caladrius.server.ServerAccount;
+
+import java.io.IOException;
+import java.util.Observable;
 
 public class FeedEditor extends Fragment
 {
 	protected static final String ARG_FEED = "FeedEditor_feed";
 	private static final String LOGTAG = "FEED_EDITOR";
 	protected Feed f;
+	protected static final String EXTRA_RESULT = "iouwlkxnvljweefoiu";
 	ConditionAdapter adapter;
 
 	public static FeedEditor newInstance(@NonNull Feed f)
@@ -113,8 +121,17 @@ public class FeedEditor extends Fragment
 		@Override
 		protected void doSave()
 		{
-			Log.i("editor", "Saving feed");
-			// ???
+			Intent in = new Intent();
+			Feed f = this.f;
+
+			in.putExtra(EXTRA_RESULT, f);
+
+			setResult(Activity.RESULT_OK, in);
 		}
+	}
+
+	public static Feed getFeed(Intent data)
+	{
+		return (Feed) data.getSerializableExtra(EXTRA_RESULT);
 	}
 }
