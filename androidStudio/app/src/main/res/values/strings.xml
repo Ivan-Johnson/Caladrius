@@ -14,7 +14,7 @@
     <string name="button">Button</string>
     <string name="category_home">Home</string>
     <string name="category_rss">RSS</string>
-    <string name="view_all_data">View All Data</string>
+    <string name="view_rss_settings">View RSS Settings</string>
     <string name="single_day">" Single day"</string>
     <string name="several_days">" Several days"</string>
 
@@ -59,6 +59,12 @@
     <string name="stats_bpm">minutesSedentary</string>
     <string name="stats_steps">steps</string>
     <string name="stats_caloric">calories</string>
+    <string name="stats_caloriesBMR">caloriesBMR</string>
+    <string name="stats_distance">distance</string>
+    <string name="stats_minutesLightlyActive">minutesLightlyActive</string>
+    <string name="stats_minutesFairlyActive">minutesFairlyActive</string>
+    <string name="stats_minutesVeryActive">minutesVeryActive</string>
+    <string name="stats_activityCalories">activityCalories</string>
 
 
     <string name="color_black">Black</string>

@@ -1,5 +1,6 @@
 package edu.ua.cs.cs495.caladrius.android;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 
 import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
+import edu.ua.cs.cs495.caladrius.android.rss.FeedList;
 
 import java.util.Objects;
 
@@ -185,12 +187,13 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 
 		if (id == R.id.nav_alldata) {
 			Intent editIntent = new Intent(getContext(),
-				AllData.class);
+				FeedList.FeedListActivity.class);
 			startActivity(editIntent);
 		} else if (id == R.id.nav_logout) {
 
 		} else if (id == R.id.nav_menu_info) {
-
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://project-caladrius.github.io/Caladrius/"));
+			startActivity(browserIntent);
 		}
 
 		DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);

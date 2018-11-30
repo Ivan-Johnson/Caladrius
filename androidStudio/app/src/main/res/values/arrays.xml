@@ -36,6 +36,12 @@
         <item>@string/stats_bpm</item>
         <item>@string/stats_steps</item>
         <item>@string/stats_caloric</item>
+        <item>@string/stats_caloriesBMR</item>
+        <item>@string/stats_distance</item>
+        <item>@string/stats_minutesLightlyActive</item>
+        <item>@string/stats_minutesFairlyActive</item>
+        <item>@string/stats_minutesVeryActive</item>
+        <item>@string/stats_activityCalories</item>
     </string-array>
 
     <!-- These are the options displayed in the graph color drop-down Spinner -->

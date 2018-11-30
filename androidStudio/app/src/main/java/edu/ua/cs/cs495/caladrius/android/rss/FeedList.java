@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import edu.ua.cs.cs495.caladrius.android.Caladrius;
 import edu.ua.cs.cs495.caladrius.android.R;
+import edu.ua.cs.cs495.caladrius.android.SingleFragmentActivity;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
 import edu.ua.cs.cs495.caladrius.server.Clientside;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
@@ -104,5 +105,16 @@ public class FeedList extends Fragment
 		(new AsyncInitialize()).execute();
 
 		return rootView;
+	}
+
+	public static class FeedListActivity extends SingleFragmentActivity {
+
+		public FeedListActivity(){}
+
+		@Override
+		protected Fragment makeFragment()
+		{
+			return new FeedList();
+		}
 	}
 }

@@ -21,6 +21,8 @@
 
         <activity android:name=".PagerActivity"/>
 
+        <activity android:name=".rss.FeedList$FeedListActivity"/>
+
         <activity android:name=".LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

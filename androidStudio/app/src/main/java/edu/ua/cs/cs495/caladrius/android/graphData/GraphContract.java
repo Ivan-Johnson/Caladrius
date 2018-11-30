@@ -96,6 +96,12 @@ public final class GraphContract {
         public static final int STATS_BPM = 0;
         public static final int STATS_STEPS = 1;
         public static final int STATS_CALORIC = 2;
+        public static final int STATS_CALORIESBMR = 3;
+        public static final int STATS_DISTANCE = 4;
+        public static final int STATS_MINUTESLIGHTLYACTIVE = 5;
+        public static final int STATS_MINUTESFAIRLYACTIVE = 6;
+        public static final int STATS_MINUTESVERYACTIVE= 7;
+        public static final int STATS_ACTIVITYCALORIES = 8;
 
         public static final int COLOR_BLACK = 0;
         public static final int COLOR_BLUE = 1;

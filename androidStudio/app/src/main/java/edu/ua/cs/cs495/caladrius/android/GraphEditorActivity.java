@@ -360,6 +360,18 @@ public class GraphEditorActivity extends AppCompatActivity implements
                         mStats = GraphEntry.STATS_STEPS;
                     } else if (selection.equals(getString(R.string.stats_caloric))) {
                         mStats = GraphEntry.STATS_CALORIC;
+                    } else if (selection.equals(getString(R.string.stats_caloriesBMR))) {
+                        mStats2 = GraphEntry.STATS_CALORIESBMR;
+                    } else if (selection.equals(getString(R.string.stats_distance))) {
+                        mStats2 = GraphEntry.STATS_DISTANCE;
+                    } else if (selection.equals(getString(R.string.stats_minutesFairlyActive))) {
+                        mStats2 = GraphEntry.STATS_MINUTESLIGHTLYACTIVE;
+                    } else if (selection.equals(getString(R.string.stats_minutesLightlyActive))) {
+                        mStats2 = GraphEntry.STATS_MINUTESFAIRLYACTIVE;
+                    } else if (selection.equals(getString(R.string.stats_minutesVeryActive))) {
+                        mStats2 = GraphEntry.STATS_MINUTESVERYACTIVE;
+                    } else if (selection.equals(getString(R.string.stats_activityCalories))) {
+                        mStats2 = GraphEntry.STATS_ACTIVITYCALORIES;
                     } else {
                         mStats = GraphEntry.STATS_CALORIC;
                     }
@@ -474,6 +486,18 @@ public class GraphEditorActivity extends AppCompatActivity implements
                         mStats2 = GraphEntry.STATS_STEPS;
                     } else if (selection.equals(getString(R.string.stats_caloric))) {
                         mStats2 = GraphEntry.STATS_CALORIC;
+                    } else if (selection.equals(getString(R.string.stats_caloriesBMR))) {
+                        mStats2 = GraphEntry.STATS_CALORIESBMR;
+                    } else if (selection.equals(getString(R.string.stats_distance))) {
+                        mStats2 = GraphEntry.STATS_DISTANCE;
+                    } else if (selection.equals(getString(R.string.stats_minutesFairlyActive))) {
+                        mStats2 = GraphEntry.STATS_MINUTESLIGHTLYACTIVE;
+                    } else if (selection.equals(getString(R.string.stats_minutesLightlyActive))) {
+                        mStats2 = GraphEntry.STATS_MINUTESFAIRLYACTIVE;
+                    } else if (selection.equals(getString(R.string.stats_minutesVeryActive))) {
+                        mStats2 = GraphEntry.STATS_MINUTESVERYACTIVE;
+                    } else if (selection.equals(getString(R.string.stats_activityCalories))) {
+                        mStats2 = GraphEntry.STATS_ACTIVITYCALORIES;
                     } else {
                         mStats2 = GraphEntry.STATS_CALORIC;
                     }
@@ -854,6 +878,24 @@ public class GraphEditorActivity extends AppCompatActivity implements
                 case GraphEntry.STATS_CALORIC:
                     mStats2Spinner.setSelection(2);
                     break;
+                case GraphEntry.STATS_CALORIESBMR:
+                    mStats2Spinner.setSelection(3);
+                    break;
+                case GraphEntry.STATS_DISTANCE:
+                    mStats2Spinner.setSelection(4);
+                    break;
+                case GraphEntry.STATS_MINUTESLIGHTLYACTIVE:
+                    mStats2Spinner.setSelection(5);
+                    break;
+                case GraphEntry.STATS_MINUTESFAIRLYACTIVE:
+                    mStats2Spinner.setSelection(6);
+                    break;
+                case GraphEntry.STATS_MINUTESVERYACTIVE:
+                    mStats2Spinner.setSelection(7);
+                    break;
+                case GraphEntry.STATS_ACTIVITYCALORIES:
+                    mStats2Spinner.setSelection(8);
+                    break;
                 default:
                     mStats2Spinner.setSelection(1);
                     break;
@@ -913,6 +955,24 @@ public class GraphEditorActivity extends AppCompatActivity implements
                     break;
                 case GraphEntry.STATS_CALORIC:
                     mStatsSpinner.setSelection(2);
+                    break;
+                case GraphEntry.STATS_CALORIESBMR:
+                    mStats2Spinner.setSelection(3);
+                    break;
+                case GraphEntry.STATS_DISTANCE:
+                    mStats2Spinner.setSelection(4);
+                    break;
+                case GraphEntry.STATS_MINUTESLIGHTLYACTIVE:
+                    mStats2Spinner.setSelection(5);
+                    break;
+                case GraphEntry.STATS_MINUTESFAIRLYACTIVE:
+                    mStats2Spinner.setSelection(6);
+                    break;
+                case GraphEntry.STATS_MINUTESVERYACTIVE:
+                    mStats2Spinner.setSelection(7);
+                    break;
+                case GraphEntry.STATS_ACTIVITYCALORIES:
+                    mStats2Spinner.setSelection(8);
                     break;
                 default:
                     mStatsSpinner.setSelection(1);
