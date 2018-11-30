@@ -55,7 +55,7 @@ public class Query implements Serializable
 	Boolean legend;
 
 
-	String startTime; //This is a string of stat date
+	String startTime; //This is a string of start date
 	String endTime; //This is a string of end date
 	int timeRangeType;
 	// This meas time range type was
@@ -146,7 +146,7 @@ public class Query implements Serializable
 		this.legend = legend;
 		this.startTime = startTime;
 		this.endTime = endTime;
-		this.timeRangeType =timeRangeType;
+		this.timeRangeType = timeRangeType;
 		this.timeRange = timeRange;
 	}
 

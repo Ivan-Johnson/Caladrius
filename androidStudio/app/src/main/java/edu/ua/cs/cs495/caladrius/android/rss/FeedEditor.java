@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,7 +96,7 @@ public class FeedEditor extends Fragment
 		}
 
 		View rootView = inflater.inflate(R.layout.rss_feed_edit, container, false);
-		TextView nm = rootView.findViewById(R.id.feedName);
+		EditText nm = rootView.findViewById(R.id.feedName);
 		nm.setText(f.name);
 
 		ListView ll = rootView.findViewById(R.id.ConditionList);
