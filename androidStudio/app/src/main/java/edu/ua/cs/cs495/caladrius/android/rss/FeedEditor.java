@@ -3,6 +3,7 @@ package edu.ua.cs.cs495.caladrius.android.rss;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,10 +26,44 @@ import edu.ua.cs.cs495.caladrius.server.Clientside;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 
 import java.io.IOException;
-import java.util.Observable;
 
 public class FeedEditor extends Fragment
 {
+	protected static class AsyncSaveFeed extends AsyncTask<Feed, Void, Boolean>
+	{
+		Clientside cs = new Clientside();
+		ServerAccount sa = Caladrius.user.sAcc;
+		Activity activity;
+
+
+		public AsyncSaveFeed(Activity activity)
+		{
+			this.activity = activity;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean success) {
+			if (success) {
+				activity.finish();
+			}
+		}
+
+		@Override
+		protected Boolean doInBackground(Feed... feeds) {
+			// TODO: progress bar of some sort? Probably not a literal bar though; feeds /should/ only be one long.
+			boolean success = true;
+			for (int x = 0; x < feeds.length; x++) {
+				try {
+					cs.setFeed(sa, feeds[x]);
+				} catch (IOException e) {
+					Log.w("AsyncSaveFeed", e);
+					success = false;
+				}
+			}
+			return success;
+		}
+	}
+
 	protected static final String ARG_FEED = "FeedEditor_feed";
 	private static final String LOGTAG = "FEED_EDITOR";
 	protected Feed f;
@@ -121,12 +156,19 @@ public class FeedEditor extends Fragment
 		@Override
 		protected void doSave()
 		{
+			// NOP. TODO remove the need to override this function
+		}
+
+		@Override
+		protected void save() {
 			Intent in = new Intent();
 			Feed f = this.f;
 
 			in.putExtra(EXTRA_RESULT, f);
-
 			setResult(Activity.RESULT_OK, in);
+
+			AsyncSaveFeed assf = new AsyncSaveFeed(this);
+			(new AsyncSaveFeed(this)).execute(f);
 		}
 	}
 
