@@ -2,6 +2,7 @@ package edu.ua.cs.cs495.caladrius.rss;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
@@ -63,9 +64,9 @@ public class Feed implements Serializable
 
 		// note that short circuiting can remove the need to perform each of these potentially expensive evaluations
 		equal = equal && other.id == this.id;
-		equal = equal && other.uuid.equals(this.uuid);
-		equal = equal && other.name.equals(this.name);
-		equal = equal && other.conditions.equals(this.conditions);
+		equal = equal && Objects.equals(other.uuid, this.uuid);
+		equal = equal && Objects.equals(other.name, this.name);
+		equal = equal && Objects.equals(other.conditions, this.conditions);
 
 		return equal;
 	}
