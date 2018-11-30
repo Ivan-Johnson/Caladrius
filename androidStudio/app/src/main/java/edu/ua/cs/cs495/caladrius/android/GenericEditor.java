@@ -82,8 +82,7 @@ public abstract class GenericEditor extends AppCompatActivity
 		switch (item.getItemId()) {
 		case R.id.editor_save:
 			// TODO support failed saves
-			doSave();
-			finish();
+			save();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
