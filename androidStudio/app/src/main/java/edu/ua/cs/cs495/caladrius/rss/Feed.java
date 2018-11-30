@@ -12,6 +12,7 @@ import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 public class Feed implements Serializable
 {
 	private static final long serialVersionUID = -7808241266602491257L;
+	// don't forget to update the "equals" function when adding new fields
 	public String name;
 	protected static final String BASEURL="https://caladrius.ivanjohnson.net/webapi/feed?id=";
 	public String uuid;
@@ -49,6 +50,24 @@ public class Feed implements Serializable
 	public String getURL()
 	{
 		return BASEURL + uuid;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Feed)) {
+			return false;
+		}
+		Feed other = (Feed) obj;
+
+		boolean equal = true;
+
+		// note that short circuiting can remove the need to perform each of these potentially expensive evaluations
+		equal = equal && other.id == this.id;
+		equal = equal && other.uuid.equals(this.uuid);
+		equal = equal && other.name.equals(this.name);
+		equal = equal && other.conditions.equals(this.conditions);
+
+		return equal;
 	}
 
 	@Override

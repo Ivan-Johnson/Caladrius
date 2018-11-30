@@ -75,4 +75,18 @@ public class ExtremeValue<T extends Serializable> implements Condition
 		sb.append('}');
 		return sb.toString();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof ExtremeValue)) {
+			return false;
+		}
+		ExtremeValue other = (ExtremeValue) obj;
+		boolean equal = true;
+		equal = equal && other.type.equals(this.type);
+		equal = equal && other.stat.equals(this.stat);
+		equal = equal && other.value.equals(this.value);
+
+		return equal;
+	}
 }

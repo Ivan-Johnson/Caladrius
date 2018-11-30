@@ -10,6 +10,7 @@ import java.util.Base64;
 import java.util.Random;
 import java.util.Scanner;
 
+import android.support.annotation.NonNull;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -69,7 +70,7 @@ public class Clientside
 		return feedids;
 	}
 
-	protected String getFeedstring(String userid, int feed)
+	protected String getFeedstring(String userid, int feed) throws IOException
 	{
 		final String URL_BASE = "https://caladrius.ivanjohnson.net/webapi/config/feed";
 		final String URL_QUERY_KEY = "id";
@@ -157,8 +158,11 @@ public class Clientside
 		}
 	}
 
-	public void setFeed(ServerAccount sa, Feed f) throws IOException
+	public void setFeed(ServerAccount sa, @NonNull Feed f) throws IOException
 	{
+		if (f == null) {
+			throw new NullPointerException("Cannot set feed to null");
+		}
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(bos);
