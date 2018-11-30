@@ -10,6 +10,8 @@ public class PagerAdapter extends FragmentPagerAdapter
 {
 	final int PAGE_COUNT = 2;
 	protected Context mContext;
+	protected SummaryPage sp = new SummaryPage();
+	protected FeedList fl = new FeedList();
 
 	public PagerAdapter(Context context, FragmentManager fm)
 	{
@@ -20,10 +22,13 @@ public class PagerAdapter extends FragmentPagerAdapter
 	@Override
 	public Fragment getItem(int position)
 	{
-		if (position == 0) {
-			return new SummaryPage();
-		} else {
-			return new FeedList();
+		switch(position) {
+			case 0:
+				return sp;
+			case 1:
+				return fl;
+			default:
+				throw new IllegalArgumentException();
 		}
 	}
 
