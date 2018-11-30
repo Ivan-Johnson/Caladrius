@@ -187,7 +187,7 @@ public class Clientside
 		Random r = new Random();
 		for (int id : ids) {
 			System.out.println(id);
-			Feed fPush = new Feed("name #"+r.nextInt(), "URL #"+r.nextInt());
+			Feed fPush = new Feed("name #"+r.nextInt());
 			fPush.id = id;
 			cs.setFeed(sa, fPush);
 
