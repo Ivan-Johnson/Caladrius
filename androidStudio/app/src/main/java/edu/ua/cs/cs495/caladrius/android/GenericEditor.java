@@ -112,7 +112,7 @@ public abstract class GenericEditor extends AppCompatActivity
 		finish();
 	}
 
-	private void save()
+	protected void save()
 	{
 		doSave();
 		finish();
