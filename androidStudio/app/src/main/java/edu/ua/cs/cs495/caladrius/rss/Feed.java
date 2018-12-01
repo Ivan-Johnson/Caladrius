@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
+import edu.ua.cs.cs495.caladrius.android.FitbitAndroid;
 import edu.ua.cs.cs495.caladrius.fitbit.Fitbit;
 import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
@@ -38,7 +39,7 @@ public class Feed implements Serializable
 		// TODO: don't add random conditions to new feeds
 		Random r = new Random();
 
-		String stats[] = Fitbit.getSupportedStats();
+		String stats[] = FitbitAndroid.getSupportedStats();
 		int count = ExtremeValue.extremeType.values().length;
 		for (int x = 0; x < 5; x++) {
 			String stat = stats[r.nextInt(stats.length)];
