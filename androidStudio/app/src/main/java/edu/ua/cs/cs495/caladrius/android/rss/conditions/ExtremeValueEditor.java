@@ -1,6 +1,7 @@
 package edu.ua.cs.cs495.caladrius.android.rss.conditions;
 
 import android.os.Bundle;
+import android.renderscript.RSInvalidStateException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -18,7 +19,7 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 {
 	protected static final String ARG_EXTREMEVALUE = "ExtremeValueEditor EXTREMEVALUE";
 	protected ExtremeValue ev;
-	protected EditText stat;
+	protected Spinner stat;
 	protected EditText val;
 
 	@Override
@@ -33,7 +34,8 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 			// (e.g. you can't type letters in it)
 			val = 0.0;
 		}
-		return new ExtremeValue<>(stat.getText().toString(),
+
+		return new ExtremeValue<>((String) stat.getSelectedItem(),
 			val,
 			ExtremeValue.extremeType.lessThan);
 	}
@@ -73,7 +75,13 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 		);
 
 		stat = rootView.findViewById(R.id.ev_statname);
-		stat.setText(this.ev.getStat());
+		stat.setAdapter(
+				ArrayAdapter.createFromResource(
+						Caladrius.getContext(),
+						R.array.array_graph_stats_options,
+						R.layout.spinner_item
+				)
+		);
 
 		val = rootView.findViewById(R.id.ev_val);
 		val.setText(this.ev.getValueString());
