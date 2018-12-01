@@ -72,7 +72,7 @@ public class LoginScreen extends AppCompatActivity
 		btnLogin.setOnClickListener(v ->
 		{
 
-			Caladrius.fitbitInterface = new Fitbit();
+			Caladrius.fitbitInterface = new FitbitAndroid();
 
 			progressBar.setVisibility(View.VISIBLE);
 
