@@ -42,7 +42,6 @@
                         android:scheme="caladrius"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AllData"/>
         <activity android:name=".GraphEditorActivity"
                   android:parentActivityName=".ListTest"
                   android:windowSoftInputMode="stateHidden"/>
