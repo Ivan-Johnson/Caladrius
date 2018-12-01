@@ -39,7 +39,7 @@ public class Feed implements Serializable
 		// TODO: don't add random conditions to new feeds
 		Random r = new Random();
 
-		String stats[] = FitbitAndroid.getSupportedStats();
+		String stats[] = {"minutesSedentary","stats_steps","stats_caloric","stats_caloriesBMR","stats_distance","stats_minutesLightlyActive","stats_minutesFairlyActive","stats_minutesVeryActive","stats_activityCalories"};
 		int count = ExtremeValue.extremeType.values().length;
 		for (int x = 0; x < 5; x++) {
 			String stat = stats[r.nextInt(stats.length)];

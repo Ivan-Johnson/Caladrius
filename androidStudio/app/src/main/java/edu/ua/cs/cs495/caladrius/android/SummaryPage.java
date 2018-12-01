@@ -180,7 +180,11 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 				FeedList.FeedListActivity.class);
 			startActivity(editIntent);
 		} else if (id == R.id.nav_logout) {
-
+			Caladrius.fitbitInterface.logout();
+			Intent intent = new Intent(getContext(), LoginScreen.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			getActivity().finish();
 		} else if (id == R.id.nav_menu_info) {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://project-caladrius.github.io/Caladrius/"));
 			startActivity(browserIntent);

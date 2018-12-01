@@ -1,9 +1,16 @@
 package edu.ua.cs.cs495.caladrius.android;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import com.github.scribejava.apis.FitbitApi20;
+import com.github.scribejava.apis.fitbit.FitBitOAuth2AccessToken;
 import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
@@ -23,15 +30,16 @@ public class FitbitAndroid implements FitbitInterface {
     public FitbitAndroid() {
     }
 
-    public static String[] getSupportedStats()
+    public static String[] getSupportedStats(Context context)
     {
-        String[] stats = { "minutesSedentary", "steps", "calories" };
+        Resources resources = context.getResources();
+        String[] stats = resources.getStringArray(R.array.array_graph_stats_options);
         return stats;
     }
 
     public JSONArray getFitbitData(String stat) throws JSONException, InterruptedException, ExecutionException, IOException
     {
-        Fitbit.PseudoResponse ret = new MakeAnyCall().execute(stat).get();
+        Fitbit.PseudoResponse ret = new GetDataCall().execute(stat).get();
 
         if (ret.code > 299 || ret.code < 200)
             throw new IOException(ret.body);
@@ -51,9 +59,14 @@ public class FitbitAndroid implements FitbitInterface {
         return obj.getJSONArray("activities-" + stat);
     }
 
+    public void logout()
+    {
+        new RevokeToken().execute();
+    }
 
 
-    class MakeAnyCall extends AsyncTask<String, Void, Fitbit.PseudoResponse>
+
+    class GetDataCall extends AsyncTask<String, Void, Fitbit.PseudoResponse>
     {
         private final OAuth20Service service = new ServiceBuilder("22D7HK")
                 .apiSecret("0eefb77c8b921283cb5e4477ac063178")
@@ -76,5 +89,40 @@ public class FitbitAndroid implements FitbitInterface {
         }
 
         protected void onPostExecute(Fitbit.PseudoResponse response) {}
+    }
+
+
+    class RevokeToken extends AsyncTask<Void, Void, String>
+    {
+
+        private final OAuth20Service service = new ServiceBuilder("22D7HK")
+                .apiSecret("0eefb77c8b921283cb5e4477ac063178")
+                .scope("activity heartrate location nutrition profile settings sleep social weight") // replace with desired scope
+                //your callback URL to store and handle the authorization code sent by Fitbit
+                .callback("caladrius://authcallback")
+                //.state("some_params")
+                .build(FitbitApi20.instance());
+
+
+        protected String doInBackground(Void... things)
+        {
+            try {
+                service.revokeToken(Caladrius.user.fAcc.getPrivateToken().toString());
+
+                return "Success";
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        protected void onPostExecute(String string)
+        {
+            try {
+                Caladrius.user.fAcc = null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

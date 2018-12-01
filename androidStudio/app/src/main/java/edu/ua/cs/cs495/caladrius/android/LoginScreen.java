@@ -80,7 +80,7 @@ public class LoginScreen extends AppCompatActivity
 			try {
 				if (Caladrius.user != null && Caladrius.user.fAcc != null &&
 					Caladrius.user.fAcc.getPrivateToken() != null) {
-					Response str_result = new MakeAsyncCall().execute()
+					Response str_result = new CheckToken().execute()
 					                                         .get();
 					response_bool = str_result.getBody()
 					                          .contains(":true");
@@ -150,7 +150,7 @@ public class LoginScreen extends AppCompatActivity
 	}
 
 
-	class MakeAsyncCall extends AsyncTask<Void, Void, Response>
+	class CheckToken extends AsyncTask<Void, Void, Response>
 	{
 
 		private final String PROTECTED_RESOURCE_URL = "https://api.fitbit.com/1/user/%s/profile.json";
@@ -245,6 +245,8 @@ public class LoginScreen extends AppCompatActivity
 		{
 			try {
 				Caladrius.user.fAcc.setPrivateToken(accessToken);
+
+				//TODO Ivan, push the account to the server
 
 				Intent pager = new Intent(LoginScreen.this, PagerActivity.class);
 				ProgressBar progressBar = findViewById(R.id.loadingAnimation);

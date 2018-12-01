@@ -30,4 +30,7 @@ public class PseudoFitbit implements FitbitInterface {
             default: throw new IllegalArgumentException(String.format("[%s] IS NOT A VALID ARGUMENT FOR PSEUDOFITBIT GETFITBITDATA.", stat));
         }
     }
+
+    @Override
+    public void logout() { }
 }

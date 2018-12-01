@@ -8,4 +8,6 @@ import java.util.concurrent.ExecutionException;
 
 public interface FitbitInterface {
     JSONArray getFitbitData(String stat) throws JSONException, InterruptedException, ExecutionException, IOException;
+
+    void logout();
 }
