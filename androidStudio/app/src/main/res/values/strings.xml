@@ -31,8 +31,6 @@
     <string name="cmp_gt"> "&gt;"</string>
     <string name="cmp_gte">"≥"</string>
 
-    <string name="ev_singleValue">"any single value of"</string>
-
     <string name="editor_confirmation_defaulttitle">"Closing Editor"</string>
     <string name="editor_confirmation_defaultmessage">"Are you sure you want to discard unsaved changes?"</string>
     <string name="time_range">Time Range</string>
