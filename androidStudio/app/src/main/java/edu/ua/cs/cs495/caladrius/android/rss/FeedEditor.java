@@ -25,6 +25,7 @@ import edu.ua.cs.cs495.caladrius.rss.Feed;
 import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 import edu.ua.cs.cs495.caladrius.server.Clientside;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -98,6 +99,10 @@ public class FeedEditor extends Fragment
 		View rootView = inflater.inflate(R.layout.rss_feed_edit, container, false);
 		EditText nm = rootView.findViewById(R.id.feedName);
 		nm.setText(f.name);
+
+		String url = f.getURL();
+		TextView urlView = rootView.findViewById(R.id.url);
+		urlView.append(url);
 
 		ListView ll = rootView.findViewById(R.id.ConditionList);
 
