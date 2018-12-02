@@ -39,12 +39,12 @@ public class FitbitAndroid implements FitbitInterface {
 
     public JSONArray getFitbitData(String stat) throws JSONException, InterruptedException, ExecutionException, IOException
     {
-        Fitbit.PseudoResponse ret = new GetDataCall().execute(stat).get();
+        Fitbit.PseudoResponse response = new GetDataCall().execute(stat).get();
 
-        if (ret.code > 299 || ret.code < 200)
-            throw new IOException(ret.body);
+        if (response.code > 299 || response.code < 200)
+            throw new IOException(response.body);
 
-        JSONObject obj = new JSONObject(ret.body);
+        JSONObject obj = new JSONObject(response.body);
 		/*System.out.println("\nOBJECT");
 		System.out.println(obj.toString());*/
 
@@ -92,7 +92,7 @@ public class FitbitAndroid implements FitbitInterface {
     }
 
 
-    class RevokeToken extends AsyncTask<Void, Void, String>
+    class RevokeToken extends AsyncTask<Void, Void, Void>
     {
 
         private final OAuth20Service service = new ServiceBuilder("22D7HK")
@@ -104,19 +104,18 @@ public class FitbitAndroid implements FitbitInterface {
                 .build(FitbitApi20.instance());
 
 
-        protected String doInBackground(Void... things)
+        protected Void doInBackground(Void... things)
         {
             try {
                 service.revokeToken(Caladrius.user.fAcc.getPrivateToken().toString());
-
-                return "Success";
             } catch (Exception e) {
                 e.printStackTrace();
-                return null;
             }
+            return null;
         }
 
-        protected void onPostExecute(String string)
+        @Override
+        protected void onPostExecute(Void v)
         {
             try {
                 Caladrius.user.fAcc = null;
