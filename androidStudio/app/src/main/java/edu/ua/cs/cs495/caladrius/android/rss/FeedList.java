@@ -62,7 +62,7 @@ public class FeedList extends Fragment
 			FeedAdapter.ClickEvent onClick = (int i, Feed f) ->
 			{
 				Fragment frag = FeedList.this;
-				Intent in = FeedEditor.FeedEditorActivity.newIntent(frag.getContext(), feeds[i]);
+				Intent in = FeedEditor.FeedEditorActivity.newIntent(frag.getContext(), f);
 				frag.startActivityForResult(in, i+1);
 			};
 
