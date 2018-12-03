@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class PseudoFitbit implements FitbitInterface {
-    public JSONArray getFitbitData(String stat) throws JSONException, InterruptedException, ExecutionException, IOException
+    public JSONArray getFitbitData(String stat, int timeType, String start, String end, int timeRange) throws JSONException, InterruptedException, ExecutionException, IOException
     {
         switch (stat)
         {
@@ -26,6 +26,8 @@ public class PseudoFitbit implements FitbitInterface {
             case "minutesVeryActive": return new JSONArray("[{\"dateTime\":\"2018-10-01\",\"value\":\"562\"},{\"dateTime\":\"2018-10-02\",\"value\":\"436\"},{\"dateTime\":\"2018-10-03\",\"value\":\"701\"},{\"dateTime\":\"2018-10-04\",\"value\":\"514\"},{\"dateTime\":\"2018-10-05\",\"value\":\"637\"},{\"dateTime\":\"2018-10-06\",\"value\":\"569\"},{\"dateTime\":\"2018-10-07\",\"value\":\"371\"}]");
 
             case "activityCalories": return new JSONArray("[{\"dateTime\":\"2018-10-01\",\"value\":\"4038\"},{\"dateTime\":\"2018-10-02\",\"value\":\"3905\"},{\"dateTime\":\"2018-10-03\",\"value\":\"5128\"},{\"dateTime\":\"2018-10-04\",\"value\":\"4132\"},{\"dateTime\":\"2018-10-05\",\"value\":\"5099\"},{\"dateTime\":\"2018-10-06\",\"value\":\"4130\"},{\"dateTime\":\"2018-10-07\",\"value\":\"3239\"}]");
+
+            case "distance": return new JSONArray("[{\"dateTime\":\"2018-10-01\",\"value\":\"129.02993\"},{\"dateTime\":\"2018-10-02\",\"value\":\"115.32985\"},{\"dateTime\":\"2018-10-03\",\"value\":\"147.03988999999999\"},{\"dateTime\":\"2018-10-04\",\"value\":\"97.51988\"},{\"dateTime\":\"2018-10-05\",\"value\":\"127.61986999999999\"},{\"dateTime\":\"2018-10-06\",\"value\":\"99.60982\"},{\"dateTime\":\"2018-10-07\",\"value\":\"115.38989\"}]");
 
             default: throw new IllegalArgumentException(String.format("[%s] IS NOT A VALID ARGUMENT FOR PSEUDOFITBIT GETFITBITDATA.", stat));
         }

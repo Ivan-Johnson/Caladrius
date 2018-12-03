@@ -48,6 +48,11 @@ public class FitbitGraphView extends GraphView
 	// Must have same number of elements as graphType list.
 	ArrayList<String> statsToRetrieve;
 
+	String startTime;
+	String endTime;
+	int timeRangeType;
+	int timeRange;
+
 	// Supplied seriesColors ArrayList must contain colors for each series
 	ArrayList<Integer> seriesColors;
 
@@ -98,6 +103,12 @@ public class FitbitGraphView extends GraphView
 		//setPaddingRelative(pxPadding, pxPadding, pxPadding, pxPadding);
 
 		this.graphType = query.getGraphType();
+		this.statsToRetrieve = query.getStatsToRetrieve();
+		this.startTime = query.startTime;
+		this.endTime = query.endTime;
+		this.timeRangeType = query.timeRangeType;
+		this.timeRange = query.timeRange;
+		this.statsToRetrieve = query.getStatsToRetrieve();
 		this.statsToRetrieve = query.getStatsToRetrieve();
 		this.seriesColors = query.getSeriesColors();
 		this.graphTitle = query.getGraphTitle();
@@ -277,9 +288,9 @@ public class FitbitGraphView extends GraphView
 		this.getGridLabelRenderer().setHorizontalLabelsAngle(30);
 	}
 
-	private DataPoint[] makePointsFromFitbit(String statToRetrieve) throws JSONException, InterruptedException, ExecutionException, IOException
+	private DataPoint[] makePointsFromFitbit(String statToRetrieve, int timeType, String start, String end, int timeRange) throws JSONException, InterruptedException, ExecutionException, IOException
 	{
-		JSONArray arr = Caladrius.fitbitInterface.getFitbitData(statToRetrieve);
+		JSONArray arr = Caladrius.fitbitInterface.getFitbitData(statToRetrieve, timeType, start, end, timeRange);
 		int numPoints = arr.length();
 
 		DataPoint[] points = new DataPoint[numPoints];
@@ -312,7 +323,7 @@ public class FitbitGraphView extends GraphView
 		this.setTitleTextSize(75);
 
 		for (int i = 0; i < this.graphType.size(); i++) {
-			DataPoint[] points = makePointsFromFitbit(statsToRetrieve.get(i));
+			DataPoint[] points = makePointsFromFitbit(statsToRetrieve.get(i), timeRangeType, startTime, endTime, timeRange);
 			if (points.length > 0) {
 				double tmpX;
 				tmpX = points[points.length - 1].getX();

@@ -37,9 +37,9 @@ public class FitbitAndroid implements FitbitInterface {
         return stats;
     }
 
-    public JSONArray getFitbitData(String stat) throws JSONException, InterruptedException, ExecutionException, IOException
+    public JSONArray getFitbitData(String stat, int timeType, String start, String end, int timeRange) throws JSONException, InterruptedException, ExecutionException, IOException
     {
-        Fitbit.PseudoResponse response = new GetDataCall().execute(stat).get();
+        Fitbit.PseudoResponse response = new GetDataCall().execute(stat, String.valueOf(timeType), start, end, String.valueOf(timeRange)).get();
 
         if (response.code > 299 || response.code < 200)
             throw new IOException(response.body);
@@ -77,9 +77,9 @@ public class FitbitAndroid implements FitbitInterface {
                 .build(FitbitApi20.instance());
 
 
-        protected Fitbit.PseudoResponse doInBackground(String... stat) {
+        protected Fitbit.PseudoResponse doInBackground(String... args) {
             try{
-                return new Fitbit().getFitbitData(Caladrius.user.fAcc, stat[0]);
+                return new Fitbit().getFitbitData(Caladrius.user.fAcc, args[0], Integer.parseInt(args[1]), args[2], args[3], Integer.parseInt(args[4]));
             }
             catch (Exception e) {
                 e.printStackTrace();
