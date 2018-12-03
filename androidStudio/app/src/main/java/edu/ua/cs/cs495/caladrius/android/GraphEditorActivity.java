@@ -613,8 +613,8 @@ public class GraphEditorActivity extends AppCompatActivity implements
             Intent intent = new Intent(getContext(), QueryActivity.class);
             intent.putExtra("startDate", StartDateString);
             intent.putExtra("endDate", EndDateString);
-            intent.putExtra("graph_1_status", mStats);
-            intent.putExtra("graph_2_status", mStats2);
+            intent.putExtra("graph_1_stats", mStats);
+            intent.putExtra("graph_2_stats", mStats2);
             intent.putExtra("num_graph", mNumberOfGraph);
             intent.putExtra("graph_1_color", GetColour(mColor));
             intent.putExtra("graph_2_color", GetColour(mColor2));
@@ -622,6 +622,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
             intent.putExtra("graph_2_type", mType2);
             intent.putExtra("time_range_type", mTimeRangeType);
             intent.putExtra("relative_time_type", mTimeRange);
+            intent.putExtra("graph_title", TitleString);
             getContext().startActivity(intent);
             return;
         }

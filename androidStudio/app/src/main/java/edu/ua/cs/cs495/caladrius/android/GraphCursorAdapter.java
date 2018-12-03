@@ -71,7 +71,7 @@ public class GraphCursorAdapter extends CursorAdapter {
         final String graphType = cursor.getString(typeColumnIndex);
         final String graphStats = cursor.getString(statsColumnIndex);
         final String graphColor = cursor.getString(colorColumnIndex);
-        String graphTitle = cursor.getString(titleColumnIndex);
+        final String graphTitle = cursor.getString(titleColumnIndex);
         final String graphId = cursor.getString(idColumnIndex);
         final String graph2Type = cursor.getString(graph2TypeColumnIndex);
         final String graph2Stats = cursor.getString(graph2StatsColumnIndex);
@@ -142,8 +142,8 @@ public class GraphCursorAdapter extends CursorAdapter {
                     Intent intent = new Intent(getContext(), QueryActivity.class);
                     intent.putExtra("startDate", startTime);
                     intent.putExtra("endDate", endTime);
-                    intent.putExtra("graph_1_status", Integer.valueOf(graphStats));
-                    intent.putExtra("graph_2_status", Integer.valueOf(graph2Stats));
+                    intent.putExtra("graph_1_stats", Integer.valueOf(graphStats));
+                    intent.putExtra("graph_2_stats", Integer.valueOf(graph2Stats));
                     intent.putExtra("num_graph", Integer.valueOf(numberOfGraph));
                     intent.putExtra("graph_1_color", GraphEntry.GetColour(Integer.valueOf(graphColor)));
                     intent.putExtra("graph_2_color", GraphEntry.GetColour(Integer.valueOf(graph2Color)));
@@ -151,6 +151,7 @@ public class GraphCursorAdapter extends CursorAdapter {
                     intent.putExtra("graph_2_type", Integer.valueOf(graph2Type));
                     intent.putExtra("time_range_type", Integer.valueOf(timeRangeTypeGraphs));
                     intent.putExtra("relative_time_type", Integer.valueOf(graphTimeRange));
+                    intent.putExtra("graph_title", graphTitle);
                     getContext().startActivity(intent);
                 });
 
