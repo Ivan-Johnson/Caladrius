@@ -59,9 +59,7 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		Toolbar toolbar = view.findViewById(R.id.summary_page_toolbar);
 		((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
 
-
 		DrawerLayout drawer = view.findViewById(R.id.drawer_layout);
-
 
 		ActionBarDrawerToggle toggle =
 			new ActionBarDrawerToggle(getActivity(), drawer, toolbar,
