@@ -30,9 +30,7 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 		try {
 			val = Double.valueOf(text);
 		} catch(NumberFormatException nfe) {
-			// TODO it's awful to silently change the value like this. Instead, change val to some sort of input field that ONLY produced valid numbers
-			// (e.g. you can't type letters in it)
-			val = 0.0;
+			throw new RuntimeException("The number-only textfield somehow isn't a valid number");
 		}
 
 		return new ExtremeValue<>((String) stat.getSelectedItem(),

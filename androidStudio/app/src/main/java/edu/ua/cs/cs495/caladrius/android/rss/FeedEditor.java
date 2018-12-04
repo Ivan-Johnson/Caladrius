@@ -162,12 +162,6 @@ public class FeedEditor extends Fragment
 		}
 
 		@Override
-		protected void doSave()
-		{
-			// NOP. TODO remove the need to override this function
-		}
-
-		@Override
 		protected void save() {
 			Intent in = new Intent();
 
@@ -175,7 +169,7 @@ public class FeedEditor extends Fragment
 			setResult(Activity.RESULT_OK, in);
 
 			AsyncSaveFeed assf = new AsyncSaveFeed(this);
-			(new AsyncSaveFeed(this)).execute(fe.f);
+			assf.execute(fe.f);
 		}
 	}
 

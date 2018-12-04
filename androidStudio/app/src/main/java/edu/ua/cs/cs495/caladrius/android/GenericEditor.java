@@ -94,7 +94,7 @@ public abstract class GenericEditor extends AppCompatActivity
 		// NOP; subclass might want to do something though.
 	}
 
-	protected abstract void doSave();
+	protected void doSave() {/*NOP*/}
 
 	/**
 	 * Determines whether or not the user will be asked for confirmation before navigating away without saving.

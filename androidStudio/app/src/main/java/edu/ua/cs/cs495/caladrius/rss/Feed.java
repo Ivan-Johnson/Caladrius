@@ -34,18 +34,6 @@ public class Feed implements Serializable
 	public Feed(String name)
 	{
 		this(name, UUID.randomUUID().toString(), null);
-
-		// TODO: don't add random conditions to new feeds
-		Random r = new Random();
-
-		String stats[] = {"minutesSedentary","stats_steps","stats_caloric","stats_caloriesBMR","stats_distance","stats_minutesLightlyActive","stats_minutesFairlyActive","stats_minutesVeryActive","stats_activityCalories"};
-		int count = ExtremeValue.extremeType.values().length;
-		for (int x = 0; x < 5; x++) {
-			String stat = stats[r.nextInt(stats.length)];
-			ExtremeValue.extremeType type = ExtremeValue.extremeType.values()[r.nextInt(count)];
-			Condition c = new ExtremeValue<>(stat, r.nextDouble() * 30 + 10, type);
-			this.conditions.add(c);
-		}
 	}
 
 	public String getURL()

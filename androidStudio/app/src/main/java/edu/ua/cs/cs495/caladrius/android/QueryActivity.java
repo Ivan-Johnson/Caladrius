@@ -31,7 +31,6 @@ public class QueryActivity extends AppCompatActivity {
 	private QueryAdapter mRecyclerViewAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
 
-	@SuppressLint("SetTextI18n") //TODO delete this suppression once placeholder text is removed
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -40,16 +39,13 @@ public class QueryActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_graph);
 		Toolbar myToolbar = findViewById(R.id.activity_graph_toolbar);
 		setSupportActionBar(myToolbar);
-		Objects.requireNonNull(getSupportActionBar()).setTitle("Query Activity");
+		Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.query_activity_title);
 
 		if(getSupportActionBar() != null){
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 			getSupportActionBar().setDisplayShowHomeEnabled(true);
 		}
 		Intent intent = getIntent();
-
-
-
 
 
 		// Read the graph attributes from the Cursor for the current graph

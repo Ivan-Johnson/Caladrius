@@ -57,8 +57,6 @@ public class LoginScreen extends AppCompatActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		// TODO check if the user is already logged in
-
 		setContentView(R.layout.login_screen);
 
 		final ProgressBar progressBar = findViewById(R.id.loadingAnimation);

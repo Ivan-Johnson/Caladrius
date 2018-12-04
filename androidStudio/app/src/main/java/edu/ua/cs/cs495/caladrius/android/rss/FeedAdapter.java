@@ -10,6 +10,9 @@ import android.widget.TextView;
 import edu.ua.cs.cs495.caladrius.android.R;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class FeedAdapter extends BaseAdapter
 {
 	public interface ClickEvent
@@ -20,13 +23,13 @@ public class FeedAdapter extends BaseAdapter
 	private final FragmentManager fm;
 	private LayoutInflater inflater;
 	private Context c;
-	private Feed[] feeds;
+	private ArrayList<Feed> feeds;
 	protected ClickEvent ce;
 
 	public FeedAdapter(Context c, Feed[] feeds, FragmentManager fm, ClickEvent ce)
 	{
 		this.c = c;
-		this.feeds = feeds;
+		this.feeds = new ArrayList(Arrays.asList(feeds));
 		this.fm = fm;
 		this.ce = ce;
 		inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -35,13 +38,13 @@ public class FeedAdapter extends BaseAdapter
 	@Override
 	public int getCount()
 	{
-		return feeds.length;
+		return feeds.size();
 	}
 
 	@Override
 	public Object getItem(int i)
 	{
-		return feeds[i];
+		return feeds.get(i);
 	}
 
 	@Override
@@ -57,28 +60,22 @@ public class FeedAdapter extends BaseAdapter
 			view = inflater.inflate(R.layout.rss_feed_item, null);
 		}
 		TextView text = view.findViewById(R.id.name);
-		text.setText(feeds[i].name);
+		text.setText(feeds.get(i).name);
 
-		view.setOnClickListener((View v) -> ce.OnClick(i, feeds[i]));
+		view.setOnClickListener((View v) -> ce.OnClick(i, feeds.get(i)));
 
 		return view;
 	}
 
 	public void setItem(int i, Feed feed)
 	{
-		feeds[i] = feed;
+		feeds.set(i, feed);
 		this.notifyDataSetInvalidated();
 	}
 
 	public void addItem(Feed f)
 	{
-		// TODO array-list-ify this
-		Feed tmp[] = new Feed[feeds.length+1];
-		for (int x = 0; x < feeds.length; x++) {
-			tmp[x] = feeds[x];
-		}
-		tmp[feeds.length] = f;
-		feeds = tmp;
+		feeds.add(f);
 		this.notifyDataSetInvalidated();
 	}
 }

@@ -41,7 +41,6 @@ public class FeedList extends Fragment
 {
 	protected class AsyncInitialize extends AsyncTask<Void, Float, Feed[]>
 	{
-		//TODO instead of a dedicated loading screen, have a loading screen at the end of the adapter
 		ListView lv = FeedList.this.feedView;
 		ProgressAdapter progressAdapter;
 

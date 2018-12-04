@@ -25,11 +25,11 @@ public class ClientsideTest {
         r = new Random(892739832432122345l);
     }
 
-    public void testGetFeedIDs(String uuid, int ans[]) throws IOException {
-        ServerAccount sa = new ServerAccount();
+    public void testGetFeedIDs(String uuid, String ans[]) throws IOException {
+        ServerAccount sa = new ServerAccount(uuid);
         sa.uuid = uuid;
 
-        int feedids[] = cs.getFeedIDs(sa);
+        String feedids[] = cs.getFeedIDs(sa);
 
         Arrays.sort(ans);
         Arrays.sort(feedids);
@@ -40,27 +40,27 @@ public class ClientsideTest {
     @Test
     public void testGetFeedIDsLenMany() throws IOException
     {
-        int ans[] = {11573, 12484, 18693, 4144, 26184};
+        String ans[] = {"11573", "12484", "18693", "4144", "26184"};
         testGetFeedIDs("TEST_USER_0", ans);
     }
 
     @Test
     public void testGetFeedIDsLenZero() throws IOException
     {
-        int ans[] = {};
+        String ans[] = {};
         testGetFeedIDs("TEST_USER_1", ans);
     }
 
     @Test
     public void testGetFeedIDsLenOne() throws IOException
     {
-        int ans[] = {6427};
+        String ans[] = {"6427"};
         testGetFeedIDs("TEST_USER_2", ans);
     }
 
-    public void testGetFeedString(String uuid, int feed, String ans) throws IOException
+    public void testGetFeedString(String uuid, String feed, String ans) throws IOException
     {
-        ServerAccount sa = new ServerAccount();
+        ServerAccount sa = new ServerAccount(uuid);
         sa.uuid = uuid;
 
         String result = cs.getFeedstring(uuid, feed);
@@ -71,17 +71,17 @@ public class ClientsideTest {
     @Test
     public void testGetFeedString_Extreme() throws IOException
     {
-        testGetFeedString("TEST_USER_3", 27560, "1XDSpDji2jcqJoQgfQpA8zC6rnK7uJ31OPObAccMXKEo6CLuVSYTUcNer85r9Vvo3Z1PE6EoxPgjUODEsWqSSMUZ2tfUnbrPyWMJkc43ZsfNNS4RMgz4tYXbeQ7cccDS");
+        testGetFeedString("TEST_USER_3", "27560", "1XDSpDji2jcqJoQgfQpA8zC6rnK7uJ31OPObAccMXKEo6CLuVSYTUcNer85r9Vvo3Z1PE6EoxPgjUODEsWqSSMUZ2tfUnbrPyWMJkc43ZsfNNS4RMgz4tYXbeQ7cccDS");
     }
 
     public void testIdentity(String uuid, @NonNull Feed f) throws IOException
     {
-        ServerAccount sa = new ServerAccount();
+        ServerAccount sa = new ServerAccount(uuid);
         sa.uuid = uuid;
 
         Feed feIn = f;
         cs.setFeed(sa, feIn);
-        Feed feOut = cs.getFeed(sa, feIn.id);
+        Feed feOut = cs.getFeed(sa, feIn.uuid);
 
         assertEquals(feIn, feOut);
     }

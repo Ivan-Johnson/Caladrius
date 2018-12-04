@@ -30,7 +30,7 @@ public class ConditionDescriber
 	{
 		StringBuilder sb = new StringBuilder();
 		Context cntxt = Caladrius.getContext();
-		//TODO have this be a parameterized R.string.foo? That's a thing right?
+		//TODOnever have this be a parameterized R.string.foo? That's a thing right?
 		sb.append(ev.getStat());
 		sb.append(' ');
 		int tmp;

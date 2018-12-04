@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Caladrius</string>
 
+    <string name="query_activity_title">Query Activity</string>
 
     <string name="title_activity_graph">GraphActivity</string>
     <string name="dummy_information">\tBPM: XXXXXXXXXX\n
