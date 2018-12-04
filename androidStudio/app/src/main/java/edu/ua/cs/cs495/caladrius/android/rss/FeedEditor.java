@@ -100,9 +100,9 @@ public class FeedEditor extends Fragment
 		EditText nm = rootView.findViewById(R.id.feedName);
 		nm.setText(f.name);
 
-		String url = f.getURL();
 		TextView urlView = rootView.findViewById(R.id.url);
-		urlView.append(url);
+		String url = f.getURL();
+		urlView.setText(url);
 
 		ListView ll = rootView.findViewById(R.id.ConditionList);
 

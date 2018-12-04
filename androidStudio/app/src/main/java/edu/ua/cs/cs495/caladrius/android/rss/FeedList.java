@@ -178,3 +178,4 @@ public class FeedList extends Fragment
 		}
 	}
 }
+
