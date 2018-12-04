@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.SupportActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,7 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import edu.ua.cs.cs495.caladrius.android.Caladrius;
+import edu.ua.cs.cs495.caladrius.android.QueryActivity;
 import edu.ua.cs.cs495.caladrius.android.R;
 
 import edu.ua.cs.cs495.caladrius.android.SingleFragmentActivity;
@@ -130,7 +133,7 @@ public class FeedList extends Fragment
 		AppCompatActivity act = (AppCompatActivity) getActivity();
 		act.setSupportActionBar(myToolbar);
 
-		ActionBar ab = act.getActionBar();
+		android.support.v7.app.ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
 		if (ab != null) {
 			ab.setDisplayHomeAsUpEnabled(true);
 			ab.setDisplayShowHomeEnabled(true);
@@ -148,6 +151,7 @@ public class FeedList extends Fragment
 			startActivityForResult(i, 0);
 		});
 		add.hide();
+		setHasOptionsMenu(true);
 
 		return rootView;
 	}
