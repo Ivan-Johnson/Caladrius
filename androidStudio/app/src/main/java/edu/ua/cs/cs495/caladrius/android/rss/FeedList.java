@@ -114,7 +114,7 @@ public class FeedList extends Fragment
 	}
 
 	protected Clientside cs = new Clientside();
-	protected ServerAccount acc = new ServerAccount();
+	protected ServerAccount acc;
 	protected ListView feedView;
 	protected FloatingActionButton add;
 	protected FeedAdapter feedAdapter;
@@ -123,7 +123,7 @@ public class FeedList extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState)
 	{
-		acc = Caladrius.user.sAcc;
+		acc = Caladrius.getUser().sAcc;
 
 		View rootView = inflater.inflate(R.layout.rss_feed_list, container, false);
 		Toolbar myToolbar = rootView.findViewById(R.id.rss_toolbar);

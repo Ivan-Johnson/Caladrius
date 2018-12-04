@@ -79,7 +79,7 @@ public class FitbitAndroid implements FitbitInterface {
 
         protected Fitbit.PseudoResponse doInBackground(String... args) {
             try{
-                return new Fitbit().getFitbitData(Caladrius.user.fAcc, args[0], Integer.parseInt(args[1]), args[2], args[3], Integer.parseInt(args[4]));
+                return new Fitbit().getFitbitData(Caladrius.getUser().fAcc, args[0], Integer.parseInt(args[1]), args[2], args[3], Integer.parseInt(args[4]));
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -107,7 +107,7 @@ public class FitbitAndroid implements FitbitInterface {
         protected Void doInBackground(Void... things)
         {
             try {
-                service.revokeToken(Caladrius.user.fAcc.getPrivateToken().toString());
+                service.revokeToken(Caladrius.getUser().fAcc.getPrivateToken().toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -118,7 +118,7 @@ public class FitbitAndroid implements FitbitInterface {
         protected void onPostExecute(Void v)
         {
             try {
-                Caladrius.user.fAcc = null;
+                Caladrius.updateUser(null);
             } catch (Exception e) {
                 e.printStackTrace();
             }

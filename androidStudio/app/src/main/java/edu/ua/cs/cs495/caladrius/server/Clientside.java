@@ -185,8 +185,8 @@ public class Clientside
 
 	public static void main(String args[]) throws IOException
 	{
-		final String UUID = "thisisauserid1";
-		ServerAccount sa = new ServerAccount();
+		final String UUID = "NoLogin";
+		ServerAccount sa = new ServerAccount(UUID);
 		sa.uuid = UUID;
 
 		Clientside cs = new Clientside();

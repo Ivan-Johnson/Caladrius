@@ -9,18 +9,8 @@ public class ServerAccount implements Serializable
 	private static final long serialVersionUID = 2723214037041506590L;
 	String uuid;
 
-	protected String randomUUID()
+	public ServerAccount(String uuid)
 	{
-		UUID uuid = UUID.randomUUID();
-		BigInteger bi = new BigInteger(uuid.toString().replace("-", ""), 16);
-		return String.format("%039d", bi);
-	}
-
-	public ServerAccount()
-	{
-		//uuid = randomUUID();
-
-		// this is only for testing purposes
-		uuid = "thisisauserid1";
+		this.uuid = uuid;
 	}
 }

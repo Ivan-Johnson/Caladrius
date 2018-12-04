@@ -76,7 +76,7 @@ public class FitbitLogin extends AppCompatActivity
 
 		protected void onPostExecute(FitBitOAuth2AccessToken accessToken) {
 			try {
-				Caladrius.user.fAcc = new FitbitAccount(accessToken);
+				Caladrius.updateUser(accessToken);
 				Intent intent = new Intent(FitbitLogin.this, SummaryPage.SummaryActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

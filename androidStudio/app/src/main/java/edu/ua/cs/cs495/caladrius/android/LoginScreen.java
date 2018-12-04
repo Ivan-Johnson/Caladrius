@@ -78,8 +78,8 @@ public class LoginScreen extends AppCompatActivity
 
 			Boolean response_bool;
 			try {
-				if (Caladrius.user != null && Caladrius.user.fAcc != null &&
-					Caladrius.user.fAcc.getPrivateToken() != null) {
+				if (Caladrius.getUser() != null && Caladrius.getUser().fAcc != null &&
+					Caladrius.getUser().fAcc.getPrivateToken() != null) {
 					Response str_result = new CheckToken().execute()
 					                                         .get();
 					response_bool = str_result.getBody()
@@ -105,7 +105,9 @@ public class LoginScreen extends AppCompatActivity
 		{
 			Caladrius.fitbitInterface = new PseudoFitbit();
 
+			Caladrius.setNoLogin();
 			Intent intent = new Intent(v.getContext(), SummaryPage.SummaryActivity.class);
+
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -142,14 +144,6 @@ public class LoginScreen extends AppCompatActivity
 			connection);//mention package name which can handle the CCT their many browser present.
 	}
 
-	protected void login(Context cntxt, @NonNull User u)
-	{
-		Caladrius.user = u;
-		Intent intent = new Intent(cntxt, SummaryPage.SummaryActivity.class);
-		startActivity(intent);
-	}
-
-
 	class CheckToken extends AsyncTask<Void, Void, Response>
 	{
 
@@ -178,7 +172,7 @@ public class LoginScreen extends AppCompatActivity
 				final OAuthRequest request =
 					new OAuthRequest(Verb.POST, "https://api.fitbit.com/1.1/oauth2/introspect");
 				request.addParameter("token",
-					Caladrius.user.fAcc.getPrivateToken()
+					Caladrius.getUser().fAcc.getPrivateToken()
 					                   .getAccessToken());
 
 
@@ -191,7 +185,7 @@ public class LoginScreen extends AppCompatActivity
 
 				request.addHeader("x-li-format", "json");
 
-				service.signRequest(Caladrius.user.fAcc.getPrivateToken(), request);
+				service.signRequest(Caladrius.getUser().fAcc.getPrivateToken(), request);
 				return service.execute(request);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -229,7 +223,7 @@ public class LoginScreen extends AppCompatActivity
 		{
 			try {
 				final OAuth2AccessToken oauth2AccessToken =
-					service.refreshAccessToken(Caladrius.user.fAcc.getPrivateToken()
+					service.refreshAccessToken(Caladrius.getUser().fAcc.getPrivateToken()
 					                                              .getRefreshToken());
 
 				FitBitOAuth2AccessToken accessToken = (FitBitOAuth2AccessToken) oauth2AccessToken;
@@ -244,10 +238,7 @@ public class LoginScreen extends AppCompatActivity
 		protected void onPostExecute(FitBitOAuth2AccessToken accessToken)
 		{
 			try {
-				Caladrius.user.fAcc.setPrivateToken(accessToken);
-
-				//TODO Ivan, push the account to the server
-
+				Caladrius.getUser().initialize(accessToken);
 				Intent intent = new Intent(LoginScreen.this, SummaryPage.SummaryActivity.class);
 				ProgressBar progressBar = findViewById(R.id.loadingAnimation);
 				progressBar.setVisibility(View.GONE);

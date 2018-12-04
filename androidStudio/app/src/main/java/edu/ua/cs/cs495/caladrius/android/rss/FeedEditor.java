@@ -34,7 +34,7 @@ public class FeedEditor extends Fragment
 	protected static class AsyncSaveFeed extends AsyncTask<Feed, Void, Boolean>
 	{
 		Clientside cs = new Clientside();
-		ServerAccount sa = Caladrius.user.sAcc;
+		ServerAccount sa = Caladrius.getUser().sAcc;
 		Activity activity;
 
 
