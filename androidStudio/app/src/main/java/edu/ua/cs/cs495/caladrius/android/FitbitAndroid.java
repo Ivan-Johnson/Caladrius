@@ -1,21 +1,11 @@
 package edu.ua.cs.cs495.caladrius.android;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 import com.github.scribejava.apis.FitbitApi20;
-import com.github.scribejava.apis.fitbit.FitBitOAuth2AccessToken;
 import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.github.scribejava.core.model.OAuthRequest;
-import com.github.scribejava.core.model.Response;
-import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
-import edu.ua.cs.cs495.caladrius.android.Caladrius;
 import edu.ua.cs.cs495.caladrius.fitbit.Fitbit;
 import edu.ua.cs.cs495.caladrius.fitbit.FitbitInterface;
 import org.json.JSONArray;
