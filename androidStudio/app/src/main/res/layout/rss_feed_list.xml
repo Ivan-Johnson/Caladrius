@@ -27,7 +27,7 @@
             app:titleTextColor="@android:color/white"
             app:titleTextAppearance="@style/Toolbar.TitleText"
             android:fitsSystemWindows="true"
-            android:background="@color/colorAccent">
+            android:background="#00000000">
     </android.support.v7.widget.Toolbar>
 <ListView
     xmlns:android="http://schemas.android.com/apk/res/android"
