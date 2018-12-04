@@ -65,9 +65,9 @@ def handleFeed(environ, start_response):
         try:
                 qs = environ['QUERY_STRING']
                 qs = parse_qs(qs)
-                feedid = int(qs['id'][-1])
+                feedid = qs['id'][-1]
         except Exception:
-                return badRequest(start_response, "Query string must set the id to an integer\n")
+                return badRequest(start_response, "Query string must set an id\n")
 
         if (environ['REQUEST_METHOD'] == "GET"):
                 with conn:
