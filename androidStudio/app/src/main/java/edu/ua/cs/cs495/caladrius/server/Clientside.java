@@ -186,8 +186,7 @@ public class Clientside
 	public static void main(String args[]) throws IOException
 	{
 		final String UUID = "thisisauserid1";
-		ServerAccount sa = new ServerAccount();
-		sa.uuid = UUID;
+		ServerAccount sa = new ServerAccount(UUID);
 
 		Clientside cs = new Clientside();
 		for (int x = 0; x < 3; x++) {

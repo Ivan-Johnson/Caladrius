@@ -1,5 +1,6 @@
 package edu.ua.cs.cs495.caladrius.android;
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -24,8 +25,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import edu.ua.cs.cs495.caladrius.User;
 import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
 import edu.ua.cs.cs495.caladrius.android.rss.FeedList;
+import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 
 import java.util.Objects;
 
@@ -43,10 +46,13 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		// Empty public constructor
 	}
 
+	private User user;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
+
+		user = (User) (getArguments().getSerializable("User"));
 	}
 
 	@Override
@@ -174,8 +180,7 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		int id = item.getItemId();
 
 		if (id == R.id.nav_alldata) {
-			Intent editIntent = new Intent(getContext(),
-				FeedList.FeedListActivity.class);
+			Intent editIntent = FeedList.FeedListActivity.newIntent(getContext(), SummaryPage.this.user);
 			startActivity(editIntent);
 		} else if (id == R.id.nav_logout) {
 			Caladrius.fitbitInterface.logout();
@@ -193,15 +198,33 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		return true;
 	}
 
+	public static SummaryPage newInstance(User user)
+	{
+		SummaryPage sp = new SummaryPage();
+
+		Bundle b = new Bundle();
+		b.putSerializable("User", user);
+
+		sp.setArguments(b);
+		return sp;
+	}
 
 	public static class SummaryActivity extends SingleFragmentActivity {
-
 		public SummaryActivity(){}
+
+		public static Intent newIntent(Context context, User user)
+		{
+			Intent in = new Intent(context, SummaryActivity.class);
+			in.putExtra("User", user);
+			return in;
+		}
 
 		@Override
 		protected Fragment makeFragment()
 		{
-			return new SummaryPage();
+			Bundle bun = getIntent().getExtras();
+			User u = (User) bun.getSerializable("User");
+			return newInstance(u);
 		}
 	}
 }

@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import edu.ua.cs.cs495.caladrius.User;
 import edu.ua.cs.cs495.caladrius.android.Caladrius;
 import edu.ua.cs.cs495.caladrius.android.GenericEditor;
 import edu.ua.cs.cs495.caladrius.android.R;
@@ -34,13 +35,14 @@ public class FeedEditor extends Fragment
 	protected static class AsyncSaveFeed extends AsyncTask<Feed, Void, Boolean>
 	{
 		Clientside cs = new Clientside();
-		ServerAccount sa = Caladrius.user.sAcc;
 		Activity activity;
+		ServerAccount sAcc;
 
 
-		public AsyncSaveFeed(Activity activity)
+		public AsyncSaveFeed(Activity activity, ServerAccount sAcc)
 		{
 			this.activity = activity;
+			this.sAcc = sAcc;
 		}
 
 		@Override
@@ -56,7 +58,7 @@ public class FeedEditor extends Fragment
 			boolean success = true;
 			for (int x = 0; x < feeds.length; x++) {
 				try {
-					cs.setFeed(sa, feeds[x]);
+					cs.setFeed(sAcc, feeds[x]);
 				} catch (IOException e) {
 					Log.w("AsyncSaveFeed", e);
 					success = false;
@@ -70,19 +72,31 @@ public class FeedEditor extends Fragment
 	private static final String LOGTAG = "FEED_EDITOR";
 	protected Feed f;
 	protected static final String EXTRA_RESULT = "iouwlkxnvljweefoiu";
+	private User user;
 	ConditionAdapter adapter;
 	EditText name;
 
-	public static FeedEditor newInstance(@NonNull Feed f)
+	public static FeedEditor newInstance(@NonNull Feed f, @NonNull User user)
 	{
 		FeedEditor fe = new FeedEditor();
 
 		Bundle b = new Bundle();
 		b.putSerializable(ARG_FEED, f);
+		b.putSerializable("User", user);
 
 		fe.setArguments(b);
 
 		return fe;
+	}
+
+	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+
+		Bundle args = getArguments();
+		f = (Feed) args.getSerializable(ARG_FEED);
+		user = (User) args.getSerializable("User");
 	}
 
 	@Nullable
@@ -91,8 +105,6 @@ public class FeedEditor extends Fragment
 	                         @Nullable ViewGroup container,
 	                         @Nullable Bundle savedInstanceState)
 	{
-		Bundle args = getArguments();
-		f = (Feed) args.getSerializable(ARG_FEED);
 		if (f == null) {
 			throw new RuntimeException("FeedEditor must be provided with a feed to edit");
 		}
@@ -141,15 +153,18 @@ public class FeedEditor extends Fragment
 	public static class FeedEditorActivity extends GenericEditor
 	{
 		FeedEditor fe;
+		User user;
+
 		protected FeedEditorActivity () {
 			super("Feed Editor", false);
 		}
 		protected static final String EXTRA_FEED = "feed";
 
-		public static Intent newIntent(Context cntxt, Feed feed)
+		public static Intent newIntent(Context cntxt, Feed feed, User user)
 		{
 			Intent in = new Intent(cntxt, FeedEditorActivity.class);
 			in.putExtra(EXTRA_FEED, feed);
+			in.putExtra("User", user);
 			return in;
 		}
 
@@ -157,7 +172,9 @@ public class FeedEditor extends Fragment
 		protected Fragment makeFragment()
 		{
 			Bundle bun = getIntent().getExtras();
-			fe = newInstance((Feed) bun.getSerializable(EXTRA_FEED));
+			Feed feed = (Feed) bun.getSerializable(EXTRA_FEED);
+			user = (User) bun.getSerializable("User");
+			fe = newInstance(feed, user);
 			return fe;
 		}
 
@@ -174,8 +191,8 @@ public class FeedEditor extends Fragment
 			in.putExtra(EXTRA_RESULT, fe.updateFeed());
 			setResult(Activity.RESULT_OK, in);
 
-			AsyncSaveFeed assf = new AsyncSaveFeed(this);
-			(new AsyncSaveFeed(this)).execute(fe.f);
+			AsyncSaveFeed assf = new AsyncSaveFeed(this, user.sAcc);
+			assf.execute(fe.f);
 		}
 	}
 
