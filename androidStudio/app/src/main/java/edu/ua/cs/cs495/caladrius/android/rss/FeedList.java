@@ -124,14 +124,6 @@ public class FeedList extends Fragment
 		View rootView = inflater.inflate(R.layout.rss_feed_list, container, false);
 		Toolbar myToolbar = rootView.findViewById(R.id.rss_toolbar);
 
-		((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(myToolbar);
-
-		Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle("RSS Feed List");
-
-		if (((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar() != null) {
-			((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-			((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar().setDisplayShowHomeEnabled(true);
-		}
 		feedView = rootView.findViewById(R.id.FeedList);
 		(new AsyncInitialize()).execute();
 
