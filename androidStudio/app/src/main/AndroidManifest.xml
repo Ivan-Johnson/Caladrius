@@ -22,7 +22,8 @@
 
         <activity android:name=".SummaryPage$SummaryActivity"/>
 
-        <activity android:name=".rss.FeedList$FeedListActivity"/>
+        <activity android:name=".rss.FeedList$FeedListActivity"
+                  android:parentActivityName=".SummaryPage$SummaryActivity"/>
 
         <activity android:name=".LoginScreen">
             <intent-filter>
@@ -46,7 +47,7 @@
                   android:parentActivityName=".ListTest"
                   android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".ListTest"
-                  android:parentActivityName=".PagerActivity"/>
+                  android:parentActivityName=".SummaryPage$SummaryActivity"/>
         <activity android:name=".rss.FeedEditor$FeedEditorActivity"/>
         <activity android:name=".rss.conditions.ConditionEditor"/>
 

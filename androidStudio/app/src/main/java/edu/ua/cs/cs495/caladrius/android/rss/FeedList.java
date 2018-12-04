@@ -128,7 +128,7 @@ public class FeedList extends Fragment
 
 
 		AppCompatActivity act = (AppCompatActivity) getActivity();
-		//act.setSupportActionBar(myToolbar);
+		act.setSupportActionBar(myToolbar);
 
 		ActionBar ab = act.getActionBar();
 		if (ab != null) {
