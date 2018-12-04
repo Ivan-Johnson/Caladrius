@@ -2,11 +2,9 @@ package edu.ua.cs.cs495.caladrius.android.rss;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import edu.ua.cs.cs495.caladrius.User;
 import edu.ua.cs.cs495.caladrius.android.Caladrius;
 import edu.ua.cs.cs495.caladrius.android.QueryActivity;
 import edu.ua.cs.cs495.caladrius.android.R;
@@ -35,10 +32,6 @@ import edu.ua.cs.cs495.caladrius.server.Clientside;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -51,13 +44,6 @@ public class FeedList extends Fragment
 		//TODO instead of a dedicated loading screen, have a loading screen at the end of the adapter
 		ListView lv = FeedList.this.feedView;
 		ProgressAdapter progressAdapter;
-		User user;
-
-		public AsyncInitialize(User user)
-		{
-			this.user = user;
-		}
-
 
 		@Override
 		protected void onPreExecute()
@@ -80,7 +66,7 @@ public class FeedList extends Fragment
 			FeedAdapter.ClickEvent onClick = (int i, Feed f) ->
 			{
 				Fragment frag = FeedList.this;
-				Intent in = FeedEditor.FeedEditorActivity.newIntent(frag.getContext(), f, FeedList.this.user);
+				Intent in = FeedEditor.FeedEditorActivity.newIntent(frag.getContext(), f);
 				frag.startActivityForResult(in, i+1);
 			};
 
@@ -99,7 +85,6 @@ public class FeedList extends Fragment
 		@Override
 		protected Feed[] doInBackground(Void... sa)
 		{
-			ServerAccount acc = user.sAcc;
 			try {
 				String ids[] = cs.getFeedIDs(acc);
 				Feed feeds[] = new Feed[ids.length];
@@ -128,24 +113,17 @@ public class FeedList extends Fragment
 		}
 	}
 
-	protected static final String EXTRA_USER = FeedList.class.getCanonicalName()+"+EXTRA_USER";
 	protected Clientside cs = new Clientside();
+	protected ServerAccount acc = new ServerAccount();
 	protected ListView feedView;
 	protected FloatingActionButton add;
 	protected FeedAdapter feedAdapter;
-	private User user;
-
-	@Override
-	public void onCreate(@Nullable Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		user = (User) (getArguments().getSerializable(EXTRA_USER));
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState)
 	{
+		acc = Caladrius.user.sAcc;
 
 		View rootView = inflater.inflate(R.layout.rss_feed_list, container, false);
 		Toolbar myToolbar = rootView.findViewById(R.id.rss_toolbar);
@@ -162,14 +140,14 @@ public class FeedList extends Fragment
 		}
 
 		feedView = rootView.findViewById(R.id.FeedList);
-		(new AsyncInitialize(user)).execute();
+		(new AsyncInitialize()).execute();
 
 		add = rootView.findViewById(R.id.add_feed);
 		add.setOnClickListener((View v) ->
 		{
 			String name = getContext().getString(R.string.rss_feed_default_name);
 			Feed f = new Feed(name);
-			Intent i = FeedEditor.FeedEditorActivity.newIntent(getContext(), f, FeedList.this.user);
+			Intent i = FeedEditor.FeedEditorActivity.newIntent(getContext(), f);
 			startActivityForResult(i, 0);
 		});
 		add.hide();
@@ -193,33 +171,14 @@ public class FeedList extends Fragment
 		}
 	}
 
-	public static FeedList newInstance(User user)
-	{
-		FeedList feedList = new FeedList();
-
-		Bundle b = new Bundle();
-		b.putSerializable(EXTRA_USER, user);
-
-		feedList.setArguments(b);
-		return feedList;
-	}
-
 	public static class FeedListActivity extends SingleFragmentActivity {
-		public static Intent newIntent(Context context, User user)
-		{
-			Intent in = new Intent(context, FeedListActivity.class);
-			in.putExtra(EXTRA_USER, user);
-			return in;
-		}
 
 		public FeedListActivity(){}
 
 		@Override
 		protected Fragment makeFragment()
 		{
-			Bundle bun = getIntent().getExtras();
-			User u = (User) bun.getSerializable(EXTRA_USER);
-			return newInstance(u);
+			return new FeedList();
 		}
 	}
 }

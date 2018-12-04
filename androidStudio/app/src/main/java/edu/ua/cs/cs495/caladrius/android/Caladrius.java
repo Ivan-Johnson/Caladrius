@@ -12,7 +12,7 @@ import edu.ua.cs.cs495.caladrius.fitbit.FitbitInterface;
 public class Caladrius extends Application
 {
 	protected static Context cntxt;
-	public static User user = new User();
+	public static User user = new User(); //TODO restore this from somewhere
 
 	public static FitbitInterface fitbitInterface = null;
 
