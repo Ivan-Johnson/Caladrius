@@ -192,4 +192,16 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		drawer.closeDrawer(GravityCompat.START);
 		return true;
 	}
+
+
+	public static class SummaryActivity extends SingleFragmentActivity {
+
+		public SummaryActivity(){}
+
+		@Override
+		protected Fragment makeFragment()
+		{
+			return new SummaryPage();
+		}
+	}
 }

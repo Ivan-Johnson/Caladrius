@@ -18,9 +18,9 @@
                 android:configChanges="orientation|keyboardHidden|screenSize"
                 android:label="@string/title_activity_graph"
                 android:theme="@style/FullscreenTheme"
-                android:parentActivityName=".PagerActivity"/>
+                android:parentActivityName=".SummaryPage$SummaryActivity"/>
 
-        <activity android:name=".PagerActivity"/>
+        <activity android:name=".SummaryPage$SummaryActivity"/>
 
         <activity android:name=".rss.FeedList$FeedListActivity"/>
 

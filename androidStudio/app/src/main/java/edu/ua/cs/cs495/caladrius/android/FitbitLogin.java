@@ -77,11 +77,11 @@ public class FitbitLogin extends AppCompatActivity
 		protected void onPostExecute(FitBitOAuth2AccessToken accessToken) {
 			try {
 				Caladrius.user.fAcc = new FitbitAccount(accessToken);
-				Intent pager = new Intent(FitbitLogin.this, PagerActivity.class);
-				pager.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-				pager.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				pager.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-				startActivity(pager);
+				Intent intent = new Intent(FitbitLogin.this, SummaryPage.SummaryActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+				startActivity(intent);
 			}
 			catch (Exception e)
 			{

@@ -105,11 +105,11 @@ public class LoginScreen extends AppCompatActivity
 		{
 			Caladrius.fitbitInterface = new PseudoFitbit();
 
-			Intent pager = new Intent(v.getContext(), PagerActivity.class);
-			pager.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-			pager.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			pager.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-			startActivity(pager);
+			Intent intent = new Intent(v.getContext(), SummaryPage.SummaryActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(intent);
 		});
 	}
 
@@ -145,8 +145,8 @@ public class LoginScreen extends AppCompatActivity
 	protected void login(Context cntxt, @NonNull User u)
 	{
 		Caladrius.user = u;
-		Intent pager = new Intent(cntxt, PagerActivity.class);
-		startActivity(pager);
+		Intent intent = new Intent(cntxt, SummaryPage.SummaryActivity.class);
+		startActivity(intent);
 	}
 
 
@@ -248,10 +248,10 @@ public class LoginScreen extends AppCompatActivity
 
 				//TODO Ivan, push the account to the server
 
-				Intent pager = new Intent(LoginScreen.this, PagerActivity.class);
+				Intent intent = new Intent(LoginScreen.this, SummaryPage.SummaryActivity.class);
 				ProgressBar progressBar = findViewById(R.id.loadingAnimation);
 				progressBar.setVisibility(View.GONE);
-				startActivity(pager);
+				startActivity(intent);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
