@@ -32,7 +32,7 @@ public class Clientside
 			.build();
 	}
 
-	public int[] getFeedIDs(ServerAccount sa) throws IOException
+	public String[] getFeedIDs(ServerAccount sa) throws IOException
 	{
 		String userid = sa.uuid;
 		final String URL = "https://caladrius.ivanjohnson.net/webapi/config/feeds";
@@ -58,24 +58,27 @@ public class Clientside
 		}
 		s.close();
 
-		int feedids[] = new int[numLines];
+		String feedids[] = new String[numLines];
 		bais = new ByteArrayInputStream(bytes);
 		s = new Scanner(bais, "UTF-8");
 		while(s.hasNextLine()) {
 			numLines--;
-			feedids[numLines] = Integer.parseInt(s.nextLine());
+			feedids[numLines] = s.nextLine();
+		}
+		if (numLines != 0) {
+			throw new RuntimeException("Server did not yield expected number of feeds");
 		}
 		s.close();
 
 		return feedids;
 	}
 
-	protected String getFeedstring(String userid, int feed) throws IOException
+	protected String getFeedstring(String userid, String feeduuid) throws IOException
 	{
 		final String URL_BASE = "https://caladrius.ivanjohnson.net/webapi/config/feed";
 		final String URL_QUERY_KEY = "id";
 
-		final String url = URL_BASE + "?" + URL_QUERY_KEY + "=" + feed;
+		final String url = URL_BASE + "?" + URL_QUERY_KEY + "=" + feeduuid;
 
 		long lNow = System.currentTimeMillis() / 1000L;
 
@@ -107,12 +110,12 @@ public class Clientside
 		return base64;
 	}
 
-	public void setFeed(ServerAccount sa, int feed, String base64) throws IOException
+	public void setFeed(ServerAccount sa, String feedid, String base64) throws IOException
 	{
 		String userid = sa.uuid;
 		final String URL_BASE = "https://caladrius.ivanjohnson.net/webapi/config/feed";
 		final String URL_QUERY_KEY = "id";
-		final String url = URL_BASE + "?" + URL_QUERY_KEY + "=" + feed;
+		final String url = URL_BASE + "?" + URL_QUERY_KEY + "=" + feedid;
 
 		long lNow = System.currentTimeMillis() / 1000L;
 
@@ -138,10 +141,10 @@ public class Clientside
 		}
 	}
 
-	public Feed getFeed(ServerAccount sa, int feed) throws IOException
+	public Feed getFeed(ServerAccount sa, String uuid) throws IOException
 	{
 		String userid = sa.uuid;
-		String base64 = getFeedstring(userid, feed);
+		String base64 = getFeedstring(userid, uuid);
 		byte bytes[] = Base64.getDecoder().decode(base64);
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
 		ObjectInputStream ois = null;
@@ -170,7 +173,7 @@ public class Clientside
 			out.flush();
 			byte[] bytes = bos.toByteArray();
 			String base64 = Base64.getEncoder().encodeToString(bytes);
-			setFeed(sa, f.id, base64);
+			setFeed(sa, f.uuid, base64);
 		} finally {
 			try {
 				bos.close();
@@ -187,16 +190,11 @@ public class Clientside
 		sa.uuid = UUID;
 
 		Clientside cs = new Clientside();
-		int ids[] = cs.getFeedIDs(sa);
-		//int ids[] = {1001};
-		Random r = new Random();
-		for (int id : ids) {
-			System.out.println(id);
-			Feed fPush = new Feed("name #"+r.nextInt());
-			fPush.id = id;
-			cs.setFeed(sa, fPush);
+		for (int x = 0; x < 3; x++) {
+			Feed fPush = new Feed("name #"+x);
 
-			Feed fPull = cs.getFeed(sa, id);
+			cs.setFeed(sa, fPush);
+			Feed fPull = cs.getFeed(sa, fPush.uuid);
 
 			System.out.println(fPush.toString());
 			System.out.println(fPull.toString());

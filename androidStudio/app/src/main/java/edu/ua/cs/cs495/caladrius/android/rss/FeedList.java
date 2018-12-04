@@ -83,7 +83,7 @@ public class FeedList extends Fragment
 		protected Feed[] doInBackground(Void... sa)
 		{
 			try {
-				int ids[] = cs.getFeedIDs(acc);
+				String ids[] = cs.getFeedIDs(acc);
 				Feed feeds[] = new Feed[ids.length];
 				for (int c = 0; c < ids.length; c++) {
 					feeds[c] = cs.getFeed(acc, ids[c]);
