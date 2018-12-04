@@ -1,5 +1,6 @@
 package edu.ua.cs.cs495.caladrius.android.rss;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -123,6 +124,17 @@ public class FeedList extends Fragment
 
 		View rootView = inflater.inflate(R.layout.rss_feed_list, container, false);
 		Toolbar myToolbar = rootView.findViewById(R.id.rss_toolbar);
+		myToolbar.setTitle("RSS Feed List");
+
+
+		AppCompatActivity act = (AppCompatActivity) getActivity();
+		//act.setSupportActionBar(myToolbar);
+
+		ActionBar ab = act.getActionBar();
+		if (ab != null) {
+			ab.setDisplayHomeAsUpEnabled(true);
+			ab.setDisplayShowHomeEnabled(true);
+		}
 
 		feedView = rootView.findViewById(R.id.FeedList);
 		(new AsyncInitialize()).execute();
