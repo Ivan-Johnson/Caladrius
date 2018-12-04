@@ -4,18 +4,18 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.*;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.Series;
 import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract;
+import org.json.JSONArray;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static edu.ua.cs.cs495.caladrius.android.Caladrius.getContext;
 
@@ -25,8 +25,12 @@ import static edu.ua.cs.cs495.caladrius.android.Caladrius.getContext;
  * @author PeterJackson
  */
 
-public class QueryActivity extends AppCompatActivity
-{
+public class QueryActivity extends AppCompatActivity {
+
+	private RecyclerView mRecyclerView;
+	private QueryAdapter mRecyclerViewAdapter;
+	private RecyclerView.LayoutManager mLayoutManager;
+
 	@SuppressLint("SetTextI18n") //TODO delete this suppression once placeholder text is removed
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -116,27 +120,97 @@ public class QueryActivity extends AppCompatActivity
 		}
 
 		CardView cardView = findViewById(R.id.card_view);
-		List<Series> seriesList = fgv.getSeries();
-		for (int i = 0; i < seriesList.size(); i++) {
-			//graphView.addSeries(seriesList.get(i));
-		}
-
 		cardView.addView(fgv);
 
+		ArrayList<DataPair> points = new ArrayList<>();
+		try {
+			JSONArray arr1 = Caladrius.fitbitInterface.getFitbitData(statsList.get(graphStats), timeRangeTypeGraphs, startTime, endTime, graphTimeRange);
+			JSONArray arr2 = new JSONArray();
+			final TextView headerValue1 = findViewById(R.id.header_value);
+			headerValue1.setText(statsList.get(graphStats));
+			if(Integer.valueOf(numberOfGraph) == GraphContract.GraphEntry.GRAPH_NUMBER_TWO) {
+				final TextView headerValue2 = findViewById(R.id.header_value2);
+				headerValue2.setText(statsList.get(graph2Stats));
+				arr2 = Caladrius.fitbitInterface.getFitbitData(statsList.get(graph2Stats), timeRangeTypeGraphs, startTime, endTime, graphTimeRange);
+                for (int x = 0; x < arr2.length(); x++) {
+                    String dt = arr2.getJSONObject(x).getString("dateTime");
+                    int vl = arr1.getJSONObject(x).getInt("value");
+                    int v2 = arr2.getJSONObject(x).getInt("value");
+                    DataPair dp = new DataPair(dt, vl, v2);
 
-		final TextView queryInfoTextView = findViewById(R.id.queryInfo);
-		queryInfoTextView.setText(
-			"***QueryInfo***" +
-				"\nStart date     : " + startTime +
-				"\nEnd date     : " + endTime +
-				"\ngraph_1_stats     :  " + graphStats +
-				"\ngraph_2_stats     :  " + graph2Stats +
-				"\nnum_graph     : " + numberOfGraph +
-				"\ngraph_1_color     : " + graphColor +
-				"\ngraph_2_color     : " + graph2Color +
-				"\ngraph_1_type     : " + graphType +
-				"\ngraph_2_type     : " + graph2Type +
-				"\ntime_range_type     : " + timeRangeTypeGraphs +
-				"\nrelative_time_type     : " + graphTimeRange);
+                    points.add(dp);
+                }
+			}
+			else {
+                for (int x = 0; x < arr1.length(); x++) {
+                    String dt = arr1.getJSONObject(x).getString("dateTime");
+                    int vl = arr1.getJSONObject(x).getInt("value");
+                    DataPair dp = new DataPair(dt, vl);
+
+                    points.add(dp);
+                }
+            }
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		Collections.sort(points, new SortbyDate());
+
+		initializeRecyclerView();
+		populateRecyclerView(points);
+
+		final TextView headerDate = findViewById(R.id.header_date);
+		headerDate.setText("Date");
+	}
+
+	private void initializeRecyclerView() {
+		mRecyclerView = findViewById(R.id.data_list);
+		mRecyclerView.setHasFixedSize(true);
+		mLayoutManager = new LinearLayoutManager(this);
+		mRecyclerView.setLayoutManager(mLayoutManager);
+		mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+	}
+
+
+	public void populateRecyclerView(ArrayList<DataPair> dataPairs) {
+		mRecyclerViewAdapter = new QueryAdapter(dataPairs);
+		mRecyclerView.setAdapter(mRecyclerViewAdapter);
+	}
+
+	class DataPair {
+		private String date;
+		private int value;
+        private int value2;
+
+        DataPair(String d, int v) {
+            date = d;
+            value = v;
+            value2 = -1;
+        }
+
+		DataPair(String d, int v, int v2) {
+			date = d;
+			value = v;
+			value2 = v2;
+		}
+
+		public String getDate() {
+			return date;
+		}
+
+		public String getValue() {
+			return String.valueOf(value);
+		}
+
+        public String getValue2() {
+            return String.valueOf(value2);
+        }
+    }
+
+	class SortbyDate implements Comparator<DataPair>
+	{
+		public int compare(DataPair a, DataPair b) {
+			return b.getDate().compareTo(a.getDate());
+		}
 	}
 }
