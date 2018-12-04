@@ -71,6 +71,7 @@ public class FeedEditor extends Fragment
 	protected Feed f;
 	protected static final String EXTRA_RESULT = "iouwlkxnvljweefoiu";
 	ConditionAdapter adapter;
+	EditText name;
 
 	public static FeedEditor newInstance(@NonNull Feed f)
 	{
@@ -97,8 +98,8 @@ public class FeedEditor extends Fragment
 		}
 
 		View rootView = inflater.inflate(R.layout.rss_feed_edit, container, false);
-		EditText nm = rootView.findViewById(R.id.feedName);
-		nm.setText(f.name);
+		name = rootView.findViewById(R.id.feedName);
+		name.setText(f.name);
 
 		TextView urlView = rootView.findViewById(R.id.url);
 		String url = f.getURL();
@@ -131,14 +132,19 @@ public class FeedEditor extends Fragment
 		adapter.setItem(index, cond);
 	}
 
+	public Feed updateFeed()
+	{
+		f.name = name.getText().toString();
+		return f;
+	}
+
 	public static class FeedEditorActivity extends GenericEditor
 	{
+		FeedEditor fe;
 		protected FeedEditorActivity () {
 			super("Feed Editor", false);
 		}
 		protected static final String EXTRA_FEED = "feed";
-
-		Feed f;
 
 		public static Intent newIntent(Context cntxt, Feed feed)
 		{
@@ -151,12 +157,8 @@ public class FeedEditor extends Fragment
 		protected Fragment makeFragment()
 		{
 			Bundle bun = getIntent().getExtras();
-			if (bun != null) {
-				f = (Feed) bun.getSerializable(EXTRA_FEED);
-				return newInstance(f);
-			} else {
-				return new FeedEditor();
-			}
+			fe = newInstance((Feed) bun.getSerializable(EXTRA_FEED));
+			return fe;
 		}
 
 		@Override
@@ -168,13 +170,12 @@ public class FeedEditor extends Fragment
 		@Override
 		protected void save() {
 			Intent in = new Intent();
-			Feed f = this.f;
 
-			in.putExtra(EXTRA_RESULT, f);
+			in.putExtra(EXTRA_RESULT, fe.updateFeed());
 			setResult(Activity.RESULT_OK, in);
 
 			AsyncSaveFeed assf = new AsyncSaveFeed(this);
-			(new AsyncSaveFeed(this)).execute(f);
+			(new AsyncSaveFeed(this)).execute(fe.f);
 		}
 	}
 
