@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,7 @@ import edu.ua.cs.cs495.caladrius.server.Clientside;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * This fragment shows a list of all the user's RSS feeds, which are obtained from Caladrius' server via the ClientSide class.
@@ -119,7 +122,16 @@ public class FeedList extends Fragment
 		acc = Caladrius.user.sAcc;
 
 		View rootView = inflater.inflate(R.layout.rss_feed_list, container, false);
+		Toolbar myToolbar = rootView.findViewById(R.id.rss_toolbar);
 
+		((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(myToolbar);
+
+		Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle("RSS Feed List");
+
+		if (((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar() != null) {
+			((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar().setDisplayShowHomeEnabled(true);
+		}
 		feedView = rootView.findViewById(R.id.FeedList);
 		(new AsyncInitialize()).execute();
 
