@@ -80,22 +80,22 @@ public class QueryActivity extends AppCompatActivity {
 
 		ArrayList<FitbitGraphView.GraphViewGraph> graphTypes =
 				new ArrayList<FitbitGraphView.GraphViewGraph>(){{
-					add(GraphContract.GraphEntry.getGraphType(Integer.valueOf(graphType)));
+					add(GraphContract.GraphEntry.getGraphType(graphType));
 				}};
 
 		ArrayList<String> stats = new ArrayList<String>(){{
-			add(statsList.get(Integer.valueOf(graphStats)));
+			add(statsList.get(graphStats));
 		}};
 
 
 		ArrayList<Integer> color = new ArrayList<Integer>(){{
-			add(GraphContract.GraphEntry.GetColour(Integer.valueOf(graphColor)));
+			add(graphColor);
 		}};
 
-		if(Integer.valueOf(numberOfGraph) == GraphContract.GraphEntry.GRAPH_NUMBER_TWO){
-			stats.add(statsList.get(Integer.valueOf(graph2Stats)));
-			color.add(GraphContract.GraphEntry.GetColour(Integer.valueOf(graph2Color)));
-			graphTypes.add(GraphContract.GraphEntry.getGraphType(Integer.valueOf(graph2Type)));
+		if(numberOfGraph == GraphContract.GraphEntry.GRAPH_NUMBER_TWO){
+			stats.add(statsList.get(graph2Stats));
+			color.add(graph2Color);
+			graphTypes.add(GraphContract.GraphEntry.getGraphType(graph2Type));
 		}
 
 		Query query = new Query(graphTypes,
@@ -104,7 +104,7 @@ public class QueryActivity extends AppCompatActivity {
 				graphTitle,
 				startTime,
 				endTime,
-				Integer.valueOf(timeRangeTypeGraphs),
+				timeRangeTypeGraphs,
 				graphTimeRange);
 
 		FitbitGraphView fgv = null;
@@ -125,7 +125,7 @@ public class QueryActivity extends AppCompatActivity {
 			JSONArray arr2 = new JSONArray();
 			final TextView headerValue1 = findViewById(R.id.header_value);
 			headerValue1.setText(statsListPretty.get(graphStats));
-			if(Integer.valueOf(numberOfGraph) == GraphContract.GraphEntry.GRAPH_NUMBER_TWO) {
+			if(numberOfGraph == GraphContract.GraphEntry.GRAPH_NUMBER_TWO) {
 				final TextView headerValue2 = findViewById(R.id.header_value2);
 				headerValue2.setText(statsListPretty.get(graph2Stats));
 				arr2 = Caladrius.fitbitInterface.getFitbitData(statsList.get(graph2Stats), timeRangeTypeGraphs, startTime, endTime, graphTimeRange);
