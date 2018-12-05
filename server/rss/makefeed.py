@@ -117,7 +117,7 @@ def handleUser(environ, start_response):
         if (environ['REQUEST_METHOD'] == "GET"):
                 with conn:
                         c = conn.cursor()
-                        c.execute('SELECT oauthBase64 FROM users WHERE userid=?', (uuid,))
+                        c.execute('SELECT userBase64 FROM users WHERE userid=?', (uuid,))
                         (feedbase64,) = c.fetchone()
 
                 start_response('200 OK', [('Content-Type', 'text/plain')])
@@ -129,11 +129,11 @@ def handleUser(environ, start_response):
                         length = int(environ.get('CONTENT_LENGTH', '0'))
                 except ValueError:
                         length = 0
-                oauthBase64 = environ['wsgi.input'].read(length).decode("utf-8")
+                userBase64 = environ['wsgi.input'].read(length).decode("utf-8")
 
                 with conn:
-                        conn.execute('INSERT OR REPLACE INTO users(userid, oauthBase64)      VALUES(?,?)',
-                                                                  (uuid,   oauthBase64))
+                        conn.execute('INSERT OR REPLACE INTO users(userid, userBase64)      VALUES(?,?)',
+                                                                  (uuid,   userBase64))
 
                 start_response('200 OK', [('Content-Type', 'text/plain')])
                 return ["Success, AFAIK\n".encode('utf8')]
