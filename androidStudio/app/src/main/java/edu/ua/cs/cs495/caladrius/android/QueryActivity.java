@@ -117,16 +117,17 @@ public class QueryActivity extends AppCompatActivity {
 
 		CardView cardView = findViewById(R.id.card_view);
 		cardView.addView(fgv);
+		final List<String> statsListPretty = Arrays.asList(this.getResources().getStringArray(R.array.array_graph_stats_options_pretty));
 
 		ArrayList<DataPair> points = new ArrayList<>();
 		try {
 			JSONArray arr1 = Caladrius.fitbitInterface.getFitbitData(statsList.get(graphStats), timeRangeTypeGraphs, startTime, endTime, graphTimeRange);
 			JSONArray arr2 = new JSONArray();
 			final TextView headerValue1 = findViewById(R.id.header_value);
-			headerValue1.setText(statsList.get(graphStats));
+			headerValue1.setText(statsListPretty.get(graphStats));
 			if(Integer.valueOf(numberOfGraph) == GraphContract.GraphEntry.GRAPH_NUMBER_TWO) {
 				final TextView headerValue2 = findViewById(R.id.header_value2);
-				headerValue2.setText(statsList.get(graph2Stats));
+				headerValue2.setText(statsListPretty.get(graph2Stats));
 				arr2 = Caladrius.fitbitInterface.getFitbitData(statsList.get(graph2Stats), timeRangeTypeGraphs, startTime, endTime, graphTimeRange);
                 for (int x = 0; x < arr2.length(); x++) {
                     String dt = arr2.getJSONObject(x).getString("dateTime");

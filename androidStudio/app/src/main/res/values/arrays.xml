@@ -44,6 +44,19 @@
         <item>@string/stats_activityCalories</item>
     </string-array>
 
+    <!-- These are the options displayed in the graph stats drop-down Spinner -->
+    <string-array name="array_graph_stats_options_pretty">
+        <item>@string/MinutesSedentary</item>
+        <item>@string/Steps</item>
+        <item>@string/Calories</item>
+        <item>@string/CaloriesBMR</item>
+        <item>@string/Distance</item>
+        <item>@string/MinutesLightlyActive</item>
+        <item>@string/MinutesFairlyActive</item>
+        <item>@string/MinutesVeryActive</item>
+        <item>@string/ActivityCalories</item>
+    </string-array>
+
     <!-- These are the options displayed in the graph color drop-down Spinner -->
     <string-array name="array_graph_color_options">
         <item>@string/color_black</item>

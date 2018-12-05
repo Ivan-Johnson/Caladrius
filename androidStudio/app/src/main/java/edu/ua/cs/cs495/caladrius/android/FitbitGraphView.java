@@ -24,7 +24,9 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -315,6 +317,8 @@ public class FitbitGraphView extends GraphView
 
 	private void makeGraphViewGraph() throws JSONException, InterruptedException, ExecutionException, IOException
 	{
+		final List<String> statsList = Arrays.asList(this.getResources().getStringArray(R.array.array_graph_stats_options));
+		final List<String> statsListPretty = Arrays.asList(this.getResources().getStringArray(R.array.array_graph_stats_options_pretty));
 		double xMax = Double.MIN_VALUE;
 		double xMin = Double.MAX_VALUE;
 		double yMax = 0;
@@ -342,10 +346,11 @@ public class FitbitGraphView extends GraphView
 			// LineGraph
 			if (this.graphType.get(i)
 			                  .equals(GraphViewGraph.LineGraph)) {
+				String stat = statsListPretty.get(statsList.indexOf(statsToRetrieve.get(i)));
 				series = new LineGraphSeries<>(points);
 				((LineGraphSeries<DataPoint>) series).setColor(c);
 				this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
-				((LineGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
+				((LineGraphSeries<DataPoint>) series).setTitle(stat);
 				((LineGraphSeries<DataPoint>) series).setAnimated(true);
 				((LineGraphSeries<DataPoint>) series).setDrawBackground(true);
 				((LineGraphSeries<DataPoint>) series).setDrawDataPoints(true);
@@ -354,20 +359,22 @@ public class FitbitGraphView extends GraphView
 			// BarGraph
 			else if (this.graphType.get(i)
 			                       .equals(GraphViewGraph.BarGraph)) {
+				String stat = statsListPretty.get(statsList.indexOf(statsToRetrieve.get(i)));
 				series = new BarGraphSeries<>(points);
 				((BarGraphSeries<DataPoint>) series).setColor(c);
 				this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
-				((BarGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
+				((BarGraphSeries<DataPoint>) series).setTitle(stat);
 				((BarGraphSeries<DataPoint>) series).setAnimated(true);
 			}
 
 			// PointsGraph
 			else if (this.graphType.get(i)
 					               .equals(GraphViewGraph.PointsGraph)){
+				String stat = statsListPretty.get(statsList.indexOf(statsToRetrieve.get(i)));
 				series = new PointsGraphSeries<>(points);
 				((PointsGraphSeries<DataPoint>) series).setColor(c);
 				this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
-				((PointsGraphSeries<DataPoint>) series).setTitle(statsToRetrieve.get(i));
+				((PointsGraphSeries<DataPoint>) series).setTitle(stat);
 			}
 
 			else

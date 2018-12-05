@@ -69,7 +69,7 @@ public class TestFile
 		int second = now.getSecond();
 		int millis = now.get(ChronoField.MILLI_OF_SECOND); // Note: no direct getter available.
 
-		System.out.printf("%s %02d %02d ", getMonthForInt(month), day, year);
+		System.out.printf("%s %02d %02d ", getMonthForInt(month - 1), day, year);
 		String[] array = new String[] {"John", "Mary", "Bob"};
 		System.out.println(Arrays.toString(array));
 		// Replace these with your client id and secret fron your app
@@ -107,7 +107,7 @@ public class TestFile
 
 		//GenerateRandomData(accessToken);
 
-		final OAuthRequest request = new OAuthRequest(Verb.GET, String.format("https://api.fitbit.com/1/user/%s/activities/steps/date/2018-10-07/1w.json", accessToken.getUserId()));
+		final OAuthRequest request = new OAuthRequest(Verb.GET, String.format("https://api.fitbit.com/1/activities.json"));
 
 		request.addHeader("x-li-format", "json");
 		service.signRequest(accessToken, request);

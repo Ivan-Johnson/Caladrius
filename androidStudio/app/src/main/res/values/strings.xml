@@ -66,6 +66,16 @@
     <string name="stats_minutesVeryActive">minutesVeryActive</string>
     <string name="stats_activityCalories">activityCalories</string>
 
+    <string name="MinutesSedentary">Minutes Sedentary</string>
+    <string name="Steps">Steps</string>
+    <string name="Calories">Calories</string>
+    <string name="CaloriesBMR">CaloriesBMR</string>
+    <string name="Distance">Distance</string>
+    <string name="MinutesLightlyActive">Minutes Lightly Active</string>
+    <string name="MinutesFairlyActive">Minutes Fairly Active</string>
+    <string name="MinutesVeryActive">Minutes Very Active</string>
+    <string name="ActivityCalories">Activity Calories</string>
+
 
     <string name="color_black">Black</string>
     <string name="color_blue">Blue</string>
