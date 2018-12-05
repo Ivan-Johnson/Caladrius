@@ -108,6 +108,39 @@ def handleFeed(environ, start_response):
         else:
                 return badRequest(start_response, "Only gets and puts are supported here\n")
 
+def handleUser(environ, start_response):
+        try:
+                uuid = environ['HTTP_USERUUID']
+        except KeyError:
+                return badRequest(start_response, "You gotta provide the useruuid header\n")
+
+        if (environ['REQUEST_METHOD'] == "GET"):
+                with conn:
+                        c = conn.cursor()
+                        c.execute('SELECT oauthBase64 FROM users WHERE userid=?', (uuid,))
+                        (feedbase64,) = c.fetchone()
+
+                start_response('200 OK', [('Content-Type', 'text/plain')])
+                st = f"{feedbase64}\n"
+
+                return [(st).encode('utf8')]
+        elif (environ['REQUEST_METHOD'] == "PUT"):
+                try:
+                        length = int(environ.get('CONTENT_LENGTH', '0'))
+                except ValueError:
+                        length = 0
+                oauthBase64 = environ['wsgi.input'].read(length).decode("utf-8")
+
+                with conn:
+                        conn.execute('INSERT OR REPLACE INTO users(userid, oauthBase64)      VALUES(?,?)',
+                                                                  (uuid,   oauthBase64))
+
+                start_response('200 OK', [('Content-Type', 'text/plain')])
+                return ["Success, AFAIK\n".encode('utf8')]
+        else:
+                return badRequest(start_response, "Only gets and puts are supported here\n")
+
+
 def handleFeeds(environ, start_response):
         try:
                 uuid = environ['HTTP_USERUUID']
@@ -146,6 +179,8 @@ def application(environ, start_response):
                         return handleFeeds(environ, start_response)
                 elif (environ['PATH_INFO'] == '/webapi/config/feed'):
                         return handleFeed(environ, start_response)
+                elif (environ['PATH_INFO'] == '/webapi/config/user'):
+                        return handleUser(environ, start_response)
                 elif (environ['PATH_INFO'] == '/webapi/feed'):
                         return handleRSS(environ, start_response)
 

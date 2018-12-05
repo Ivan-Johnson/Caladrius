@@ -12,6 +12,7 @@ trash "$DB_FILE"
 #CREATE TABLES#
 ###############
 sqlite3 "$DB_FILE" 'CREATE TABLE feeds       ( userid VARCHAR(39), feedid VARCHAR(39), feedbase64 VARCHAR(100000), lastFetch BIGINT, lastModify BIGINT,  PRIMARY KEY (userid, feedid));'
+sqlite3 "$DB_FILE" 'CREATE TABLE users       ( userid VARCHAR(39), oauthBase64 VARCHAR(100000));'
 
 
 ###########
