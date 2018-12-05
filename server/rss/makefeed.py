@@ -166,7 +166,7 @@ def handleRSS(environ, start_response):
         qs = environ['QUERY_STRING']
         qs = parse_qs(qs)
         try:
-                id = int(qs['id'][-1])
+                id = qs['id'][-1]
         except KeyError:
                 return badRequest(start_response, "Query string must set the id to an integer\n")
 
