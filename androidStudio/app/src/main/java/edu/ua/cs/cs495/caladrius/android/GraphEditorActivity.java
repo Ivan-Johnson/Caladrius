@@ -339,7 +339,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
         // Create adapter for spinner. The list options are from the String array it will use
         // the spinner will use the default layout
         ArrayAdapter StatsSpinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.array_graph_stats_options, android.R.layout.simple_spinner_item);
+                R.array.array_graph_stats_options_pretty, android.R.layout.simple_spinner_item);
 
         // Specify dropdown layout style - simple list view with 1 item per line
         StatsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -353,23 +353,23 @@ public class GraphEditorActivity extends AppCompatActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals(getString(R.string.stats_bpm))) {
-                        mStats = GraphEntry.STATS_BPM;
-                    } else if (selection.equals(getString(R.string.stats_steps))) {
+                    if (selection.equals(getString(R.string.MinutesSedentary))) {
+                        mStats = GraphEntry.STATS_MINUTESSEDENTARY;
+                    } else if (selection.equals(getString(R.string.Steps))) {
                         mStats = GraphEntry.STATS_STEPS;
-                    } else if (selection.equals(getString(R.string.stats_caloric))) {
+                    } else if (selection.equals(getString(R.string.Calories))) {
                         mStats = GraphEntry.STATS_CALORIC;
-                    } else if (selection.equals(getString(R.string.stats_caloriesBMR))) {
+                    } else if (selection.equals(getString(R.string.CaloriesBMR))) {
                         mStats = GraphEntry.STATS_CALORIESBMR;
-                    } else if (selection.equals(getString(R.string.stats_distance))) {
+                    } else if (selection.equals(getString(R.string.Distance))) {
                         mStats = GraphEntry.STATS_DISTANCE;
-                    } else if (selection.equals(getString(R.string.stats_minutesFairlyActive))) {
+                    } else if (selection.equals(getString(R.string.MinutesLightlyActive))) {
                         mStats = GraphEntry.STATS_MINUTESLIGHTLYACTIVE;
-                    } else if (selection.equals(getString(R.string.stats_minutesLightlyActive))) {
+                    } else if (selection.equals(getString(R.string.MinutesFairlyActive))) {
                         mStats = GraphEntry.STATS_MINUTESFAIRLYACTIVE;
-                    } else if (selection.equals(getString(R.string.stats_minutesVeryActive))) {
+                    } else if (selection.equals(getString(R.string.MinutesVeryActive))) {
                         mStats = GraphEntry.STATS_MINUTESVERYACTIVE;
-                    } else if (selection.equals(getString(R.string.stats_activityCalories))) {
+                    } else if (selection.equals(getString(R.string.ActivityCalories))) {
                         mStats = GraphEntry.STATS_ACTIVITYCALORIES;
                     } else {
                         mStats = GraphEntry.STATS_CALORIC;
@@ -480,7 +480,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.stats_bpm))) {
-                        mStats2 = GraphEntry.STATS_BPM;
+                        mStats2 = GraphEntry.STATS_MINUTESSEDENTARY;
                     } else if (selection.equals(getString(R.string.stats_steps))) {
                         mStats2 = GraphEntry.STATS_STEPS;
                     } else if (selection.equals(getString(R.string.stats_caloric))) {
@@ -879,7 +879,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
 
             switch (stats2) {
-                case GraphEntry.STATS_BPM:
+                case GraphEntry.STATS_MINUTESSEDENTARY:
                     mStats2Spinner.setSelection(0);
                     break;
                 case GraphEntry.STATS_STEPS:
@@ -957,7 +957,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
 
             switch (stats) {
-                case GraphEntry.STATS_BPM:
+                case GraphEntry.STATS_MINUTESSEDENTARY:
                     mStatsSpinner.setSelection(0);
                     break;
                 case GraphEntry.STATS_STEPS:
