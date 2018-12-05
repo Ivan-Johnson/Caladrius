@@ -170,7 +170,7 @@ public class Clientside
 		String base64 = s.next();
 
 		s.close();
-		return base64;
+		return base64.trim();
 	}
 
 	public Feed getFeed(ServerAccount sa, String uuid) throws IOException
@@ -182,11 +182,6 @@ public class Clientside
 
 	protected Object objectFromBase64(String base64) throws IOException
 	{
-		base64 = base64.trim();
-		for(int x = 350; x < base64.length(); x++) {
-			// System.out.println("" + x + ": " + base64.charAt(x));
-		}
-		System.out.println(base64);
 		byte bytes[] = Base64.getDecoder().decode(base64);
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
 		ObjectInputStream ois = null;
@@ -211,7 +206,6 @@ public class Clientside
 			out.flush();
 			byte[] bytes = bos.toByteArray();
 			String base64 = Base64.getEncoder().encodeToString(bytes);
-			System.out.println(base64);
 			return base64;
 		} finally {
 			try {

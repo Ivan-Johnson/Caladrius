@@ -1,6 +1,9 @@
 package edu.ua.cs.cs495.caladrius.server;
 
 import android.support.annotation.NonNull;
+import com.github.scribejava.apis.fitbit.FitBitOAuth2AccessToken;
+import edu.ua.cs.cs495.caladrius.User;
+import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 import org.junit.Before;
@@ -80,10 +83,9 @@ public class ClientsideTest
 			"1XDSpDji2jcqJoQgfQpA8zC6rnK7uJ31OPObAccMXKEo6CLuVSYTUcNer85r9Vvo3Z1PE6EoxPgjUODEsWqSSMUZ2tfUnbrPyWMJkc43ZsfNNS4RMgz4tYXbeQ7cccDS");
 	}
 
-	public void testIdentity(String uuid, @NonNull Feed f) throws IOException
+	public void testFeedIdentity(String uuid, @NonNull Feed f) throws IOException
 	{
 		ServerAccount sa = new ServerAccount(uuid);
-		sa.uuid = uuid;
 
 		Feed feIn = f;
 		cs.setFeed(sa, feIn);
@@ -95,14 +97,14 @@ public class ClientsideTest
 	@Test(expected = NullPointerException.class)
 	public void testIdentity_null() throws IOException
 	{
-		testIdentity("TEST_USER_6", null);
+		testFeedIdentity("TEST_USER_6", null);
 	}
 
 	@Test
 	public void testIdentity_default() throws IOException
 	{
 		Feed f = new Feed("" + r.nextInt());
-		testIdentity("TEST_USER_6", f);
+		testFeedIdentity("TEST_USER_6", f);
 	}
 
 	@Test
@@ -110,7 +112,7 @@ public class ClientsideTest
 	{
 		Feed f = new Feed("" + r.nextInt());
 		f.conditions = new ArrayList<>();
-		testIdentity("TEST_USER_6", f);
+		testFeedIdentity("TEST_USER_6", f);
 	}
 
 	@Test
@@ -124,6 +126,57 @@ public class ClientsideTest
 			ExtremeValue ev = new ExtremeValue("stat # " + r.nextInt(), r.nextDouble(), type);
 			f.conditions.add(ev);
 		}
-		testIdentity("TEST_USER_6", f);
+		testFeedIdentity("TEST_USER_6", f);
+	}
+
+	@Test
+	public void testGetUserString()
+	{
+		String value = cs.getBase64user("TEST_USER_0");
+		assertEquals("3208", value);
+	}
+
+	public void testUserIdentity(@NonNull User user) throws IOException
+	{
+		User uIn = user;
+		cs.setUser(user.sAcc, uIn);
+		User uOut = cs.getUser(uIn.sAcc);
+
+		assertEquals(uIn, uOut);
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testUser_nullall() throws IOException
+	{
+		User user = new User();
+		testUserIdentity(user);
+	}
+
+
+	@Test
+	public void testUser_happy() throws IOException
+	{
+		FitBitOAuth2AccessToken foo = new FitBitOAuth2AccessToken("asdf", "fdsa", "sdk");
+		User user = new User();
+		user.fAcc = new FitbitAccount(foo);
+		user.sAcc = new ServerAccount("qwer");
+		testUserIdentity(user);
+	}
+
+	@Test
+	public void testUser_nullf() throws IOException
+	{
+		User user = new User();
+		user.sAcc = new ServerAccount("oiwer");
+		testUserIdentity(user);
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testUser_nulls() throws IOException
+	{
+		FitBitOAuth2AccessToken foo = new FitBitOAuth2AccessToken("asdf", "fdsa", "sdk");
+		User user = new User();
+		user.fAcc = new FitbitAccount(foo);
+		testUserIdentity(user);
 	}
 }
