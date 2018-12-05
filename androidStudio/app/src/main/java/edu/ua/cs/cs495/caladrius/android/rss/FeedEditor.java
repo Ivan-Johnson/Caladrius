@@ -110,7 +110,7 @@ public class FeedEditor extends Fragment
 		adapter = new ConditionAdapter(f.conditions, getContext(), (int i, Condition cond) ->
 		{
 			Intent in = ConditionEditor.createIntent(getContext(), cond);
-			startActivityForResult(in, i);
+			startActivityForResult(in, i+1);
 		});
 
 		ll.setAdapter(adapter);
@@ -121,7 +121,6 @@ public class FeedEditor extends Fragment
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		int index = requestCode;
 		if (resultCode == Activity.RESULT_CANCELED) {
 			return;
 		} else if (resultCode != Activity.RESULT_OK) {
@@ -129,7 +128,17 @@ public class FeedEditor extends Fragment
 		}
 
 		Condition cond = ConditionEditor.getCondition(data);
-		adapter.setItem(index, cond);
+		if (requestCode == 0) {
+			if (cond != null) {
+				adapter.addItem(cond);
+			}
+		} else {
+			if (cond == null) {
+				adapter.removeItem(requestCode - 1);
+			} else {
+				adapter.setItem(requestCode - 1, cond);
+			}
+		}
 	}
 
 	public Feed updateFeed()

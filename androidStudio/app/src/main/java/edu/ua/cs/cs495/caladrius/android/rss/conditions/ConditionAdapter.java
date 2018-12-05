@@ -47,6 +47,18 @@ public class ConditionAdapter extends BaseAdapter
 		this.notifyDataSetInvalidated();
 	}
 
+	public void removeItem(int i)
+	{
+		conditions.remove(i);
+		notifyDataSetInvalidated();
+	}
+
+	public void addItem(Condition cond)
+	{
+		conditions.add(cond);
+		notifyDataSetInvalidated();
+	}
+
 	@Override
 	public Object getItem(int i)
 	{

@@ -163,9 +163,15 @@ public class FeedList extends Fragment
 		}
 		Feed f = FeedEditor.getFeed(data);
 		if (requestCode == 0) {
-			feedAdapter.addItem(f);
+			if (f != null) {
+				feedAdapter.addItem(f);
+			}
 		} else {
-			feedAdapter.setItem(requestCode-1, f);
+			if (f != null) {
+				feedAdapter.setItem(requestCode - 1, f);
+			} else {
+				feedAdapter.removeItem(requestCode - 1);
+			}
 
 		}
 	}
