@@ -170,8 +170,13 @@ def handleRSS(environ, start_response):
         except KeyError:
                 return badRequest(start_response, "Query string must set the id to an integer\n")
 
+        feed = makefeed(id)
+        if feed is None:
+                start_response("404 Not Found", [('Content-type', 'text/plain')])
+                return [("Sorry, but the specified feed does not exist\n").encode('utf8')]
+
         start_response('200 OK', [('Content-Type', 'application/rss+xml')])
-        return [makefeed(id).encode('utf8')]
+        return [feed.encode('utf8')]
 
 def application(environ, start_response):
         try:
