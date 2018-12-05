@@ -33,6 +33,7 @@ import edu.ua.cs.cs495.caladrius.User;
 import edu.ua.cs.cs495.caladrius.fitbit.Fitbit;
 import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
 import edu.ua.cs.cs495.caladrius.fitbit.PseudoFitbit;
+import edu.ua.cs.cs495.caladrius.server.Clientside;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 
 /**
@@ -226,7 +227,12 @@ public class LoginScreen extends AppCompatActivity
 
 				FitBitOAuth2AccessToken accessToken = (FitBitOAuth2AccessToken) oauth2AccessToken;
 
-				// TODO Ivan, push this to the server
+				Caladrius.getUser().initialize(accessToken);
+
+				Clientside cs = new Clientside();
+
+				User user = Caladrius.getUser();
+				cs.setUser(user.sAcc, user);
 
 				return accessToken;
 			} catch (Exception e) {
@@ -238,7 +244,6 @@ public class LoginScreen extends AppCompatActivity
 		protected void onPostExecute(FitBitOAuth2AccessToken accessToken)
 		{
 			try {
-				Caladrius.getUser().initialize(accessToken);
 				Intent intent = new Intent(LoginScreen.this, SummaryPage.SummaryActivity.class);
 				ProgressBar progressBar = findViewById(R.id.loadingAnimation);
 				progressBar.setVisibility(View.GONE);

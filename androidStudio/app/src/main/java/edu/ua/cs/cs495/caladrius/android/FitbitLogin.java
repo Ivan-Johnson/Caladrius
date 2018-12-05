@@ -19,7 +19,9 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
+import edu.ua.cs.cs495.caladrius.User;
 import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
+import edu.ua.cs.cs495.caladrius.server.Clientside;
 
 public class FitbitLogin extends AppCompatActivity
 {
@@ -65,9 +67,14 @@ public class FitbitLogin extends AppCompatActivity
 
 				FitBitOAuth2AccessToken accessToken = (FitBitOAuth2AccessToken) oauth2AccessToken;
 
+				Caladrius.updateUser(accessToken);
+				Clientside cs = new Clientside();
+
+				User user = Caladrius.getUser();
+				cs.setUser(user.sAcc, user);
+
 				return accessToken;
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
 			}
@@ -76,7 +83,6 @@ public class FitbitLogin extends AppCompatActivity
 
 		protected void onPostExecute(FitBitOAuth2AccessToken accessToken) {
 			try {
-				Caladrius.updateUser(accessToken);
 				Intent intent = new Intent(FitbitLogin.this, SummaryPage.SummaryActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
