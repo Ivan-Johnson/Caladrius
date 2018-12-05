@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Random;
 
 public class FitbitAccount implements Serializable
@@ -67,5 +68,19 @@ public class FitbitAccount implements Serializable
 
 		Point tmp[] = {};
 		return points.toArray(tmp);
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (!(obj instanceof FitbitAccount)) {
+			return false;
+		}
+		FitbitAccount other = (FitbitAccount) obj;
+		boolean equal = true;
+
+		equal = equal && Objects.equals(privateToken.getUserId(), other.getPrivateToken().getUserId());
+
+		return equal;
 	}
 }

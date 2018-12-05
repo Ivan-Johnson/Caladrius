@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Objects;
 
 public class User implements Serializable
 {
@@ -41,5 +42,20 @@ public class User implements Serializable
 		}
 
 		this.sAcc = new ServerAccount(uuid);
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (!(obj instanceof User)) {
+			return false;
+		}
+		User other = (User) obj;
+		boolean equal = true;
+
+		equal = equal && Objects.equals(fAcc, other.fAcc);
+		equal = equal && Objects.equals(sAcc, other.sAcc);
+
+		return equal;
 	}
 }

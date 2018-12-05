@@ -226,6 +226,8 @@ public class LoginScreen extends AppCompatActivity
 
 				FitBitOAuth2AccessToken accessToken = (FitBitOAuth2AccessToken) oauth2AccessToken;
 
+				// TODO Ivan, push this to the server
+
 				return accessToken;
 			} catch (Exception e) {
 				e.printStackTrace();
