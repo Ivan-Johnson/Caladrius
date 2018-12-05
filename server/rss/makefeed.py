@@ -5,6 +5,7 @@ from urllib.parse import parse_qs
 import dateutil.parser
 
 from rfeed import *
+from subprocess import call
 
 import sqlite3
 import calendar
@@ -13,7 +14,24 @@ import time
 DB_FILE="/srv/caladrius.db"
 conn = sqlite3.connect(DB_FILE)
 
-def makefeed(id):
+def makefeed(feedid):
+    with conn:
+        c = conn.cursor()
+        c.execute('SELECT userid FROM feeds WHERE feedid=?', (feedid,))
+        val = c.fetchone()
+        if val is None:
+                return None
+        (userid,) = val
+
+        c.execute('SELECT userBase64 FROM users WHERE userid=?', (userid,))
+        val = c.fetchone()
+        if not (val is None):
+                (userbase64,) = val
+        else:
+                userbase64 = "(This this is totally None)"
+
+    return "userid: " + str(userid) + "\nuserbase64: " + str(userbase64) + "\n"
+
     item0 = Item(
         title = "Now is " + datetime.datetime.now().isoformat(),
         link = "https://caladrius.ivanjohnson.net",
