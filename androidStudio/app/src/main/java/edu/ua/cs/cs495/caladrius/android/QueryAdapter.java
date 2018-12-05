@@ -12,6 +12,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * This class is for showing the result from custom query data from fitbit.
+ *
+ * @author PeterJackson
+ */
+
 public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.MyViewHolder> {
 
     private ArrayList<QueryActivity.DataPair> mDataset;

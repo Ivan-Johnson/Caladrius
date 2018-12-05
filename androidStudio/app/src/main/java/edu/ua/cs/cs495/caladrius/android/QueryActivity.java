@@ -36,6 +36,10 @@ public class QueryActivity extends AppCompatActivity {
 	private QueryAdapter mRecyclerViewAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
 
+	/**
+	 *
+	 * @param savedInstanceState Restores saved state
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -114,6 +118,7 @@ public class QueryActivity extends AppCompatActivity {
 
 		FitbitGraphView fgv = null;
 		try {
+			query.horizontalZoomAndScroll = true;
 			fgv = new FitbitGraphView(this, query);
 		}
 		catch (Exception e) {

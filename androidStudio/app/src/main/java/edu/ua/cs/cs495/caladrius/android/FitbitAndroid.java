@@ -15,6 +15,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
+/**
+ *
+ */
 public class FitbitAndroid implements FitbitInterface {
 
     public FitbitAndroid() {
