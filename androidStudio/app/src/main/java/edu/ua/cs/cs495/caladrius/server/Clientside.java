@@ -16,6 +16,7 @@ import java.util.Scanner;
 import android.support.annotation.NonNull;
 import edu.ua.cs.cs495.caladrius.User;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
+import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -276,7 +277,7 @@ public class Clientside
 	{
 		Clientside cs = new Clientside();
 
-		for (int c = 1000; c < 1003; c++) {
+		/*for (int c = 1000; c < 1003; c++) {
 			User push = new User();
 			push.sAcc = new ServerAccount(Integer.toString(c));
 			push.fAcc = null;
@@ -291,19 +292,23 @@ public class Clientside
 			} else {
 				System.out.println("Passed " + c);
 			}
-		}
+		}*/
 
-		/*final String UUID = "NoLogin";
+		final String UUID = "NoLogin";
 		ServerAccount sa = new ServerAccount(UUID);
 		sa.uuid = UUID;
 		for (int x = 0; x < 3; x++) {
 			Feed fPush = new Feed("name #"+x);
+			for (int y = 0; y < 3; y++) {
+				fPush.conditions.add(new ExtremeValue<Double>("calories", 12.32, ExtremeValue.extremeType.greaterThanOrEqual));
+			}
+
 
 			cs.setFeed(sa, fPush);
 			Feed fPull = cs.getFeed(sa, fPush.uuid);
 
 			System.out.println(fPush.toString());
 			System.out.println(fPull.toString());
-		}*/
+		}
 	}
 }

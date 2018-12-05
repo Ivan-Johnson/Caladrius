@@ -12,11 +12,12 @@ trash "$DB_FILE"
 #CREATE TABLES#
 ###############
 sqlite3 "$DB_FILE" 'CREATE TABLE feeds       ( userid VARCHAR(39), feedid VARCHAR(39), feedbase64 VARCHAR(100000), lastFetch BIGINT, lastModify BIGINT,  PRIMARY KEY (userid, feedid));'
+sqlite3 "$DB_FILE" 'CREATE TABLE users       ( userid VARCHAR(39), userBase64 VARCHAR(100000));'
 
 
-###########
-#TEST DATA#
-###########
+###################
+#TEST DATA (FEEDS)#
+###################
 sqlite3 "$DB_FILE" "INSERT INTO  feeds values('TEST_USER_0',   '11573',             'DEADBEEF',                0,                0);"
 sqlite3 "$DB_FILE" "INSERT INTO  feeds values('TEST_USER_0',   '12484',             'DEADBEEF',                0,                0);"
 sqlite3 "$DB_FILE" "INSERT INTO  feeds values('TEST_USER_0',   '18693',             'DEADBEEF',                0,                0);"
@@ -36,3 +37,8 @@ sqlite3 "$DB_FILE" "INSERT INTO  feeds values('TEST_USER_4',   '26814',         
 sqlite3 "$DB_FILE" "INSERT INTO  feeds values('TEST_USER_5',   '10194',              '',                0,                0);"
 
 # TEST_USER_6 is empty for the purpose of identity testing; i.e. set then immediately get
+
+###################
+#TEST DATA (USERS)#
+###################
+sqlite3 "$DB_FILE" "INSERT INTO users values('TEST_USER_0', '3208');"

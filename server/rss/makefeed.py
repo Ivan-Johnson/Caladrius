@@ -51,9 +51,10 @@ def makefeed(id):
     )
     return feed.rss()
 
-def badRequest(start_response, msg="400 Bad Request (no error message was set)"):
-        start_response('400 Bad Request', [('Content-type', 'text/plain')])
-        return [msg.encode('utf8')]
+def badRequest(start_response, msg="no error message was set"):
+        msg_full = '400 Bad Request ('+msg+')'
+        start_response(msg_full, [('Content-type', 'text/plain')])
+        return [msg_full.encode('utf8')]
 
 def handleFeed(environ, start_response):
         print("THIS IS A DEBUG MESSAGE")
@@ -107,6 +108,39 @@ def handleFeed(environ, start_response):
         else:
                 return badRequest(start_response, "Only gets and puts are supported here\n")
 
+def handleUser(environ, start_response):
+        try:
+                uuid = environ['HTTP_USERUUID']
+        except KeyError:
+                return badRequest(start_response, "You gotta provide the useruuid header\n")
+
+        if (environ['REQUEST_METHOD'] == "GET"):
+                with conn:
+                        c = conn.cursor()
+                        c.execute('SELECT userBase64 FROM users WHERE userid=?', (uuid,))
+                        (feedbase64,) = c.fetchone()
+
+                start_response('200 OK', [('Content-Type', 'text/plain')])
+                st = f"{feedbase64}\n"
+
+                return [(st).encode('utf8')]
+        elif (environ['REQUEST_METHOD'] == "PUT"):
+                try:
+                        length = int(environ.get('CONTENT_LENGTH', '0'))
+                except ValueError:
+                        length = 0
+                userBase64 = environ['wsgi.input'].read(length).decode("utf-8")
+
+                with conn:
+                        conn.execute('INSERT OR REPLACE INTO users(userid, userBase64)      VALUES(?,?)',
+                                                                  (uuid,   userBase64))
+
+                start_response('200 OK', [('Content-Type', 'text/plain')])
+                return ["Success, AFAIK\n".encode('utf8')]
+        else:
+                return badRequest(start_response, "Only gets and puts are supported here\n")
+
+
 def handleFeeds(environ, start_response):
         try:
                 uuid = environ['HTTP_USERUUID']
@@ -145,6 +179,8 @@ def application(environ, start_response):
                         return handleFeeds(environ, start_response)
                 elif (environ['PATH_INFO'] == '/webapi/config/feed'):
                         return handleFeed(environ, start_response)
+                elif (environ['PATH_INFO'] == '/webapi/config/user'):
+                        return handleUser(environ, start_response)
                 elif (environ['PATH_INFO'] == '/webapi/feed'):
                         return handleRSS(environ, start_response)
 
