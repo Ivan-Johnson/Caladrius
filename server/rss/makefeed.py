@@ -51,9 +51,10 @@ def makefeed(id):
     )
     return feed.rss()
 
-def badRequest(start_response, msg="400 Bad Request (no error message was set)"):
-        start_response('400 Bad Request', [('Content-type', 'text/plain')])
-        return [msg.encode('utf8')]
+def badRequest(start_response, msg="no error message was set"):
+        msg_full = '400 Bad Request ('+msg+')'
+        start_response(msg_full, [('Content-type', 'text/plain')])
+        return [msg_full.encode('utf8')]
 
 def handleFeed(environ, start_response):
         print("THIS IS A DEBUG MESSAGE")
