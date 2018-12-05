@@ -479,23 +479,23 @@ public class GraphEditorActivity extends AppCompatActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals(getString(R.string.stats_bpm))) {
+                    if (selection.equals(getString(R.string.MinutesSedentary))) {
                         mStats2 = GraphEntry.STATS_MINUTESSEDENTARY;
-                    } else if (selection.equals(getString(R.string.stats_steps))) {
+                    } else if (selection.equals(getString(R.string.Steps))) {
                         mStats2 = GraphEntry.STATS_STEPS;
-                    } else if (selection.equals(getString(R.string.stats_caloric))) {
+                    } else if (selection.equals(getString(R.string.Calories))) {
                         mStats2 = GraphEntry.STATS_CALORIC;
-                    } else if (selection.equals(getString(R.string.stats_caloriesBMR))) {
+                    } else if (selection.equals(getString(R.string.CaloriesBMR))) {
                         mStats2 = GraphEntry.STATS_CALORIESBMR;
-                    } else if (selection.equals(getString(R.string.stats_distance))) {
+                    } else if (selection.equals(getString(R.string.Distance))) {
                         mStats2 = GraphEntry.STATS_DISTANCE;
-                    } else if (selection.equals(getString(R.string.stats_minutesFairlyActive))) {
+                    } else if (selection.equals(getString(R.string.MinutesLightlyActive))) {
                         mStats2 = GraphEntry.STATS_MINUTESLIGHTLYACTIVE;
-                    } else if (selection.equals(getString(R.string.stats_minutesLightlyActive))) {
+                    } else if (selection.equals(getString(R.string.MinutesFairlyActive))) {
                         mStats2 = GraphEntry.STATS_MINUTESFAIRLYACTIVE;
-                    } else if (selection.equals(getString(R.string.stats_minutesVeryActive))) {
+                    } else if (selection.equals(getString(R.string.MinutesVeryActive))) {
                         mStats2 = GraphEntry.STATS_MINUTESVERYACTIVE;
-                    } else if (selection.equals(getString(R.string.stats_activityCalories))) {
+                    } else if (selection.equals(getString(R.string.ActivityCalories))) {
                         mStats2 = GraphEntry.STATS_ACTIVITYCALORIES;
                     } else {
                         mStats2 = GraphEntry.STATS_CALORIC;
