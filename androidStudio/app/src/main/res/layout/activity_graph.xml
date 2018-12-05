@@ -45,7 +45,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:orientation="vertical"
-			android:padding="10dp">
+			android:paddingHorizontal="10dp">
 
 		<android.support.v7.widget.CardView
 				xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -53,9 +53,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_gravity="center"
-	            android:layout_marginTop="10dp"
-	            card_view:cardCornerRadius="4dp"
-				android:background="#09000000"/>
+	            card_view:cardCornerRadius="4dp"/>
 
 		<android.support.v7.widget.CardView
 				xmlns:card_view="http://schemas.android.com/apk/res-auto"
