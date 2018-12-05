@@ -140,14 +140,19 @@ def handleRSS(environ, start_response):
         return [makefeed(id).encode('utf8')]
 
 def application(environ, start_response):
-        if (environ['PATH_INFO'] == '/webapi/config/feeds'):
-                return handleFeeds(environ, start_response)
-        elif (environ['PATH_INFO'] == '/webapi/config/feed'):
-                return handleFeed(environ, start_response)
-        elif (environ['PATH_INFO'] == '/webapi/feed'):
-                return handleRSS(environ, start_response)
+        try:
+                if (environ['PATH_INFO'] == '/webapi/config/feeds'):
+                        return handleFeeds(environ, start_response)
+                elif (environ['PATH_INFO'] == '/webapi/config/feed'):
+                        return handleFeed(environ, start_response)
+                elif (environ['PATH_INFO'] == '/webapi/feed'):
+                        return handleRSS(environ, start_response)
 
-        start_response("404 Not Found", [('Content-type', 'text/plain')])
-        return [("Sorry, but we couldn't find the page: " + environ['PATH_INFO'] + '\n').encode('utf8')]
-        #start_response('200 OK', [('Content-Type', 'text/plain')])
-        #return [(str(environ)+"\n").encode('utf8')]
+                #TODOl8r escape value of path_info
+                start_response("404 Not Found", [('Content-type', 'text/plain')])
+                return [("Sorry, but we couldn't find the page: " + environ['PATH_INFO'] + '\n').encode('utf8')]
+        except:
+                start_response("500 Internal Server Error", [('Content-type', 'text/plain')])
+                import traceback
+                #TODOl8r does displaying the stack trace make it easier for attackers? Is it worth the risk?
+                return [(traceback.format_exc()).encode('utf8')]
