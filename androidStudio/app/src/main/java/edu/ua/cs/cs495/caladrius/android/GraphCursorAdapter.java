@@ -132,10 +132,12 @@ public class GraphCursorAdapter extends CursorAdapter
 			Integer.valueOf(timeRangeTypeGraphs),
 			Integer.valueOf(graphTimeRange));
 
+		if ((graph_container).getChildCount() > 0) {
+			(graph_container).removeAllViews();
+		}
 
-		FitbitGraphView fgv = null;
 		try {
-			fgv = new FitbitGraphView(getContext(), query);
+			FitbitGraphView fgv = new FitbitGraphView(getContext(), query);
 			if (mPosition == 0) {
 				fgv.setOnClickListener(view1 ->
 				{
@@ -169,14 +171,15 @@ public class GraphCursorAdapter extends CursorAdapter
 					getContext().startActivity(intent);
 				});
 			}
+
+			graph_container.addView(fgv);
 		} catch (JSONException | InterruptedException | ExecutionException | IOException e) {
 			e.printStackTrace();
-		}
+			TextView tv = new TextView(context);
+			tv.setText(R.string.FitbitError);
 
-		if ((graph_container).getChildCount() > 0) {
-			(graph_container).removeAllViews();
+			graph_container.addView(tv);
+			return;
 		}
-
-		graph_container.addView(fgv);
 	}
 }
