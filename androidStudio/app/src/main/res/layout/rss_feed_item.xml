@@ -17,7 +17,8 @@
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#09000000">
 
             <TextView
                     android:id="@+id/name"

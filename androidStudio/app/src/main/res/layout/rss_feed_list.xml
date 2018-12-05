@@ -10,10 +10,10 @@
 
         <ImageView
                 android:id="@+id/background"
-                android:src="@drawable/edit_mode"
+                android:src="@drawable/rss_bg"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_width="match_parent"/>
 
     </FrameLayout>
