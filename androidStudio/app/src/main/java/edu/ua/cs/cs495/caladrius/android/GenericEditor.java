@@ -69,7 +69,8 @@ public abstract class GenericEditor extends AppCompatActivity
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		if (alwaysSave) {
-			return false;
+			getMenuInflater().inflate(R.menu.menu_condition, menu);
+			return true;
 		} else {
 			getMenuInflater().inflate(R.menu.editor_menu, menu);
 			return true;
@@ -86,6 +87,9 @@ public abstract class GenericEditor extends AppCompatActivity
 			return true;
 		case R.id.Delete_All_Conditions:
 			// TODO IVAN DELETE ALL CONDITIONS
+			return true;
+		case R.id.delete_condition:
+			// TODO IVAN DELETE CONDITION
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
