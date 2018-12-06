@@ -210,6 +210,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
         mStartDate = String.format("%sth%s",
                 date.substring(0, date.length() - 5),
                 date.substring(date.length() - 5, date.length()));
+        mEndDate = mStartDate;
         mStartDateTextView.setText(mStartDate);
 
         CalendarView mCalendarView = findViewById(R.id.calendarView);
@@ -440,7 +441,10 @@ public class GraphEditorActivity extends AppCompatActivity implements
          */
 
         // Apply the adapter to the spinner
-        mType2Spinner.setAdapter(graphTypeSpinnerAdapter);
+
+        ArrayAdapter graph2TypeSpinnerAdapter = ArrayAdapter.createFromResource(this,
+                R.array.array_graph2_type_options, android.R.layout.simple_spinner_item);
+        mType2Spinner.setAdapter(graph2TypeSpinnerAdapter);
 
         // Set the integer mSelected to the constant values
         mType2Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -448,12 +452,12 @@ public class GraphEditorActivity extends AppCompatActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals(getString(R.string.type_bar))) {
-                        mType2 = GraphEntry.BAR_GRAPH;
-                    } else if (selection.equals(getString(R.string.type_points))) {
-                        mType2 = GraphEntry.POINTS_GRAPH;
+                    if (selection.equals(getString(R.string.type_points_2))) {
+                        mType2 = GraphEntry.POINTS_GRAPH_2;
+                    } else if (selection.equals(getString(R.string.type_Line_2))) {
+                        mType2 = GraphEntry.LINE_GRAPH_2;
                     } else {
-                        mType2 = GraphEntry.LINE_GRAPH;
+                        mType2 = GraphEntry.LINE_GRAPH_2;
                     }
                 }
             }
@@ -461,7 +465,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
             // Because AdapterView is an abstract class, onNothingSelected must be defined
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mType2 = GraphEntry.TIME_RANGE_TODAY;
+                mType2 = GraphEntry.LINE_GRAPH_2;
             }
         });
 
@@ -626,9 +630,9 @@ public class GraphEditorActivity extends AppCompatActivity implements
             return;
         }
 
-        if (mCurrentGraphUri == null &&
-                mColor == 0 && mTimeRange == 0 && mType == 0 && mStats == 0
-                && TextUtils.isEmpty(TitleString)) {return;}
+//        if (mCurrentGraphUri == null &&
+//                mColor == 0 && mTimeRange == 0 && mType == 0 && mStats == 0
+//                && TextUtils.isEmpty(TitleString)) {return;}
 
         // Create a ContentValues object where column names are the keys,
         // and graph attributes from the editor are the values.
@@ -814,6 +818,8 @@ public class GraphEditorActivity extends AppCompatActivity implements
             mStartDateTextView.setText(startTime);
             mEndDateTextView.setText(endTime);
             mNumberOfGraph = numGraph;
+            mStartDate = startTime;
+            mEndDate = endTime;
 
             switch (numGraph) {
                 case GraphEntry.GRAPH_NUMBER_ONE:
@@ -863,14 +869,11 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
 
             switch (type2) {
-                case GraphEntry.BAR_GRAPH:
+                case GraphEntry.POINTS_GRAPH_2:
                     mType2Spinner.setSelection(0);
                     break;
-                case GraphEntry.POINTS_GRAPH:
+                case GraphEntry.LINE_GRAPH_2:
                     mType2Spinner.setSelection(1);
-                    break;
-                case GraphEntry.LINE_GRAPH:
-                    mType2Spinner.setSelection(2);
                     break;
                 default:
                     mType2Spinner.setSelection(0);

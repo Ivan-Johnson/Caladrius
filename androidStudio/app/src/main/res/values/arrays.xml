@@ -30,6 +30,11 @@
         <item>@string/type_points</item>
         <item>@string/type_Line</item>
     </string-array>
+    <!-- These are the options displayed in the graph 2 type drop-down Spinner -->
+    <string-array name="array_graph2_type_options">
+        <item>@string/type_points</item>
+        <item>@string/type_Line</item>
+    </string-array>
 
     <!-- These are the options displayed in the graph stats drop-down Spinner -->
     <string-array name="array_graph_stats_options">

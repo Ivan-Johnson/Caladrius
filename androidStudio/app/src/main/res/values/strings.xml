@@ -56,6 +56,9 @@
     <string name="type_points">Points</string>
     <string name="type_Line">Line</string>
 
+    <string name="type_points_2">Points</string>
+    <string name="type_Line_2">Line</string>
+
     <string name="stats_bpm">minutesSedentary</string>
     <string name="stats_steps">steps</string>
     <string name="stats_caloric">calories</string>
