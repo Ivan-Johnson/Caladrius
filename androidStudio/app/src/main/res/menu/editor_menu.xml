@@ -12,4 +12,9 @@
             app:showAsAction="never"
             android:title="Delete All Conditions"
     />
+    <item
+            android:id="@+id/Delete_Feed"
+            app:showAsAction="never"
+            android:title="Delete Feed"
+    />
 </menu>

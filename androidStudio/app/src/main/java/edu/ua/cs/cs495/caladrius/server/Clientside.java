@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.Base64;
 import java.util.Scanner;
 
+import android.util.Log;
 import edu.ua.cs.cs495.caladrius.User;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
@@ -224,6 +225,8 @@ public class Clientside
 		final String URL_QUERY_KEY = "id";
 		final String url = URL_BASE + "?" + URL_QUERY_KEY + "=" + feedid;
 
+		Log.e(Clientside.class.getSimpleName(), "useruuid: "+sa.uuid+"; url: "+url);
+
 		Request request = new Request.Builder()
 			.url(url)
 			.addHeader("useruuid", sa.uuid)
@@ -234,6 +237,7 @@ public class Clientside
 
 
 		if (r.code() != 200) {
+			Log.e(Clientside.class.getSimpleName(), "Feed deletion failed with code "+r.code()+" and body: \n" +r.body().toString());
 			throw new IOException();
 		}
 		return;

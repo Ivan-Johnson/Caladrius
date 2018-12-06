@@ -31,12 +31,16 @@ import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class FeedEditor extends Fragment
 {
-	protected static class AsyncSaveFeed extends AsyncTask<Feed, Void, Boolean>
+	protected static class AsyncSaveFeed extends AsyncTask<AsyncSaveFeed.ASSFArgs, Void, Boolean>
 	{
+		public static class ASSFArgs
+		{
+			Feed f;
+			boolean delete = false;
+		}
 		Clientside cs = new Clientside();
 		ServerAccount sa = Caladrius.getUser().sAcc;
 		Activity activity;
@@ -55,12 +59,18 @@ public class FeedEditor extends Fragment
 		}
 
 		@Override
-		protected Boolean doInBackground(Feed... feeds) {
+		protected Boolean doInBackground(ASSFArgs... args) {
 			// TODO: progress bar of some sort? Probably not a literal bar though; feeds /should/ only be one long.
 			boolean success = true;
-			for (int x = 0; x < feeds.length; x++) {
+			for (int x = 0; x < args.length; x++) {
 				try {
-					cs.setFeed(sa, feeds[x]);
+					boolean delete = args[x].delete;
+					Feed f = args[x].f;
+					if (delete) {
+						cs.deleteFeed(sa, f.uuid);
+						continue;
+					}
+					cs.setFeed(sa, f);
 				} catch (IOException e) {
 					Log.w("AsyncSaveFeed", e);
 					success = false;
@@ -189,8 +199,10 @@ public class FeedEditor extends Fragment
 			in.putExtra(EXTRA_RESULT, fe.updateFeed());
 			setResult(Activity.RESULT_OK, in);
 
+			AsyncSaveFeed.ASSFArgs args = new AsyncSaveFeed.ASSFArgs();
+			args.f = fe.f;
 			AsyncSaveFeed assf = new AsyncSaveFeed(this);
-			assf.execute(fe.f);
+			assf.execute(args);
 		}
 
 		@Override
@@ -201,6 +213,20 @@ public class FeedEditor extends Fragment
 				while (fe.adapter.getCount() > 0) {
 					fe.adapter.removeItem(0);
 				}
+				return true;
+			case R.id.Delete_Feed:
+				Intent in = new Intent();
+
+				in.putExtra(EXTRA_RESULT, (Feed) null);
+				setResult(Activity.RESULT_OK, in);
+
+				AsyncSaveFeed assf = new AsyncSaveFeed(this);
+				AsyncSaveFeed.ASSFArgs args = new AsyncSaveFeed.ASSFArgs();
+				args.f = fe.f;
+				args.delete = true;
+				assf.execute(args);
+
+				finish();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
