@@ -160,4 +160,6 @@
 
 
     <string name="FitbitError">Could not query fitbit servers; you might have hit the query limit</string>
+
+    <string name="delete_all_feeds_fail">Could not delete all feeds</string>
 </resources>

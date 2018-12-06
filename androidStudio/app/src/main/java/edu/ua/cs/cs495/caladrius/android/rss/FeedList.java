@@ -200,14 +200,54 @@ public class FeedList extends Fragment
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// User clicked on a menu option in the app bar overflow menu
 		switch (item.getItemId()) {
-		// Respond to a click on the "Insert dummy data" menu option
 		case R.id.delete_all_feeds:
-			//TODO IVAN DELETE EVERYTHING
+			(new AsyncDelete()).execute();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public class AsyncDelete extends AsyncTask<Void, Void, Boolean> {
+		@Override
+		protected void onPostExecute(Boolean allPass)
+		{
+			if (!allPass) {
+				Toast.makeText(getContext(), R.string.delete_all_feeds_fail, Toast.LENGTH_SHORT);
+			}
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... foo)
+		{
+			boolean allPass = true;
+			while (feedAdapter.getCount() > 0) {
+				Feed f = (Feed) feedAdapter.getItem(0);
+				boolean success = false;
+				for (int x = 0; x < 3; x++) {
+					try {
+						cs.deleteFeed(acc, f.uuid);
+						success = true;
+						break;
+					} catch (IOException e) {
+						continue;
+					}
+				}
+				if (!success) {
+					allPass = false;
+					continue;
+				}
+				feedAdapter.removeItemSilently(f);
+				publishProgress();
+			}
+			return allPass;
+		}
+
+		@Override
+		protected void onProgressUpdate(Void... values)
+		{
+			feedAdapter.notifyDataSetInvalidated();
+		}
 	}
 }
 

@@ -84,4 +84,9 @@ public class FeedAdapter extends BaseAdapter
 		feeds.remove(index);
 		this.notifyDataSetInvalidated();
 	}
+
+	public void removeItemSilently(Feed f)
+	{
+		feeds.remove(f);
+	}
 }
