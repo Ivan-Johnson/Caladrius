@@ -52,7 +52,6 @@ public class Fitbit{
 				break;
 		}
 
-		System.out.println(url);
 		final OAuthRequest request = new OAuthRequest(Verb.GET, url);
 
 

@@ -50,7 +50,7 @@ public class EventFinder
 			System.exit(1);
 		}
 
-		System.out.println(feed.name + "\t" + user.toString());
+		System.out.println(feed.name);
 		for (int iCond = 0; iCond < feed.conditions.size(); iCond++) {
 			Condition cond = feed.conditions.get(iCond);
 			String stat = cond.getStat();
