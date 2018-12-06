@@ -13,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -24,6 +27,7 @@ import edu.ua.cs.cs495.caladrius.android.R;
 
 import edu.ua.cs.cs495.caladrius.android.SingleFragmentActivity;
 
+import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract;
 import edu.ua.cs.cs495.caladrius.android.miscadapters.ProgressAdapter;
 import edu.ua.cs.cs495.caladrius.android.miscadapters.TextAdapter;
 
@@ -185,6 +189,25 @@ public class FeedList extends Fragment
 		{
 			return new FeedList();
 		}
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// Inflate the menu options from the res/menu/menu_catalog.xml file.
+		// This adds menu items to the app bar.
+		inflater.inflate(R.menu.menu_feed_editor, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// User clicked on a menu option in the app bar overflow menu
+		switch (item.getItemId()) {
+		// Respond to a click on the "Insert dummy data" menu option
+		case R.id.delete_all_feeds:
+			//TODO IVAN DELETE EVERYTHING
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }
 

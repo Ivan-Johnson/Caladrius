@@ -1,34 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/list"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <EditText
-            android:id="@+id/feedName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:textStyle="bold"
-            android:textSize="50dp">
-    </EditText>
-
-    <TextView
-            android:id="@+id/url"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:textSize="20dp"
-            android:textColor="#000000"/>
-
-    <ListView
-        android:id="@+id/ConditionList"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/list"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-</LinearLayout>
+        android:layout_height="wrap_content">
+
+        <EditText
+                android:id="@+id/feedName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textStyle="bold"
+                android:textSize="50dp">
+        </EditText>
+
+        <TextView
+                android:id="@+id/url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:textSize="20dp"
+                android:textColor="#000000"/>
+
+        <ListView
+            android:id="@+id/ConditionList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_condition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            app:backgroundTint="#dd4108"
+            android:tint="#ffffff"
+            app:srcCompat="@drawable/add_button" android:layout_marginTop="16dp" android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" android:layout_marginRight="16dp" android:layout_marginBottom="27dp"/>
+</RelativeLayout>

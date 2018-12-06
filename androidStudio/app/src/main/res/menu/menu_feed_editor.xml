@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".rss.FeedEditor$FeedEditorActivity">
+
+	<item
+			android:id="@+id/delete_all_feeds"
+			android:title="Delete All Feeds"
+			app:showAsAction="never" />
+</menu>
