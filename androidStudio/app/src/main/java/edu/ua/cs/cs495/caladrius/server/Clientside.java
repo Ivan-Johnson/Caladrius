@@ -181,7 +181,7 @@ public class Clientside
 		return (Feed) objectFromBase64(base64);
 	}
 
-	protected Object objectFromBase64(String base64) throws IOException
+	public static Object objectFromBase64(String base64) throws IOException
 	{
 		byte bytes[] = Base64.getDecoder().decode(base64);
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
@@ -198,7 +198,7 @@ public class Clientside
 		}
 	}
 
-	protected String base64FromSerializable(Serializable s) throws IOException
+	public static String base64FromSerializable(Serializable s) throws IOException
 	{
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		try {
