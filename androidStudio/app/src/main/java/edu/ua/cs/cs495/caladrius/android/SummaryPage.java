@@ -1,16 +1,14 @@
 package edu.ua.cs.cs495.caladrius.android;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.content.Intent;
-import android.database.Cursor;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,29 +20,30 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-
+import android.widget.ListView;
 import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
 import edu.ua.cs.cs495.caladrius.android.rss.FeedList;
 
 import java.util.Objects;
 
 /**
- * The SummaryPage module represents the main View that is exposed upon logging into the application.
- * It contains FitbitGraphView instances as well as a button to view all of the data for a given user.
+ * The SummaryPage module represents the main View that is exposed upon logging into the application. It contains
+ * FitbitGraphView instances as well as a button to view all of the data for a given user.
  */
 public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, NavigationView.OnNavigationItemSelectedListener
 {
 
-	private GraphCursorAdapter mCursorAdapter;
 	private static final int GRAPH_LOADER = 0;
+	private GraphCursorAdapter mCursorAdapter;
+
 	public SummaryPage()
 	{
 		// Empty public constructor
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 	}
@@ -82,8 +81,38 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		return view;
 	}
 
+	// Menu icons are inflated just as they were with actionbar
 	@Override
-	public Loader<Cursor> onCreateLoader(int loaderID, Bundle bundle) {
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+	{
+		inflater.inflate(R.menu.menu_main, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.calender:
+			Intent queryIntent = new Intent(getContext(),
+				GraphEditorActivity.class);
+			queryIntent.putExtra("query_flag", "a");
+			startActivity(queryIntent);
+			return true;
+		case R.id.edit:
+			Intent editIntent = new Intent(getContext(),
+				ListTest.class);
+			startActivity(editIntent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int loaderID, Bundle bundle)
+	{
 		/*
 		 * Takes action based on the ID of the Loader that's being created
 		 */
@@ -123,12 +152,14 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 	}
 
 	@Override
-	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data)
+	{
 		mCursorAdapter.swapCursor(data);
 	}
 
 	@Override
-	public void onLoaderReset(Loader<Cursor> loader) {
+	public void onLoaderReset(Loader<Cursor> loader)
+	{
 
 		/*
 		 * Clears out the adapter's reference to the Cursor.
@@ -137,39 +168,10 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 		mCursorAdapter.swapCursor(null);
 	}
 
-
-	// Menu icons are inflated just as they were with actionbar
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.menu_main, menu);
-		super.onCreateOptionsMenu(menu,inflater);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.calender:
-			Intent queryIntent = new Intent(getContext(),
-				GraphEditorActivity.class);
-			queryIntent.putExtra("query_flag", "a");
-			startActivity(queryIntent);
-			return true;
-		case R.id.edit:
-			Intent editIntent = new Intent(getContext(),
-				ListTest.class);
-			startActivity(editIntent);
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-
-
 	@SuppressWarnings("StatementWithEmptyBody")
 	@Override
-	public boolean onNavigationItemSelected(MenuItem item) {
+	public boolean onNavigationItemSelected(MenuItem item)
+	{
 		// Handle navigation view item clicks here.
 		int id = item.getItemId();
 
@@ -184,7 +186,8 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 			startActivity(intent);
 			getActivity().finish();
 		} else if (id == R.id.nav_menu_info) {
-			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://project-caladrius.github.io/Caladrius/"));
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+				Uri.parse("https://project-caladrius.github.io/Caladrius/"));
 			startActivity(browserIntent);
 		}
 
@@ -194,9 +197,12 @@ public class SummaryPage extends Fragment implements LoaderManager.LoaderCallbac
 	}
 
 
-	public static class SummaryActivity extends SingleFragmentActivity {
+	public static class SummaryActivity extends SingleFragmentActivity
+	{
 
-		public SummaryActivity(){}
+		public SummaryActivity()
+		{
+		}
 
 		@Override
 		protected Fragment makeFragment()

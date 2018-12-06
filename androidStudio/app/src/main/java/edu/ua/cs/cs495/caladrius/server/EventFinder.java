@@ -1,28 +1,26 @@
 package edu.ua.cs.cs495.caladrius.server;
 
+import edu.ua.cs.cs495.caladrius.User;
+import edu.ua.cs.cs495.caladrius.fitbit.Fitbit;
+import edu.ua.cs.cs495.caladrius.rss.Feed;
+import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import edu.ua.cs.cs495.caladrius.User;
-import edu.ua.cs.cs495.caladrius.fitbit.Fitbit;
-import edu.ua.cs.cs495.caladrius.rss.Feed;
-import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
-
 /**
  * This file is compiled into a separate jar file to be run on the server.
- *
- * It lists the days on which a feed's conditions were tripped. It expects two arguments:
- * 1: a base 64 representation of a User object
- * 2: a base 64 representation of a Feed object
- *
- * The first line is the name of the feed; each subsequent line of the output of this file specifies a single day that triggered at least one conditions, and is formatted as follows:
- * YYYY-MM-DD [title]
+ * <p>
+ * It lists the days on which a feed's conditions were tripped. It expects two arguments: 1: a base 64 representation of
+ * a User object 2: a base 64 representation of a Feed object
+ * <p>
+ * The first line is the name of the feed; each subsequent line of the output of this file specifies a single day that
+ * triggered at least one conditions, and is formatted as follows: YYYY-MM-DD [title]
  *
  * @author Ivan Johnson
  */
@@ -33,7 +31,8 @@ public class EventFinder
 	public static void main(String args[]) throws JSONException, InterruptedException, ExecutionException, IOException, ParseException
 	{
 		if (args.length != 2) {
-			System.err.println("Usage: " + EventFinder.class.getSimpleName() + " <base 64 user> <base 64 feed>");
+			System.err.println(
+				"Usage: " + EventFinder.class.getSimpleName() + " <base 64 user> <base 64 feed>");
 			System.exit(1);
 		}
 		String base64User = args[0];
@@ -54,9 +53,14 @@ public class EventFinder
 		for (int iCond = 0; iCond < feed.conditions.size(); iCond++) {
 			Condition cond = feed.conditions.get(iCond);
 			String stat = cond.getStat();
-			JSONArray arr = Fitbit.getFitbitData(user.fAcc, stat, Fitbit.TIME_RANGE_TYPE_RELATIVE, null, null, Fitbit.TIME_RANGE_MONTH);
+			JSONArray arr = Fitbit.getFitbitData(user.fAcc,
+				stat,
+				Fitbit.TIME_RANGE_TYPE_RELATIVE,
+				null,
+				null,
+				Fitbit.TIME_RANGE_MONTH);
 			ArrayList<String> matches = cond.getMatches(arr);
-			for (String s:matches) {
+			for (String s : matches) {
 				System.out.println(s);
 			}
 		}

@@ -1,18 +1,18 @@
 package edu.ua.cs.cs495.caladrius.rss;
 
+import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
-import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
-
 public class Feed implements Serializable
 {
+	protected static final String BASEURL = "https://caladrius.ivanjohnson.net/webapi/feed?id=";
 	private static final long serialVersionUID = -7800998776796687275L;
 	// don't forget to update the "equals" function when adding new fields
 	public String name;
-	protected static final String BASEURL="https://caladrius.ivanjohnson.net/webapi/feed?id=";
 	public String uuid;
 	public ArrayList<Condition> conditions;
 
@@ -29,7 +29,10 @@ public class Feed implements Serializable
 
 	public Feed(String name)
 	{
-		this(name, UUID.randomUUID().toString(), null);
+		this(name,
+			UUID.randomUUID()
+			    .toString(),
+			null);
 	}
 
 	public String getURL()
@@ -38,7 +41,8 @@ public class Feed implements Serializable
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (!(obj instanceof Feed)) {
 			return false;
 		}

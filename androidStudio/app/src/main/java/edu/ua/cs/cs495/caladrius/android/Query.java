@@ -1,15 +1,12 @@
 package edu.ua.cs.cs495.caladrius.android;
 
-import android.graphics.Color;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 
-import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
 /**
- * The Query module concentrates the parameters for the FitbitGraphView module.
- * This object is usually then passed into the FitbitGraphView module.
+ * The Query module concentrates the parameters for the FitbitGraphView module. This object is usually then passed into
+ * the FitbitGraphView module.
+ *
  * @author Ian Braudaway
  */
 public class Query implements Serializable
@@ -68,24 +65,23 @@ public class Query implements Serializable
 	// or TIME_RANGE_MONTH or TIME_RANGE_YEAR etc.
 
 	/**
-	 *
 	 * @param graphType see below
 	 * @param statsToRetrieve see below
 	 * @param seriesColors see below
 	 * @param graphTitle see below
 	 */
 	public Query(ArrayList<FitbitGraphView.GraphViewGraph> graphType,
-				 ArrayList<String> statsToRetrieve,
-				 ArrayList<Integer> seriesColors,
-				 String graphTitle,
-				 String startTime,
-				 String endTime,
-				 int timeRangeType,
-				 int timeRange)
+	             ArrayList<String> statsToRetrieve,
+	             ArrayList<Integer> seriesColors,
+	             String graphTitle,
+	             String startTime,
+	             String endTime,
+	             int timeRangeType,
+	             int timeRange)
 	{
 		this(graphType, statsToRetrieve, seriesColors, graphTitle, false,
-				false,false, false,
-				true, startTime, endTime, timeRangeType, timeRange);
+			false, false, false,
+			true, startTime, endTime, timeRangeType, timeRange);
 	}
 
 	/**
@@ -103,18 +99,13 @@ public class Query implements Serializable
 //	}
 
 	/**
-	 *
-	 * @param graphType use one of the enumerated graph types:
-	 *                  FitbitGraphView.GraphViewGraph.BarGraph,
-	 *                  FitbitGraphView.GraphViewGraph.LineGraph,
-	 *                  FitbitGraphView.GraphViewGraph.PointsGraph
+	 * @param graphType use one of the enumerated graph types: FitbitGraphView.GraphViewGraph.BarGraph,
+	 * 	FitbitGraphView.GraphViewGraph.LineGraph, FitbitGraphView.GraphViewGraph.PointsGraph
 	 * @param statsToRetrieve strings representing statistics to retrieve from Fitbit, must follow Fitbit standards
-	 *                        Examples:
-	 *                        "calories", "steps", "caloriesBMR", "activityCalories", "steps", "minutesSedentary",
-	 * 						  "minutesLightlyActive", "minutesFairlyActive", "minutesVeryActive"
-	 * @param seriesColors colors from Color module
-	 *                     Examples:
-	 *                     Color.DKGRAY, Color.RED, Color.BLUE, Color.GREEN, Color.BLACK, Color.MAGENTA
+	 * 	Examples: "calories", "steps", "caloriesBMR", "activityCalories", "steps", "minutesSedentary",
+	 * 	"minutesLightlyActive", "minutesFairlyActive", "minutesVeryActive"
+	 * @param seriesColors colors from Color module Examples: Color.DKGRAY, Color.RED, Color.BLUE, Color.GREEN,
+	 * 	Color.BLACK, Color.MAGENTA
 	 * @param graphTitle string representing title of graph
 	 * @param horizontalScroll boolean turning horizontal scrolling on the graph on or off
 	 * @param verticalScroll boolean turning vertical scrolling on the graph on or off
@@ -130,10 +121,10 @@ public class Query implements Serializable
 	             Boolean horizontalZoomAndScroll,
 	             Boolean verticalZoomAndScroll,
 	             Boolean legend,
-				 String startTime,
-				 String endTime,
-				 int timeRangeType,
-				 int timeRange)
+	             String startTime,
+	             String endTime,
+	             int timeRangeType,
+	             int timeRange)
 	{
 		this.graphType = graphType;
 		this.statsToRetrieve = statsToRetrieve;
@@ -239,5 +230,4 @@ public class Query implements Serializable
 	{
 		this.legend = leg;
 	}
-
 }

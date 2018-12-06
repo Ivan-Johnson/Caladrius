@@ -18,16 +18,18 @@ public abstract class GenericEditor extends AppCompatActivity
 {
 	protected final boolean alwaysSave;
 	protected final String title;
-	protected abstract Fragment makeFragment();
 
 	/**
-	 * @param alwaysSave when true, save automatically without prompting the user; regardless of what shouldConfirmCancel returns
+	 * @param alwaysSave when true, save automatically without prompting the user; regardless of what
+	 * 	shouldConfirmCancel returns
 	 */
 	protected GenericEditor(String title, boolean alwaysSave)
 	{
 		this.title = title;
 		this.alwaysSave = alwaysSave;
 	}
+
+	protected abstract Fragment makeFragment();
 
 	@Override
 	public void onBackPressed()
@@ -50,7 +52,8 @@ public abstract class GenericEditor extends AppCompatActivity
 		}
 		//NOTE: gotta set the support action bar BEFORE setting the navigation on click listener
 		setSupportActionBar(tb);
-		tb.setNavigationOnClickListener((View v) -> {
+		tb.setNavigationOnClickListener((View v) ->
+		{
 			onCancelClick();
 		});
 
@@ -95,7 +98,8 @@ public abstract class GenericEditor extends AppCompatActivity
 		// NOP; subclass might want to do something though.
 	}
 
-	protected void doSave() {/*NOP*/}
+	protected void doSave()
+	{/*NOP*/}
 
 	/**
 	 * Determines whether or not the user will be asked for confirmation before navigating away without saving.

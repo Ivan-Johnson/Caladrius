@@ -11,15 +11,13 @@ import java.util.Random;
 
 public class FitbitAccount implements Serializable
 {
-	private static final long serialVersionUID = -1474806684094301473L;
-
 	static final String allValidStats[] = {
 		"BPM",
 		"Caloric intake",
 		"Steps",
 		"Weight"
 	};
-
+	private static final long serialVersionUID = -1474806684094301473L;
 	protected FitBitOAuth2AccessToken privateToken;
 
 	public FitbitAccount()
@@ -79,7 +77,9 @@ public class FitbitAccount implements Serializable
 		FitbitAccount other = (FitbitAccount) obj;
 		boolean equal = true;
 
-		equal = equal && Objects.equals(privateToken.getUserId(), other.getPrivateToken().getUserId());
+		equal = equal && Objects.equals(privateToken.getUserId(),
+			other.getPrivateToken()
+			     .getUserId());
 
 		return equal;
 	}

@@ -30,6 +30,18 @@ public class ConditionEditor extends GenericEditor
 		return in;
 	}
 
+	public static Condition getCondition(Intent in)
+	{
+		Serializable s = in.getSerializableExtra(EXTRA_RET_CONDITION);
+		if (s == null) {
+			return null;
+		}
+		if (!(s instanceof Condition)) {
+			throw new IllegalArgumentException("Unexpected object in intent");
+		}
+		return (Condition) s;
+	}
+
 	@Override
 	protected Fragment makeFragment()
 	{
@@ -42,17 +54,6 @@ public class ConditionEditor extends GenericEditor
 
 		editor = ConditionEditorFragment.makeEditor(cond);
 		return editor;
-	}
-
-	@Override
-	protected void doSave()
-	{
-		Condition c = editor.getCondition();
-
-		Intent in = new Intent();
-		in.putExtra(EXTRA_RET_CONDITION, c);
-
-		setResult(Activity.RESULT_OK, in);
 	}
 
 	@Override
@@ -71,21 +72,20 @@ public class ConditionEditor extends GenericEditor
 		}
 	}
 
-	public static Condition getCondition(Intent in)
-	{
-		Serializable s = in.getSerializableExtra(EXTRA_RET_CONDITION);
-		if (s == null) {
-			return null;
-		}
-		if (! (s instanceof Condition)) {
-			throw new IllegalArgumentException("Unexpected object in intent");
-		}
-		return (Condition) s;
-	}
-
 	@Override
 	protected void onCancel()
 	{
 		setResult(Activity.RESULT_CANCELED);
+	}
+
+	@Override
+	protected void doSave()
+	{
+		Condition c = editor.getCondition();
+
+		Intent in = new Intent();
+		in.putExtra(EXTRA_RET_CONDITION, c);
+
+		setResult(Activity.RESULT_OK, in);
 	}
 }

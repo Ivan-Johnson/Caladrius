@@ -1,7 +1,6 @@
 package edu.ua.cs.cs495.caladrius.android.rss.conditions;
 
 import android.os.Bundle;
-import android.renderscript.RSInvalidStateException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -23,23 +22,6 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 	protected EditText val;
 	protected Spinner evtype;
 
-	@Override
-	Condition getCondition()
-	{
-		String text = val.getText().toString();
-		Double val;
-		try {
-			val = Double.valueOf(text);
-		} catch(NumberFormatException nfe) {
-			throw new RuntimeException("The number-only textfield somehow isn't a valid number");
-		}
-
-		text = (String) this.evtype.getSelectedItem();
-		ExtremeValue.extremeType evtype = ExtremeValue.extremeType.construct(text);
-
-		return new ExtremeValue<>((String) stat.getSelectedItem(), val, evtype);
-	}
-
 	public static ExtremeValueEditor newInstance(ExtremeValue ev)
 	{
 		Bundle args = new Bundle();
@@ -49,6 +31,24 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 		ExtremeValueEditor fragment = new ExtremeValueEditor();
 		fragment.setArguments(args);
 		return fragment;
+	}
+
+	@Override
+	Condition getCondition()
+	{
+		String text = val.getText()
+		                 .toString();
+		Double val;
+		try {
+			val = Double.valueOf(text);
+		} catch (NumberFormatException nfe) {
+			throw new RuntimeException("The number-only textfield somehow isn't a valid number");
+		}
+
+		text = (String) this.evtype.getSelectedItem();
+		ExtremeValue.extremeType evtype = ExtremeValue.extremeType.construct(text);
+
+		return new ExtremeValue<>((String) stat.getSelectedItem(), val, evtype);
 	}
 
 	@Nullable
@@ -76,11 +76,11 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 
 		stat = rootView.findViewById(R.id.ev_statname);
 		stat.setAdapter(
-				ArrayAdapter.createFromResource(
-						Caladrius.getContext(),
-						R.array.array_graph_stats_options,
-						R.layout.spinner_item
-				)
+			ArrayAdapter.createFromResource(
+				Caladrius.getContext(),
+				R.array.array_graph_stats_options,
+				R.layout.spinner_item
+			)
 		);
 
 		val = rootView.findViewById(R.id.ev_val);

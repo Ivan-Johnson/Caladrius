@@ -4,24 +4,21 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
-import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
-import org.json.JSONException;
 
 import static edu.ua.cs.cs495.caladrius.android.Caladrius.getContext;
 
@@ -120,7 +117,7 @@ public class GraphCursorAdapter extends CursorAdapter
 		if (Integer.valueOf(numberOfGraph) == GraphEntry.GRAPH_NUMBER_TWO) {
 			stats.add(statsList.get(Integer.valueOf(graph2Stats)));
 			color.add(GraphEntry.GetColour(Integer.valueOf(graph2Color)));
-			graphTypes.add(GraphEntry.getGraphType(Integer.valueOf(graph2Type)+1));
+			graphTypes.add(GraphEntry.getGraphType(Integer.valueOf(graph2Type) + 1));
 		}
 
 		Query query = new Query(graphTypes,

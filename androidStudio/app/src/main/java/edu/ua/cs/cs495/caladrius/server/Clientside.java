@@ -1,16 +1,6 @@
 package edu.ua.cs.cs495.caladrius.server;
 
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintStream;
-import java.io.Serializable;
-import java.util.Base64;
-import java.util.Scanner;
-
 import android.util.Log;
 import edu.ua.cs.cs495.caladrius.User;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
@@ -21,6 +11,16 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintStream;
+import java.io.Serializable;
+import java.util.Base64;
+import java.util.Scanner;
+
 public class Clientside
 {
 	public OkHttpClient client;
@@ -29,6 +29,97 @@ public class Clientside
 	{
 		client = new OkHttpClient.Builder()
 			.build();
+	}
+
+	public static Object objectFromBase64(String base64) throws IOException
+	{
+		byte bytes[] = Base64.getDecoder()
+		                     .decode(base64);
+		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+		ObjectInputStream ois = null;
+		try {
+			ois = new ObjectInputStream(bis);
+			return ois.readObject();
+		} catch (ClassNotFoundException cnfe) {
+			return null;
+		} finally {
+			if (ois != null) {
+				ois.close();
+			}
+		}
+	}
+
+	public static String base64FromSerializable(Serializable s) throws IOException
+	{
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(bos);
+			out.writeObject(s);
+			out.flush();
+			byte[] bytes = bos.toByteArray();
+			String base64 = Base64.getEncoder()
+			                      .encodeToString(bytes);
+			return base64;
+		} finally {
+			try {
+				bos.close();
+			} catch (IOException ex) {
+				// NOP
+			}
+		}
+	}
+
+	public static boolean assertCode(Response r, PrintStream os) throws IOException
+	{
+		boolean pass = r.code() == 200;
+		if (!pass) {
+			os.println("CODE:    " + r.code());
+			os.println("MESSAGE: " + r.message());
+			os.print("<BODY>\n" + r.body()
+			                       .string() + "</BODY>\n");
+		}
+		return pass;
+	}
+
+	public static void main(String args[]) throws IOException
+	{
+		Clientside cs = new Clientside();
+
+		/*for (int c = 1000; c < 1003; c++) {
+			User push = new User();
+			push.sAcc = new ServerAccount(Integer.toString(c));
+			push.fAcc = null;
+
+			cs.setUser(push.sAcc, push);
+
+			User pull = cs.getUser(push.sAcc);
+
+			if (!push.equals(pull)) {
+				throw new RuntimeException(
+					"Clientside's setUser/getUser do not satisfy the identity property");
+			} else {
+				System.out.println("Passed " + c);
+			}
+		}*/
+
+		final String UUID = "NoLogin";
+		ServerAccount sa = new ServerAccount(UUID);
+		sa.uuid = UUID;
+		for (int x = 0; x < 3; x++) {
+			Feed fPush = new Feed("name #" + x);
+			for (int y = 0; y < 3; y++) {
+				fPush.conditions.add(new ExtremeValue<Double>("calories",
+					12.32,
+					ExtremeValue.extremeType.greaterThanOrEqual));
+			}
+
+
+			cs.setFeed(sa, fPush);
+			Feed fPull = cs.getFeed(sa, fPush.uuid);
+
+			System.out.println(fPush.toString());
+			System.out.println(fPull.toString());
+		}
 	}
 
 	public String[] getFeedIDs(ServerAccount sa) throws IOException
@@ -41,9 +132,11 @@ public class Clientside
 			.addHeader("useruuid", userid)
 			.build();
 
-		Response r = client.newCall(request).execute();
+		Response r = client.newCall(request)
+		                   .execute();
 
-		byte[] bytes = r.body().bytes();
+		byte[] bytes = r.body()
+		                .bytes();
 
 		ByteArrayInputStream bais;
 		Scanner s;
@@ -51,7 +144,7 @@ public class Clientside
 		bais = new ByteArrayInputStream(bytes);
 		s = new Scanner(bais, "UTF-8");
 		int numLines = 0;
-		while(s.hasNextLine()) {
+		while (s.hasNextLine()) {
 			numLines++;
 			s.nextLine();
 		}
@@ -60,7 +153,7 @@ public class Clientside
 		String feedids[] = new String[numLines];
 		bais = new ByteArrayInputStream(bytes);
 		s = new Scanner(bais, "UTF-8");
-		while(s.hasNextLine()) {
+		while (s.hasNextLine()) {
 			numLines--;
 			feedids[numLines] = s.nextLine();
 		}
@@ -95,7 +188,8 @@ public class Clientside
 			throw new IOException();
 		}
 
-		s = new Scanner(r.body().byteStream(), "UTF-8");
+		s = new Scanner(r.body()
+		                 .byteStream(), "UTF-8");
 		s.useDelimiter("\\A");
 
 		String str = s.hasNext() ? s.next() : ""; // base64: ..., lastModify: ...
@@ -116,7 +210,8 @@ public class Clientside
 		long lNow = System.currentTimeMillis() / 1000L;
 
 		if (base64.length() >= 100000) {
-			throw new IllegalArgumentException("Given string is " + base64.length() + " char long; it must be less than 100000 to fit in the database.");
+			throw new IllegalArgumentException("Given string is " + base64.length() +
+				" char long; it must be less than 100000 to fit in the database.");
 		}
 
 		MediaType mt = MediaType.parse("text/plain; charset=utf-8");
@@ -156,7 +251,8 @@ public class Clientside
 				throw new IOException();
 			}
 
- 			s = new Scanner(r.body().byteStream(), "UTF-8");
+			s = new Scanner(r.body()
+			                 .byteStream(), "UTF-8");
 			s.useDelimiter("\\A");
 		} catch (IOException e) {
 			return null;
@@ -175,42 +271,6 @@ public class Clientside
 		return (Feed) objectFromBase64(base64);
 	}
 
-	public static Object objectFromBase64(String base64) throws IOException
-	{
-		byte bytes[] = Base64.getDecoder().decode(base64);
-		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-		ObjectInputStream ois = null;
-		try {
-			ois = new ObjectInputStream(bis);
-			return ois.readObject();
-		} catch (ClassNotFoundException cnfe) {
-			return null;
-		} finally {
-			if (ois != null) {
-				ois.close();
-			}
-		}
-	}
-
-	public static String base64FromSerializable(Serializable s) throws IOException
-	{
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		try {
-			ObjectOutputStream out = new ObjectOutputStream(bos);
-			out.writeObject(s);
-			out.flush();
-			byte[] bytes = bos.toByteArray();
-			String base64 = Base64.getEncoder().encodeToString(bytes);
-			return base64;
-		} finally {
-			try {
-				bos.close();
-			} catch (IOException ex) {
-				// NOP
-			}
-		}
-	}
-
 	public void setFeed(ServerAccount sa, Feed f) throws IOException
 	{
 		if (f == null) {
@@ -225,7 +285,7 @@ public class Clientside
 		final String URL_QUERY_KEY = "id";
 		final String url = URL_BASE + "?" + URL_QUERY_KEY + "=" + feedid;
 
-		Log.e(Clientside.class.getSimpleName(), "useruuid: "+sa.uuid+"; url: "+url);
+		Log.e(Clientside.class.getSimpleName(), "useruuid: " + sa.uuid + "; url: " + url);
 
 		Request request = new Request.Builder()
 			.url(url)
@@ -233,11 +293,14 @@ public class Clientside
 			.delete()
 			.build();
 
-		Response r = client.newCall(request).execute();
+		Response r = client.newCall(request)
+		                   .execute();
 
 
 		if (r.code() != 200) {
-			Log.e(Clientside.class.getSimpleName(), "Feed deletion failed with code "+r.code()+" and body: \n" +r.body().toString());
+			Log.e(Clientside.class.getSimpleName(),
+				"Feed deletion failed with code " + r.code() + " and body: \n" + r.body()
+				                                                                  .toString());
 			throw new IOException();
 		}
 		return;
@@ -259,7 +322,8 @@ public class Clientside
 
 		String base64 = base64FromSerializable(user);
 		if (base64.length() >= 100000) {
-			throw new IllegalArgumentException("Given string is " + base64.length() + " char long; it must be less than 100000 to fit in the database.");
+			throw new IllegalArgumentException("Given string is " + base64.length() +
+				" char long; it must be less than 100000 to fit in the database.");
 		}
 
 		MediaType mt = MediaType.parse("text/plain; charset=utf-8");
@@ -277,56 +341,6 @@ public class Clientside
 		boolean b = assertCode(r, System.err);
 		if (!b) {
 			throw new IOException();
-		}
-	}
-
-	public static boolean assertCode(Response r, PrintStream os) throws IOException
-	{
-		boolean pass = r.code() == 200;
-		if (!pass) {
-			os.println("CODE:    " + r.code());
-			os.println("MESSAGE: " + r.message());
-			os.print("<BODY>\n" +r.body().string()+"</BODY>\n");
-		}
-		return pass;
-	}
-
-	public static void main(String args[]) throws IOException
-	{
-		Clientside cs = new Clientside();
-
-		/*for (int c = 1000; c < 1003; c++) {
-			User push = new User();
-			push.sAcc = new ServerAccount(Integer.toString(c));
-			push.fAcc = null;
-
-			cs.setUser(push.sAcc, push);
-
-			User pull = cs.getUser(push.sAcc);
-
-			if (!push.equals(pull)) {
-				throw new RuntimeException(
-					"Clientside's setUser/getUser do not satisfy the identity property");
-			} else {
-				System.out.println("Passed " + c);
-			}
-		}*/
-
-		final String UUID = "NoLogin";
-		ServerAccount sa = new ServerAccount(UUID);
-		sa.uuid = UUID;
-		for (int x = 0; x < 3; x++) {
-			Feed fPush = new Feed("name #"+x);
-			for (int y = 0; y < 3; y++) {
-				fPush.conditions.add(new ExtremeValue<Double>("calories", 12.32, ExtremeValue.extremeType.greaterThanOrEqual));
-			}
-
-
-			cs.setFeed(sa, fPush);
-			Feed fPull = cs.getFeed(sa, fPush.uuid);
-
-			System.out.println(fPush.toString());
-			System.out.println(fPull.toString());
 		}
 	}
 }

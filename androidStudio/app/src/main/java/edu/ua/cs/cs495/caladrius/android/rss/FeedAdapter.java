@@ -15,17 +15,12 @@ import java.util.Arrays;
 
 public class FeedAdapter extends BaseAdapter
 {
-	public interface ClickEvent
-	{
-		void OnClick(int i, Feed f);
-	}
 	private static final String OUR_TAG = "FeedAdapter";
 	private final FragmentManager fm;
+	protected ClickEvent ce;
 	private LayoutInflater inflater;
 	private Context c;
 	private ArrayList<Feed> feeds;
-	protected ClickEvent ce;
-
 	public FeedAdapter(Context c, Feed[] feeds, FragmentManager fm, ClickEvent ce)
 	{
 		this.c = c;
@@ -88,5 +83,10 @@ public class FeedAdapter extends BaseAdapter
 	public void removeItemSilently(Feed f)
 	{
 		feeds.remove(f);
+	}
+
+	public interface ClickEvent
+	{
+		void OnClick(int i, Feed f);
 	}
 }

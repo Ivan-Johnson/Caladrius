@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import edu.ua.cs.cs495.caladrius.android.Caladrius;
 import edu.ua.cs.cs495.caladrius.android.GenericEditor;
 import edu.ua.cs.cs495.caladrius.android.R;
@@ -28,65 +27,18 @@ import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 import edu.ua.cs.cs495.caladrius.server.Clientside;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 
 public class FeedEditor extends Fragment
 {
-	protected static class AsyncSaveFeed extends AsyncTask<AsyncSaveFeed.ASSFArgs, Void, Boolean>
-	{
-		public static class ASSFArgs
-		{
-			Feed f;
-			boolean delete = false;
-		}
-		Clientside cs = new Clientside();
-		ServerAccount sa = Caladrius.getUser().sAcc;
-		Activity activity;
-
-
-		public AsyncSaveFeed(Activity activity)
-		{
-			this.activity = activity;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean success) {
-			if (success) {
-				activity.finish();
-			}
-		}
-
-		@Override
-		protected Boolean doInBackground(ASSFArgs... args) {
-			// TODO: progress bar of some sort? Probably not a literal bar though; feeds /should/ only be one long.
-			boolean success = true;
-			for (int x = 0; x < args.length; x++) {
-				try {
-					boolean delete = args[x].delete;
-					Feed f = args[x].f;
-					if (delete) {
-						cs.deleteFeed(sa, f.uuid);
-						continue;
-					}
-					cs.setFeed(sa, f);
-				} catch (IOException e) {
-					Log.w("AsyncSaveFeed", e);
-					success = false;
-				}
-			}
-			return success;
-		}
-	}
-
 	protected static final String ARG_FEED = "FeedEditor_feed";
+	protected static final String EXTRA_RESULT = "iouwlkxnvljweefoiu";
 	private static final String LOGTAG = "FEED_EDITOR";
 	protected Feed f;
-	protected static final String EXTRA_RESULT = "iouwlkxnvljweefoiu";
+	protected FloatingActionButton add;
 	ConditionAdapter adapter;
 	EditText name;
-	protected FloatingActionButton add;
 
 	public static FeedEditor newInstance(@NonNull Feed f)
 	{
@@ -98,6 +50,34 @@ public class FeedEditor extends Fragment
 		fe.setArguments(b);
 
 		return fe;
+	}
+
+	public static Feed getFeed(Intent data)
+	{
+		return (Feed) data.getSerializableExtra(EXTRA_RESULT);
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if (resultCode == Activity.RESULT_CANCELED) {
+			return;
+		} else if (resultCode != Activity.RESULT_OK) {
+			throw new RuntimeException("Condition editor yielded an unexpected result");
+		}
+
+		Condition cond = ConditionEditor.getCondition(data);
+		if (requestCode == 0) {
+			if (cond != null) {
+				adapter.addItem(cond);
+			}
+		} else {
+			if (cond == null) {
+				adapter.removeItem(requestCode - 1);
+			} else {
+				adapter.setItem(requestCode - 1, cond);
+			}
+		}
 	}
 
 	@Nullable
@@ -125,7 +105,7 @@ public class FeedEditor extends Fragment
 		adapter = new ConditionAdapter(f.conditions, getContext(), (int i, Condition cond) ->
 		{
 			Intent in = ConditionEditor.createIntent(getContext(), cond);
-			startActivityForResult(in, i+1);
+			startActivityForResult(in, i + 1);
 		});
 
 		ll.setAdapter(adapter);
@@ -133,49 +113,77 @@ public class FeedEditor extends Fragment
 		add = rootView.findViewById(R.id.add_condition);
 		add.setOnClickListener((View v) ->
 		{
-			Intent in = ConditionEditor.createIntent(getContext(), new ExtremeValue<Double>("", 0.0, ExtremeValue.extremeType.equal));
+			Intent in = ConditionEditor.createIntent(getContext(),
+				new ExtremeValue<Double>("", 0.0, ExtremeValue.extremeType.equal));
 			startActivityForResult(in, 0);
 		});
 
 		return rootView;
 	}
 
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		if (resultCode == Activity.RESULT_CANCELED) {
-			return;
-		} else if (resultCode != Activity.RESULT_OK) {
-			throw new RuntimeException("Condition editor yielded an unexpected result");
-		}
-
-		Condition cond = ConditionEditor.getCondition(data);
-		if (requestCode == 0) {
-			if (cond != null) {
-				adapter.addItem(cond);
-			}
-		} else {
-			if (cond == null) {
-				adapter.removeItem(requestCode - 1);
-			} else {
-				adapter.setItem(requestCode - 1, cond);
-			}
-		}
-	}
-
 	public Feed updateFeed()
 	{
-		f.name = name.getText().toString();
+		f.name = name.getText()
+		             .toString();
 		return f;
+	}
+
+	protected static class AsyncSaveFeed extends AsyncTask<AsyncSaveFeed.ASSFArgs, Void, Boolean>
+	{
+		Clientside cs = new Clientside();
+		ServerAccount sa = Caladrius.getUser().sAcc;
+		Activity activity;
+		public AsyncSaveFeed(Activity activity)
+		{
+			this.activity = activity;
+		}
+
+		@Override
+		protected Boolean doInBackground(ASSFArgs... args)
+		{
+			// TODO: progress bar of some sort? Probably not a literal bar though; feeds /should/ only be one long.
+			boolean success = true;
+			for (int x = 0; x < args.length; x++) {
+				try {
+					boolean delete = args[x].delete;
+					Feed f = args[x].f;
+					if (delete) {
+						cs.deleteFeed(sa, f.uuid);
+						continue;
+					}
+					cs.setFeed(sa, f);
+				} catch (IOException e) {
+					Log.w("AsyncSaveFeed", e);
+					success = false;
+				}
+			}
+			return success;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean success)
+		{
+			if (success) {
+				activity.finish();
+			}
+		}
+
+		public static class ASSFArgs
+		{
+			Feed f;
+			boolean delete = false;
+		}
 	}
 
 	public static class FeedEditorActivity extends GenericEditor
 	{
+		protected static final String EXTRA_FEED = "feed";
 		FeedEditor fe;
-		protected FeedEditorActivity () {
+
+		protected FeedEditorActivity()
+		{
 			super("Feed Editor", false);
 		}
-		protected static final String EXTRA_FEED = "feed";
 
 		public static Intent newIntent(Context cntxt, Feed feed)
 		{
@@ -190,19 +198,6 @@ public class FeedEditor extends Fragment
 			Bundle bun = getIntent().getExtras();
 			fe = newInstance((Feed) bun.getSerializable(EXTRA_FEED));
 			return fe;
-		}
-
-		@Override
-		protected void save() {
-			Intent in = new Intent();
-
-			in.putExtra(EXTRA_RESULT, fe.updateFeed());
-			setResult(Activity.RESULT_OK, in);
-
-			AsyncSaveFeed.ASSFArgs args = new AsyncSaveFeed.ASSFArgs();
-			args.f = fe.f;
-			AsyncSaveFeed assf = new AsyncSaveFeed(this);
-			assf.execute(args);
 		}
 
 		@Override
@@ -232,10 +227,19 @@ public class FeedEditor extends Fragment
 				return super.onOptionsItemSelected(item);
 			}
 		}
-	}
 
-	public static Feed getFeed(Intent data)
-	{
-		return (Feed) data.getSerializableExtra(EXTRA_RESULT);
+		@Override
+		protected void save()
+		{
+			Intent in = new Intent();
+
+			in.putExtra(EXTRA_RESULT, fe.updateFeed());
+			setResult(Activity.RESULT_OK, in);
+
+			AsyncSaveFeed.ASSFArgs args = new AsyncSaveFeed.ASSFArgs();
+			args.f = fe.f;
+			AsyncSaveFeed assf = new AsyncSaveFeed(this);
+			assf.execute(args);
+		}
 	}
 }

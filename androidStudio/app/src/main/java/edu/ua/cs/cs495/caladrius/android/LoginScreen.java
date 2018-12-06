@@ -6,17 +6,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 import com.github.scribejava.apis.FitbitApi20;
 import com.github.scribejava.apis.fitbit.FitBitOAuth2AccessToken;
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -27,14 +23,9 @@ import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.CubeGrid;
-import com.github.ybq.android.spinkit.style.DoubleBounce;
-
 import edu.ua.cs.cs495.caladrius.User;
-import edu.ua.cs.cs495.caladrius.fitbit.Fitbit;
-import edu.ua.cs.cs495.caladrius.fitbit.FitbitAccount;
 import edu.ua.cs.cs495.caladrius.fitbit.PseudoFitbit;
 import edu.ua.cs.cs495.caladrius.server.Clientside;
-import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 
 /**
  * This class is for Login to Fit bit account, lead to the Fit bit web, get user token, then use token to query the data
@@ -80,7 +71,7 @@ public class LoginScreen extends AppCompatActivity
 				if (Caladrius.getUser() != null && Caladrius.getUser().fAcc != null &&
 					Caladrius.getUser().fAcc.getPrivateToken() != null) {
 					Response str_result = new CheckToken().execute()
-					                                         .get();
+					                                      .get();
 					response_bool = str_result.getBody()
 					                          .contains(":true");
 				} else {
@@ -172,7 +163,7 @@ public class LoginScreen extends AppCompatActivity
 					new OAuthRequest(Verb.POST, "https://api.fitbit.com/1.1/oauth2/introspect");
 				request.addParameter("token",
 					Caladrius.getUser().fAcc.getPrivateToken()
-					                   .getAccessToken());
+					                        .getAccessToken());
 
 
 				/**
@@ -223,11 +214,12 @@ public class LoginScreen extends AppCompatActivity
 			try {
 				final OAuth2AccessToken oauth2AccessToken =
 					service.refreshAccessToken(Caladrius.getUser().fAcc.getPrivateToken()
-					                                              .getRefreshToken());
+					                                                   .getRefreshToken());
 
 				FitBitOAuth2AccessToken accessToken = (FitBitOAuth2AccessToken) oauth2AccessToken;
 
-				Caladrius.getUser().initialize(accessToken);
+				Caladrius.getUser()
+				         .initialize(accessToken);
 
 				Clientside cs = new Clientside();
 

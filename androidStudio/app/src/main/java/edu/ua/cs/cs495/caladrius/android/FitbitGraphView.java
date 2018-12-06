@@ -1,11 +1,9 @@
 package edu.ua.cs.cs495.caladrius.android;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.TypedValue;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import com.jjoe64.graphview.GraphView;
@@ -17,7 +15,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.series.Series;
-import edu.ua.cs.cs495.caladrius.fitbit.*;
+import edu.ua.cs.cs495.caladrius.fitbit.Point;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -30,8 +28,9 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
- * The FitbitGraphView module generates an instance of a GraphView graph with the supplied Query parameter class.
- * It interacts with both the Graphview API and the Fitbit API.
+ * The FitbitGraphView module generates an instance of a GraphView graph with the supplied Query parameter class. It
+ * interacts with both the Graphview API and the Fitbit API.
+ *
  * @author Ian Braudaway
  */
 public class FitbitGraphView extends GraphView
@@ -82,7 +81,6 @@ public class FitbitGraphView extends GraphView
 	Boolean legend;
 
 	/**
-	 *
 	 * @param context
 	 * @param query Query object containing parameters needed to generate a graph
 	 * @throws JSONException
@@ -90,7 +88,8 @@ public class FitbitGraphView extends GraphView
 	 * @throws ExecutionException
 	 * @throws IOException
 	 */
-	public FitbitGraphView(final Context context, final Query query) throws JSONException, InterruptedException, ExecutionException, IOException
+	public FitbitGraphView(final Context context,
+	                       final Query query) throws JSONException, InterruptedException, ExecutionException, IOException
 	{
 		super(context);
 
@@ -272,43 +271,55 @@ public class FitbitGraphView extends GraphView
 
 	private void legendHandler(GraphView g)
 	{
-		if (getLegend() == true)
-		{
-			this.getLegendRenderer().setVisible(true);
-			this.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+		if (getLegend() == true) {
+			this.getLegendRenderer()
+			    .setVisible(true);
+			this.getLegendRenderer()
+			    .setAlign(LegendRenderer.LegendAlign.TOP);
 		}
 	}
 
 	private void setSecondaryScale(Series<DataPoint> s, Integer color, Integer firstColor, double maxY)
 	{
-		this.getSecondScale().addSeries(s);
-		this.getSecondScale().setMinY(0);
-		this.getSecondScale().setMaxY(maxY);
-		this.getGridLabelRenderer().setVerticalLabelsSecondScaleColor(Color.BLACK);
-		this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
+		this.getSecondScale()
+		    .addSeries(s);
+		this.getSecondScale()
+		    .setMinY(0);
+		this.getSecondScale()
+		    .setMaxY(maxY);
+		this.getGridLabelRenderer()
+		    .setVerticalLabelsSecondScaleColor(Color.BLACK);
+		this.getGridLabelRenderer()
+		    .setVerticalLabelsColor(Color.BLACK);
 
-		this.getGridLabelRenderer().setHorizontalLabelsAngle(30);
+		this.getGridLabelRenderer()
+		    .setHorizontalLabelsAngle(30);
 	}
 
-	private DataPoint[] makePointsFromFitbit(String statToRetrieve, int timeType, String start, String end, int timeRange) throws JSONException, InterruptedException, ExecutionException, IOException
+	private DataPoint[] makePointsFromFitbit(String statToRetrieve,
+	                                         int timeType,
+	                                         String start,
+	                                         String end,
+	                                         int timeRange) throws JSONException, InterruptedException, ExecutionException, IOException
 	{
-		JSONArray arr = Caladrius.fitbitInterface.getFitbitData(statToRetrieve, timeType, start, end, timeRange);
+		JSONArray arr =
+			Caladrius.fitbitInterface.getFitbitData(statToRetrieve, timeType, start, end, timeRange);
 		int numPoints = arr.length();
 
 		DataPoint[] points = new DataPoint[numPoints];
-		try
-		{
+		try {
 			for (int x = 0; x < numPoints; x++) {
-				String dt = arr.getJSONObject(x).getString("dateTime");
+				String dt = arr.getJSONObject(x)
+				               .getString("dateTime");
 				SimpleDateFormat ISO8601DATEFORMAT = new SimpleDateFormat("yyyy-MM-dd");
 				Date date = ISO8601DATEFORMAT.parse(dt);
-				DataPoint dp = new DataPoint(date, arr.getJSONObject(x).getInt("value"));
+				DataPoint dp = new DataPoint(date,
+					arr.getJSONObject(x)
+					   .getInt("value"));
 
 				points[x] = dp;
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -317,8 +328,10 @@ public class FitbitGraphView extends GraphView
 
 	private void makeGraphViewGraph() throws JSONException, InterruptedException, ExecutionException, IOException
 	{
-		final List<String> statsList = Arrays.asList(this.getResources().getStringArray(R.array.array_graph_stats_options));
-		final List<String> statsListPretty = Arrays.asList(this.getResources().getStringArray(R.array.array_graph_stats_options_pretty));
+		final List<String> statsList = Arrays.asList(this.getResources()
+		                                                 .getStringArray(R.array.array_graph_stats_options));
+		final List<String> statsListPretty = Arrays.asList(this.getResources()
+		                                                       .getStringArray(R.array.array_graph_stats_options_pretty));
 		double xMax = Double.MIN_VALUE;
 		double xMin = Double.MAX_VALUE;
 		double yMax = 0;
@@ -327,7 +340,11 @@ public class FitbitGraphView extends GraphView
 		this.setTitleTextSize(75);
 
 		for (int i = 0; i < this.graphType.size(); i++) {
-			DataPoint[] points = makePointsFromFitbit(statsToRetrieve.get(i), timeRangeType, startTime, endTime, timeRange);
+			DataPoint[] points = makePointsFromFitbit(statsToRetrieve.get(i),
+				timeRangeType,
+				startTime,
+				endTime,
+				timeRange);
 			if (points.length > 0) {
 				double tmpX;
 				tmpX = points[points.length - 1].getX();
@@ -349,7 +366,8 @@ public class FitbitGraphView extends GraphView
 				String stat = statsListPretty.get(statsList.indexOf(statsToRetrieve.get(i)));
 				series = new LineGraphSeries<>(points);
 				((LineGraphSeries<DataPoint>) series).setColor(c);
-				this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
+				this.getGridLabelRenderer()
+				    .setVerticalLabelsColor(Color.BLACK);
 				((LineGraphSeries<DataPoint>) series).setTitle(stat);
 				((LineGraphSeries<DataPoint>) series).setAnimated(true);
 				((LineGraphSeries<DataPoint>) series).setDrawBackground(true);
@@ -362,36 +380,35 @@ public class FitbitGraphView extends GraphView
 				String stat = statsListPretty.get(statsList.indexOf(statsToRetrieve.get(i)));
 				series = new BarGraphSeries<>(points);
 				((BarGraphSeries<DataPoint>) series).setColor(c);
-				this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
+				this.getGridLabelRenderer()
+				    .setVerticalLabelsColor(Color.BLACK);
 				((BarGraphSeries<DataPoint>) series).setTitle(stat);
 				((BarGraphSeries<DataPoint>) series).setAnimated(true);
 			}
 
 			// PointsGraph
 			else if (this.graphType.get(i)
-					               .equals(GraphViewGraph.PointsGraph)){
+			                       .equals(GraphViewGraph.PointsGraph)) {
 				String stat = statsListPretty.get(statsList.indexOf(statsToRetrieve.get(i)));
 				series = new PointsGraphSeries<>(points);
 				((PointsGraphSeries<DataPoint>) series).setColor(c);
-				this.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
+				this.getGridLabelRenderer()
+				    .setVerticalLabelsColor(Color.BLACK);
 				((PointsGraphSeries<DataPoint>) series).setTitle(stat);
-			}
-
-			else
-			{
+			} else {
 				series = null;
 			}
 
-			if (this.graphType.size() == 2)
-			{
-				if (i == 1)
-				{
-					setSecondaryScale(series, seriesColors.get(i), seriesColors.get(i-1), Math.round(yMax + 1));
+			if (this.graphType.size() == 2) {
+				if (i == 1) {
+					setSecondaryScale(series,
+						seriesColors.get(i),
+						seriesColors.get(i - 1),
+						Math.round(yMax + 1));
 				}
 
 				// Index 0 size 2
-				else
-				{
+				else {
 					this.addSeries(series);
 					scrollHandler(this);
 					legendHandler(this);
@@ -401,11 +418,9 @@ public class FitbitGraphView extends GraphView
 					getViewport().setMaxY(yMax * 1.05);
 					yMax = Double.MIN_VALUE;
 				}
-
 			}
 
-			if (this.graphType.size() != 2)
-			{
+			if (this.graphType.size() != 2) {
 				this.addSeries(series);
 				scrollHandler(this);
 				legendHandler(this);

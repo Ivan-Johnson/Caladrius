@@ -14,15 +14,10 @@ import java.util.ArrayList;
 
 public class ConditionAdapter extends BaseAdapter
 {
-	public interface ClickHandler {
-		void onClick(int i, Condition cond);
-	}
-
 	private static final String OUR_TAG = "FeedAdapter";
+	protected ClickHandler ch;
 	private LayoutInflater inflater;
 	private ArrayList<Condition> conditions;
-	protected ClickHandler ch;
-
 	public ConditionAdapter(ArrayList<Condition> conditions, LayoutInflater inflater, ClickHandler ch)
 	{
 		this.conditions = conditions;
@@ -39,24 +34,6 @@ public class ConditionAdapter extends BaseAdapter
 	public int getCount()
 	{
 		return conditions.size();
-	}
-
-	public void setItem(int i, Condition cond)
-	{
-		conditions.set(i, cond);
-		this.notifyDataSetInvalidated();
-	}
-
-	public void removeItem(int i)
-	{
-		conditions.remove(i);
-		notifyDataSetInvalidated();
-	}
-
-	public void addItem(Condition cond)
-	{
-		conditions.add(cond);
-		notifyDataSetInvalidated();
 	}
 
 	@Override
@@ -85,8 +62,31 @@ public class ConditionAdapter extends BaseAdapter
 		return view;
 	}
 
+	public void setItem(int i, Condition cond)
+	{
+		conditions.set(i, cond);
+		this.notifyDataSetInvalidated();
+	}
+
+	public void removeItem(int i)
+	{
+		conditions.remove(i);
+		notifyDataSetInvalidated();
+	}
+
+	public void addItem(Condition cond)
+	{
+		conditions.add(cond);
+		notifyDataSetInvalidated();
+	}
+
 	public ArrayList<Condition> getConditions()
 	{
 		return conditions;
+	}
+
+	public interface ClickHandler
+	{
+		void onClick(int i, Condition cond);
 	}
 }

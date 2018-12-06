@@ -13,8 +13,9 @@ import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 
 public class Caladrius extends Application
 {
-	protected static Context cntxt;
 	public static final String sharedPreferences = Caladrius.class.getCanonicalName() + "+SharedPreference";
+	public static FitbitInterface fitbitInterface = null;
+	protected static Context cntxt;
 	private static User user = new User();
 
 	public static User getUser()
@@ -32,8 +33,6 @@ public class Caladrius extends Application
 		user.fAcc = null;
 		user.sAcc = new ServerAccount("NoLogin");
 	}
-
-	public static FitbitInterface fitbitInterface = null;
 
 	public static Context getContext()
 	{

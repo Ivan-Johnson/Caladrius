@@ -2,58 +2,58 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="edu.ua.cs.cs495.caladrius.android">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY"/>
-    <application
-            android:allowBackup="true"
-            android:icon="@drawable/caladrius_logo"
-            android:label="@string/app_name"
-            android:roundIcon="@drawable/caladrius_logo"
-            android:supportsRtl="true"
-            android:name=".Caladrius"
-            android:theme="@style/AppTheme">
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.WRITE_USER_DICTIONARY"/>
+	<application
+			android:allowBackup="true"
+			android:icon="@drawable/caladrius_logo"
+			android:label="@string/app_name"
+			android:roundIcon="@drawable/caladrius_logo"
+			android:supportsRtl="true"
+			android:name=".Caladrius"
+			android:theme="@style/AppTheme">
 
-        <activity
-                android:name=".QueryActivity"
-                android:configChanges="orientation|keyboardHidden|screenSize"
-                android:label="@string/title_activity_graph"
-                android:theme="@style/FullscreenTheme"
-                android:parentActivityName=".SummaryPage$SummaryActivity"/>
+		<activity
+				android:name=".QueryActivity"
+				android:configChanges="orientation|keyboardHidden|screenSize"
+				android:label="@string/title_activity_graph"
+				android:theme="@style/FullscreenTheme"
+				android:parentActivityName=".SummaryPage$SummaryActivity"/>
 
-        <activity android:name=".SummaryPage$SummaryActivity"/>
+		<activity android:name=".SummaryPage$SummaryActivity"/>
 
-        <activity android:name=".rss.FeedList$FeedListActivity"
-                  android:parentActivityName=".SummaryPage$SummaryActivity"/>
+		<activity android:name=".rss.FeedList$FeedListActivity"
+		          android:parentActivityName=".SummaryPage$SummaryActivity"/>
 
-        <activity android:name=".LoginScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+		<activity android:name=".LoginScreen">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+		</activity>
 
-        <activity android:name=".FitbitLogin">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data
-                        android:host="authcallback"
-                        android:scheme="caladrius"/>
-            </intent-filter>
-        </activity>
-        <activity android:name=".GraphEditorActivity"
-                  android:parentActivityName=".ListTest"
-                  android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".ListTest"
-                  android:parentActivityName=".SummaryPage$SummaryActivity"/>
-        <activity android:name=".rss.FeedEditor$FeedEditorActivity"/>
-        <activity android:name=".rss.conditions.ConditionEditor"/>
+		<activity android:name=".FitbitLogin">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW"/>
+				<category android:name="android.intent.category.DEFAULT"/>
+				<category android:name="android.intent.category.BROWSABLE"/>
+				<data
+						android:host="authcallback"
+						android:scheme="caladrius"/>
+			</intent-filter>
+		</activity>
+		<activity android:name=".GraphEditorActivity"
+		          android:parentActivityName=".ListTest"
+		          android:windowSoftInputMode="stateHidden"/>
+		<activity android:name=".ListTest"
+		          android:parentActivityName=".SummaryPage$SummaryActivity"/>
+		<activity android:name=".rss.FeedEditor$FeedEditorActivity"/>
+		<activity android:name=".rss.conditions.ConditionEditor"/>
 
-        <provider
-                android:name=".graphData.GraphProvider"
-                android:authorities="edu.ua.cs.cs495.caladrius.android"
-                android:exported="false"/>
-    </application>
+		<provider
+				android:name=".graphData.GraphProvider"
+				android:authorities="edu.ua.cs.cs495.caladrius.android"
+				android:exported="false"/>
+	</application>
 </manifest>

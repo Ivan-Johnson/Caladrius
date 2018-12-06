@@ -1,9 +1,7 @@
 package edu.ua.cs.cs495.caladrius.server;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Objects;
-import java.util.UUID;
 
 public class ServerAccount implements Serializable
 {

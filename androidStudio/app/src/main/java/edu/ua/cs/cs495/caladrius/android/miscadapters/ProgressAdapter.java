@@ -20,7 +20,7 @@ public class ProgressAdapter extends BaseAdapter
 	public void updateProgress(double frac)
 	{
 		this.frac = frac;
-		tv.setText("Progress: " + (frac*100) + "%");
+		tv.setText("Progress: " + (frac * 100) + "%");
 	}
 
 	@Override
