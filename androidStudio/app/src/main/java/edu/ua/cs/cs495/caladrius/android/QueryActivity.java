@@ -104,7 +104,7 @@ public class QueryActivity extends AppCompatActivity {
 		if(numberOfGraph == GraphContract.GraphEntry.GRAPH_NUMBER_TWO){
 			stats.add(statsList.get(graph2Stats));
 			color.add(graph2Color);
-			graphTypes.add(GraphContract.GraphEntry.getGraphType(graph2Type));
+			graphTypes.add(GraphContract.GraphEntry.getGraphType(graph2Type+1));
 		}
 
 		Query query = new Query(graphTypes,
