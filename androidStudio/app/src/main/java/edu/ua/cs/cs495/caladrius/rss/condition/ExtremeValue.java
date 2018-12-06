@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 public class ExtremeValue<T extends Serializable> implements Condition
 {
@@ -34,31 +35,38 @@ public class ExtremeValue<T extends Serializable> implements Condition
 		}
 		double this_value = (Double) this.value;
 		for (int x = 0; x < data.length(); x++) {
-			double val = data.getJSONObject(x).getInt("value");
-			boolean met = false;
-			switch(this.type) {
-			case equal:
-				met = val == this_value;
-				break;
-			case greaterThan:
-				met = val > this_value;
-				break;
-			case greaterThanOrEqual:
-				met = val >= this_value;
-				break;
-			case lessThan:
-				met = val < this_value;
-				break;
-			case lessThanOrEqual:
-				met = val <= this_value;
-				break;
-			default:
-				throw new RuntimeException("Unknown extreme type");
-			}
-			if (met) {
-				String dt = data.getJSONObject(x).getString("dateTime");
+			try {
+				double val = data.getJSONObject(x)
+				                 .getInt("value");
+				boolean met = false;
+				switch (this.type) {
+				case equal:
+					met = val == this_value;
+					break;
+				case greaterThan:
+					met = val > this_value;
+					break;
+				case greaterThanOrEqual:
+					met = val >= this_value;
+					break;
+				case lessThan:
+					met = val < this_value;
+					break;
+				case lessThanOrEqual:
+					met = val <= this_value;
+					break;
+				default:
+					throw new RuntimeException("Unknown extreme type");
+				}
+				if (met) {
+					String dt = data.getJSONObject(x)
+					                .getString("dateTime");
 
-				messages.add(dt + " the value of " + stat + " is " + val + "; which is beyond the specified limit of " + this_value);
+					messages.add(dt + " the value of " + stat + " is " + val +
+						"; which is beyond the specified limit of " + this_value);
+				}
+			} catch (JSONException e) {
+				throw new RuntimeException("This should never happen");
 			}
 		}
 		return messages;

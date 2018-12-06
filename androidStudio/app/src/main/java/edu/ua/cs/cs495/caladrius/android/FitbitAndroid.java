@@ -32,14 +32,7 @@ public class FitbitAndroid implements FitbitInterface {
 
     public JSONArray getFitbitData(String stat, int timeType, String start, String end, int timeRange) throws JSONException, InterruptedException, ExecutionException, IOException
     {
-        Fitbit.PseudoResponse response = new GetDataCall().execute(stat, String.valueOf(timeType), start, end, String.valueOf(timeRange)).get();
-
-        if (response.code > 299 || response.code < 200)
-            throw new IOException(response.body);
-
-        JSONObject obj = new JSONObject(response.body);
-
-        return obj.getJSONArray("activities-" + stat);
+        return new GetDataCall().execute(stat, String.valueOf(timeType), start, end, String.valueOf(timeRange)).get();
     }
 
     public void logout()
@@ -49,7 +42,7 @@ public class FitbitAndroid implements FitbitInterface {
 
 
 
-    class GetDataCall extends AsyncTask<String, Void, Fitbit.PseudoResponse>
+    class GetDataCall extends AsyncTask<String, Void, JSONArray>
     {
         private final OAuth20Service service = new ServiceBuilder("22D7HK")
                 .apiSecret("0eefb77c8b921283cb5e4477ac063178")
@@ -60,7 +53,7 @@ public class FitbitAndroid implements FitbitInterface {
                 .build(FitbitApi20.instance());
 
 
-        protected Fitbit.PseudoResponse doInBackground(String... args) {
+        protected JSONArray doInBackground(String... args) {
             try{
                 return new Fitbit().getFitbitData(Caladrius.getUser().fAcc, args[0], Integer.parseInt(args[1]), args[2], args[3], Integer.parseInt(args[4]));
             }
@@ -70,8 +63,6 @@ public class FitbitAndroid implements FitbitInterface {
             }
 
         }
-
-        protected void onPostExecute(Fitbit.PseudoResponse response) {}
     }
 
 
