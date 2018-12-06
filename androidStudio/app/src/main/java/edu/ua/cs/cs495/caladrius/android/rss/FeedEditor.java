@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import edu.ua.cs.cs495.caladrius.android.rss.conditions.ConditionAdapter;
 import edu.ua.cs.cs495.caladrius.android.rss.conditions.ConditionEditor;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
 import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
+import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 import edu.ua.cs.cs495.caladrius.server.Clientside;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 import org.w3c.dom.Text;
@@ -72,6 +74,7 @@ public class FeedEditor extends Fragment
 	protected static final String EXTRA_RESULT = "iouwlkxnvljweefoiu";
 	ConditionAdapter adapter;
 	EditText name;
+	protected FloatingActionButton add;
 
 	public static FeedEditor newInstance(@NonNull Feed f)
 	{
@@ -114,6 +117,13 @@ public class FeedEditor extends Fragment
 		});
 
 		ll.setAdapter(adapter);
+
+		add = rootView.findViewById(R.id.add_condition);
+		add.setOnClickListener((View v) ->
+		{
+			Intent in = ConditionEditor.createIntent(getContext(), new ExtremeValue<Double>("", 0.0, ExtremeValue.extremeType.equal));
+			startActivityForResult(in, 0);
+		});
 
 		return rootView;
 	}
