@@ -218,6 +218,27 @@ public class Clientside
 		setFeed(sa, f.uuid, base64FromSerializable(f));
 	}
 
+	public void deleteFeed(ServerAccount sa, String feedid) throws IOException
+	{
+		final String URL_BASE = "https://caladrius.ivanjohnson.net/webapi/config/feed";
+		final String URL_QUERY_KEY = "id";
+		final String url = URL_BASE + "?" + URL_QUERY_KEY + "=" + feedid;
+
+		Request request = new Request.Builder()
+			.url(url)
+			.addHeader("useruuid", sa.uuid)
+			.delete()
+			.build();
+
+		Response r = client.newCall(request).execute();
+
+
+		if (r.code() != 200) {
+			throw new IOException();
+		}
+		return;
+	}
+
 	public User getUser(ServerAccount sa) throws IOException
 	{
 		String base64 = getBase64user(sa.uuid);
