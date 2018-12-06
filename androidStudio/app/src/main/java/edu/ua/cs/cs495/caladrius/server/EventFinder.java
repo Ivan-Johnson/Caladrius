@@ -19,12 +19,12 @@ import java.io.IOException;
  *
  * @author Ivan Johnson
  */
-public class ConditionLister
+public class EventFinder
 {
 	public static void main(String args[])
 	{
 		if (args.length != 2) {
-			System.err.println("Usage: " + ConditionLister.class.getSimpleName() + " <base 64 user> <base 64 feed>");
+			System.err.println("Usage: " + EventFinder.class.getSimpleName() + " <base 64 user> <base 64 feed>");
 			System.exit(1);
 		}
 		String base64User = args[0];
