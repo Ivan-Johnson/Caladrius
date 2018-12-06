@@ -31,42 +31,37 @@ def makefeed(feedid):
                 raise Exception("Getting feed of non-existant user")
         (userbase64,) = val
 
-    return check_output(["java", "-jar", "/caladrius/server/rss/eventFinder.jar", str(userbase64), str(feedbase64)], stderr=sys.stderr).decode("utf-8")
+    items = []
 
-    item0 = Item(
-        title = "Now is " + datetime.datetime.now().isoformat(),
-        link = "https://caladrius.ivanjohnson.net",
-        description = "foo",
-        author = "email@example.com (Ivan Johnson)",
-        guid = Guid("oiwefkcxvmwojwefhdlkj", isPermaLink=False),
-        pubDate = datetime.datetime.now()
-    )
+    text = check_output(["java", "-jar", "/caladrius/server/rss/eventFinder.jar", str(userbase64), str(feedbase64)], stderr=sys.stderr).decode("utf-8")
+    lines = text.splitlines()
+    title = lines[0]
+    for event in lines[1:]:
+            index = event.index(' ')
+            date = event[:index]
+            message = event[index+1:]
 
-    item1 = Item(
-        title = "Caladrius",
-        link = "https://caladrius.ivanjohnson.net",
-        description = "This is Caladrius' internal homepage",
-        creator = "Ivan Johnson",
-        guid = Guid("https://caladrius.ivanjohnson.net", isPermaLink=True),
-        pubDate = datetime.datetime(2018, 9, 18, 0, 0)
-    )
-
-    item2 = Item(
-        title = "GitHub",
-        link = "https://github.ivanjohnson.net/caladrius",
-        description = "This is Caladrius' source code",
-        creator = "Caladrius",
-        guid = Guid("https://github.ivanjohnson.net/caladrius", isPermaLink=True),
-        pubDate = datetime.datetime(2018, 9, 17, 0, 0)
-    )
+            dateComponents = date.split("-")
+            dateComponents = list(map(int, dateComponents))
+            year = dateComponents[0]
+            month = dateComponents[1]
+            day = dateComponents[2]
+            items.append(Item(
+                    title = message,
+                    link = "",
+                    description = "",
+                    pubDate = datetime.datetime(year, month, day, 0, 0),
+                    #author = "email@example.com (Ivan Johnson)",
+                    #guid = Guid("oiwefkcxvmwojwefhdlkj", isPermaLink=False),
+            ))
 
     feed = Feed(
-        title = "This is feed of id "+str(id),
+        title = title,
         link = "https://caladrius.ivanjohnson.net/",
-        description = "This is a RSS feed of Caladrius related stuff",
+        description = "",
         language = "en-US",
         lastBuildDate = datetime.datetime.now(),
-        items = [item0, item1, item2]
+        items = items
     )
     return feed.rss()
 
