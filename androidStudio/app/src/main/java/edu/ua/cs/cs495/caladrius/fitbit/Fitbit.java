@@ -1,7 +1,5 @@
 package edu.ua.cs.cs495.caladrius.fitbit;
 
-import android.util.Log;
-import android.widget.Switch;
 import com.github.scribejava.apis.FitbitApi20;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuthRequest;

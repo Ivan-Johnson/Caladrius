@@ -5,15 +5,34 @@ from urllib.parse import parse_qs
 import dateutil.parser
 
 from rfeed import *
+from subprocess import check_output
 
 import sqlite3
 import calendar
 import time
+import os
 
 DB_FILE="/srv/caladrius.db"
 conn = sqlite3.connect(DB_FILE)
 
-def makefeed(id):
+def makefeed(feedid):
+    with conn:
+        c = conn.cursor()
+        c.execute('SELECT userid FROM feeds WHERE feedid=?', (feedid,))
+        val = c.fetchone()
+        if val is None:
+                return None
+        (userid,) = val
+
+        c.execute('SELECT userBase64 FROM users WHERE userid=?', (userid,))
+        val = c.fetchone()
+        if val is None:
+                raise Exception("Getting feed of non-existant user")
+        (userbase64,) = val
+
+    os.chdir("/caladrius/server/rss/bin")
+    return check_output(["java", "edu/ua/cs/cs495/caladrius/server/ConditionLister", str(userid), str(userbase64)]).decode("utf-8")
+
     item0 = Item(
         title = "Now is " + datetime.datetime.now().isoformat(),
         link = "https://caladrius.ivanjohnson.net",
@@ -166,12 +185,17 @@ def handleRSS(environ, start_response):
         qs = environ['QUERY_STRING']
         qs = parse_qs(qs)
         try:
-                id = int(qs['id'][-1])
+                id = qs['id'][-1]
         except KeyError:
                 return badRequest(start_response, "Query string must set the id to an integer\n")
 
+        feed = makefeed(id)
+        if feed is None:
+                start_response("404 Not Found", [('Content-type', 'text/plain')])
+                return [("Sorry, but the specified feed does not exist\n").encode('utf8')]
+
         start_response('200 OK', [('Content-Type', 'application/rss+xml')])
-        return [makefeed(id).encode('utf8')]
+        return [feed.encode('utf8')]
 
 def application(environ, start_response):
         try:
