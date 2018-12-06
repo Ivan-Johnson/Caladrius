@@ -11,6 +11,7 @@ import sqlite3
 import calendar
 import time
 import os
+import sys
 
 DB_FILE="/srv/caladrius.db"
 conn = sqlite3.connect(DB_FILE)
@@ -18,11 +19,11 @@ conn = sqlite3.connect(DB_FILE)
 def makefeed(feedid):
     with conn:
         c = conn.cursor()
-        c.execute('SELECT userid FROM feeds WHERE feedid=?', (feedid,))
+        c.execute('SELECT userid,feedbase64 FROM feeds WHERE feedid=?', (feedid,))
         val = c.fetchone()
         if val is None:
                 return None
-        (userid,) = val
+        (userid,feedbase64) = val
 
         c.execute('SELECT userBase64 FROM users WHERE userid=?', (userid,))
         val = c.fetchone()
@@ -30,8 +31,7 @@ def makefeed(feedid):
                 raise Exception("Getting feed of non-existant user")
         (userbase64,) = val
 
-    os.chdir("/caladrius/server/rss/bin")
-    return check_output(["java", "edu/ua/cs/cs495/caladrius/server/ConditionLister", str(userid), str(userbase64)]).decode("utf-8")
+    return check_output(["java", "-jar", "/caladrius/server/rss/eventFinder.jar", str(userbase64), str(feedbase64)], stderr=sys.stderr).decode("utf-8")
 
     item0 = Item(
         title = "Now is " + datetime.datetime.now().isoformat(),
