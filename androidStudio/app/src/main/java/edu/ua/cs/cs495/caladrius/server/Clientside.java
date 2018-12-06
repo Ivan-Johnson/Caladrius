@@ -13,7 +13,6 @@ import java.util.Base64;
 import java.util.Random;
 import java.util.Scanner;
 
-import android.support.annotation.NonNull;
 import edu.ua.cs.cs495.caladrius.User;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
@@ -217,7 +216,7 @@ public class Clientside
 		}
 	}
 
-	public void setFeed(ServerAccount sa, @NonNull Feed f) throws IOException
+	public void setFeed(ServerAccount sa, Feed f) throws IOException
 	{
 		if (f == null) {
 			throw new NullPointerException("Cannot set feed to null");
