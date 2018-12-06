@@ -85,20 +85,9 @@ public final class GraphContract {
         public static final int LINE_GRAPH_2 = 1;
 
 
-        public static final int TIME_RANGE_TYPE_SINGLE = 0;
-        public static final int TIME_RANGE_TYPE_SEVERAL = 1;
-        public static final int TIME_RANGE_TYPE_RELATIVE = 2;
-
-
-
         public static final int GRAPH_NUMBER_ONE = 0;
         public static final int GRAPH_NUMBER_TWO = 1;
 
-
-        public static final int TIME_RANGE_TODAY= 0;
-        public static final int TIME_RANGE_WEEK= 1;
-        public static final int TIME_RANGE_MONTH= 2;
-        public static final int TIME_RANGE_YEAR= 3;
 
         public static final int STATS_MINUTESSEDENTARY = 0;
         public static final int STATS_STEPS = 1;

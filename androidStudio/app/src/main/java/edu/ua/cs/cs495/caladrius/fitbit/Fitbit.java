@@ -6,20 +6,21 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
-import edu.ua.cs.cs495.caladrius.android.Caladrius;
-import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class Fitbit{
+	public static final int TIME_RANGE_TODAY= 0;
+	public static final int TIME_RANGE_WEEK= 1;
+	public static final int TIME_RANGE_MONTH= 2;
+	public static final int TIME_RANGE_YEAR= 3;
+	public static final int TIME_RANGE_TYPE_SINGLE = 0;
+	public static final int TIME_RANGE_TYPE_SEVERAL = 1;
+	public static final int TIME_RANGE_TYPE_RELATIVE = 2;
 
 	public Fitbit() {
 	}
@@ -36,13 +37,13 @@ public class Fitbit{
 	{
 		String url = "";
 		switch (timeType) {
-			case GraphContract.GraphEntry.TIME_RANGE_TYPE_SINGLE:
+			case TIME_RANGE_TYPE_SINGLE:
 				url = String.format("https://api.fitbit.com/1/user/%s/activities/%s/date/%s/1d.json", acc.privateToken.getUserId(), stat, getReformattedData(start));
 				break;
-			case GraphContract.GraphEntry.TIME_RANGE_TYPE_SEVERAL:
+			case TIME_RANGE_TYPE_SEVERAL:
 				url = String.format("https://api.fitbit.com/1/user/%s/activities/%s/date/%s/%s.json", acc.privateToken.getUserId(), stat, getReformattedData(start), getReformattedData(end));
 				break;
-			case GraphContract.GraphEntry.TIME_RANGE_TYPE_RELATIVE:
+			case TIME_RANGE_TYPE_RELATIVE:
 				String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 				url = String.format("https://api.fitbit.com/1/user/%s/activities/%s/date/%s/%s.json", acc.privateToken.getUserId(), stat, date, getTimeRange(timeRange));
 				break;
@@ -62,13 +63,13 @@ public class Fitbit{
 
 	String getTimeRange(int timeRange) {
 		switch (timeRange) {
-			case GraphContract.GraphEntry.TIME_RANGE_TODAY:
+			case TIME_RANGE_TODAY:
 				return "1d";
-			case GraphContract.GraphEntry.TIME_RANGE_WEEK:
+			case TIME_RANGE_WEEK:
 				return "1w";
-			case GraphContract.GraphEntry.TIME_RANGE_MONTH:
+			case TIME_RANGE_MONTH:
 				return "1m";
-			case GraphContract.GraphEntry.TIME_RANGE_YEAR:
+			case TIME_RANGE_YEAR:
 				return "1y";
 			default:
 				return "1d";

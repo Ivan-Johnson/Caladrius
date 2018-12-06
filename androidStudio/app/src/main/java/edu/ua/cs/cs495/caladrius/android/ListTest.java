@@ -1,7 +1,6 @@
 package edu.ua.cs.cs495.caladrius.android;
 
 import android.app.LoaderManager;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -14,13 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.Objects;
 
 import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
+import edu.ua.cs.cs495.caladrius.fitbit.Fitbit;
 
 /**
  * This just a test file for database to store graph settings.
@@ -122,7 +120,7 @@ public class ListTest extends AppCompatActivity implements LoaderManager.LoaderC
 
     private void insertGraph() {
         ContentValues values = new ContentValues();
-        values.put(GraphEntry.COLUMN_GRAPH_TIME_RANGE, GraphEntry.TIME_RANGE_TODAY);
+        values.put(GraphEntry.COLUMN_GRAPH_TIME_RANGE, Fitbit.TIME_RANGE_TODAY);
         values.put(GraphEntry.COLUMN_GRAPH_TYPE, GraphEntry.BAR_GRAPH);
         values.put(GraphEntry.COLUMN_GRAPH_STATS, GraphEntry.STATS_CALORIC);
         values.put(GraphEntry.COLUMN_GRAPH_COLORS, GraphEntry.COLOR_BLACK);
@@ -131,7 +129,7 @@ public class ListTest extends AppCompatActivity implements LoaderManager.LoaderC
         values.put(GraphEntry.COLUMN_GRAPH2_COLORS, GraphEntry.COLOR_BLUE);
         values.put(GraphEntry.COLUMN_GRAPH2_STATS, GraphEntry.STATS_STEPS);
         values.put(GraphEntry.COLUMN_GRAPH2_TYPE, GraphEntry.LINE_GRAPH);
-        values.put(GraphEntry.COLUMN_GRAPH_TIME_RANGE_TYPE, GraphEntry.TIME_RANGE_TYPE_RELATIVE);
+        values.put(GraphEntry.COLUMN_GRAPH_TIME_RANGE_TYPE, Fitbit.TIME_RANGE_TYPE_RELATIVE);
         values.put(GraphEntry.COLUMN_GRAPH_START_TIME, "Dec 22th 2018");
         values.put(GraphEntry.COLUMN_GRAPH_END_TIME, "Nov 5th 2018");
 

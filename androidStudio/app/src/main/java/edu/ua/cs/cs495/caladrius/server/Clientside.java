@@ -6,11 +6,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.Base64;
-import java.util.Random;
 import java.util.Scanner;
 
 import edu.ua.cs.cs495.caladrius.User;
@@ -21,7 +19,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 public class Clientside
 {
@@ -29,10 +26,7 @@ public class Clientside
 
 	public Clientside()
 	{
-		HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-		logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
 		client = new OkHttpClient.Builder()
-			//.addInterceptor(logging)
 			.build();
 	}
 
@@ -69,10 +63,10 @@ public class Clientside
 			numLines--;
 			feedids[numLines] = s.nextLine();
 		}
+		s.close();
 		if (numLines != 0) {
 			throw new RuntimeException("Server did not yield expected number of feeds");
 		}
-		s.close();
 
 		return feedids;
 	}
