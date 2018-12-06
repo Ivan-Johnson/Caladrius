@@ -7,4 +7,9 @@
         app:showAsAction="always"
         android:title="Compose"
         />
+    <item
+            android:id="@+id/Delete_All_Conditions"
+            app:showAsAction="never"
+            android:title="Delete All Conditions"
+    />
 </menu>
