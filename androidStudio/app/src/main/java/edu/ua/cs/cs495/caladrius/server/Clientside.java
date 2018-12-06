@@ -108,7 +108,7 @@ public class Clientside
 		for (int x = 0; x < 3; x++) {
 			Feed fPush = new Feed("name #" + x);
 			for (int y = 0; y < 3; y++) {
-				fPush.conditions.add(new ExtremeValue<Double>("calories",
+				fPush.conditions.add(new ExtremeValue("calories",
 					12.32,
 					ExtremeValue.extremeType.greaterThanOrEqual));
 			}

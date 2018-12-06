@@ -48,7 +48,7 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 		text = (String) this.evtype.getSelectedItem();
 		ExtremeValue.extremeType evtype = ExtremeValue.extremeType.construct(text);
 
-		return new ExtremeValue<>((String) stat.getSelectedItem(), val, evtype);
+		return new ExtremeValue((String) stat.getSelectedItem(), val, evtype);
 	}
 
 	@Nullable

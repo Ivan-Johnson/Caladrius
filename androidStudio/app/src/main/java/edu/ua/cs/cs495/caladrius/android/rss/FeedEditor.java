@@ -114,7 +114,7 @@ public class FeedEditor extends Fragment
 		add.setOnClickListener((View v) ->
 		{
 			Intent in = ConditionEditor.createIntent(getContext(),
-				new ExtremeValue<Double>("", 0.0, ExtremeValue.extremeType.equal));
+				new ExtremeValue("", 0.0, ExtremeValue.extremeType.equal));
 			startActivityForResult(in, 0);
 		});
 

@@ -5,18 +5,17 @@ import edu.ua.cs.cs495.caladrius.android.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ExtremeValue<T extends Serializable> implements Condition
+public class ExtremeValue implements Condition
 {
 	private static final long serialVersionUID = -7141565572258698935L;
 	protected String stat;
-	protected T value;
+	protected double value;
 	protected extremeType type;
 
-	public ExtremeValue(String stat, T value, extremeType type)
+	public ExtremeValue(String stat, double value, extremeType type)
 	{
 		this.stat = stat;
 		this.value = value;
@@ -27,15 +26,12 @@ public class ExtremeValue<T extends Serializable> implements Condition
 	public ArrayList<String> getMatches(JSONArray data)
 	{
 		ArrayList<String> messages = new ArrayList<>();
-		if (!(this.value instanceof Double)) { // TODO remove generics from ExtremeValue
-			throw new RuntimeException("Unknown generic type");
-		}
-		double this_value = (Double) this.value;
+		double this_value = this.value;
 		for (int x = 0; x < data.length(); x++) {
 			try {
 				double val = data.getJSONObject(x)
 				                 .getInt("value");
-				boolean met = false;
+				boolean met;
 				switch (this.type) {
 				case equal:
 					met = val == this_value;
@@ -77,7 +73,7 @@ public class ExtremeValue<T extends Serializable> implements Condition
 
 	public String getValueString()
 	{
-		return value.toString();
+		return Double.toString(value);
 	}
 
 	public extremeType getType()
@@ -103,36 +99,16 @@ public class ExtremeValue<T extends Serializable> implements Condition
 	@Override
 	public String toString()
 	{
-		StringBuilder sb = new StringBuilder("Extreme Value: {");
+		StringBuilder sb = new StringBuilder();
 
+		sb.append("Extreme Value: {");
 		sb.append(stat);
 		sb.append(' ');
-		String tmp;
-
-		switch (type) {
-		case equal:
-			tmp = "=";
-			break;
-		case lessThan:
-			tmp = "<";
-			break;
-		case greaterThan:
-			tmp = ">";
-			break;
-		case lessThanOrEqual:
-			tmp = "≤";
-			break;
-		case greaterThanOrEqual:
-			tmp = "≥";
-			break;
-		default:
-			throw new RuntimeException("Type \"" + type +
-				"\" was not a valid extremeType as of 20181101");
-		}
-		sb.append(tmp);
+		sb.append(type.text);
 		sb.append(' ');
-		sb.append(value.toString());
+		sb.append(Double.toString(value));
 		sb.append('}');
+
 		return sb.toString();
 	}
 
