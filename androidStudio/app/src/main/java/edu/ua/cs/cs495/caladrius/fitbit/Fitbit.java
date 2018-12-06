@@ -1,17 +1,20 @@
 package edu.ua.cs.cs495.caladrius.fitbit;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.ExecutionException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.github.scribejava.apis.FitbitApi20;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 public class Fitbit{
 	public static final int TIME_RANGE_TODAY= 0;
@@ -25,7 +28,7 @@ public class Fitbit{
 	public Fitbit() {
 	}
 
-	private final OAuth20Service service = new ServiceBuilder("22D7HK")
+	private static final OAuth20Service service = new ServiceBuilder("22D7HK")
 			.apiSecret("0eefb77c8b921283cb5e4477ac063178")
 			.scope("activity heartrate location nutrition profile settings sleep social weight") // replace with desired scope
 			//your callback URL to store and handle the authorization code sent by Fitbit
@@ -33,7 +36,7 @@ public class Fitbit{
 			//.state("some_params")
 			.build(FitbitApi20.instance());
 
-	public PseudoResponse getFitbitData(FitbitAccount acc, String stat, int timeType, String start, String end, int timeRange) throws JSONException, InterruptedException, ExecutionException, IOException
+	public static JSONArray getFitbitData(FitbitAccount acc, String stat, int timeType, String start, String end, int timeRange) throws JSONException, InterruptedException, ExecutionException, IOException
 	{
 		String url = "";
 		switch (timeType) {
@@ -56,12 +59,17 @@ public class Fitbit{
 		request.addHeader("x-li-format", "json");
 
 		service.signRequest(acc.getPrivateToken(), request);
-		Response response = service.execute(request);
+		Response response_tmp = service.execute(request);
+		PseudoResponse response = new PseudoResponse(response_tmp.getBody(), response_tmp.getCode());
 		//Log.w("TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG",response.getHeaders().toString());
-		return new PseudoResponse(response.getBody(), response.getCode());
+		if (response.code > 299 || response.code < 200)
+			throw new IOException(response.body);
+
+		JSONObject obj = new JSONObject(response.body);
+		return obj.getJSONArray("activities-" + stat);
 	}
 
-	String getTimeRange(int timeRange) {
+	protected static String getTimeRange(int timeRange) {
 		switch (timeRange) {
 			case TIME_RANGE_TODAY:
 				return "1d";
@@ -76,7 +84,7 @@ public class Fitbit{
 		}
 	}
 
-	String getReformattedData(String oldDate) {
+	protected static String getReformattedData(String oldDate) {
 		final SimpleDateFormat sdf1 = new SimpleDateFormat("MMM dd'th' yyyy");
 		Date date = new Date();
 		try {
@@ -90,7 +98,7 @@ public class Fitbit{
 		return sdf.format(date);
 	}
 
-	public class PseudoResponse{
+	public static class PseudoResponse{
 	    public String body;
 	    public int code;
 

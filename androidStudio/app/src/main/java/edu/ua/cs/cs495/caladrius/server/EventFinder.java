@@ -1,11 +1,18 @@
 package edu.ua.cs.cs495.caladrius.server;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import edu.ua.cs.cs495.caladrius.User;
+import edu.ua.cs.cs495.caladrius.fitbit.Fitbit;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
 import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
-import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
-
-import java.io.IOException;
 
 /**
  * This file is compiled into a separate jar file to be run on the server.
@@ -21,7 +28,9 @@ import java.io.IOException;
  */
 public class EventFinder
 {
-	public static void main(String args[])
+	public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+
+	public static void main(String args[]) throws JSONException, InterruptedException, ExecutionException, IOException, ParseException
 	{
 		if (args.length != 2) {
 			System.err.println("Usage: " + EventFinder.class.getSimpleName() + " <base 64 user> <base 64 feed>");
@@ -41,15 +50,15 @@ public class EventFinder
 			System.exit(1);
 		}
 
-		System.out.println(feed.name + user.toString());
+		System.out.println(feed.name + "\t" + user.toString());
 		for (int iCond = 0; iCond < feed.conditions.size(); iCond++) {
 			Condition cond = feed.conditions.get(iCond);
-			if (!(cond instanceof ExtremeValue)) {
-				System.err.println("Unexpected sublass of conditon");
-				System.exit(1);
+			String stat = cond.getStat();
+			JSONArray arr = Fitbit.getFitbitData(user.fAcc, stat, Fitbit.TIME_RANGE_TYPE_RELATIVE, null, null, Fitbit.TIME_RANGE_MONTH);
+			ArrayList<String> matches = cond.getMatches(arr);
+			for (String s:matches) {
+				System.out.println(s);
 			}
-			ExtremeValue ev = (ExtremeValue) cond;
-			System.out.println("2018-12-05 "+cond.toString());
 		}
 	}
 }

@@ -38,16 +38,6 @@ public class FitbitAndroid implements FitbitInterface {
             throw new IOException(response.body);
 
         JSONObject obj = new JSONObject(response.body);
-		/*System.out.println("\nOBJECT");
-		System.out.println(obj.toString());*/
-
-		/*JSONArray arr = obj.getJSONArray("activities-"+stat);
-		System.out.println(String.format("\nARRAY %s", stat));
-		System.out.println(arr.toString());*/
-
-		/*System.out.println("\nVALUES");
-		for(int i = 0; i < arr.length(); i++)
-			System.out.println(arr.getJSONObject(i).getInt("value"));*/
 
         return obj.getJSONArray("activities-" + stat);
     }

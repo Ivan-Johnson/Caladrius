@@ -1,7 +1,10 @@
 package edu.ua.cs.cs495.caladrius.rss.condition;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
+
+import org.json.JSONArray;
 
 public class ExtremeValue<T extends Serializable> implements Condition
 {
@@ -16,9 +19,49 @@ public class ExtremeValue<T extends Serializable> implements Condition
 		this.type = type;
 	}
 
+	@Override
 	public String getStat()
 	{
-		return new String(stat);
+		return stat;
+	}
+
+	@Override
+	public ArrayList<String> getMatches(JSONArray data)
+	{
+		ArrayList<String> messages = new ArrayList<>();
+		if (!(this.value instanceof Double)) { // TODO remove generics from ExtremeValue
+			throw new RuntimeException("Unknown generic type");
+		}
+		double this_value = (Double) this.value;
+		for (int x = 0; x < data.length(); x++) {
+			double val = data.getJSONObject(x).getInt("value");
+			boolean met = false;
+			switch(this.type) {
+			case equal:
+				met = val == this_value;
+				break;
+			case greaterThan:
+				met = val > this_value;
+				break;
+			case greaterThanOrEqual:
+				met = val >= this_value;
+				break;
+			case lessThan:
+				met = val < this_value;
+				break;
+			case lessThanOrEqual:
+				met = val <= this_value;
+				break;
+			default:
+				throw new RuntimeException("Unknown extreme type");
+			}
+			if (met) {
+				String dt = data.getJSONObject(x).getString("dateTime");
+
+				messages.add(dt + " the value of " + stat + " is " + val + "; which is beyond the specified limit of " + this_value);
+			}
+		}
+		return messages;
 	}
 
 	public String getValueString()
