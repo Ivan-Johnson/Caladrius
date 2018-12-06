@@ -98,7 +98,6 @@ def handleFeed(environ, start_response):
                 with conn:
                         c = conn.cursor()
                         c.execute('DELETE FROM feeds WHERE userid=? AND feedid=?', (uuid, feedid))
-                        (feedbase64,lastModify) = c.fetchone()
 
                 start_response('200 OK', [('Content-Type', 'text/plain')])
                 return [("").encode('utf8')]
