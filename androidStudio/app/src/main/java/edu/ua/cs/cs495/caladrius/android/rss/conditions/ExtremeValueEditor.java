@@ -14,6 +14,10 @@ import edu.ua.cs.cs495.caladrius.android.R;
 import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 
+/**
+ * This is the fragment that displays the fields needed to edit ExtremeValues. It is only used in the ConditionEditor
+ * activity.
+ */
 public class ExtremeValueEditor extends ConditionEditorFragment
 {
 	protected static final String ARG_EXTREMEVALUE = "ExtremeValueEditor EXTREMEVALUE";
@@ -48,7 +52,7 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 		text = (String) this.evtype.getSelectedItem();
 		ExtremeValue.extremeType evtype = ExtremeValue.extremeType.construct(text);
 
-		return new ExtremeValue<>((String) stat.getSelectedItem(), val, evtype);
+		return new ExtremeValue((String) stat.getSelectedItem(), val, evtype);
 	}
 
 	@Nullable

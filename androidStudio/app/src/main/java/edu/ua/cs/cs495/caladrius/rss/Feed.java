@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * This class represents a single RSS feed, which has an item added to it when any one of many conditions is met.
+ */
 public class Feed implements Serializable
 {
 	protected static final String BASEURL = "https://caladrius.ivanjohnson.net/webapi/feed?id=";

@@ -11,6 +11,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Objects;
 
+/**
+ * Represents a user. This stores all the information necessary to access the users' data on both Fitbit's and
+ * Caladrius' servers
+ */
 public class User implements Serializable
 {
 	private static final long serialVersionUID = -6695844257063986467L;

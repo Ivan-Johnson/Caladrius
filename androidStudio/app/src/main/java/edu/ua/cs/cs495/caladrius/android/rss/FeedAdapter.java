@@ -13,6 +13,9 @@ import edu.ua.cs.cs495.caladrius.rss.Feed;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * FeedAdapter converts an ArrayList of Feeds to Views that can actually be displayed within a ListView
+ */
 public class FeedAdapter extends BaseAdapter
 {
 	private static final String OUR_TAG = "FeedAdapter";

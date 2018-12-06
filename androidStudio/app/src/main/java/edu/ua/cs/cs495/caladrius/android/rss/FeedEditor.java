@@ -30,6 +30,11 @@ import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 
 import java.io.IOException;
 
+/**
+ * This class is the fragment that manages the components necessary for editing RSS feeds. Note that the FeedEditor
+ * class contains a subclass called FeedEditorActivity that will display a FeedEditor along with save/cancel/etc
+ * buttons.
+ */
 public class FeedEditor extends Fragment
 {
 	protected static final String ARG_FEED = "FeedEditor_feed";
@@ -114,7 +119,7 @@ public class FeedEditor extends Fragment
 		add.setOnClickListener((View v) ->
 		{
 			Intent in = ConditionEditor.createIntent(getContext(),
-				new ExtremeValue<Double>("", 0.0, ExtremeValue.extremeType.equal));
+				new ExtremeValue("", 0.0, ExtremeValue.extremeType.equal));
 			startActivityForResult(in, 0);
 		});
 

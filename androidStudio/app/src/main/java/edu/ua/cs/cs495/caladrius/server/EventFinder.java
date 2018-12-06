@@ -9,7 +9,6 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -26,8 +25,6 @@ import java.util.concurrent.ExecutionException;
  */
 public class EventFinder
 {
-	public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-
 	public static void main(String args[]) throws JSONException, InterruptedException, ExecutionException, IOException, ParseException
 	{
 		if (args.length != 2) {
