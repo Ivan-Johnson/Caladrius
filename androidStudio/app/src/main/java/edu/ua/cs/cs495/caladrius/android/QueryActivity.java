@@ -176,8 +176,8 @@ public class QueryActivity extends AppCompatActivity {
 
 
 		TableRow.LayoutParams wrapWrapTableRowParams = new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-		int[] fixedColumnWidths = new int[]{26, 34, 34};
-		int[] scrollableColumnWidths = new int[]{26, 34, 34};
+		int[] fixedColumnWidths = new int[]{28, 33, 33};
+		int[] scrollableColumnWidths = new int[]{28, 33, 33};
 		int fixedRowHeight = 70;
 		int fixedHeaderHeight = 80;
 
