@@ -5,11 +5,12 @@ from urllib.parse import parse_qs
 import dateutil.parser
 
 from rfeed import *
-from subprocess import call
+from subprocess import check_output
 
 import sqlite3
 import calendar
 import time
+import os
 
 DB_FILE="/srv/caladrius.db"
 conn = sqlite3.connect(DB_FILE)
@@ -25,12 +26,12 @@ def makefeed(feedid):
 
         c.execute('SELECT userBase64 FROM users WHERE userid=?', (userid,))
         val = c.fetchone()
-        if not (val is None):
-                (userbase64,) = val
-        else:
-                userbase64 = "(This this is totally None)"
+        if val is None:
+                raise Exception("Getting feed of non-existant user")
+        (userbase64,) = val
 
-    return "userid: " + str(userid) + "\nuserbase64: " + str(userbase64) + "\n"
+    os.chdir("/caladrius/server/rss/bin")
+    return check_output(["java", "edu/ua/cs/cs495/caladrius/server/ConditionLister", str(userid), str(userbase64)]).decode("utf-8")
 
     item0 = Item(
         title = "Now is " + datetime.datetime.now().isoformat(),
