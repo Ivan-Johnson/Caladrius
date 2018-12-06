@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -30,6 +31,7 @@ import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class FeedEditor extends Fragment
 {
@@ -189,6 +191,20 @@ public class FeedEditor extends Fragment
 
 			AsyncSaveFeed assf = new AsyncSaveFeed(this);
 			assf.execute(fe.f);
+		}
+
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item)
+		{
+			switch (item.getItemId()) {
+			case R.id.Delete_All_Conditions:
+				while (fe.adapter.getCount() > 0) {
+					fe.adapter.removeItem(0);
+				}
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+			}
 		}
 	}
 

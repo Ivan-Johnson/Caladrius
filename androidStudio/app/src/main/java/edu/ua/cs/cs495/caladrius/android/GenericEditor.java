@@ -85,12 +85,6 @@ public abstract class GenericEditor extends AppCompatActivity
 			// TODO support failed saves
 			save();
 			return true;
-		case R.id.Delete_All_Conditions:
-			// TODO IVAN DELETE ALL CONDITIONS
-			return true;
-		case R.id.delete_condition:
-			// TODO IVAN DELETE CONDITION
-			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

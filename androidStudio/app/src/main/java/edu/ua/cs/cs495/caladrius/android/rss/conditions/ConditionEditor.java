@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.MenuItem;
 import edu.ua.cs.cs495.caladrius.android.GenericEditor;
+import edu.ua.cs.cs495.caladrius.android.R;
 import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 
 import java.io.Serializable;
@@ -53,9 +55,28 @@ public class ConditionEditor extends GenericEditor
 		setResult(Activity.RESULT_OK, in);
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId()) {
+		case R.id.delete_condition:
+			Intent in = new Intent();
+			in.putExtra(EXTRA_RET_CONDITION, (Condition) null);
+
+			setResult(Activity.RESULT_OK, in);
+			finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
 	public static Condition getCondition(Intent in)
 	{
 		Serializable s = in.getSerializableExtra(EXTRA_RET_CONDITION);
+		if (s == null) {
+			return null;
+		}
 		if (! (s instanceof Condition)) {
 			throw new IllegalArgumentException("Unexpected object in intent");
 		}
