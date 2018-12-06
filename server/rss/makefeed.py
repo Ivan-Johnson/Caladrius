@@ -48,7 +48,7 @@ def makefeed(feedid):
             day = dateComponents[2]
             items.append(Item(
                     title = message,
-                    link = "",
+                    link = "https://example.com",
                     description = "",
                     pubDate = datetime.datetime(year, month, day, 0, 0),
                     #author = "email@example.com (Ivan Johnson)",
