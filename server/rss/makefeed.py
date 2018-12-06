@@ -94,6 +94,14 @@ def handleFeed(environ, start_response):
                 st = f"base64: {feedbase64}, lastModify: {lastModify}\n"
 
                 return [(st).encode('utf8')]
+        elif (environ['REQUEST_METHOD'] == "DELETE"):
+                with conn:
+                        c = conn.cursor()
+                        c.execute('DELETE FROM feeds WHERE userid=? AND feedid=?', (uuid, feedid))
+                        (feedbase64,lastModify) = c.fetchone()
+
+                start_response('200 OK', [('Content-Type', 'text/plain')])
+                return [("").encode('utf8')]
         elif (environ['REQUEST_METHOD'] == "PUT"):
                 try:
                         moddate = environ['HTTP_MODDATE']
