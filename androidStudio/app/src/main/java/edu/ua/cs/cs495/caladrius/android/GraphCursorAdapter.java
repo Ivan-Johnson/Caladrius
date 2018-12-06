@@ -120,7 +120,7 @@ public class GraphCursorAdapter extends CursorAdapter
 		if (Integer.valueOf(numberOfGraph) == GraphEntry.GRAPH_NUMBER_TWO) {
 			stats.add(statsList.get(Integer.valueOf(graph2Stats)));
 			color.add(GraphEntry.GetColour(Integer.valueOf(graph2Color)));
-			graphTypes.add(GraphEntry.getGraphType(Integer.valueOf(graph2Type)));
+			graphTypes.add(GraphEntry.getGraphType(Integer.valueOf(graph2Type)+1));
 		}
 
 		Query query = new Query(graphTypes,
