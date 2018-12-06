@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import edu.ua.cs.cs495.caladrius.android.Caladrius;
+import edu.ua.cs.cs495.caladrius.android.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -84,11 +86,27 @@ public class ExtremeValue<T extends Serializable> implements Condition
 
 	public enum extremeType
 	{
-		lessThan,
-		lessThanOrEqual,
-		equal,
-		greaterThan,
-		greaterThanOrEqual
+		lessThan(R.string.cmp_lt),
+		lessThanOrEqual(R.string.cmp_lte),
+		equal(R.string.cmp_eq),
+		greaterThan(R.string.cmp_gt),
+		greaterThanOrEqual(R.string.cmp_gte);
+
+		public String text;
+
+		extremeType(int resid)
+		{
+			text = Caladrius.getContext().getString(resid);
+		}
+		public static extremeType construct (String text)
+		{
+			for (extremeType e : extremeType.values()) {
+				if (Objects.equals(e.text, text)) {
+					return e;
+				}
+			}
+			throw new IllegalArgumentException("Provided string does not correspond to any extremeType");
+		}
 	}
 
 	@Override

@@ -21,6 +21,7 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 	protected ExtremeValue ev;
 	protected Spinner stat;
 	protected EditText val;
+	protected Spinner evtype;
 
 	@Override
 	Condition getCondition()
@@ -33,9 +34,10 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 			throw new RuntimeException("The number-only textfield somehow isn't a valid number");
 		}
 
-		return new ExtremeValue<>((String) stat.getSelectedItem(),
-			val,
-			ExtremeValue.extremeType.lessThan);
+		text = (String) this.evtype.getSelectedItem();
+		ExtremeValue.extremeType evtype = ExtremeValue.extremeType.construct(text);
+
+		return new ExtremeValue<>((String) stat.getSelectedItem(), val, evtype);
 	}
 
 	public static ExtremeValueEditor newInstance(ExtremeValue ev)
@@ -63,8 +65,8 @@ public class ExtremeValueEditor extends ConditionEditorFragment
 		View rootView = inflater.inflate(R.layout.rss_condition_extremevalue_editor,
 			container, false);
 
-		Spinner sp = rootView.findViewById(R.id.ev_type);
-		sp.setAdapter(
+		evtype = rootView.findViewById(R.id.ev_type);
+		evtype.setAdapter(
 			ArrayAdapter.createFromResource(
 				Caladrius.getContext(),
 				R.array.rss_conditions_extremevalue_boundarytype,
