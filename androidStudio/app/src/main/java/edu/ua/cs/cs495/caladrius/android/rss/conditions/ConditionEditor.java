@@ -12,6 +12,9 @@ import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 
 import java.io.Serializable;
 
+/**
+ * The activity responsible for editing individual Conditions.
+ */
 public class ConditionEditor extends GenericEditor
 {
 	protected static final String EXTRA_COND = "condition";

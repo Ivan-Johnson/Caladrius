@@ -4,7 +4,6 @@ package edu.ua.cs.cs495.caladrius.server;
 import android.util.Log;
 import edu.ua.cs.cs495.caladrius.User;
 import edu.ua.cs.cs495.caladrius.rss.Feed;
-import edu.ua.cs.cs495.caladrius.rss.condition.ExtremeValue;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -21,6 +20,9 @@ import java.io.Serializable;
 import java.util.Base64;
 import java.util.Scanner;
 
+/**
+ * Clientside is a java wrapper around Caladrius' server's web API.
+ */
 public class Clientside
 {
 	public OkHttpClient client;
@@ -31,6 +33,12 @@ public class Clientside
 			.build();
 	}
 
+	/**
+	 * The inverse operation of base64FromSerializable, except that it returns the object as type Object instead of Serializable.
+	 * @param base64
+	 * @return
+	 * @throws IOException
+	 */
 	public static Object objectFromBase64(String base64) throws IOException
 	{
 		byte bytes[] = Base64.getDecoder()
@@ -49,6 +57,12 @@ public class Clientside
 		}
 	}
 
+	/**
+	 * Serializes the given object into an array of bytes, then returns a base64 string that represents those bytes.
+	 * @param s
+	 * @return
+	 * @throws IOException
+	 */
 	public static String base64FromSerializable(Serializable s) throws IOException
 	{
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -69,6 +83,13 @@ public class Clientside
 		}
 	}
 
+	/**
+	 * Returns true iff r was sucessful. Otherwise, prints an error message to os and returns false.
+	 * @param r
+	 * @param os
+	 * @return
+	 * @throws IOException
+	 */
 	public static boolean assertCode(Response r, PrintStream os) throws IOException
 	{
 		boolean pass = r.code() == 200;
@@ -81,47 +102,12 @@ public class Clientside
 		return pass;
 	}
 
-	public static void main(String args[]) throws IOException
-	{
-		Clientside cs = new Clientside();
-
-		/*for (int c = 1000; c < 1003; c++) {
-			User push = new User();
-			push.sAcc = new ServerAccount(Integer.toString(c));
-			push.fAcc = null;
-
-			cs.setUser(push.sAcc, push);
-
-			User pull = cs.getUser(push.sAcc);
-
-			if (!push.equals(pull)) {
-				throw new RuntimeException(
-					"Clientside's setUser/getUser do not satisfy the identity property");
-			} else {
-				System.out.println("Passed " + c);
-			}
-		}*/
-
-		final String UUID = "NoLogin";
-		ServerAccount sa = new ServerAccount(UUID);
-		sa.uuid = UUID;
-		for (int x = 0; x < 3; x++) {
-			Feed fPush = new Feed("name #" + x);
-			for (int y = 0; y < 3; y++) {
-				fPush.conditions.add(new ExtremeValue("calories",
-					12.32,
-					ExtremeValue.extremeType.greaterThanOrEqual));
-			}
-
-
-			cs.setFeed(sa, fPush);
-			Feed fPull = cs.getFeed(sa, fPush.uuid);
-
-			System.out.println(fPush.toString());
-			System.out.println(fPull.toString());
-		}
-	}
-
+	/**
+	 * Queries the Caladrius database and returns the feedids of every feed owned by the given user.
+	 * @param sa
+	 * @return
+	 * @throws IOException
+	 */
 	public String[] getFeedIDs(ServerAccount sa) throws IOException
 	{
 		String userid = sa.uuid;
@@ -165,6 +151,13 @@ public class Clientside
 		return feedids;
 	}
 
+	/**
+	 * Queries the Caladrius server and returns the base64 string that represents the given feed
+	 * @param userid
+	 * @param feeduuid
+	 * @return
+	 * @throws IOException
+	 */
 	protected String getFeedstring(String userid, String feeduuid) throws IOException
 	{
 		final String URL_BASE = "https://caladrius.ivanjohnson.net/webapi/config/feed";
@@ -200,6 +193,13 @@ public class Clientside
 		return base64;
 	}
 
+	/**
+	 * Stores the given base64 string in the Caladrius database as the representation of the specified feed
+	 * @param sa
+	 * @param feedid
+	 * @param base64
+	 * @throws IOException
+	 */
 	public void setFeed(ServerAccount sa, String feedid, String base64) throws IOException
 	{
 		String userid = sa.uuid;
@@ -233,6 +233,11 @@ public class Clientside
 		}
 	}
 
+	/**
+	 * Returns the base64 string stored in the Caladrius database for the specified userid
+	 * @param userid
+	 * @return
+	 */
 	public String getBase64user(String userid)
 	{
 		final String URL = "https://caladrius.ivanjohnson.net/webapi/config/user";
@@ -264,6 +269,13 @@ public class Clientside
 		return base64.trim();
 	}
 
+	/**
+	 * Returns the specified feed object from the Caladrius server's database
+	 * @param sa
+	 * @param uuid
+	 * @return
+	 * @throws IOException
+	 */
 	public Feed getFeed(ServerAccount sa, String uuid) throws IOException
 	{
 		String userid = sa.uuid;
@@ -271,6 +283,12 @@ public class Clientside
 		return (Feed) objectFromBase64(base64);
 	}
 
+	/**
+	 * Stores the given feed object in Caladrius' server's database
+	 * @param sa
+	 * @param f
+	 * @throws IOException
+	 */
 	public void setFeed(ServerAccount sa, Feed f) throws IOException
 	{
 		if (f == null) {
@@ -279,6 +297,12 @@ public class Clientside
 		setFeed(sa, f.uuid, base64FromSerializable(f));
 	}
 
+	/**
+	 * Delete the specified feed from Caladrius' Server's database
+	 * @param sa
+	 * @param feedid
+	 * @throws IOException
+	 */
 	public void deleteFeed(ServerAccount sa, String feedid) throws IOException
 	{
 		final String URL_BASE = "https://caladrius.ivanjohnson.net/webapi/config/feed";
@@ -306,6 +330,13 @@ public class Clientside
 		return;
 	}
 
+	/**
+	 * Fetches the user object from Caladrius' Server's database
+	 *
+	 * @param sa
+	 * @return
+	 * @throws IOException
+	 */
 	public User getUser(ServerAccount sa) throws IOException
 	{
 		String base64 = getBase64user(sa.uuid);
@@ -315,6 +346,12 @@ public class Clientside
 		return (User) objectFromBase64(base64);
 	}
 
+	/**
+	 * Stores the given User in Caladrius' Server's database
+	 * @param sa
+	 * @param user
+	 * @throws IOException
+	 */
 	public void setUser(ServerAccount sa, User user) throws IOException
 	{
 		String userid = sa.uuid;

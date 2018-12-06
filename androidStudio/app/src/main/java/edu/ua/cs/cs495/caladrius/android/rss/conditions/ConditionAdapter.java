@@ -12,6 +12,9 @@ import edu.ua.cs.cs495.caladrius.rss.condition.Condition;
 import java.util.ArrayList;
 
 
+/**
+ * ConditionAdapter converts an ArrayList of Conditions to Views that can actually be displayed within a ListView
+ */
 public class ConditionAdapter extends BaseAdapter
 {
 	private static final String OUR_TAG = "FeedAdapter";

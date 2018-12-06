@@ -8,6 +8,9 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * ExtremeValue is a Condition that triggers RSS feed item for each measurement that fails to satisfy some (in)equality
+ */
 public class ExtremeValue implements Condition
 {
 	private static final long serialVersionUID = -7141565572258698935L;

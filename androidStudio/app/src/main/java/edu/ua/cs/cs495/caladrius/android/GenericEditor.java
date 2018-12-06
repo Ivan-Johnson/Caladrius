@@ -14,6 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+/**
+ * An abstract activity for editing "things"; it provides save and cancel buttons in the toolbar, but the body of the
+ * GUI is provided by the concrete subclasses.
+ */
 public abstract class GenericEditor extends AppCompatActivity
 {
 	protected final boolean alwaysSave;
@@ -52,10 +56,7 @@ public abstract class GenericEditor extends AppCompatActivity
 		}
 		//NOTE: gotta set the support action bar BEFORE setting the navigation on click listener
 		setSupportActionBar(tb);
-		tb.setNavigationOnClickListener((View v) ->
-		{
-			onCancelClick();
-		});
+		tb.setNavigationOnClickListener((View v) -> onCancelClick());
 
 		FragmentManager fm = getSupportFragmentManager();
 		Fragment fragment = fm.findFragmentById(R.id.editor_container);
@@ -85,7 +86,6 @@ public abstract class GenericEditor extends AppCompatActivity
 	{
 		switch (item.getItemId()) {
 		case R.id.editor_save:
-			// TODO support failed saves
 			save();
 			return true;
 		default:
@@ -94,9 +94,7 @@ public abstract class GenericEditor extends AppCompatActivity
 	}
 
 	protected void onCancel()
-	{
-		// NOP; subclass might want to do something though.
-	}
+	{/*NOP*/}
 
 	protected void doSave()
 	{/*NOP*/}
@@ -147,14 +145,10 @@ public abstract class GenericEditor extends AppCompatActivity
 		adb.setIcon(android.R.drawable.ic_dialog_alert);
 		adb.setTitle(getConfirmationTitle(this));
 		adb.setMessage(getConfirmationMessage(this));
-		adb.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
+		adb.setPositiveButton(android.R.string.yes, (DialogInterface dialog, int which) ->
 		{
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-				dialog.dismiss();
-				cancel();
-			}
+			dialog.dismiss();
+			cancel();
 		});
 		adb.setNegativeButton(android.R.string.no, null);
 		adb.show();

@@ -8,14 +8,22 @@ import edu.ua.cs.cs495.caladrius.fitbit.FitbitInterface;
 import edu.ua.cs.cs495.caladrius.server.ServerAccount;
 
 /**
- * Logic check page of the the app with no error.
+ * This class stores shared global data
  */
-
 public class Caladrius extends Application
 {
-	public static final String sharedPreferences = Caladrius.class.getCanonicalName() + "+SharedPreference";
+	/**
+	 * The concrete implementation of FitbitInterface that should be used to get data.
+	 */
 	public static FitbitInterface fitbitInterface = null;
+	/**
+	 * The application context. This is primarily used by (via getContext) non-graphical elements to get strings
+	 * from strings.xml
+	 */
 	protected static Context cntxt;
+	/**
+	 * The user who is currently logged in.
+	 */
 	private static User user = new User();
 
 	public static User getUser()
