@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -26,6 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 import edu.ua.cs.cs495.caladrius.android.graphData.GraphContract.GraphEntry;
+import edu.ua.cs.cs495.caladrius.fitbit.Fitbit;
 
 import static edu.ua.cs.cs495.caladrius.android.Caladrius.getContext;
 
@@ -82,7 +82,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
 
     private boolean mGraphHasChanged = false;
 
-    private int mTimeRange = GraphEntry.TIME_RANGE_TODAY;
+    private int mTimeRange = Fitbit.TIME_RANGE_TODAY;
     private int mType = GraphEntry.BAR_GRAPH;
     private int mStats = GraphEntry.STATS_CALORIC;
     private int mColor = GraphEntry.COLOR_BLACK;
@@ -90,7 +90,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
     private int mStats2 = GraphEntry.STATS_STEPS;
     private int mColor2 = GraphEntry.COLOR_BLACK;
     private int mNumberOfGraph = GraphEntry.GRAPH_NUMBER_ONE;
-    private int mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
+    private int mTimeRangeType = Fitbit.TIME_RANGE_TYPE_SINGLE;
     private Bundle bundle;
     // OnTouchListener that listens for any user touches on a View, implying that they are modifying
     // the view, and we change the mGraphHasChanged boolean to true.
@@ -187,16 +187,16 @@ public class GraphEditorActivity extends AppCompatActivity implements
         mTimeRangeTypeRadioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
             switch (i){
                 case R.id.Single_day:
-                    mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
+                    mTimeRangeType = Fitbit.TIME_RANGE_TYPE_SINGLE;
                     break;
                 case R.id.several_days:
-                    mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SEVERAL;
+                    mTimeRangeType = Fitbit.TIME_RANGE_TYPE_SEVERAL;
                     break;
                 case R.id.relative_days:
-                    mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_RELATIVE;
+                    mTimeRangeType = Fitbit.TIME_RANGE_TYPE_RELATIVE;
                     break;
                 default:
-                    mTimeRangeType = GraphEntry.TIME_RANGE_TYPE_SINGLE;
+                    mTimeRangeType = Fitbit.TIME_RANGE_TYPE_SINGLE;
                     break;
             }
         });
@@ -275,13 +275,13 @@ public class GraphEditorActivity extends AppCompatActivity implements
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.time_range_today))) {
-                        mTimeRange = GraphEntry.TIME_RANGE_TODAY;
+                        mTimeRange = Fitbit.TIME_RANGE_TODAY;
                     } else if (selection.equals(getString(R.string.time_range_week))) {
-                        mTimeRange = GraphEntry.TIME_RANGE_WEEK;
+                        mTimeRange = Fitbit.TIME_RANGE_WEEK;
                     } else if (selection.equals(getString(R.string.time_range_month))) {
-                        mTimeRange = GraphEntry.TIME_RANGE_MONTH;
+                        mTimeRange = Fitbit.TIME_RANGE_MONTH;
                     } else {
-                        mTimeRange = GraphEntry.TIME_RANGE_YEAR;
+                        mTimeRange = Fitbit.TIME_RANGE_YEAR;
                     }
                 }
             }
@@ -289,7 +289,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
             // Because AdapterView is an abstract class, onNothingSelected must be defined
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mTimeRange = GraphEntry.TIME_RANGE_TODAY;
+                mTimeRange = Fitbit.TIME_RANGE_TODAY;
             }
         });
 
@@ -328,7 +328,7 @@ public class GraphEditorActivity extends AppCompatActivity implements
             // Because AdapterView is an abstract class, onNothingSelected must be defined
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mType = GraphEntry.TIME_RANGE_TODAY;
+                mType = Fitbit.TIME_RANGE_TODAY;
             }
         });
         
@@ -835,13 +835,13 @@ public class GraphEditorActivity extends AppCompatActivity implements
             }
 
             switch (timeRangeType) {
-                case GraphEntry.TIME_RANGE_TYPE_SINGLE:
+                case Fitbit.TIME_RANGE_TYPE_SINGLE:
                     ((RadioButton)mTimeRangeTypeRadioGroup.getChildAt(0)).setChecked(true);
                     break;
-                case GraphEntry.TIME_RANGE_TYPE_SEVERAL:
+                case Fitbit.TIME_RANGE_TYPE_SEVERAL:
                     ((RadioButton)mTimeRangeTypeRadioGroup.getChildAt(1)).setChecked(true);
                     break;
-                case GraphEntry.TIME_RANGE_TYPE_RELATIVE:
+                case Fitbit.TIME_RANGE_TYPE_RELATIVE:
                     ((RadioButton)mTimeRangeTypeRadioGroup.getChildAt(2)).setChecked(true);
                     break;
                 default:
@@ -850,16 +850,16 @@ public class GraphEditorActivity extends AppCompatActivity implements
             }
 
             switch (timeRange) {
-                case GraphEntry.TIME_RANGE_TODAY:
+                case Fitbit.TIME_RANGE_TODAY:
                     mTimeRangeSpinner.setSelection(0);
                     break;
-                case GraphEntry.TIME_RANGE_WEEK:
+                case Fitbit.TIME_RANGE_WEEK:
                     mTimeRangeSpinner.setSelection(1);
                     break;
-                case GraphEntry.TIME_RANGE_MONTH:
+                case Fitbit.TIME_RANGE_MONTH:
                     mTimeRangeSpinner.setSelection(2);
                     break;
-                case GraphEntry.TIME_RANGE_YEAR:
+                case Fitbit.TIME_RANGE_YEAR:
                     mTimeRangeSpinner.setSelection(3);
                     break;
                 default:
