@@ -43,6 +43,6 @@
 			android:layout_height="wrap_content" android:layout_centerHorizontal="true"
 			android:id="@+id/btnNoLogin"
 			android:layout_marginTop="10dp"
-			android:visibility="invisible" android:layout_below="@+id/loadingAnimation"/>
+			android:visibility="visible" android:layout_below="@+id/loadingAnimation"/>
 
 </RelativeLayout>
